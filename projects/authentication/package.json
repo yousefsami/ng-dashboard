@@ -1,0 +1,14 @@
+{
+  "name": "@ng-dashboard/authentication",
+  "version": "0.1.12",
+  "peerDependencies": {
+    "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
+    "@angular/core": "^6.0.0-rc.0 || ^6.0.0",
+    "@ngx-translate/core": "^11.0.1"
+  },
+  "dependencies": {
+    "@ngx-translate/core": "^11.0.1",
+    "response-type": "^1.0.3",
+    "sass-material-colors": "0.0.5"
+  }
+}

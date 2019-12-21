@@ -68,7 +68,7 @@ import { TranslateService } from './ng5-basic/services/translate.service';
   ],
   imports: [
     AmazingSearchModule,
-    TranslateModule,
+    TranslateModule.forRoot(),
     BrowserAnimationsModule,
     HttpClientModule,
     BrowserModule,
