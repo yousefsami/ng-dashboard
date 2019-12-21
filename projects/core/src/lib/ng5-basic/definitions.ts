@@ -1,5 +1,6 @@
 import { Action as NgrxAction } from '@ngrx/store';
 import { ISearchable } from '@ng-dashboard/amazing-search';
+import { IAuthConfig } from '../auth/definitions';
 
 export interface Action extends NgrxAction {
   payload: any;
@@ -10,20 +11,6 @@ export interface IUserForm {
   email: string;
   password: string;
   password2: string;
-}
-
-export interface IUser {
-  id?: number;
-  username: string;
-  email: string;
-  avatar: string;
-  preferences: {
-    language?: 'pl' | 'en';
-  };
-  phone: string;
-  firstname: string;
-  lastname: string;
-  role: IRole;
 }
 
 export interface IPermission {
@@ -222,6 +209,7 @@ export interface NgBasicConfig {
   sidebar?: SidebarConfig;
   api?: string;
   github?: boolean;
+  auth?: IAuthConfig;
 }
 
 export interface SidebarConfig {
@@ -237,4 +225,18 @@ export interface NavbarConfig {
   search?: {
     terms?: ISearchable[];
   };
+}
+
+export interface IUser {
+  id?: number;
+  username: string;
+  email: string;
+  avatar: string;
+  preferences: {
+    language?: 'pl' | 'en';
+  };
+  phone: string;
+  firstname: string;
+  lastname: string;
+  role: IRole;
 }

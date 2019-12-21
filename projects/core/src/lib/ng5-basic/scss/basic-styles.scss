@@ -1,7 +1,7 @@
 @import 'injects';
 @import './material-icon';
-@import "~bootstrap/dist/css/bootstrap.min.css";
-@import "~simplebar/dist/simplebar.css";
+@import "../../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+@import "../../../../node_modules/simplebar/dist/simplebar.css";
 
 .error-message-inline {
   color: $error-color-800;
@@ -336,3 +336,7 @@ body[dir="rtl"] {
     }
 }
 
+
+.form-group {
+    margin-bottom: 2rem;
+}

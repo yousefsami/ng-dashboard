@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { GuideComponent } from './guide/guide.component';
-import { LayoutComponent } from 'projects/core/src/public_api';
-import { LoginFormComponent } from 'projects/authentication/src/public_api';
+import {
+  LayoutComponent,
+  LoginFormComponent,
+  SignupFormComponent
+} from 'projects/core/src/public_api';
 
 const routes: Routes = [
   {
@@ -18,6 +21,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginFormComponent
+  },
+  {
+    path: 'signup',
+    component: SignupFormComponent
   }
 ];
 

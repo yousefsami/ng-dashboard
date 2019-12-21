@@ -15,7 +15,7 @@ export class RequestsService {
   constructor(private http: HttpClient, private config: ConfigurationService) {}
 
   public async GetContactDetails(): Promise<IResponse<IContact>> {
-    const url = this.config.API + '/api/contact-details';
+    const url = this.config.API('/api/contact-details');
     const ref = this.http.get(url).toPromise();
     try {
       const response: IResponse<IContact> = await ref;
@@ -32,7 +32,7 @@ export class RequestsService {
     user: IUser
   ): Promise<IResponse<ISettingsUpdateResponse>> {
     const ref = this.http
-      .post(this.config.API + '/api/user/settings', user)
+      .post(this.config.API('/api/user/settings'), user)
       .toPromise();
     try {
       const response: IResponse<ISettingsUpdateResponse> = await ref;
@@ -48,7 +48,7 @@ export class RequestsService {
     contacts: Array<IContact>
   ): Promise<IResponse<any>> {
     const ref = this.http
-      .post(this.config.API + '/api/contact-details', { contacts })
+      .post(this.config.API('/api/contact-details'), { contacts })
       .toPromise();
     try {
       const response: IResponse<any> = await ref;
@@ -65,7 +65,7 @@ export class RequestsService {
     username: string
   ): Promise<IResponse<ILocation>> {
     const ref = this.http
-      .post(this.config.API + '/api/forget-password', { username })
+      .post(this.config.API('/api/forget-password'), { username })
       .toPromise();
     try {
       const response: IResponse<ILocation> = await ref;

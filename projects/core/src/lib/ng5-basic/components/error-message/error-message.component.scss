@@ -3,4 +3,7 @@
 .error-message {
   background-color: $error-color-100;
   padding: 15px;
+  position: fixed;
+  right: 0;
+  left: 0;
 }

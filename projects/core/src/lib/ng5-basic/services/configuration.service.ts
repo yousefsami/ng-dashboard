@@ -1,12 +1,14 @@
-import { Injectable, Inject, EventEmitter } from "@angular/core";
+import { Injectable, Inject, EventEmitter } from '@angular/core';
 import {
   NgBasicConfig,
   INavigation,
   PagePointerPosition
-} from "../definitions";
-import { GlobalizationService } from "../services/globalization.service";
+} from '../definitions';
+import { GlobalizationService } from '../services/globalization.service';
+import { BehaviorSubject } from 'rxjs';
+import { IAuthConfig } from '../../auth/definitions';
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class ConfigurationService {
   public sidebarIsActive = false;
@@ -16,20 +18,26 @@ export class ConfigurationService {
 
   public ToggleSidebar: EventEmitter<any> = new EventEmitter();
 
+  public language = new BehaviorSubject('en');
+  public translationsDictionary = {};
+  public get Config(): IAuthConfig {
+    return this.config.auth || {};
+  }
+
   constructor(
-    @Inject("config") public config: NgBasicConfig,
+    @Inject('config') public config: NgBasicConfig,
     private globalization: GlobalizationService
   ) {
-    window.addEventListener("resize", (event: any) => {
+    window.addEventListener('resize', (event: any) => {
       if (event.target.innerWidth < 992) {
-        this.ToggleSidebar.emit("hidden");
+        this.ToggleSidebar.emit('hidden');
       } else {
-        this.ToggleSidebar.emit("show");
+        this.ToggleSidebar.emit('show');
       }
     });
     this.addListenerMulti(
       window,
-      "touchstart touchend touchmove mousedown mouseup mousemove",
+      'touchstart touchend touchmove mousedown mouseup mousemove',
       (e: any) => {
         const path =
           e.path ||
@@ -37,10 +45,10 @@ export class ConfigurationService {
           this.composedPath(e.target);
         this.sidebarStatus(path).then(status => {
           if (!status) {
-            if (e.type === "touchstart" || e.type === "mousedown") {
+            if (e.type === 'touchstart' || e.type === 'mousedown') {
               this.eventIsActive = true;
             }
-            if (e.type === "touchend" || e.type === "mouseup") {
+            if (e.type === 'touchend' || e.type === 'mouseup') {
               if (window.innerWidth < 992) {
                 if (
                   !(
@@ -48,23 +56,23 @@ export class ConfigurationService {
                     50
                   )
                 ) {
-                  if (this.globalization.getLayoutDirection() === "ltr") {
+                  if (this.globalization.getLayoutDirection() === 'ltr') {
                     if (this.evetStartPoint.x > this.eventMoveChange.x + 15) {
-                      this.ToggleSidebar.emit("hidden");
+                      this.ToggleSidebar.emit('hidden');
                     } else if (
                       this.evetStartPoint.x <
                       this.eventMoveChange.x - 15
                     ) {
-                      this.ToggleSidebar.emit("show");
+                      this.ToggleSidebar.emit('show');
                     }
                   } else {
                     if (this.evetStartPoint.x > this.eventMoveChange.x + 15) {
-                      this.ToggleSidebar.emit("show");
+                      this.ToggleSidebar.emit('show');
                     } else if (
                       this.evetStartPoint.x <
                       this.eventMoveChange.x - 15
                     ) {
-                      this.ToggleSidebar.emit("hidden");
+                      this.ToggleSidebar.emit('hidden');
                     }
                   }
                 }
@@ -74,7 +82,7 @@ export class ConfigurationService {
             }
             if (
               this.eventIsActive &&
-              (e.type === "mousemove" || e.type === "touchmove")
+              (e.type === 'mousemove' || e.type === 'touchmove')
             ) {
               if (
                 this.evetStartPoint.x === undefined &&
@@ -91,7 +99,7 @@ export class ConfigurationService {
   }
 
   addListenerMulti(el, s, fn) {
-    s.split(" ").forEach(e => el.addEventListener(e, fn, false));
+    s.split(' ').forEach(e => el.addEventListener(e, fn, false));
   }
 
   public getItems(): INavigation[] {
@@ -100,12 +108,12 @@ export class ConfigurationService {
 
   getClientPostion(e): PagePointerPosition {
     switch (e.type) {
-      case "mousemove":
+      case 'mousemove':
         return {
           x: e.clientX,
           y: e.clientY
         };
-      case "touchmove":
+      case 'touchmove':
         return {
           x: e.changedTouches[0].clientX,
           y: e.changedTouches[0].clientY
@@ -115,7 +123,7 @@ export class ConfigurationService {
 
   closeSidebar() {
     if (window.innerWidth < 992) {
-      this.ToggleSidebar.emit("hidden");
+      this.ToggleSidebar.emit('hidden');
     }
   }
 
@@ -123,7 +131,7 @@ export class ConfigurationService {
     return new Promise((res, rej) => {
       for (const e of el) {
         if (e.tagName !== undefined) {
-          if (e.hasAttribute("ngx-sidebar-off")) {
+          if (e.hasAttribute('ngx-sidebar-off')) {
             res(true);
             return;
           }
@@ -137,7 +145,7 @@ export class ConfigurationService {
     const path = [];
     while (el) {
       path.push(el);
-      if (el.tagName === "HTML") {
+      if (el.tagName === 'HTML') {
         path.push(document);
         path.push(window);
         return path;
@@ -145,8 +153,8 @@ export class ConfigurationService {
       el = el.parentElement;
     }
   }
-  public get API(): string {
-    return this.config.api;
+  public API(affix): string {
+    return (this.config.api || '') + affix;
   }
   public get Github(): boolean {
     return this.config.github;

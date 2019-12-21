@@ -1,7 +1,7 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { NgBasicConfig } from './ng5-basic/definitions';
 
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateStore } from '@ngx-translate/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
@@ -34,6 +34,16 @@ import { LayoutFadeComponent } from './ng5-basic/components/layout-fade/layout-f
 import { AmazingSearchModule } from '@ng-dashboard/amazing-search';
 import { TranslateService } from './ng5-basic/services/translate.service';
 
+import { LoginFormComponent } from './auth/login-form/login-form.component';
+import { CommonModule } from '@angular/common';
+import { FacebookService } from './auth/facebook.service';
+import { SignupFormComponent } from './auth/signup-form/signup-form.component';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { TPipe } from './t.pipe';
+import { ToastaModule } from 'ngx-toasta';
+import { UserService } from './ng5-basic/services/user.service';
+
 @NgModule({
   declarations: [
     LayoutComponent,
@@ -49,7 +59,14 @@ import { TranslateService } from './ng5-basic/services/translate.service';
     NgxSidebarComponent,
     UiSmallBoxComponent,
     PageContainerComponent,
-    ErrorMessageComponent
+    ErrorMessageComponent,
+    LoginFormComponent,
+    ProgressLineComponent,
+    ErrorMessageComponent,
+    SignupFormComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
+    TPipe
   ],
   exports: [
     LayoutComponent,
@@ -64,14 +81,21 @@ import { TranslateService } from './ng5-basic/services/translate.service';
     SpinnerComponent,
     UiSmallBoxComponent,
     PageContainerComponent,
-    ErrorMessageComponent
+    ErrorMessageComponent,
+    LoginFormComponent,
+    ProgressLineComponent,
+    ErrorMessageComponent,
+    SignupFormComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     AmazingSearchModule,
-    TranslateModule.forRoot(),
+    TranslateModule.forRoot({}),
     BrowserAnimationsModule,
     HttpClientModule,
     BrowserModule,
+    ToastaModule,
     FormsModule,
     NgxTooltipModule,
     StoreModule.forRoot({}),
@@ -85,6 +109,8 @@ import { TranslateService } from './ng5-basic/services/translate.service';
     MockService,
     ActionsService,
     ConfigurationService,
+    FacebookService,
+    UserService,
     GlobalizationService
   ]
 })
