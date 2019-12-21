@@ -1,0 +1,12 @@
+<ng-nav-bar></ng-nav-bar>
+<ng-side-bar></ng-side-bar>
+<div
+  [ngClass]="{'ngd-sidebar-visible': sideState }"
+  class="ngd-outlet"
+  (click)="sideOff();"
+>
+  <main [@routeAnimations]="prepareRoute(outlet)" style='display:block; position: relative;'>
+    <router-outlet class="layout-router-outlet" #outlet="outlet"></router-outlet>
+  </main>
+
+</div>

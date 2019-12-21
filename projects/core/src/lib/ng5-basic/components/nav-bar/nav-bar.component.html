@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-lg navbar-light fixed-nav ng-dashboard-nav" dir="ltr">
+  <button class="ngd-sidebar-toggle " (click)="ToggleSidebar()">
+    <i class="icon-menu"></i>
+  </button>
+  <div class="application-nav col-lg-6">
+    <ng-container *ngIf="config.search && config.search.terms">
+      <amazing-search [terms]="config.search.terms"></amazing-search>
+    </ng-container>
+    <!-- <div class="active-application-wrapper">
+      <div class="active-application" title="Work Office In London">
+        <ng-container *ngIf="config.avatar">
+          <div class="application-avatar">{{config.avatar}}</div>
+        </ng-container>
+        <ng-container *ngIf="config.title">
+          <div class="application-title" translate>{{config.title}}</div>
+        </ng-container>
+      </div>
+    </div>
+    <a class="navbar-brand" translate>{{config.brand}}</a> -->
+  </div>
+  <div class="navbar-collapse f-basic-auto">
+    <div class="d-flex flex-row-reverse ml-auto justify-content-start nav-items">
+      <div class="d-2" *ngIf="config.profile !== false">
+        <ng-profile-menu></ng-profile-menu>
+      </div>
+      <div class="d-2" *ngIf="config.notification !== false">
+        <ng-notification-list></ng-notification-list>
+      </div>
+    </div>
+  </div>
+</nav>

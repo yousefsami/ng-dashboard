@@ -1,0 +1,6 @@
+.ngx-menu-item {
+  padding: 10px 20px !important;
+  &:after {
+    top: 5px !important;
+  }
+}

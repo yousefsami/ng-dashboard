@@ -1,0 +1,19 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/ng-dashboard-core",
+  "lib": {
+    "entryFile": "src/public_api.ts",
+    "styleIncludePaths": [
+      "src/lib/ng5-basic/scss"
+    ]
+  },
+  "whitelistedNonPeerDependencies": [
+    "tslib",
+    "sass-material-colors",
+    "@ngrx/core",
+    "@ngrx/store",
+    "@ngx-translate/core",
+    "rxjs-compat",
+    "url-matcher"
+  ]
+}

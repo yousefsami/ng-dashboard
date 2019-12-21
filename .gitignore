@@ -8,7 +8,7 @@
 /bazel-out
 
 # dependencies
-/node_modules
+node_modules
 
 # profiling files
 chrome-profiler-events*.json
@@ -46,3 +46,5 @@ testem.log
 Thumbs.db
 .vscode
 report*.json
+
+*node_modules*

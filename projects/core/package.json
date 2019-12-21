@@ -1,0 +1,21 @@
+{
+  "name": "projects/ng-dashboard-core/src/public_api",
+  "version": "0.0.57",
+  "private": false,
+  "peerDependencies": {
+    "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
+    "@angular/core": "^6.0.0-rc.0 || ^6.0.0"
+  },
+  "dependencies": {
+    "@ng-dashboard/amazing-search": "0.0.11",
+    "@ngrx/core": "^1.2.0",
+    "@ngrx/store": "^8.6.0",
+    "@ngx-translate/core": "^11.0.1",
+    "bootstrap": "^4.4.1",
+    "ngx-toasta": "^0.1.0",
+    "response-type": "^1.0.3",
+    "rxjs-compat": "^6.2.2",
+    "sass-material-colors": "0.0.5",
+    "url-matcher": "^0.2.2"
+  }
+}
