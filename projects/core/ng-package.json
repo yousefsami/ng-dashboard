@@ -16,6 +16,7 @@
     "@ngx-translate/core",
     "rxjs-compat",
     "response-type",
+    "simplebar",
     "url-matcher",
     "ngx-toasta",
     "bootstrap",

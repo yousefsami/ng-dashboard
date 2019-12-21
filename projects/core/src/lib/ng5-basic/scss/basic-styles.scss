@@ -1,7 +1,6 @@
 @import 'injects';
 @import './material-icon';
-@import "../../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-@import "../../../../node_modules/simplebar/dist/simplebar.css";
+@import "../../../../node_modules/bootstrap/dist/css/bootstrap.min";
 
 .error-message-inline {
   color: $error-color-800;

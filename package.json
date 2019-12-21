@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:core": "ng build core && sass projects/core/src/lib/export-styles.scss dist/ng-dashboard-core/styles.css",
+    "build:core": "ng build core && npm run scss",
+    "scss": "sass projects/core/src/lib/export-styles.scss dist/ng-dashboard-core/styles.css",
     "npm:core": "cd dist/ng-dashboard-core && npm publish && cd ../.."
   },
   "private": true,
