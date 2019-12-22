@@ -87,7 +87,8 @@ import { UserService } from './ng5-basic/services/user.service';
     ErrorMessageComponent,
     SignupFormComponent,
     ForgotPasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    TPipe
   ],
   imports: [
     AmazingSearchModule,

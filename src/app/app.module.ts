@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GuideComponent } from './guide/guide.component';
@@ -15,7 +14,6 @@ import {
   imports: [
     BrowserModule,
     AppRoutingModule,
-    TranslateModule.forRoot(),
     NgDashboardModule.forRoot({
       api: 'http://localhost:1337',
       navigation: [
@@ -29,7 +27,7 @@ import {
       }
     })
   ],
-  providers: [TranslateService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

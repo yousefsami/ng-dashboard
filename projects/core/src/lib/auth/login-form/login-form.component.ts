@@ -5,7 +5,6 @@ import { IResponse } from 'response-type';
 import { HttpClient } from '@angular/common/http';
 import { FacebookService, IFBAuthInformation } from '../facebook.service';
 import { AuthPublicService, AuthEvent } from '../auth-public.service';
-import { TranslateService } from '@ngx-translate/core';
 import { ConfigurationService } from '../../ng5-basic/services/configuration.service';
 import { ComponentCommon } from '../../ng5-basic/services/common';
 import { ToastaService } from 'ngx-toasta';
