@@ -8,6 +8,7 @@ import { AuthPublicService, AuthEvent } from '../auth-public.service';
 import { ConfigurationService } from '../../ng5-basic/services/configuration.service';
 import { ComponentCommon } from '../../ng5-basic/services/common';
 import { ToastaService } from 'ngx-toasta';
+import { UserService } from '../../ng5-basic/services/user.service';
 declare var FB: any;
 
 @Component({
@@ -36,6 +37,7 @@ export class LoginFormComponent extends ComponentCommon implements OnInit {
     private facebook: FacebookService,
     private config: ConfigurationService,
     private auth: AuthPublicService,
+    private user: UserService,
     public toastaService: ToastaService
   ) {
     super();
@@ -133,8 +135,9 @@ export class LoginFormComponent extends ComponentCommon implements OnInit {
             payload: this.response.data.items[0],
             type: AuthEvent.LOGIN_SUCCESS
           });
-
           this.onSigninSuccess(response);
+          this.user.SetToken(this.response.data.items[0].token);
+          this.user.SetUser(this.response.data.items[0].user);
         } else {
           this.InternalError({
             message: this.response.error.message,
