@@ -19,3 +19,4 @@ export * from './lib/auth/reset-password/reset-password.component';
 export * from './lib/auth/auth-public.service';
 export * from './lib/auth/definitions';
 export * from './translations/en';
+export * from './translations/pl';

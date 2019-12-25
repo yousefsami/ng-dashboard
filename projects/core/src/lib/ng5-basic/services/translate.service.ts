@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
 export class TranslateService {
   private lang = 'en';
   private langs = {};
-  constructor() {}
   setTranslation(lang: string, translation: any) {
     this.langs[lang] = translation;
   }
