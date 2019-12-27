@@ -30,18 +30,21 @@ export class SignupFormComponent implements OnInit {
     private config: ConfigurationService,
     private user: UserService
   ) {}
+
   ngOnInit() {
     const { Config } = this.config;
     if (Config.signupDialog) {
       this.signupDialog = Config.signupDialog;
     }
   }
+
   async signup(e) {
     this.signupUrl = this.config.API('/api/user/signup');
     e.preventDefault();
     this.isRequesting = true;
     this.signupHttp(this.form);
   }
+
   togglePassword() {
     this.passwordVisibility = this.passwordVisibility ? false : true;
   }

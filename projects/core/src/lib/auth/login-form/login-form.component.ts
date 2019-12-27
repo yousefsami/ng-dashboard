@@ -44,6 +44,8 @@ export class LoginFormComponent extends ComponentCommon implements OnInit {
   }
 
   ngOnInit() {
+    this.user.SetToken(null);
+    this.user.SetUser(null);
     this.facebookUrl = this.config.API(`/api/facebook/auth`);
     this.auth.events.emit({
       type: AuthEvent.REVOKE
@@ -78,6 +80,9 @@ export class LoginFormComponent extends ComponentCommon implements OnInit {
   }
 
   public loginFacebook() {
+    if (!FB) {
+      return;
+    }
     FB.login((result: any) => {}, { scope: 'public_profile,email' });
   }
   public togglePassword() {

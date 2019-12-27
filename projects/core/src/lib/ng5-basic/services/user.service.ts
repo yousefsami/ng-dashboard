@@ -58,13 +58,13 @@ export class UserService {
 }
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class UserLoggedInGuard implements CanActivate {
   constructor(private user: UserService, private router: Router) {}
   canActivate(): boolean {
-    if (!this.user.User) {
+    if (!this.user.GetToken()) {
       this.router.navigateByUrl('/login');
       return false;
     }
-    return !!this.user.User;
+    return true;
   }
 }
