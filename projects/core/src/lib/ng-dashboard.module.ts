@@ -43,6 +43,7 @@ import { ResetPasswordComponent } from './auth/reset-password/reset-password.com
 import { TPipe } from './t.pipe';
 import { ToastaModule } from 'ngx-toasta';
 import { UserService } from './ng5-basic/services/user.service';
+import { NgxSidebarService } from './ng5-basic/ngx-sidebar/ngx-sidebar.service';
 
 @NgModule({
   declarations: [
@@ -110,6 +111,7 @@ import { UserService } from './ng5-basic/services/user.service';
     MockService,
     ActionsService,
     ConfigurationService,
+    NgxSidebarService,
     FacebookService,
     UserService,
     GlobalizationService

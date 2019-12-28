@@ -3,6 +3,7 @@ import { SupportedLanguages } from '../../services/globalization.service';
 import { NavbarConfig, NgBasicConfig } from '../../definitions';
 import { ConfigurationService } from '../../services/configuration.service';
 import { TranslateService } from '../../services/translate.service';
+import { NgxSidebarService } from '../../ngx-sidebar/ngx-sidebar.service';
 
 @Component({
   selector: 'ng-nav-bar',
@@ -23,7 +24,7 @@ export class NavBarComponent implements OnInit {
   };
   constructor(
     @Inject('config') public gconfig: NgBasicConfig,
-    private configuration: ConfigurationService,
+    private sidebar: NgxSidebarService,
     private translate: TranslateService
   ) {}
 
@@ -34,8 +35,9 @@ export class NavBarComponent implements OnInit {
   }
 
   ToggleSidebar() {
-    this.configuration.ToggleSidebar.emit();
+    this.sidebar.ToggleSidebar.emit();
   }
+
   public CurrentLanguage() {
     return SupportedLanguages[this.translate.currentLang];
   }

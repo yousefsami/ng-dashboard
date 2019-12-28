@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigurationService } from '../../services/configuration.service';
+import { NgxSidebarService } from '../../ngx-sidebar/ngx-sidebar.service';
 
 @Component({
   selector: 'ng-side-bar',
@@ -11,21 +12,24 @@ export class SideBarComponent implements OnInit {
   public keepOpen = false;
   public navigation: Array<any> = [];
 
-  constructor(public config: ConfigurationService) {
-    this.config.ToggleSidebar.subscribe((e) => {
+  constructor(
+    public config: ConfigurationService,
+    public sidebar: NgxSidebarService
+  ) {
+    this.sidebar.ToggleSidebar.subscribe(e => {
       if (e === 'hidden' && !this.keepOpen) {
         this.sideState = false;
         return;
-      } else if ( e === 'show') {
+      } else if (e === 'show') {
         this.sideState = true;
         return;
       }
-      this.sideState = (this.sideState) ? false : true;
+      this.sideState = this.sideState ? false : true;
     });
   }
 
   ngOnInit() {
-    this.navigation = this.config.getItems();
+    this.navigation = this.config.getNavigationItems();
     const config = this.config.config;
     this.sideState = false;
     if (config.sidebar) {
@@ -37,5 +41,4 @@ export class SideBarComponent implements OnInit {
       this.sideState = false;
     }
   }
-
 }

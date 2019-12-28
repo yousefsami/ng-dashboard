@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigurationService } from '../../services/configuration.service';
 import { RouterOutlet } from '@angular/router';
 import { routeFadeAnimation } from '../../../animations/animations';
+import { NgxSidebarService } from '../../ngx-sidebar/ngx-sidebar.service';
 
 @Component({
   templateUrl: './layout-fade.component.html',
@@ -12,7 +12,7 @@ export class LayoutFadeComponent implements OnInit {
   public isRequesting = false;
   public sideState = true;
 
-  constructor(public sidebar: ConfigurationService) {
+  constructor(public sidebar: NgxSidebarService) {
     this.sidebar.ToggleSidebar.subscribe(e => {
       if (e === 'hidden') {
         this.sideState = false;

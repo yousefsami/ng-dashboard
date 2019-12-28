@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigurationService } from '../../services/configuration.service';
+import { NgxSidebarService } from '../../ngx-sidebar/ngx-sidebar.service';
 
 @Component({
   templateUrl: './layout.component.html',
@@ -9,7 +9,7 @@ export class LayoutComponent implements OnInit {
   public isRequesting = false;
   public sideState = true;
 
-  constructor(public sidebar: ConfigurationService) {
+  constructor(public sidebar: NgxSidebarService) {
     this.sidebar.ToggleSidebar.subscribe(e => {
       if (e === 'hidden') {
         this.sideState = false;
