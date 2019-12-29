@@ -47,7 +47,7 @@ export class NavBarComponent implements OnInit {
   }
   constructor(
     @Inject('config') public gconfig: NgBasicConfig,
-    private sidebar: NgxSidebarService,
+    public sidebar: NgxSidebarService,
     private translate: TranslateService,
     private configService: ConfigurationService
   ) {}
