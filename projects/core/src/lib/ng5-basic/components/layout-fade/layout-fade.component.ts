@@ -10,19 +10,12 @@ import { NgxSidebarService } from '../../ngx-sidebar/ngx-sidebar.service';
 })
 export class LayoutFadeComponent implements OnInit {
   public isRequesting = false;
-  public sideState = true;
+  public isSidebarVisible = true;
 
   constructor(public sidebar: NgxSidebarService) {
-    this.sidebar.ToggleSidebar.subscribe(e => {
-      if (e === 'hidden') {
-        this.sideState = false;
-        return;
-      } else if (e === 'show') {
-        this.sideState = true;
-        return;
-      }
-      this.sideState = this.sideState ? false : true;
-    });
+    this.sidebar.SidebarVisibilityState.subscribe(
+      val => (this.isSidebarVisible = val)
+    );
   }
 
   prepareRoute(outlet: RouterOutlet) {
@@ -34,17 +27,11 @@ export class LayoutFadeComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (window.innerWidth < 992) {
-      this.sideState = false;
-    }
-    const config = this.sidebar.config;
-    if (config.sidebar && config.sidebar.visible === false) {
-      this.sideState = false;
-    }
+    this.isSidebarVisible = this.sidebar.IsSidebarVisibleInitially();
   }
 
   sideOff() {
-    if (this.sideState) {
+    if (this.isSidebarVisible) {
       this.sidebar.closeSidebar();
     }
   }

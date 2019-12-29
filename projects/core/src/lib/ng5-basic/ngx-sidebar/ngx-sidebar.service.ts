@@ -1,12 +1,17 @@
 import { Injectable, Inject, EventEmitter } from '@angular/core';
 import { NgBasicConfig, PagePointerPosition } from '../definitions';
 import { GlobalizationService } from '../services/globalization.service';
+import { BehaviorSubject } from 'rxjs';
+
+const LOCAL_STORAGE_KEY = 'ngx_sidebar_visibility';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NgxSidebarService {
-  public ToggleSidebar: EventEmitter<any> = new EventEmitter();
+  public SidebarVisibilityState: BehaviorSubject<boolean> = new BehaviorSubject(
+    true
+  );
 
   private eventIsActive = false;
   private eventMoveChange: PagePointerPosition = { x: undefined, y: undefined };
@@ -16,11 +21,12 @@ export class NgxSidebarService {
     @Inject('config') public config: NgBasicConfig,
     private globalization: GlobalizationService
   ) {
+    this.SidebarVisibilityState.next(this.IsSidebarVisibleInitially());
     window.addEventListener('resize', (event: any) => {
       if (event.target.innerWidth < 992) {
-        this.ToggleSidebar.emit('hidden');
+        this.Hide();
       } else {
-        this.ToggleSidebar.emit('show');
+        this.Show();
       }
     });
     this.addListenerMulti(
@@ -46,21 +52,21 @@ export class NgxSidebarService {
                 ) {
                   if (this.globalization.getLayoutDirection() === 'ltr') {
                     if (this.eventStartPoint.x > this.eventMoveChange.x + 15) {
-                      this.ToggleSidebar.emit('hidden');
+                      this.Hide();
                     } else if (
                       this.eventStartPoint.x <
                       this.eventMoveChange.x - 15
                     ) {
-                      this.ToggleSidebar.emit('show');
+                      this.Show();
                     }
                   } else {
                     if (this.eventStartPoint.x > this.eventMoveChange.x + 15) {
-                      this.ToggleSidebar.emit('show');
+                      this.Show();
                     } else if (
                       this.eventStartPoint.x <
                       this.eventMoveChange.x - 15
                     ) {
-                      this.ToggleSidebar.emit('hidden');
+                      this.Hide();
                     }
                   }
                 }
@@ -107,7 +113,7 @@ export class NgxSidebarService {
 
   closeSidebar() {
     if (window.innerWidth < 992) {
-      this.ToggleSidebar.emit('hidden');
+      this.Hide();
     }
   }
 
@@ -136,5 +142,45 @@ export class NgxSidebarService {
       }
       el = el.parentElement;
     }
+  }
+
+  private GetCachedState(): boolean {
+    let state = null;
+    try {
+      state = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    } catch (error) {
+      // @ left intentionally blank
+    }
+    return state === true || state === false ? state : null;
+  }
+
+  public IsSidebarVisibleInitially() {
+    if (this.GetCachedState() === true || this.GetCachedState() === false) {
+      return this.GetCachedState();
+    }
+    if (this.config.sidebar && this.config.sidebar.visible === false) {
+      return false;
+    }
+    if (window.innerWidth < 992) {
+      return false;
+    }
+    return true;
+  }
+
+  public Show() {
+    this.SidebarVisibilityState.next(true);
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(true));
+  }
+
+  public Hide() {
+    this.SidebarVisibilityState.next(false);
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(false));
+  }
+
+  public Toggle() {
+    if (this.SidebarVisibilityState.value) {
+      return this.Hide();
+    }
+    return this.Show();
   }
 }

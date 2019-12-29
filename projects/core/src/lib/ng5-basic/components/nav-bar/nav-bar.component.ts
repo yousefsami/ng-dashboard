@@ -34,8 +34,8 @@ export class NavBarComponent implements OnInit {
     }
   }
 
-  ToggleSidebar() {
-    this.sidebar.ToggleSidebar.emit();
+  SidebarVisibilityState() {
+    this.sidebar.Toggle();
   }
 
   public CurrentLanguage() {

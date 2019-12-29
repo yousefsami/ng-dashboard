@@ -35,7 +35,6 @@ import { AmazingSearchModule } from '@ng-dashboard/amazing-search';
 import { TranslateService } from './ng5-basic/services/translate.service';
 
 import { LoginFormComponent } from './auth/login-form/login-form.component';
-import { CommonModule } from '@angular/common';
 import { FacebookService } from './auth/facebook.service';
 import { SignupFormComponent } from './auth/signup-form/signup-form.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
