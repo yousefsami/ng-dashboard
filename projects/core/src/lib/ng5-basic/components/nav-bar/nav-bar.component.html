@@ -1,4 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-light fixed-nav ng-dashboard-nav" dir="ltr">
+<nav
+  class="navbar navbar-expand-lg navbar-light fixed-nav ng-dashboard-nav"
+  dir="ltr"
+>
   <button class="ngd-sidebar-toggle " (click)="SidebarVisibilityState()">
     <i *ngIf="!sidebar.IsVisible" class="icon-menu icon-jump-in-animation"></i>
     <i *ngIf="sidebar.IsVisible" class="icon-close icon-jump-in-animation"></i>
@@ -19,13 +22,26 @@
     </div>
     <a class="navbar-brand" translate>{{config.brand}}</a> -->
   </div>
-  <div class="navbar-collapse f-basic-auto">
-    <div class="d-flex flex-row-reverse ml-auto justify-content-start nav-items">
+  <div style="flex-grow: 1;">
+    <div class="d-flex flex-row justify-content-end align-items-center"></div>
+
+    <div
+      class="d-flex flex-row-reverse ml-auto justify-content-start nav-items"
+    >
       <div class="d-2" *ngIf="config.profile !== false">
         <ng-profile-menu></ng-profile-menu>
       </div>
       <div class="d-2" *ngIf="config.notification !== false">
         <ng-notification-list></ng-notification-list>
+      </div>
+      <div class="interactive-button">
+        <span
+          (click)="interactiveBtnClick(button)"
+          *ngFor="let button of interactiveButtons"
+          [ngClass]="{ clickable: button.onPress }"
+        >
+          <i [class]="button.icon"></i>
+        </span>
       </div>
     </div>
   </div>

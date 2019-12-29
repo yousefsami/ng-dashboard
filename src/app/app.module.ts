@@ -6,7 +6,8 @@ import { GuideComponent } from './guide/guide.component';
 import {
   NgDashboardModule,
   ConfigurationService,
-  NgDashboardEn
+  NgDashboardEn,
+  UserService
 } from 'projects/core/src/public_api';
 
 @NgModule({
@@ -31,7 +32,29 @@ import {
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(private config: ConfigurationService) {
+  constructor(private config: ConfigurationService, private user: UserService) {
+    this.user.SetUser({
+      firstname: 'Ali',
+      lastname: 'Torabi',
+      email: 'ali.torabi@pixelplux.com'
+    });
+    this.config.config.navbar = {
+      profile: false,
+      notification: true
+    };
+    this.config.SetInteractiveButtons([
+      {
+        icon: 'icon-info',
+        title: 'info',
+        key: 'info_btn',
+        onPress: () => {
+          alert(
+            'Wow! You are now using interactive buttons! see app.module.ts for more info'
+          );
+        },
+        keyboardShortcut: 'Enter'
+      }
+    ]);
     this.config.translationsDictionary = NgDashboardEn;
     this.config.language.next('en');
   }

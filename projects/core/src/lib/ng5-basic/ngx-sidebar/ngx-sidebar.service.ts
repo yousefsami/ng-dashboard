@@ -111,12 +111,6 @@ export class NgxSidebarService {
     }
   }
 
-  closeSidebar() {
-    if (window.innerWidth < 992) {
-      this.Hide();
-    }
-  }
-
   sidebarStatus(el) {
     return new Promise((res, rej) => {
       for (const e of el) {

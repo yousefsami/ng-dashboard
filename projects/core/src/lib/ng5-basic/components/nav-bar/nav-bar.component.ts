@@ -1,6 +1,10 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, HostListener } from '@angular/core';
 import { SupportedLanguages } from '../../services/globalization.service';
-import { NavbarConfig, NgBasicConfig } from '../../definitions';
+import {
+  NavbarConfig,
+  NgBasicConfig,
+  InteractiveButton
+} from '../../definitions';
 import { ConfigurationService } from '../../services/configuration.service';
 import { TranslateService } from '../../services/translate.service';
 import { NgxSidebarService } from '../../ngx-sidebar/ngx-sidebar.service';
@@ -12,6 +16,7 @@ import { NgxSidebarService } from '../../ngx-sidebar/ngx-sidebar.service';
   providers: [TranslateService]
 })
 export class NavBarComponent implements OnInit {
+  public interactiveButtons: InteractiveButton[] = [];
   public config: NavbarConfig = {
     notification: false,
     profile: false,
@@ -22,15 +27,45 @@ export class NavBarComponent implements OnInit {
       terms: []
     }
   };
+
+  @HostListener('window:keyup', ['$event']) public onKeyDown(
+    event: KeyboardEvent
+  ) {
+    const $event = document.all ? window.event : event;
+    if (
+      !/^(?:input|textarea|select|button)$/i.test(
+        ($event.target as any).tagName
+      )
+    ) {
+      const matchedButton = this.interactiveButtons.find(
+        button => event.key === button.keyboardShortcut
+      );
+      if (matchedButton) {
+        this.interactiveBtnClick(matchedButton);
+      }
+    }
+  }
   constructor(
     @Inject('config') public gconfig: NgBasicConfig,
     private sidebar: NgxSidebarService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private configService: ConfigurationService
   ) {}
 
   ngOnInit() {
     if (this.gconfig && this.gconfig.navbar) {
       this.config = this.gconfig.navbar;
+    }
+    this.configService.NavbarInteractiveButtons.subscribe(buttons => {
+      console.log('buttons', buttons);
+      this.interactiveButtons = buttons;
+    });
+  }
+
+  public interactiveBtnClick(btn: InteractiveButton) {
+    console.log('btn click!', btn);
+    if (btn.onPress) {
+      btn.onPress(btn);
     }
   }
 

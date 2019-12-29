@@ -120,7 +120,7 @@ export class NgxSidebarComponent implements OnInit {
       this.renderer.setElementClass(event.currentTarget, 'opened', this.state);
       this.state = !this.state;
     } else {
-      this.config.closeSidebar();
+      this.sidebar.Hide();
     }
   }
 }

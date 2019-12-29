@@ -32,7 +32,7 @@ export class LayoutFadeComponent implements OnInit {
 
   sideOff() {
     if (this.isSidebarVisible) {
-      this.sidebar.closeSidebar();
+      this.sidebar.Hide();
     }
   }
 }

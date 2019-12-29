@@ -229,14 +229,22 @@ export interface NavbarConfig {
 
 export interface IUser {
   id?: number;
-  username: string;
+  username?: string;
   email: string;
-  avatar: string;
-  preferences: {
+  avatar?: string;
+  preferences?: {
     language?: 'pl' | 'en';
   };
-  phone: string;
+  phone?: string;
   firstname: string;
   lastname: string;
-  role: IRole;
+  role?: IRole;
+}
+
+export interface InteractiveButton {
+  icon?: string;
+  title?: string;
+  key?: string;
+  onPress?: (InteractiveButton?) => void;
+  keyboardShortcut?: string;
 }

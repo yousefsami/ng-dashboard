@@ -1,9 +1,5 @@
 import { Injectable, Inject, EventEmitter } from '@angular/core';
-import {
-  NgBasicConfig,
-  INavigation,
-  PagePointerPosition
-} from '../definitions';
+import { NgBasicConfig, INavigation, InteractiveButton } from '../definitions';
 import { BehaviorSubject } from 'rxjs';
 import { IAuthConfig } from '../../auth/definitions';
 @Injectable({
@@ -11,9 +7,16 @@ import { IAuthConfig } from '../../auth/definitions';
 })
 export class ConfigurationService {
   public language = new BehaviorSubject('en');
+  public NavbarInteractiveButtons: BehaviorSubject<
+    InteractiveButton[]
+  > = new BehaviorSubject([]);
   public translationsDictionary = {};
   public get Config(): IAuthConfig {
     return this.config.auth || {};
+  }
+
+  public SetInteractiveButtons(buttons: InteractiveButton[]) {
+    this.NavbarInteractiveButtons.next(buttons);
   }
 
   constructor(@Inject('config') public config: NgBasicConfig) {}
