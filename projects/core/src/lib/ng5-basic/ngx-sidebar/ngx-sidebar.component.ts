@@ -6,11 +6,13 @@ import {
   ViewChild,
   ViewContainerRef,
   ComponentRef,
-  ComponentFactoryResolver
+  ComponentFactoryResolver,
+  HostListener
 } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { ConfigurationService } from '../services/configuration.service';
 import { flatten } from 'lodash';
+import { NgxSidebarService } from './ngx-sidebar.service';
 
 @Component({
   /* tslint:disable */
@@ -19,6 +21,21 @@ import { flatten } from 'lodash';
   styleUrls: ['./ngx-sidebar.component.scss']
 })
 export class NgxSidebarComponent implements OnInit {
+  @HostListener('window:keyup', ['$event']) public onKeyDown(
+    event: KeyboardEvent
+  ) {
+    const $event = document.all ? window.event : event;
+    if (
+      !/^(?:input|textarea|select|button)$/i.test(
+        ($event.target as any).tagName
+      )
+    ) {
+      if (event.key === 'm' || event.key === 'M') {
+        this.sidebar.Toggle();
+      }
+    }
+  }
+
   @ViewChild('dynamic', {
     read: ViewContainerRef,
     static: false
@@ -36,10 +53,10 @@ export class NgxSidebarComponent implements OnInit {
 
   constructor(
     private renderer: Renderer,
-    private route: ActivatedRoute,
     private router: Router,
     private config: ConfigurationService,
-    private compiler: ComponentFactoryResolver
+    private compiler: ComponentFactoryResolver,
+    private sidebar: NgxSidebarService
   ) {
     this.router.events.subscribe(e => {
       if (e instanceof NavigationEnd) {

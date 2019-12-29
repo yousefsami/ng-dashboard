@@ -1,4 +1,4 @@
-import { Injectable, Inject, EventEmitter } from '@angular/core';
+import { Injectable, Inject, EventEmitter, HostListener } from '@angular/core';
 import { NgBasicConfig, PagePointerPosition } from '../definitions';
 import { GlobalizationService } from '../services/globalization.service';
 import { BehaviorSubject } from 'rxjs';
@@ -50,23 +50,23 @@ export class NgxSidebarService {
                     50
                   )
                 ) {
-                  if (this.globalization.getLayoutDirection() === 'ltr') {
+                  if (this.globalization.getLayoutDirection() === 'rtl') {
                     if (this.eventStartPoint.x > this.eventMoveChange.x + 15) {
-                      this.Hide();
+                      this.Show();
                     } else if (
                       this.eventStartPoint.x <
                       this.eventMoveChange.x - 15
                     ) {
-                      this.Show();
+                      this.Hide();
                     }
                   } else {
                     if (this.eventStartPoint.x > this.eventMoveChange.x + 15) {
-                      this.Show();
+                      this.Hide();
                     } else if (
                       this.eventStartPoint.x <
                       this.eventMoveChange.x - 15
                     ) {
-                      this.Hide();
+                      this.Show();
                     }
                   }
                 }
@@ -178,9 +178,13 @@ export class NgxSidebarService {
   }
 
   public Toggle() {
-    if (this.SidebarVisibilityState.value) {
+    if (this.IsVisible) {
       return this.Hide();
     }
     return this.Show();
+  }
+
+  public get IsVisible() {
+    return this.SidebarVisibilityState.value;
   }
 }

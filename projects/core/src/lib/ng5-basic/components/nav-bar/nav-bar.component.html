@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light fixed-nav ng-dashboard-nav" dir="ltr">
   <button class="ngd-sidebar-toggle " (click)="SidebarVisibilityState()">
-    <i class="icon-menu"></i>
+    <i *ngIf="!sidebar.IsVisible" class="icon-menu icon-jump-in-animation"></i>
+    <i *ngIf="sidebar.IsVisible" class="icon-close icon-jump-in-animation"></i>
   </button>
   <div class="application-nav col-lg-6">
     <ng-container *ngIf="config.search && config.search.terms">
