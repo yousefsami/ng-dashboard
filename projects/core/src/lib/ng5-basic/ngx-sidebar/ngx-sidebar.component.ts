@@ -114,7 +114,6 @@ export class NgxSidebarComponent implements OnInit {
   }
   menuToggle(event: any, nav: any) {
     if (nav.hasOwnProperty('children')) {
-      this.state = !this.state;
       this.sidebar.menuItemChange.next({
         ...nav,
         $collapsed: !nav.$collapsed

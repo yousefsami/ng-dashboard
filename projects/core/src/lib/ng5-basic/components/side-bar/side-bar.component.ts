@@ -12,7 +12,9 @@ function navigationWithUniqueKey(items) {
     if (menu.children) {
       menu.children = navigationWithUniqueKey(menu.children);
     }
-    menu.$key = `virtual-key-${menu.link}-${menu.title}`;
+    if (!menu.$key) {
+      menu.$key = `virtual-key-${menu.link}-${menu.title}`;
+    }
     return menu;
   });
 }
@@ -22,9 +24,10 @@ function updateMenuInNavigation(items, item) {
     if (menu.children) {
       menu.children = updateMenuInNavigation(menu.children, item);
     }
-    if (item.key === menu.key) {
+    if (item.$key === menu.$key) {
       return {
-        ...item
+        ...menu,
+        $collapsed: item.$collapsed
       };
     }
     return menu;
@@ -66,7 +69,7 @@ export class SideBarComponent implements OnInit {
   public nav = [];
 
   public set navigation(value) {
-    this.nav = navigationWithMetaDataHistory(navigationWithUniqueKey(value));
+    this.nav = navigationWithUniqueKey(value);
   }
 
   public get DockedMenu() {
@@ -89,8 +92,10 @@ export class SideBarComponent implements OnInit {
       if (!menu) {
         return;
       }
-      localStorage.setItem(`menu_key_${menu.key}`, JSON.stringify(menu));
-      this.navigation = updateMenuInNavigation(this.nav, menu);
+
+      const nav = updateMenuInNavigation(this.nav, menu);
+      localStorage.setItem(`sidebar_items`, JSON.stringify(nav));
+      this.navigation = nav;
     });
   }
 }

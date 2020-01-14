@@ -36,8 +36,45 @@ export class ConfigurationService {
 
   constructor(@Inject('config') public config: NgBasicConfig) {}
 
+  private hasChangedSinceLastRefresh(data: any, key: string) {
+    let cached;
+    let raw;
+    try {
+      raw = localStorage.getItem(`change_detect_values_${key}`);
+      cached = JSON.parse(raw);
+    } catch (error) {}
+    localStorage.setItem(`change_detect_values_${key}`, JSON.stringify(data));
+
+    if (!cached || JSON.stringify(data) !== raw) {
+      return true;
+    }
+    return false;
+  }
+
   public getNavigationItems(): INavigation[] {
-    return this.config.navigation;
+    const programDefaultNaviation = this.config.navigation;
+
+    if (
+      this.hasChangedSinceLastRefresh(programDefaultNaviation, 'navigation')
+    ) {
+      console.log('Changed!');
+      localStorage.setItem(
+        `sidebar_items`,
+        JSON.stringify(programDefaultNaviation)
+      );
+      return programDefaultNaviation;
+    }
+    console.log('Cache is valid');
+
+    let menu;
+    try {
+      menu = JSON.parse(localStorage.getItem(`sidebar_items`));
+    } catch (error) {}
+
+    if (menu) {
+      return menu;
+    }
+    return programDefaultNaviation;
   }
 
   public API(affix): string {

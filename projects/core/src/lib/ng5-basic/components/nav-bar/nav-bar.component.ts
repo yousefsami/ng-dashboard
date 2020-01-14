@@ -16,6 +16,14 @@ import { NgxSidebarService } from '../../ngx-sidebar/ngx-sidebar.service';
   providers: [TranslateService]
 })
 export class NavBarComponent implements OnInit {
+  public terms = [
+    {
+      description: 'Guide about using this dashboard',
+      title: 'Guide',
+      id: '1',
+      keywords: 'Guide, Guideline, help'
+    }
+  ];
   public interactiveButtons: InteractiveButton[] = [];
   public config: NavbarConfig = {
     notification: false,

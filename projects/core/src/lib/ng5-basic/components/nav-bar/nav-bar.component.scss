@@ -38,7 +38,9 @@
 }
 .application-nav {
   padding: 0;
+  display: flex;
 }
+
 .active-application-wrapper {
   overflow: hidden;
   float: left;

@@ -3,7 +3,7 @@
 
     <div class="ngd-sidebar-docked-bottom" *ngIf="DockedMenu && DockedMenu.length">
         <ng-container *ngFor="let item of DockedMenu">
-            <span class="ngd-docker-menu-item" (click)="item.onClick">
+            <span class="ngd-docker-menu-item" (click)="item.onClick()">
                 <i *ngIf="item.icon" [class]="item.icon"></i> {{item.title}}
             </span>
         </ng-container>

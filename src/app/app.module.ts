@@ -10,16 +10,25 @@ import {
   UserService
 } from 'projects/core/src/public_api';
 import { Router } from '@angular/router';
+import { ToastaModule } from 'ngx-toasta';
 
 @NgModule({
   declarations: [AppComponent, GuideComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ToastaModule.forRoot(),
     NgDashboardModule.forRoot({
       navbar: {
         search: {
-          terms: []
+          terms: [
+            {
+              description: 'Guide about using this dashboard',
+              title: 'Guide',
+              id: '1',
+              keywords: 'Guide, Guideline, help'
+            }
+          ]
         },
         notification: true,
         profile: true

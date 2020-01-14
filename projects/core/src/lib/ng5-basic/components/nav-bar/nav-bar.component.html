@@ -8,9 +8,11 @@
   </button>
   <div class="application-nav col-lg-6">
     <ng-container *ngIf="config.search && config.search.terms">
-      <amazing-search [terms]="config.search.terms"></amazing-search>
+      <div style="flex: 1; margin-right: 30px;">
+        <amazing-search [terms]="config.search.terms"></amazing-search>
+      </div>
     </ng-container>
-    
+
     <ng-team-selector></ng-team-selector>
     <!-- <div class="active-application-wrapper">
       <div class="active-application" title="Work Office In London">
