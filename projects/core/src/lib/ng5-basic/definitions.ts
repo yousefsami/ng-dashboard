@@ -248,3 +248,16 @@ export interface InteractiveButton {
   onPress?: (InteractiveButton?) => void;
   keyboardShortcut?: string;
 }
+
+export interface Team {
+  name?: string;
+  id?: number;
+  owner?: number;
+  members: Array<IUser>;
+}
+
+export interface TeamsConfig {
+  manageTeams?: boolean;
+  manageTeamsText?: string;
+  onClick?: () => void;
+}

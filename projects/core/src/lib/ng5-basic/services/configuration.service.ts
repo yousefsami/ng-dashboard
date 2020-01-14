@@ -1,5 +1,11 @@
 import { Injectable, Inject, EventEmitter } from '@angular/core';
-import { NgBasicConfig, INavigation, InteractiveButton } from '../definitions';
+import {
+  NgBasicConfig,
+  INavigation,
+  InteractiveButton,
+  Team,
+  TeamsConfig
+} from '../definitions';
 import { BehaviorSubject } from 'rxjs';
 import { IAuthConfig } from '../../auth/definitions';
 @Injectable({
@@ -10,6 +16,11 @@ export class ConfigurationService {
   public NavbarInteractiveButtons: BehaviorSubject<
     InteractiveButton[]
   > = new BehaviorSubject([]);
+
+  public SelectedTeam: BehaviorSubject<Team> = new BehaviorSubject(null);
+  public TeamsConfig: BehaviorSubject<TeamsConfig> = new BehaviorSubject({});
+  public Teams: BehaviorSubject<Array<Team>> = new BehaviorSubject([]);
+
   public translationsDictionary = {};
   public get Config(): IAuthConfig {
     return this.config.auth || {};

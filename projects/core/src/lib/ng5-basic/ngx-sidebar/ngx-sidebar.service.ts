@@ -13,6 +13,10 @@ export class NgxSidebarService {
     true
   );
 
+  public menuItemChange: BehaviorSubject<Array<any>> = new BehaviorSubject(
+    null
+  );
+
   private eventIsActive = false;
   private eventMoveChange: PagePointerPosition = { x: undefined, y: undefined };
   private eventStartPoint: PagePointerPosition = { x: undefined, y: undefined };
@@ -167,6 +171,9 @@ export class NgxSidebarService {
   }
 
   public Hide() {
+    if (window.innerWidth > 992) {
+      return;
+    }
     this.SidebarVisibilityState.next(false);
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(false));
   }

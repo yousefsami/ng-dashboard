@@ -43,6 +43,8 @@ import { TPipe } from './t.pipe';
 import { ToastaModule } from 'ngx-toasta';
 import { UserService } from './ng5-basic/services/user.service';
 import { NgxSidebarService } from './ng5-basic/ngx-sidebar/ngx-sidebar.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TeamSelectorComponent } from './ng5-basic/components/team-selector/team-selector.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,7 @@ import { NgxSidebarService } from './ng5-basic/ngx-sidebar/ngx-sidebar.service';
     NotificationListComponent,
     UiIconBoxComponent,
     ProgressLineComponent,
+    TeamSelectorComponent,
     UiPanelBoxComponent,
     SpinnerComponent,
     NgxSidebarComponent,
@@ -83,6 +86,7 @@ import { NgxSidebarService } from './ng5-basic/ngx-sidebar/ngx-sidebar.service';
     PageContainerComponent,
     ErrorMessageComponent,
     LoginFormComponent,
+    TeamSelectorComponent,
     ProgressLineComponent,
     ErrorMessageComponent,
     SignupFormComponent,
@@ -95,6 +99,7 @@ import { NgxSidebarService } from './ng5-basic/ngx-sidebar/ngx-sidebar.service';
     TranslateModule.forRoot({}),
     BrowserAnimationsModule,
     HttpClientModule,
+    NgbModule,
     BrowserModule,
     ToastaModule,
     FormsModule,

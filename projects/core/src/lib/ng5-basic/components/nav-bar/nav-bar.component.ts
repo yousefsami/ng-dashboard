@@ -57,13 +57,11 @@ export class NavBarComponent implements OnInit {
       this.config = this.gconfig.navbar;
     }
     this.configService.NavbarInteractiveButtons.subscribe(buttons => {
-      console.log('buttons', buttons);
       this.interactiveButtons = buttons;
     });
   }
 
   public interactiveBtnClick(btn: InteractiveButton) {
-    console.log('btn click!', btn);
     if (btn.onPress) {
       btn.onPress(btn);
     }

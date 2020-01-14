@@ -12,6 +12,7 @@ import 'rxjs/add/operator/catch';
 import { Router } from '@angular/router';
 import { ActionsService } from '../services/actions.service';
 import { TranslateService } from './translate.service';
+import { ConfigurationService } from './configuration.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -19,7 +20,8 @@ export class TokenInterceptor implements HttpInterceptor {
     private user: UserService,
     private router: Router,
     private translate: TranslateService,
-    private actions: ActionsService
+    private actions: ActionsService,
+    private config: ConfigurationService
   ) {}
 
   intercept(
@@ -30,6 +32,7 @@ export class TokenInterceptor implements HttpInterceptor {
     const headers = Object.assign(
       {
         'x-token': this.user.GetToken(),
+        'x-selected-team': this.config.SelectedTeam.value,
         'x-lang': this.translate.currentLang
       },
       HeadersToObject(request.headers)

@@ -9,6 +9,7 @@ import {
   NgDashboardEn,
   UserService
 } from 'projects/core/src/public_api';
+import { Router } from '@angular/router';
 
 @NgModule({
   declarations: [AppComponent, GuideComponent],
@@ -16,11 +17,23 @@ import {
     BrowserModule,
     AppRoutingModule,
     NgDashboardModule.forRoot({
+      navbar: {
+        search: {
+          terms: []
+        },
+        notification: true,
+        profile: true
+      },
       api: 'http://localhost:1337',
       navigation: [
         {
-          title: 'Login',
-          link: '/login'
+          title: 'Auth',
+          children: [
+            {
+              title: 'Login',
+              link: '/login'
+            }
+          ]
         }
       ],
       auth: {
@@ -32,7 +45,11 @@ import {
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(private config: ConfigurationService, private user: UserService) {
+  constructor(
+    private config: ConfigurationService,
+    private user: UserService,
+    private router: Router
+  ) {
     this.user.SetUser({
       firstname: 'Ali',
       lastname: 'Torabi',
@@ -57,5 +74,25 @@ export class AppModule {
     ]);
     this.config.translationsDictionary = NgDashboardEn;
     this.config.language.next('en');
+    this.config.SelectedTeam.subscribe(team => {
+      console.log('User new team', team);
+    });
+    this.config.Teams.next([
+      {
+        members: [],
+        name: 'Personal team'
+      },
+      {
+        members: [],
+        name: `Ali's team`
+      }
+    ]);
+    this.config.TeamsConfig.next({
+      manageTeams: true,
+      manageTeamsText: 'ManageTeams',
+      onClick: () => {
+        this.router.navigateByUrl('/teams');
+      }
+    });
   }
 }
