@@ -94,5 +94,15 @@ export class AppModule {
         this.router.navigateByUrl('/teams');
       }
     });
+
+    this.config.DockedMenu.next([
+      {
+        icon: 'icon-logout',
+        title: 'Sign-out',
+        onClick: () => {
+          alert('You should implement user leave!');
+        }
+      }
+    ]);
   }
 }

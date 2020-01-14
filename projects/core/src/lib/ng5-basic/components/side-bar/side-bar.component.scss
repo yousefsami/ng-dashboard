@@ -1,29 +1,54 @@
 @import '../../scss/layout';
+@import "../../scss/vars";
 
 .bd-sidebar {
-    width: $sidebar_width;
-    position: fixed !important;
-    top: $navbar_height;
-    left: 0;
-    bottom: 0;
-    z-index: 1;
-    background: #fff;
-    padding: 0;
-    transform: translateX(-100%);
-    transition-duration: .5s;
-    transition-timing-function: cubic-bezier(.25,.8,.25,1);
-    transition-property: transform;
-    box-shadow: 6px 0 6px rgba(0,0,0,.1);
+  width: $sidebar_width;
+  position: fixed !important;
+  top: $navbar_height;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+  background: #fff;
+  padding: 0;
+  transform: translateX(-100%);
+  transition-duration: 0.5s;
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-property: transform;
+  box-shadow: 6px 0 6px rgba(0, 0, 0, 0.1);
 
-    &.active{
-        transform: translateX(0);
-    }
+  &.active {
+    transform: translateX(0);
+  }
 }
 
-::ng-deep body[dir="rtl"] {
-  .bd-sidebar{
+::ng-deep body[dir='rtl'] {
+  .bd-sidebar {
     right: 0;
     left: auto;
     transform: translateX(100%);
-  }    
+  }
+}
+
+.ngd-sidebar-docked-bottom {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid $divider;
+  justify-content: center;
+  color: $secondary-text;
+  i {
+    font-size: 22px;
+  }
+  .ngd-docker-menu-item {
+    flex: 1;
+    text-align: center;
+
+    &:hover {
+      color: $theme-color;
+      cursor: pointer;
+    }
+  }
 }

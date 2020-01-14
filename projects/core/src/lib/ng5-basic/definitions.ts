@@ -261,3 +261,9 @@ export interface TeamsConfig {
   manageTeamsText?: string;
   onClick?: () => void;
 }
+
+export interface DockedMenu {
+  title?: string;
+  icon?: string;
+  onClick?: () => void;
+}

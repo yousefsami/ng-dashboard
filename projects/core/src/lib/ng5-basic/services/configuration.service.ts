@@ -4,7 +4,8 @@ import {
   INavigation,
   InteractiveButton,
   Team,
-  TeamsConfig
+  TeamsConfig,
+  DockedMenu
 } from '../definitions';
 import { BehaviorSubject } from 'rxjs';
 import { IAuthConfig } from '../../auth/definitions';
@@ -18,6 +19,9 @@ export class ConfigurationService {
   > = new BehaviorSubject([]);
 
   public SelectedTeam: BehaviorSubject<Team> = new BehaviorSubject(null);
+  public DockedMenu: BehaviorSubject<Array<DockedMenu>> = new BehaviorSubject(
+    []
+  );
   public TeamsConfig: BehaviorSubject<TeamsConfig> = new BehaviorSubject({});
   public Teams: BehaviorSubject<Array<Team>> = new BehaviorSubject([]);
 

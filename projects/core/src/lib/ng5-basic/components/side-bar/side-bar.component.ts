@@ -69,6 +69,10 @@ export class SideBarComponent implements OnInit {
     this.nav = navigationWithMetaDataHistory(navigationWithUniqueKey(value));
   }
 
+  public get DockedMenu() {
+    return this.config.DockedMenu.value;
+  }
+
   constructor(
     public config: ConfigurationService,
     public sidebar: NgxSidebarService
