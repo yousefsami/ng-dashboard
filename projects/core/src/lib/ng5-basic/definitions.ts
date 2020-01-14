@@ -251,7 +251,7 @@ export interface InteractiveButton {
 
 export interface Team {
   name?: string;
-  id?: number;
+  id?: any;
   owner?: number;
   members: Array<IUser>;
 }

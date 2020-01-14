@@ -170,8 +170,8 @@ export class NgxSidebarService {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(true));
   }
 
-  public Hide() {
-    if (window.innerWidth > 992) {
+  public Hide(type: null | 'OUTSIDE_CLICK' = null) {
+    if (window.innerWidth > 992 && 'OUTSIDE_CLICK' === type) {
       return;
     }
     this.SidebarVisibilityState.next(false);

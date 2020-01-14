@@ -21,7 +21,7 @@ export class LayoutComponent implements OnInit {
 
   sideOff() {
     if (this.isSidebarVisible) {
-      this.sidebar.Hide();
+      this.sidebar.Hide('OUTSIDE_CLICK');
     }
   }
 }
