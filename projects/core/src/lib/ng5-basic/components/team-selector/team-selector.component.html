@@ -10,7 +10,7 @@
     ngbDropdownAnchor
     (focus)="myDrop.open()"
   >
-    {{ selectedTeam ? selectedTeam.name : teams[0].name }}
+    {{ label }}
   </button>
   <div ngbDropdownMenu aria-labelledby="dropdownManual">
     <ng-container *ngFor="let team of teams">

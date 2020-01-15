@@ -32,7 +32,6 @@ export class TokenInterceptor implements HttpInterceptor {
     const headers = Object.assign(
       {
         'x-token': this.user.GetToken(),
-        'x-selected-team': this.config.SelectedTeam.value,
         'x-lang': this.translate.currentLang
       },
       HeadersToObject(request.headers)

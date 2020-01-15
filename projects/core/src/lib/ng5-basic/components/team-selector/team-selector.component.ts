@@ -22,13 +22,26 @@ export class TeamSelectorComponent implements OnInit {
     this.config.Teams.subscribe(teams => (this.teams = teams));
   }
 
+  public formatLabel(team: Team) {
+    return team.name;
+  }
+
+  public get label() {
+    if (!this.teams || this.teams.length === 0) {
+      return 'Teams';
+    }
+    const selected = this.teams.find(team => team.$selected);
+
+    if (!selected) {
+      return this.formatLabel(this.teams[0]);
+    }
+    return this.formatLabel(selected);
+  }
+
   public get TeamsConfig() {
     return this.config.TeamsConfig.value;
   }
 
-  public get selectedTeam() {
-    return this.config.SelectedTeam.value;
-  }
   public selectTeam(team: Team) {
     this.config.SelectedTeam.next(team);
   }

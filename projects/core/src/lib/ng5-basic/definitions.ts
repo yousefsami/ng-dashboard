@@ -253,6 +253,7 @@ export interface Team {
   name?: string;
   id?: any;
   owner?: number;
+  $selected?: boolean;
   members: Array<IUser>;
 }
 

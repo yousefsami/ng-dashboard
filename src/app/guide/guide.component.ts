@@ -23,7 +23,8 @@ export class GuideComponent implements OnInit {
       },
       {
         members: [],
-        name: `Ali's team`
+        name: `Ali's team`,
+        $selected: true
       }
     ]);
     this.config.TeamsConfig.next({
@@ -32,11 +33,6 @@ export class GuideComponent implements OnInit {
       onClick: () => {
         alert('You clicked this. Use angular router to go to teams page');
       }
-    });
-
-    this.config.SelectedTeam.next({
-      members: [],
-      name: `Ali's team`
     });
   }
 }
