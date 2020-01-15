@@ -45,6 +45,7 @@ import { UserService } from './ng5-basic/services/user.service';
 import { NgxSidebarService } from './ng5-basic/ngx-sidebar/ngx-sidebar.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TeamSelectorComponent } from './ng5-basic/components/team-selector/team-selector.component';
+import { TeamsService } from './ng5-basic/services/teams.service';
 
 @NgModule({
   declarations: [
@@ -118,6 +119,7 @@ import { TeamSelectorComponent } from './ng5-basic/components/team-selector/team
     NgxSidebarService,
     FacebookService,
     UserService,
+    TeamsService,
     GlobalizationService
   ]
 })

@@ -57,14 +57,12 @@ export class ConfigurationService {
     if (
       this.hasChangedSinceLastRefresh(programDefaultNaviation, 'navigation')
     ) {
-      console.log('Changed!');
       localStorage.setItem(
         `sidebar_items`,
         JSON.stringify(programDefaultNaviation)
       );
       return programDefaultNaviation;
     }
-    console.log('Cache is valid');
 
     let menu;
     try {

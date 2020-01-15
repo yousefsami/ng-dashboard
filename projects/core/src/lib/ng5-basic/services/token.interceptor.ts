@@ -8,31 +8,26 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserService } from '../services/user.service';
-import 'rxjs/add/operator/catch';
-import { Router } from '@angular/router';
-import { ActionsService } from '../services/actions.service';
 import { TranslateService } from './translate.service';
-import { ConfigurationService } from './configuration.service';
+import { TeamsService } from './teams.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   constructor(
     private user: UserService,
-    private router: Router,
     private translate: TranslateService,
-    private actions: ActionsService,
-    private config: ConfigurationService
+    private teams: TeamsService
   ) {}
 
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    // this.actions.scrollTop();
     const headers = Object.assign(
       {
         'x-token': this.user.GetToken(),
-        'x-lang': this.translate.currentLang
+        'x-lang': this.translate.currentLang,
+        'x-team': this.teams.CurrentSelectedTeam
       },
       HeadersToObject(request.headers)
     );

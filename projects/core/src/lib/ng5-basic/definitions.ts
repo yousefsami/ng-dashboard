@@ -46,7 +46,7 @@ export interface SidebarWidgetItem {
  * A place, defines the area of modules and infrustructure
  */
 export interface ILocation {
-  id: Number;
+  id: number;
   name: string;
   icon: string;
   temperatureDevice: any;
@@ -80,7 +80,7 @@ export enum ActivityTypes {
  * This represents if an activity occures in application
  */
 export interface IActivity {
-  id: Number;
+  id: number;
   description: string;
   type: ActivityTypes;
   meta: any;

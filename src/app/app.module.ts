@@ -83,9 +83,6 @@ export class AppModule {
     ]);
     this.config.translationsDictionary = NgDashboardEn;
     this.config.language.next('en');
-    this.config.SelectedTeam.subscribe(team => {
-      console.log('User new team', team);
-    });
     this.config.Teams.next([
       {
         members: [],
