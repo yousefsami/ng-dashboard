@@ -80,7 +80,7 @@ export class LoginFormComponent extends ComponentCommon implements OnInit {
   }
 
   public loginFacebook() {
-    if (!FB) {
+    if (typeof FB === 'undefined') {
       return;
     }
     FB.login((result: any) => {}, { scope: 'public_profile,email' });

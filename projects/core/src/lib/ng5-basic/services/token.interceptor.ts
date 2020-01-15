@@ -23,23 +23,13 @@ export class TokenInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const headers = Object.assign(
-      {
-        'x-token': this.user.GetToken(),
+    request = request.clone({
+      setHeaders: {
+        'x-token': `${this.user.GetToken()}`,
         'x-lang': this.translate.currentLang,
-        'x-team': this.teams.CurrentSelectedTeam
-      },
-      HeadersToObject(request.headers)
-    );
-    request = request.clone({ setHeaders: headers });
+        'x-team': '' + this.teams.CurrentSelectedTeam
+      }
+    });
     return next.handle(request);
   }
-}
-
-function HeadersToObject(headers: HttpHeaders): any {
-  const heads = {};
-  headers.keys().forEach(key => {
-    heads[key] = headers.get(key);
-  });
-  return heads;
 }

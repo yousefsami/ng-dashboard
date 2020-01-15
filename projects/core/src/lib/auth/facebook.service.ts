@@ -38,6 +38,9 @@ export class FacebookService {
   public IsLoggedInByFacebook(): Promise<boolean> {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
+        if (typeof FB === 'undefined') {
+          return;
+        }
         FB.getLoginStatus(async (response: IFacebookResponse) => {
           if (response.status === 'connected') {
             const data = await this.getGraphAPI(
