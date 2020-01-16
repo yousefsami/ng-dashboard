@@ -18,6 +18,10 @@ export class ConfigurationService {
     InteractiveButton[]
   > = new BehaviorSubject([]);
 
+  public SearchTerms: BehaviorSubject<Array<any>> = new BehaviorSubject([]);
+  public NavigationItems: BehaviorSubject<
+    Array<INavigation>
+  > = new BehaviorSubject([]);
   public SelectedTeam: BehaviorSubject<Team> = new BehaviorSubject(null);
   public DockedMenu: BehaviorSubject<Array<DockedMenu>> = new BehaviorSubject(
     []
@@ -52,7 +56,7 @@ export class ConfigurationService {
   }
 
   public getNavigationItems(): INavigation[] {
-    const programDefaultNaviation = this.config.navigation;
+    const programDefaultNaviation = this.NavigationItems.value;
 
     if (
       this.hasChangedSinceLastRefresh(programDefaultNaviation, 'navigation')

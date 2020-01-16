@@ -1,0 +1,12 @@
+
+
+.interactive-button {
+  font-size: 28px;
+
+  .clickable {
+    cursor: pointer;
+    &:hover {
+      color: #4c84ff;
+    }
+  }
+}

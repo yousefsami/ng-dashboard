@@ -1,0 +1,12 @@
+<div class="interactive-button">
+  <ng-container *ngFor="let button of interactiveButtons">
+    <span
+      (click)="interactiveBtnClick(button)"
+      placement="left"
+      [ngbTooltip]="button.tooltip"
+      [ngClass]="{ clickable: button.onPress }"
+    >
+      <i [class]="button.icon"></i>
+    </span>
+  </ng-container>
+</div>

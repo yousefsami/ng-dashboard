@@ -1,3 +1,5 @@
+@import '../../scss/layout';
+
 .notification-container {
   width: 43px;
   height: 43px;
@@ -37,7 +39,7 @@
 
 .ngd-notification-wrapper {
   position: fixed;
-  top: 3.8em;
+  top: $navbar_height;
   right: 0;
   width: 300px;
   bottom: 0;
@@ -159,7 +161,7 @@
 }
 .notification-overlay {
   position: fixed;
-  top: 3.8em;
+  top: $navbar_height;
   bottom: 0;
   left: 0;
   right: 0;

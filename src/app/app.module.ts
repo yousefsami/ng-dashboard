@@ -10,47 +10,27 @@ import {
   UserService
 } from 'projects/core/src/public_api';
 import { Router } from '@angular/router';
-import { ToastaModule } from 'ngx-toasta';
+import { ToastaModule, ToastaService } from 'ngx-toasta';
 
 @NgModule({
   declarations: [AppComponent, GuideComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ToastaModule.forRoot(),
+    ToastaModule,
     NgDashboardModule.forRoot({
       navbar: {
-        search: {
-          terms: [
-            {
-              description: 'Guide about using this dashboard',
-              title: 'Guide',
-              id: '1',
-              keywords: 'Guide, Guideline, help'
-            }
-          ]
-        },
+        search: {},
         notification: true,
         profile: true
       },
       api: 'http://localhost:1337',
-      navigation: [
-        {
-          title: 'Auth',
-          children: [
-            {
-              title: 'Login',
-              link: '/login'
-            }
-          ]
-        }
-      ],
       auth: {
         afterSignupRedirect: '/'
       }
     })
   ],
-  providers: [],
+  providers: [ToastaService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
@@ -72,6 +52,7 @@ export class AppModule {
       {
         icon: 'icon-info',
         title: 'info',
+        tooltip: 'Also it can have tool tip',
         key: 'info_btn',
         onPress: () => {
           alert(
@@ -83,6 +64,23 @@ export class AppModule {
     ]);
     this.config.translationsDictionary = NgDashboardEn;
     this.config.language.next('en');
+    this.config.SearchTerms.next([
+      {
+        title: 'Say hello',
+        description: 'Select me, and there will be a hello',
+        onClick: () => {
+          alert('Hello!');
+        },
+        id: '2',
+        keywords: 'Hello, Hi, Hello, Test'
+      },
+      {
+        description: 'Guide about using this dashboard',
+        title: 'Guide',
+        id: '1',
+        keywords: 'Guide, Guideline, help'
+      }
+    ]);
     this.config.Teams.next([
       {
         members: [],
@@ -108,6 +106,44 @@ export class AppModule {
         onClick: () => {
           alert('You should implement user leave!');
         }
+      }
+    ]);
+
+    this.config.NavigationItems.next([
+      {
+        title: 'Auth',
+        children: [
+          {
+            title: 'Login',
+            link: '/login'
+          },
+          {
+            title: 'Item 2'
+          },
+          {
+            title: 'Item 3'
+          },
+          {
+            title: 'Item 4'
+          }
+        ]
+      },
+      {
+        title: 'Second menu',
+        children: [
+          {
+            title: 'Item 1'
+          },
+          {
+            title: 'Item 2'
+          },
+          {
+            title: 'Item 3'
+          },
+          {
+            title: 'Item 4'
+          }
+        ]
       }
     ]);
   }

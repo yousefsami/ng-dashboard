@@ -1,22 +1,44 @@
-<ul [ngClass]='containerClass'>  
+<ul class="list-ul" [ngClass]="containerClass">
   <ng-container *ngIf="isRouteFocused">
-    <a class="move-back-btn" (click)="GoBack();">{{ 'move_back' | t}}</a>
-    <li *ngIf="nav" [routerLinkActive]="nav.link ? 'opened' : ''"  (click)="menuToggle($event, nav);$event.stopPropagation()">
-      <a (click)="onLinkClick(nav)" class="ngx-menu-item ngx-menu-link-{{nav.class}}" [routerLink]="nav.link">
-        <i [class]='nav.icon'></i>
+    <a class="move-back-btn" (click)="GoBack()">{{ 'move_back' | t }}</a>
+    <li
+      *ngIf="nav"
+      [routerLinkActive]="nav.link ? 'opened' : ''"
+      (click)="menuToggle($event, nav); $event.stopPropagation()"
+    >
+      <a
+        (click)="onLinkClick(nav)"
+        class="ngx-menu-item ngx-menu-link-{{ nav.class }}"
+        [routerLink]="nav.link"
+      >
+        <i [class]="nav.icon"></i>
         {{ nav.title | t }}
       </a>
     </li>
   </ng-container>
   <ng-template #dynamic></ng-template>
   <ng-container *ngIf="!isRouteFocused">
-    <ng-container *ngFor="let nav of navigation" >
-      <li *ngIf="nav" [routerLinkActive]="nav.link || nav.$collapsed ? 'opened' : ''"  (click)="menuToggle($event, nav);$event.stopPropagation()">
-        <a (click)="renderComponents(nav.component)" class="ngx-menu-item ngx-menu-link-{{nav.class}}" [routerLink]="nav.link">
-          <i [class]='nav.icon'></i>
+    <ng-container *ngFor="let nav of navigation">
+      <li
+        *ngIf="nav"
+        [routerLinkActive]="nav.link || nav.$collapsed ? 'opened' : ''"
+        (click)="menuToggle($event, nav); $event.stopPropagation()"
+        placement="right"
+        [ngbTooltip]="nav.tooltip ? nav.tooltip: undefined"
+      >
+        <a
+          (click)="renderComponents(nav.component)"
+          class="ngx-menu-item ngx-menu-link-{{ nav.class }}"
+          [routerLink]="nav.link"
+        >
+          <i [class]="nav.icon"></i>
           {{ nav.title | t }}
         </a>
-        <ngx-sidebar *ngIf="nav.children" [navigation]='nav.children' [containerClass]="'child-ul'"></ngx-sidebar>
+        <ngx-sidebar
+          *ngIf="nav.children"
+          [navigation]="nav.children"
+          [containerClass]="'child-ul'"
+        ></ngx-sidebar>
       </li>
     </ng-container>
   </ng-container>

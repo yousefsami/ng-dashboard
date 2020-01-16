@@ -7,7 +7,7 @@ import { NgxSidebarService } from '../../ngx-sidebar/ngx-sidebar.service';
  * we need to set a unique id to each item. It's hard to ask user to add key for each element
  * we do it here automatically
  */
-function navigationWithUniqueKey(items) {
+function navigationWithUniqueKey(items = []) {
   return items.map(menu => {
     if (menu.children) {
       menu.children = navigationWithUniqueKey(menu.children);
@@ -34,30 +34,6 @@ function updateMenuInNavigation(items, item) {
   });
 }
 
-function navigationWithMetaDataHistory(items) {
-  return items.map(menu => {
-    if (menu.children) {
-      menu.children = navigationWithMetaDataHistory(menu.children);
-    }
-
-    let menuItemCache = null;
-    try {
-      menuItemCache = JSON.parse(localStorage.getItem(`menu_key_${menu.key}`));
-    } catch (error) {
-      // Suppressed intentionally
-    }
-
-    if (!menuItemCache) {
-      return menu;
-    }
-
-    return {
-      ...menu,
-      $collapsed: menuItemCache.$collapsed
-    };
-  });
-}
-
 @Component({
   selector: 'ng-side-bar',
   templateUrl: './side-bar.component.html',
@@ -80,9 +56,9 @@ export class SideBarComponent implements OnInit {
     public config: ConfigurationService,
     public sidebar: NgxSidebarService
   ) {
-    this.sidebar.SidebarVisibilityState.subscribe(
-      val => (this.isSidebarVisible = val)
-    );
+    this.sidebar.SidebarVisibilityState.subscribe(val => {
+      this.isSidebarVisible = val;
+    });
   }
 
   ngOnInit() {

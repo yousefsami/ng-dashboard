@@ -33,6 +33,9 @@ export class NgxSidebarComponent implements OnInit {
       if (event.key === 'm' || event.key === 'M') {
         this.sidebar.Toggle();
       }
+      if (event.key === 'Escape' || event.key === 'Backspace') {
+        this.sidebar.Hide();
+      }
     }
   }
 

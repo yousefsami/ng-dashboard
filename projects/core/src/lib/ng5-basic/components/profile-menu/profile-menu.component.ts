@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'ng-profile-menu',
@@ -6,12 +7,11 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./profile-menu.component.scss']
 })
 export class ProfileMenuComponent {
-  @Input() public user = null;
   public display = '';
-  constructor() {}
+  constructor(private user: UserService) {}
 
   public name() {
-    const user = this.user;
+    const user = this.user.User;
     if (!user) {
       return 'GU';
     }

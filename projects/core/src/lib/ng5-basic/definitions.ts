@@ -245,6 +245,7 @@ export interface InteractiveButton {
   icon?: string;
   title?: string;
   key?: string;
+  tooltip?: string;
   onPress?: (InteractiveButton?) => void;
   keyboardShortcut?: string;
 }
@@ -255,10 +256,12 @@ export interface Team {
   owner?: number;
   $selected?: boolean;
   members: Array<IUser>;
+  $tooltip?: string;
 }
 
 export interface TeamsConfig {
   manageTeams?: boolean;
+  tooltip?: string;
   manageTeamsText?: string;
   onClick?: () => void;
 }

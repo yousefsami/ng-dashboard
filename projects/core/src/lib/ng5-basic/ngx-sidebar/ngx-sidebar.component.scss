@@ -2,6 +2,7 @@
   list-style: none;
   padding: 0;
   position: relative;
+  margin: 0;
 }
 
 ul li {
@@ -11,21 +12,21 @@ ul li {
   display: none;
   position: relative;
   > a:after {
-    content: "\e99a";
+    content: '\e99a';
     font-family: 'material';
     display: inline-block;
     top: 16px;
     right: 15px;
     position: absolute;
-    font-size: 23px;
+    font-size: 20px;
     left: auto;
-    transition: transform .3s;
+    transition: transform 0.3s;
   }
   &.opened > a:after {
     transform: rotate(90deg);
   }
   > a:only-child:after {
-    content: "";
+    content: '';
     border: 0;
   }
 }
@@ -36,34 +37,41 @@ ul li {
     &.opened {
       background: #f7f7f7;
       border-left: 3px solid #4c84ff;
-      
+
       .child-ul {
         background: #f9f9f9;
       }
     }
-    > a:hover{
-          background: #f7f7f7 !important;
-      }
+    > a:hover {
+      background: #f7f7f7 !important;
+    }
   }
   li {
-    i[class^="icon-"], i[class^="fa-"] {
+    i[class^='icon-'],
+    i[class^='fa-'] {
       font-size: 22px;
       padding-right: 5px;
       text-align: center;
       color: #888;
     }
-    i[class^="fa-"] {
+    i[class^='fa-'] {
       font-size: 20px;
       padding: 0 9px;
     }
     a {
       display: block;
       font-weight: 400;
-      padding: 20px 20px;
+      padding: 6px 20px;
+      &:after {
+        top: 5px !important;
+      }
+      @media (max-width: 992px) {
+        padding: 12px 20px;
+      }
       color: #333;
       text-decoration: none;
     }
-    &.opened > a{
+    &.opened > a {
       color: #4c84ff !important;
     }
     &.opened > ngx-sidebar > .child-ul > li {
@@ -87,18 +95,18 @@ ul li {
 .child-ul > li {
   position: relative;
   &:hover > a {
-      color: #4c84ff;
+    color: #4c84ff;
   }
 }
 
-::ng-deep body[dir="rtl"] {
-  .bd-sidebar{
+::ng-deep body[dir='rtl'] {
+  .bd-sidebar {
     ul li {
       a {
         text-align: right;
       }
       > a:after {
-        content: "\e999" !important;
+        content: '\e999' !important;
         right: auto !important;
         left: 15px !important;
       }
@@ -114,7 +122,7 @@ ul li {
         }
       }
       li {
-        i[class^="icon-"] {
+        i[class^='icon-'] {
           padding-right: 0px !important;
           padding-left: 5px;
         }
@@ -127,4 +135,21 @@ ul li {
   display: block;
   cursor: pointer;
   text-align: right;
+}
+
+.list-ul {
+  -webkit-animation: fadein 0.6s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 0.6s; /* Firefox < 16 */
+  -ms-animation: fadein 0.6s; /* Internet Explorer */
+  -o-animation: fadein 0.6s; /* Opera < 12.1 */
+  animation: fadein 0.6s;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

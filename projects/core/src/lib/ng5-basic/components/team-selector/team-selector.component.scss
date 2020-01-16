@@ -1,4 +1,10 @@
 .ngd-team-selector {
   -webkit-transition: width 0.5s; /* Safari prior 6.1 */
   transition: width 0.5s;
+
+  .mobile-hidden {
+    @media (max-width: 993px) {
+      display: none;
+    }
+  }
 }

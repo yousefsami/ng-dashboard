@@ -8,13 +8,25 @@
     class="btn btn-outline-primary mr-2"
     id="dropdownManual"
     ngbDropdownAnchor
+    placement="right"
+    ngbTooltip="{{
+      ('team_drop_down_tooltip' | t) !== 'team_drop_down_tooltip'
+        ? ('team_drop_down_tooltip' | t)
+        : undefined
+    }}"
     (focus)="myDrop.open()"
   >
-    {{ label }}
+    <span class="mobile-hidden">{{ label }}</span>
+    <i class="icon-transfer_within_a_station"></i>
   </button>
   <div ngbDropdownMenu aria-labelledby="dropdownManual">
     <ng-container *ngFor="let team of teams">
-      <button (click)="selectTeam(team)" ngbDropdownItem>
+      <button
+        (click)="selectTeam(team)"
+        ngbDropdownItem
+        placement="right"
+        [ngbTooltip]="team.$tooltip ? team.$tooltip : undefined"
+      >
         {{ team.name }}
       </button>
     </ng-container>
@@ -23,6 +35,8 @@
       <button
         (click)="TeamsConfig.onClick ? TeamsConfig.onClick() : null"
         ngbDropdownItem
+        placement="right"
+        [ngbTooltip]="TeamsConfig.tooltip ? TeamsConfig.tooltip : undefined"
       >
         {{ TeamsConfig.manageTeamsText }}
       </button>

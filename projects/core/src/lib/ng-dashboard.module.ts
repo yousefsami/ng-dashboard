@@ -46,6 +46,7 @@ import { NgxSidebarService } from './ng5-basic/ngx-sidebar/ngx-sidebar.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TeamSelectorComponent } from './ng5-basic/components/team-selector/team-selector.component';
 import { TeamsService } from './ng5-basic/services/teams.service';
+import { InteractiveButtonsComponent } from './ng5-basic/components/interactive-buttons/interactive-buttons.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { TeamsService } from './ng5-basic/services/teams.service';
     LayoutFadeComponent,
     SideBarComponent,
     NavBarComponent,
+    InteractiveButtonsComponent,
     ProfileMenuComponent,
     NotificationListComponent,
     UiIconBoxComponent,
@@ -77,6 +79,7 @@ import { TeamsService } from './ng5-basic/services/teams.service';
     SideBarComponent,
     NavBarComponent,
     ProfileMenuComponent,
+    InteractiveButtonsComponent,
     LayoutFadeComponent,
     NotificationListComponent,
     UiIconBoxComponent,

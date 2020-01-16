@@ -10,24 +10,13 @@ import { TranslateService } from '../../services/translate.service';
 import { NgxSidebarService } from '../../ngx-sidebar/ngx-sidebar.service';
 
 @Component({
-  selector: 'ng-nav-bar',
-  templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.scss'],
+  selector: 'ng-interactive-buttons',
+  templateUrl: './interactive-buttons.component.html',
+  styleUrls: ['./interactive-buttons.component.scss'],
   providers: [TranslateService]
 })
-export class NavBarComponent implements OnInit {
-  public MobileSearchBar = false;
+export class InteractiveButtonsComponent implements OnInit {
   public interactiveButtons: InteractiveButton[] = [];
-  public config: NavbarConfig = {
-    notification: false,
-    profile: false,
-    avatar: 'DOC',
-    brand: 'ng-dashboard',
-    title: 'Documentations',
-    search: {
-      terms: []
-    }
-  };
 
   @HostListener('window:keyup', ['$event']) public onKeyDown(
     event: KeyboardEvent
@@ -49,22 +38,10 @@ export class NavBarComponent implements OnInit {
   constructor(
     @Inject('config') public gconfig: NgBasicConfig,
     public sidebar: NgxSidebarService,
-    private translate: TranslateService,
     private configService: ConfigurationService
   ) {}
 
-  public get Terms() {
-    return this.configService.SearchTerms.value;
-  }
-
-  public ToggleSearchBar() {
-    this.MobileSearchBar = !this.MobileSearchBar;
-  }
-
   ngOnInit() {
-    if (this.gconfig && this.gconfig.navbar) {
-      this.config = this.gconfig.navbar;
-    }
     this.configService.NavbarInteractiveButtons.subscribe(buttons => {
       this.interactiveButtons = buttons;
     });
@@ -74,21 +51,5 @@ export class NavBarComponent implements OnInit {
     if (btn.onPress) {
       btn.onPress(btn);
     }
-  }
-
-  public MultiActionKey() {
-    if (this.MobileSearchBar) {
-      this.MobileSearchBar = !this.MobileSearchBar;
-      return;
-    }
-    this.SidebarVisibilityState();
-  }
-
-  SidebarVisibilityState() {
-    this.sidebar.Toggle();
-  }
-
-  public CurrentLanguage() {
-    return SupportedLanguages[this.translate.currentLang];
   }
 }
