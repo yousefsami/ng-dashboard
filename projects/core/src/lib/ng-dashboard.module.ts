@@ -2,7 +2,10 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { NgBasicConfig } from './ng5-basic/definitions';
 
 import { TranslateModule, TranslateStore } from '@ngx-translate/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  BrowserAnimationsModule,
+  NoopAnimationsModule
+} from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -101,8 +104,8 @@ import { InteractiveButtonsComponent } from './ng5-basic/components/interactive-
   imports: [
     AmazingSearchModule,
     TranslateModule.forRoot({}),
-    BrowserAnimationsModule,
     HttpClientModule,
+    NoopAnimationsModule,
     NgbModule,
     BrowserModule,
     ToastaModule,
