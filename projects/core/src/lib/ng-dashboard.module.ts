@@ -31,7 +31,7 @@ import { ConfigurationService } from './ng5-basic/services/configuration.service
 import { StoreModule } from '@ngrx/store';
 import { SpinnerComponent } from './ng5-basic/components/spinner/spinner.component';
 import { LayoutFadeComponent } from './ng5-basic/components/layout-fade/layout-fade.component';
-import { AmazingSearchModule } from '@ng-dashboard/amazing-search';
+import { AmazingSearchModule } from 'amazing-search';
 import { TranslateService } from './ng5-basic/services/translate.service';
 
 import { LoginFormComponent } from './auth/login-form/login-form.component';

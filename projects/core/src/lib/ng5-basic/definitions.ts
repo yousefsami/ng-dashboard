@@ -1,5 +1,5 @@
 import { Action as NgrxAction } from '@ngrx/store';
-import { ISearchable } from '@ng-dashboard/amazing-search';
+// import { ISearchable } from 'amazing-search';
 import { IAuthConfig } from '../auth/definitions';
 
 export interface Action extends NgrxAction {
@@ -223,7 +223,7 @@ export interface NavbarConfig {
   brand?: string;
   avatar?: string;
   search?: {
-    terms?: ISearchable[];
+    terms?: any[];
   };
 }
 

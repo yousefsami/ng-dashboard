@@ -20,6 +20,6 @@
     "url-matcher",
     "ngx-toasta",
     "bootstrap",
-    "@ng-dashboard/amazing-search"
+    "amazing-search"
   ]
 }
