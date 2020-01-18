@@ -1,11 +1,10 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { NgBasicConfig } from './ng5-basic/definitions';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
-import { TranslateModule, TranslateStore } from '@ngx-translate/core';
-import {
-  BrowserAnimationsModule,
-  NoopAnimationsModule
-} from '@angular/platform-browser/animations';
+import { TranslateModule } from '@ngx-translate/core';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -46,7 +45,6 @@ import { TPipe } from './t.pipe';
 import { ToastaModule } from 'ngx-toasta';
 import { UserService } from './ng5-basic/services/user.service';
 import { NgxSidebarService } from './ng5-basic/ngx-sidebar/ngx-sidebar.service';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TeamSelectorComponent } from './ng5-basic/components/team-selector/team-selector.component';
 import { TeamsService } from './ng5-basic/services/teams.service';
 import { InteractiveButtonsComponent } from './ng5-basic/components/interactive-buttons/interactive-buttons.component';
@@ -106,11 +104,12 @@ import { InteractiveButtonsComponent } from './ng5-basic/components/interactive-
     TranslateModule.forRoot({}),
     HttpClientModule,
     NoopAnimationsModule,
-    NgbModule,
     BrowserModule,
+    BsDropdownModule.forRoot(),
     ToastaModule,
     FormsModule,
     NgxTooltipModule,
+    TooltipModule.forRoot(),
     StoreModule.forRoot({}),
     RouterModule.forRoot([]),
     ng5ReducerGenerator()

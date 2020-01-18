@@ -24,7 +24,7 @@
         [routerLinkActive]="nav.link || nav.$collapsed ? 'opened' : ''"
         (click)="menuToggle($event, nav); $event.stopPropagation()"
         placement="right"
-        [ngbTooltip]="nav.tooltip ? nav.tooltip: undefined"
+        [tooltip]="nav.tooltip ? nav.tooltip: undefined"
       >
         <a
           (click)="renderComponents(nav.component)"

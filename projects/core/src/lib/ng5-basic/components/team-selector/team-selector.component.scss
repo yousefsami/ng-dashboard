@@ -1,10 +1,17 @@
 .ngd-team-selector {
   -webkit-transition: width 0.5s; /* Safari prior 6.1 */
   transition: width 0.5s;
+  margin-right: 10px;
 
-  .mobile-hidden {
-    @media (max-width: 993px) {
+  @media (max-width: 693px) {
+    .mobile-hidden {
       display: none;
     }
+    margin-right: 0;
+  }
+
+  .active-bullet {
+    margin-left: -10px;
+    color: blue;
   }
 }
