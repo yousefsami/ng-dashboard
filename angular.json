@@ -43,6 +43,8 @@
               ],
               "optimization": true,
               "outputHashing": "all",
+              "deployUrl": "/ng-dashboard/",
+              "baseHref": "/ng-dashboard/",
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
