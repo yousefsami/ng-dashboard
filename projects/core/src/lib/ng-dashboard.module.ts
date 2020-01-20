@@ -42,7 +42,6 @@ import { SignupFormComponent } from './auth/signup-form/signup-form.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { TPipe } from './t.pipe';
-import { ToastaModule } from 'ngx-toasta';
 import { UserService } from './ng5-basic/services/user.service';
 import { NgxSidebarService } from './ng5-basic/ngx-sidebar/ngx-sidebar.service';
 import { TeamSelectorComponent } from './ng5-basic/components/team-selector/team-selector.component';
@@ -106,7 +105,6 @@ import { InteractiveButtonsComponent } from './ng5-basic/components/interactive-
     NoopAnimationsModule,
     BrowserModule,
     BsDropdownModule.forRoot(),
-    ToastaModule,
     FormsModule,
     NgxTooltipModule,
     TooltipModule.forRoot(),
@@ -126,7 +124,8 @@ import { InteractiveButtonsComponent } from './ng5-basic/components/interactive-
     UserService,
     TeamsService,
     GlobalizationService
-  ]
+  ],
+  entryComponents: []
 })
 export class NgDashboardModule {
   static forRoot(config: NgBasicConfig = {}): ModuleWithProviders {

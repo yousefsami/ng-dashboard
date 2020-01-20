@@ -10,11 +10,7 @@ import {
   UserService
 } from 'projects/core/src/public_api';
 import { Router } from '@angular/router';
-import { ToastaModule, ToastaService } from 'ngx-toasta';
-import {
-  NoopAnimationsModule,
-  BrowserAnimationsModule
-} from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent, GuideComponent],
@@ -22,7 +18,6 @@ import {
     NoopAnimationsModule,
     BrowserModule,
     AppRoutingModule,
-    ToastaModule,
     NgDashboardModule.forRoot({
       navbar: {
         search: {},
@@ -35,7 +30,8 @@ import {
       }
     })
   ],
-  providers: [ToastaService],
+  exports: [],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

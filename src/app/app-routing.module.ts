@@ -6,7 +6,6 @@ import {
   LoginFormComponent,
   SignupFormComponent
 } from 'projects/core/src/public_api';
-import { ToastaModule } from 'ngx-toasta';
 
 const routes: Routes = [
   {
@@ -30,7 +29,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes), ToastaModule.forRoot()],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

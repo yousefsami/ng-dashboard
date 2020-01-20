@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigurationService } from 'projects/core/src/public_api';
+import {
+  ConfigurationService,
+  WorkingStates
+} from 'projects/core/src/public_api';
 
 @Component({
   selector: 'app-guide',
@@ -33,6 +36,40 @@ export class GuideComponent implements OnInit {
       onClick: () => {
         alert('You clicked this. Use angular router to go to teams page');
       }
+    });
+  }
+
+  public showLoader() {
+    WorkingStates.next([
+      {
+        active: true
+      },
+      {
+        active: true
+      }
+    ]);
+  }
+
+  public hideLoader() {
+    WorkingStates.next([]);
+  }
+
+  public showMessage() {
+    this.config.ShowToast({
+      message: 'This is warning',
+      type: 'WARNING'
+    });
+    this.config.ShowToast({
+      message: 'This is success',
+      type: 'SUCCESS'
+    });
+    this.config.ShowToast({
+      message: 'This is info',
+      type: 'INFO'
+    });
+    this.config.ShowToast({
+      message: 'Error',
+      type: 'ERROR'
     });
   }
 }

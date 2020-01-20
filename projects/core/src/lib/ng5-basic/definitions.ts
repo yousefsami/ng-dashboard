@@ -271,3 +271,17 @@ export interface DockedMenu {
   icon?: string;
   onClick?: () => void;
 }
+
+export interface IWorkingState {
+  active: boolean;
+  progress?: number;
+  mode?: 'COMPLETE' | 'MINOR';
+}
+
+export interface IToastMessage {
+  message: string;
+  type?: 'WARNING' | 'ERROR' | 'SUCCESS' | 'INFO';
+  duration?: number;
+  data?: any;
+  onClick?: (message: IToastMessage) => {};
+}

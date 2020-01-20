@@ -7,7 +7,6 @@ import { FacebookService, IFBAuthInformation } from '../facebook.service';
 import { AuthPublicService, AuthEvent } from '../auth-public.service';
 import { ConfigurationService } from '../../ng5-basic/services/configuration.service';
 import { ComponentCommon } from '../../ng5-basic/services/common';
-import { ToastaService } from 'ngx-toasta';
 import { UserService } from '../../ng5-basic/services/user.service';
 declare var FB: any;
 
@@ -37,8 +36,7 @@ export class LoginFormComponent extends ComponentCommon implements OnInit {
     private facebook: FacebookService,
     private config: ConfigurationService,
     private auth: AuthPublicService,
-    private user: UserService,
-    public toastaService: ToastaService
+    private user: UserService
   ) {
     super();
   }

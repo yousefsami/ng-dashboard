@@ -1,5 +1,5 @@
 import { IResponse, IResponseError } from 'response-type';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import {
   HttpEvent,
   HttpHeaders,
@@ -9,8 +9,7 @@ import {
 } from '@angular/common/http';
 import { matchPattern } from 'url-matcher';
 import { merge } from 'lodash';
-import { DataSource } from '../definitions';
-import { ToastOptions, ToastaService } from 'ngx-toasta';
+import { DataSource, IWorkingState } from '../definitions';
 import { OnDestroy } from '@angular/core';
 
 export function GetNetworkError(): IResponse<any> {
@@ -153,30 +152,30 @@ export interface StartRequestResponse<T> {
  * Helps for http requests, working progress, managing response.
  */
 export abstract class ComponentCommon implements OnDestroy {
-  protected toastaService: ToastaService;
+  protected toastaService: any;
   public working: boolean;
 
   ngOnDestroy() {}
   public ResponseError(error2: HttpErrorResponse) {
-    const toastOptions: ToastOptions = {
-      title: error2.status.toString(),
-      msg: error2.statusText,
-      showClose: true,
-      timeout: 5000
-    };
-    this.toastaService.info(toastOptions);
+    // const toastOptions: ToastOptions = {
+    //   title: error2.status.toString(),
+    //   msg: error2.statusText,
+    //   showClose: true,
+    //   timeout: 5000
+    // };
+    // this.toastaService.info(toastOptions);
   }
   public InternalError(error2: Error) {
-    const toastOptions: ToastOptions = {
-      title: error2.name,
-      msg: error2.message,
-      showClose: true,
-      timeout: 5000
-    };
-    this.toastaService.error(toastOptions);
+    // const toastOptions: ToastOptions = {
+    //   title: error2.name,
+    //   msg: error2.message,
+    //   showClose: true,
+    //   timeout: 5000
+    // };
+    // this.toastaService.error(toastOptions);
   }
   public async StartRequest<T>(
-    callableRequest: Function
+    callableRequest: () => any
   ): Promise<StartRequestResponse<T>> {
     this.working = true;
     try {
@@ -202,6 +201,10 @@ export abstract class ComponentCommon implements OnDestroy {
     }
   }
 }
+
+export const WorkingStates: BehaviorSubject<Array<
+  IWorkingState
+>> = new BehaviorSubject([]);
 
 export function parseStorage(key: string) {
   try {

@@ -1,11 +1,14 @@
 import { Injectable, Inject, EventEmitter } from '@angular/core';
+import Toastify from 'toastify-js';
+
 import {
   NgBasicConfig,
   INavigation,
   InteractiveButton,
   Team,
   TeamsConfig,
-  DockedMenu
+  DockedMenu,
+  IToastMessage
 } from '../definitions';
 import { BehaviorSubject } from 'rxjs';
 import { IAuthConfig } from '../../auth/definitions';
@@ -36,6 +39,26 @@ export class ConfigurationService {
 
   public SetInteractiveButtons(buttons: InteractiveButton[]) {
     this.NavbarInteractiveButtons.next(buttons);
+  }
+
+  public ShowToast(data: IToastMessage) {
+    const styles = {
+      ERROR: '#9e4651',
+      INFO: '#5586c0',
+      SUCCESS: 'linear-gradient(to right, #61a372, #96c93d)',
+      WARNING: '#ff7800'
+    };
+
+    Toastify({
+      text: data.message,
+      duration: data.duration || 2000,
+      close: true,
+      gravity: 'top', // `top` or `bottom`
+      position: 'right', // `left`, `center` or `right`
+      backgroundColor: styles[data.type || 'INFO'],
+      stopOnFocus: true, // Prevents dismissing of toast on hover
+      onClick: () => data.onClick(data) // Callback after click
+    }).showToast();
   }
 
   constructor(@Inject('config') public config: NgBasicConfig) {}
