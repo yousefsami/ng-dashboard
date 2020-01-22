@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {
   ConfigurationService,
-  WorkingStates
+  WorkingStates,
+  NgDashboardPl,
+  NgDashboardEn
 } from 'projects/core/src/public_api';
 
 @Component({
@@ -54,9 +56,19 @@ export class GuideComponent implements OnInit {
     WorkingStates.next([]);
   }
 
+  public changeLang(lang) {
+    if (lang === 'pl') {
+      this.config.SetLanguage(lang, NgDashboardPl);
+    }
+    if (lang === 'en') {
+      this.config.SetLanguage(lang, NgDashboardEn);
+    }
+  }
+
   public showMessage() {
     this.config.ShowToast({
-      message: 'This is warning',
+      message:
+        'This is warning, you see, when the text is longer it will stay longer time to give user time to read',
       type: 'WARNING'
     });
     this.config.ShowToast({

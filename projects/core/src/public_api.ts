@@ -13,6 +13,7 @@ export * from './lib/ng5-basic/components/layout-fade/layout-fade.component';
 export * from './lib/ng5-basic/services/helpers';
 export * from './lib/ng5-basic/definitions';
 export * from './lib/ng5-basic/services/common';
+export * from './lib/ng5-basic/services/ngd-base.component';
 
 export * from './lib/auth/login-form/login-form.component';
 export * from './lib/auth/signup-form/signup-form.component';

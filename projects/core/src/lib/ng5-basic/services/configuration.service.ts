@@ -1,4 +1,4 @@
-import { Injectable, Inject, EventEmitter } from '@angular/core';
+import { Injectable, Inject, ApplicationRef } from '@angular/core';
 import Toastify from 'toastify-js';
 
 import {
@@ -12,6 +12,43 @@ import {
 } from '../definitions';
 import { BehaviorSubject } from 'rxjs';
 import { IAuthConfig } from '../../auth/definitions';
+import { NgDashboardPl } from 'projects/core/src/translations/pl';
+import { NgDashboardEn } from 'projects/core/src/translations/en';
+
+const messageHistory = {};
+export function ShowToast(data: IToastMessage) {
+  const styles = {
+    ERROR: '#9e4651',
+    INFO: '#5586c0',
+    SUCCESS: 'linear-gradient(to right, #61a372, #96c93d)',
+    WARNING: '#ff7800'
+  };
+
+  const text = `${data.title || ''} ${data.message}`;
+  const now = new Date().getTime();
+  const expire = now + 1000;
+  if (messageHistory[text] && messageHistory[text].expire > now) {
+    return;
+  }
+  messageHistory[text] = {
+    expire
+  };
+
+  const words = text.split(' ').length;
+  const readingTime = 0.25 * words * 1000 + 1000;
+
+  Toastify({
+    text,
+    duration: data.duration || readingTime,
+    close: true,
+    gravity: 'top', // `top` or `bottom`
+    position: 'right', // `left`, `center` or `right`
+    backgroundColor: styles[data.type || 'INFO'],
+    stopOnFocus: true, // Prevents dismissing of toast on hover
+    onClick: () => data.onClick(data) // Callback after click
+  }).showToast();
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -32,36 +69,20 @@ export class ConfigurationService {
   public TeamsConfig: BehaviorSubject<TeamsConfig> = new BehaviorSubject({});
   public Teams: BehaviorSubject<Array<Team>> = new BehaviorSubject([]);
 
-  public translationsDictionary = {};
+  public translationsDictionary: BehaviorSubject<any> = new BehaviorSubject({});
   public get Config(): IAuthConfig {
     return this.config.auth || {};
   }
 
+  public ShowToast = ShowToast;
   public SetInteractiveButtons(buttons: InteractiveButton[]) {
     this.NavbarInteractiveButtons.next(buttons);
   }
 
-  public ShowToast(data: IToastMessage) {
-    const styles = {
-      ERROR: '#9e4651',
-      INFO: '#5586c0',
-      SUCCESS: 'linear-gradient(to right, #61a372, #96c93d)',
-      WARNING: '#ff7800'
-    };
-
-    Toastify({
-      text: data.message,
-      duration: data.duration || 2000,
-      close: true,
-      gravity: 'top', // `top` or `bottom`
-      position: 'right', // `left`, `center` or `right`
-      backgroundColor: styles[data.type || 'INFO'],
-      stopOnFocus: true, // Prevents dismissing of toast on hover
-      onClick: () => data.onClick(data) // Callback after click
-    }).showToast();
-  }
-
-  constructor(@Inject('config') public config: NgBasicConfig) {}
+  constructor(
+    @Inject('config') public config: NgBasicConfig,
+    private ref: ApplicationRef
+  ) {}
 
   private hasChangedSinceLastRefresh(data: any, key: string) {
     let cached;
@@ -100,6 +121,13 @@ export class ConfigurationService {
       return menu;
     }
     return programDefaultNaviation;
+  }
+
+  public SetLanguage(lang: string, keys: any = {}) {
+    this.translationsDictionary.next({
+      ...keys
+    });
+    this.language.next(lang);
   }
 
   public API(affix): string {

@@ -9,7 +9,11 @@ import {
 } from '@angular/common/http';
 import { matchPattern } from 'url-matcher';
 import { merge } from 'lodash';
-import { DataSource, IWorkingState } from '../definitions';
+import {
+  DataSource,
+  IWorkingState,
+  StartRequestResponse
+} from '../definitions';
 import { OnDestroy } from '@angular/core';
 
 export function GetNetworkError(): IResponse<any> {
@@ -138,12 +142,6 @@ export function UpdateOrInsert(
     newContext = context.concat(element);
   }
   return newContext;
-}
-
-export interface StartRequestResponse<T> {
-  item?: T;
-  items?: T[];
-  error?: IResponseError;
 }
 
 /**

@@ -5,9 +5,15 @@ import { ConfigurationService } from './ng5-basic/services/configuration.service
   name: 't'
 })
 export class TPipe implements PipeTransform {
-  constructor(private config: ConfigurationService) {}
+  private keys: any = {};
+
+  constructor(private config: ConfigurationService) {
+    this.config.translationsDictionary.subscribe(keys => {
+      this.keys = { ...keys };
+    });
+  }
   transform(value: any, ...args: any[]): any {
-    const translatedPhrase = this.config.translationsDictionary[value];
+    const translatedPhrase = this.keys[value];
 
     if (!translatedPhrase) {
       console.warn(
@@ -17,6 +23,7 @@ export class TPipe implements PipeTransform {
         this.config.language.value
       );
     }
+    console.log(translatedPhrase);
     return translatedPhrase || value;
   }
 }

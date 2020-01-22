@@ -37,3 +37,14 @@ Please check <strong>guide.component.ts</strong> for these examples, but you can
 <p>You can show toast messags</p>
 
 <button class="btn btn-primary" (click)="showMessage()">Show</button>
+
+
+<h2>Change language</h2>
+<p>You can change language by calling 'SetLanguage' function. We have some predefined english and polish translations,
+  but you need to provide for other languages with for dashboard (dashboard + your app).
+  <br>
+  `en.ts` and `pl.ts` is a good reference for available translations
+</p>
+
+<button class="btn btn-primary" (click)="changeLang('pl')">Go Polish</button>
+<button class="btn btn-primary" (click)="changeLang('en')">Go English</button>

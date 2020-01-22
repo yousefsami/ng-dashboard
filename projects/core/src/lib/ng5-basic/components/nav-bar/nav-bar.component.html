@@ -29,7 +29,13 @@
 
   <div class="nav-middle-actions">
     <div class="search-container">
-      <amazing-search [terms]="Terms"></amazing-search>
+      <amazing-search
+        [terms]="Terms"
+        [options]="{
+          placeholderMobileText: 'search_place_holder_mobile' | t,
+          placeholderText: 'search_place_holder' | t
+        }"
+      ></amazing-search>
     </div>
   </div>
 

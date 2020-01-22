@@ -13,7 +13,7 @@
           type="email"
           class="form-control app-login-form-email"
           name="email"
-          [(ngModel)]="form.email"
+          [(ngModel)]="form2.email"
         />
         <span class="focus-input" data-placeholder="Email"></span>
         <span class="error-message" *ngIf="error(response, 'email')">{{
@@ -27,7 +27,7 @@
           class="app-login-form-password form-control "
           [type]="passwordVisibility ? 'text' : 'password'"
           name="password"
-          [(ngModel)]="form.password"
+          [(ngModel)]="form2.password"
         />
         <span class="focus-input" data-placeholder="Password"></span>
         <span class="error-message" *ngIf="error(response, 'password')">{{

@@ -1,15 +1,14 @@
-@import "../../scss/layout";
+@import '../../scss/layout';
 
 .ngd-outlet {
   overflow-y: scroll !important;
   position: fixed !important;
-  z-index: -1;
   padding: 30px;
   bottom: 0;
   right: 0;
   left: 0;
   top: $navbar_height;
-  transition-duration: 0.5s;
+  transition-duration: 0.7s;
   transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
   transition-property: right, left;
   &.ngd-sidebar-visible {
@@ -18,7 +17,7 @@
   }
 }
 
-::ng-deep body[dir="rtl"] {
+::ng-deep body[dir='rtl'] {
   .ngd-outlet {
     &.ngd-sidebar-visible {
       right: $sidebar_width;

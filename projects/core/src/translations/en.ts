@@ -6,5 +6,10 @@ export const NgDashboardEn = {
   auth_login_submit: 'Continue',
   auth_create_account_button: 'You can also',
   auth_login_signup_link: 'create new account',
-  auth_login_forgot_password: 'I have forgot my password'
+  auth_login_forgot_password: 'I have forgot my password',
+
+  search_place_holder: 'Search (S)...',
+  search_place_holder_mobile: 'Tap to search...',
+  no_notification: 'There are not any activities yet',
+  notifications: 'Notifications'
 };

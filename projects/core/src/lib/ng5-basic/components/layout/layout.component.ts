@@ -22,7 +22,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isSidebarVisible = this.sidebar.IsSidebarVisibleInitially();
-    WorkingStates.subscribe(t => {
+    this.sub = WorkingStates.subscribe(t => {
       this.workers = t;
     });
   }

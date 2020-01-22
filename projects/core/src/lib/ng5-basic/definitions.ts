@@ -1,6 +1,7 @@
 import { Action as NgrxAction } from '@ngrx/store';
 // import { ISearchable } from 'amazing-search';
 import { IAuthConfig } from '../auth/definitions';
+import { IResponseError } from 'response-type';
 
 export interface Action extends NgrxAction {
   payload: any;
@@ -282,6 +283,13 @@ export interface IToastMessage {
   message: string;
   type?: 'WARNING' | 'ERROR' | 'SUCCESS' | 'INFO';
   duration?: number;
+  title?: string;
   data?: any;
   onClick?: (message: IToastMessage) => {};
+}
+
+export interface StartRequestResponse<T> {
+  item?: T;
+  items?: T[];
+  error?: IResponseError;
 }

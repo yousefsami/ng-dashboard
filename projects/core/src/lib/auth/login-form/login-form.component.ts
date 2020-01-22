@@ -6,22 +6,22 @@ import { HttpClient } from '@angular/common/http';
 import { FacebookService, IFBAuthInformation } from '../facebook.service';
 import { AuthPublicService, AuthEvent } from '../auth-public.service';
 import { ConfigurationService } from '../../ng5-basic/services/configuration.service';
-import { ComponentCommon } from '../../ng5-basic/services/common';
 import { UserService } from '../../ng5-basic/services/user.service';
+import { NgdBaseComponent } from '../../ng5-basic/services/ngd-base.component';
 declare var FB: any;
 
 @Component({
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss']
 })
-export class LoginFormComponent extends ComponentCommon implements OnInit {
+export class LoginFormComponent extends NgdBaseComponent implements OnInit {
   public alternativeLogins = [];
   public isRequesting = false;
   public url = ``;
   public facebookUrl = `/api/facebook/auth`;
   public response: IResponse<any> = null;
   public error = error;
-  public form: IUserForm = {
+  public form2: IUserForm = {
     email: '',
     password: ''
   };
@@ -74,7 +74,7 @@ export class LoginFormComponent extends ComponentCommon implements OnInit {
     });
     e.preventDefault();
     this.isRequesting = true;
-    this.signinHttp(this.form);
+    this.signinHttp(this.form2);
   }
 
   public loginFacebook() {

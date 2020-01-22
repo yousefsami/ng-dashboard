@@ -9,7 +9,7 @@ import {
   ComponentFactoryResolver,
   HostListener
 } from '@angular/core';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { ConfigurationService } from '../services/configuration.service';
 import { flatten } from 'lodash';
 import { NgxSidebarService } from './ngx-sidebar.service';

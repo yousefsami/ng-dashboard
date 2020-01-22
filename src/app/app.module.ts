@@ -7,7 +7,8 @@ import {
   NgDashboardModule,
   ConfigurationService,
   NgDashboardEn,
-  UserService
+  UserService,
+  NgDashboardPl
 } from 'projects/core/src/public_api';
 import { Router } from '@angular/router';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -63,8 +64,7 @@ export class AppModule {
         keyboardShortcut: 'Enter'
       }
     ]);
-    this.config.translationsDictionary = NgDashboardEn;
-    this.config.language.next('en');
+    this.config.SetLanguage('pl', NgDashboardPl);
     this.config.SearchTerms.next([
       {
         title: 'Say hello',
@@ -105,7 +105,7 @@ export class AppModule {
         icon: 'icon-logout',
         title: 'Sign-out',
         onClick: () => {
-          alert('You should implement user leave!');
+          this.router.navigateByUrl('/login');
         }
       }
     ]);
