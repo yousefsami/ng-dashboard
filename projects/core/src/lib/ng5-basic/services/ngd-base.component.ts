@@ -23,6 +23,7 @@ export abstract class NgdBaseComponent implements OnDestroy {
   protected form: FormGroup;
   public res: IResponse<any>;
   public error = error;
+  public ComponentType = 'COMPONENT';
 
   public set working(value: boolean) {
     setTimeout(() => {
@@ -73,7 +74,7 @@ export abstract class NgdBaseComponent implements OnDestroy {
     // Config refers to the ngdashboard config, if exists, it will clear it's auto interative buttons
     const config = this['config'];
     /* tslint:enable */
-    if (config) {
+    if (config && this.ComponentType === 'COMPONENT') {
       config.SetInteractiveButtons([]);
     }
     this.$unsubscribe.forEach(t => t.unsubscribe());

@@ -23,7 +23,6 @@ export class TPipe implements PipeTransform {
         this.config.language.value
       );
     }
-    console.log(translatedPhrase);
     return translatedPhrase || value;
   }
 }
