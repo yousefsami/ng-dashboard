@@ -8,12 +8,12 @@ import {
   Team,
   TeamsConfig,
   DockedMenu,
-  IToastMessage
+  IToastMessage,
+  INotification,
+  INotificationEvent
 } from '../definitions';
 import { BehaviorSubject } from 'rxjs';
 import { IAuthConfig } from '../../auth/definitions';
-import { NgDashboardPl } from 'projects/core/src/translations/pl';
-import { NgDashboardEn } from 'projects/core/src/translations/en';
 
 const messageHistory = {};
 export function ShowToast(data: IToastMessage) {
@@ -59,6 +59,15 @@ export class ConfigurationService {
   > = new BehaviorSubject([]);
 
   public SearchTerms: BehaviorSubject<Array<any>> = new BehaviorSubject([]);
+  public NotificationState: BehaviorSubject<
+    'OPEN' | 'CLOSE'
+  > = new BehaviorSubject('CLOSE');
+  public Notifications: BehaviorSubject<
+    Array<INotification>
+  > = new BehaviorSubject([]);
+  public NotificationEvent: BehaviorSubject<
+    INotificationEvent
+  > = new BehaviorSubject(null);
   public NavigationItems: BehaviorSubject<
     Array<INavigation>
   > = new BehaviorSubject([]);
@@ -97,6 +106,55 @@ export class ConfigurationService {
       return true;
     }
     return false;
+  }
+
+  public DismissToasts() {
+    const toasts: Array<any> = Array.from(
+      document.querySelectorAll('.toast-close')
+    );
+    for (const toast of toasts) {
+      toast.click();
+    }
+  }
+
+  /**
+   * Send a notification to user dashboard. Call this function for adding a new notification to user,
+   * it's our exported API
+   * @param notification INotification
+   */
+  public Notify(notification: INotification | Array<INotification>) {
+    let items = [];
+    if (Array.isArray(notification)) {
+      items = [...notification];
+      this.ShowToast({
+        message: `You have ${3} new notifications`,
+        duration: 2000,
+        onClick: () => {
+          this.NotificationState.next('OPEN');
+          this.DismissToasts();
+        }
+      });
+    } else {
+      items = [notification];
+      this.ShowToast({
+        title: notification.title,
+        message: notification.message,
+        onClick: () => {
+          this.NotificationState.next('OPEN');
+          this.DismissToasts();
+        }
+      });
+    }
+
+    items = items.map(t => {
+      return {
+        ...t,
+        icon: t.icon ? t.icon : 'icon-info',
+        id: t.id ? t.id : 'auto_id_' + Math.random()
+      };
+    });
+
+    this.Notifications.next([...items, ...this.Notifications.value]);
   }
 
   public getNavigationItems(): INavigation[] {

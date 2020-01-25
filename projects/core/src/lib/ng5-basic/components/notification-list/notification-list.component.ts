@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { INotification, Ng5ModuleState } from '../../definitions';
+import { ConfigurationService } from '../../services/configuration.service';
 
 @Component({
   selector: 'ng-notification-list',
@@ -27,17 +28,57 @@ export class NotificationListComponent implements OnInit {
       }
     }
   }
-  constructor() {}
+  constructor(private config: ConfigurationService) {}
 
   ngOnInit() {
-    // this.store.select('ng5').subscribe(({ notifications }) => {
-    //   this.notifications = notifications;
-    //   this.notificationsBackup = notifications;
-    // });
+    this.config.Notifications.subscribe(notifications => {
+      this.notifications = notifications;
+      this.notificationsBackup = notifications;
+    });
+    this.config.NotificationState.subscribe(state => {
+      this.notificationStatus = state === 'OPEN' ? true : false;
+    });
   }
 
   ToggleNotification() {
     this.notificationStatus = this.notificationStatus ? false : true;
+    if (!this.notificationStatus) {
+      this.MarkNotificationsAsRead();
+    }
+  }
+
+  MarkNotificationsAsRead() {
+    let items = this.config.Notifications.value;
+    const justSeenItems = [];
+    items = items.map(notification => {
+      if (notification.$seen !== true) {
+        justSeenItems.push(notification);
+      }
+      return {
+        ...notification,
+        $seen: true
+      };
+    });
+    this.config.Notifications.next(items);
+    this.config.NotificationEvent.next({
+      type: 'MARKED_AS_SEEN',
+      payload: justSeenItems
+    });
+  }
+
+  public get NotificationCountNumber(): string {
+    const count = this.UserUnseenNotifications.length;
+    if (count === 0) {
+      return '';
+    }
+    if (count < 3) {
+      return count.toString();
+    }
+    return `+3`;
+  }
+
+  public get UserUnseenNotifications() {
+    return this.notifications.filter(t => !t.$seen);
   }
 
   ToggleSearch() {

@@ -172,11 +172,20 @@ export interface ICloudDeviceDailyHistory {
 
 export interface INotification {
   title?: string;
+  id?: string;
   type: 'error' | 'success';
-  status: string;
+  icon?: string;
   date: Date;
   message?: string;
+  $active?: boolean;
+  $seen?: boolean;
 }
+
+export interface INotificationEvent {
+  type: string;
+  payload: any;
+}
+
 export interface ISettingsUpdateResponse {
   token: string;
   user: IUser;
@@ -285,7 +294,7 @@ export interface IToastMessage {
   duration?: number;
   title?: string;
   data?: any;
-  onClick?: (message: IToastMessage) => {};
+  onClick?: (message: IToastMessage) => void;
 }
 
 export interface StartRequestResponse<T> {

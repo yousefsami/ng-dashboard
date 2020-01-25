@@ -3,7 +3,8 @@ import {
   ConfigurationService,
   WorkingStates,
   NgDashboardPl,
-  NgDashboardEn
+  NgDashboardEn,
+  INotification
 } from 'projects/core/src/public_api';
 
 @Component({
@@ -14,7 +15,11 @@ import {
 export class GuideComponent implements OnInit {
   constructor(private config: ConfigurationService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.config.NotificationEvent.subscribe(event => {
+      console.log('Notification event: ', event);
+    });
+  }
 
   public clearTeams() {
     this.config.Teams.next([]);
@@ -54,6 +59,49 @@ export class GuideComponent implements OnInit {
 
   public hideLoader() {
     WorkingStates.next([]);
+  }
+
+  public SingleNotification() {
+    const notification: INotification = {
+      id: '213123',
+      date: new Date(),
+      type: 'success',
+      message: 'Kitcheb temprature is higher than normal temp',
+      title: 'Ali has done something'
+    };
+    this.config.Notify(notification);
+  }
+
+  public AddNotifications() {
+    const notifications: Array<INotification> = [
+      {
+        id: '213123',
+        date: new Date(),
+        icon: 'icon-comment',
+        type: 'success',
+        message: 'Kitcheb temprature is higher than normal temp',
+        title: 'Ali has done something'
+      },
+      {
+        date: new Date(),
+        icon: 'icon-call_missed',
+        type: 'success',
+        message: 'New user has been joined us'
+      },
+      {
+        date: new Date(),
+        icon: 'icon-error',
+        type: 'success',
+        message: 'All Lights on for 2 days, Called to +98901234567 and answerd'
+      },
+      {
+        date: new Date(),
+        icon: 'icon-remove_circle',
+        type: 'success',
+        message: 'Edited Device: Temrature has edited successfuly'
+      }
+    ];
+    this.config.Notify(notifications);
   }
 
   public changeLang(lang) {
