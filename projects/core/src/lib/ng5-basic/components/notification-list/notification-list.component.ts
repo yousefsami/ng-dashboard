@@ -51,12 +51,12 @@ export class NotificationListComponent implements OnInit {
     let items = this.config.Notifications.value;
     const justSeenItems = [];
     items = items.map(notification => {
-      if (notification.$seen !== true) {
+      if (notification.seen !== true) {
         justSeenItems.push(notification);
       }
       return {
         ...notification,
-        $seen: true
+        seen: true
       };
     });
     this.config.Notifications.next(items);
@@ -78,7 +78,7 @@ export class NotificationListComponent implements OnInit {
   }
 
   public get UserUnseenNotifications() {
-    return this.notifications.filter(t => !t.$seen);
+    return this.notifications.filter(t => !t.seen);
   }
 
   ToggleSearch() {

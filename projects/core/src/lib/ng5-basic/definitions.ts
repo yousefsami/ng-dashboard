@@ -173,12 +173,17 @@ export interface ICloudDeviceDailyHistory {
 export interface INotification {
   title?: string;
   id?: string;
-  type: 'error' | 'success';
+  type: 'error' | 'success' | 'info' | 'success';
   icon?: string;
   date: Date;
+  tags?: Array<string>;
   message?: string;
   $active?: boolean;
-  $seen?: boolean;
+  seen?: boolean;
+  target?: 'SELF' | 'TEAM';
+  // Import will cause to show a toast as well.
+  importance: 'NORMAL' | 'IMPORTANT';
+  payload?: any;
 }
 
 export interface INotificationEvent {

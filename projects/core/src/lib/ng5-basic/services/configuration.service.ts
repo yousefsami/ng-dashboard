@@ -126,24 +126,28 @@ export class ConfigurationService {
     let items = [];
     if (Array.isArray(notification)) {
       items = [...notification];
-      this.ShowToast({
-        message: `You have ${3} new notifications`,
-        duration: 2000,
-        onClick: () => {
-          this.NotificationState.next('OPEN');
-          this.DismissToasts();
-        }
-      });
+      if (notification.find(t => t.importance === 'IMPORTANT')) {
+        this.ShowToast({
+          message: `You have ${3} new notifications`,
+          duration: 2000,
+          onClick: () => {
+            this.NotificationState.next('OPEN');
+            this.DismissToasts();
+          }
+        });
+      }
     } else {
       items = [notification];
-      this.ShowToast({
-        title: notification.title,
-        message: notification.message,
-        onClick: () => {
-          this.NotificationState.next('OPEN');
-          this.DismissToasts();
-        }
-      });
+      if (notification.importance === 'IMPORTANT') {
+        this.ShowToast({
+          title: notification.title,
+          message: notification.message,
+          onClick: () => {
+            this.NotificationState.next('OPEN');
+            this.DismissToasts();
+          }
+        });
+      }
     }
 
     items = items.map(t => {

@@ -50,7 +50,7 @@
   <div class="notification-list" data-simplebar *ngIf="notifications.length">
     <ul>
       <li *ngFor="let item of notifications">
-        <span *ngIf="!item.$seen || item.$active" class="active-bullet">•</span>
+        <span *ngIf="!item.seen || item.$active" class="active-bullet">•</span>
         <div class="notification-icon">
           <i [class]="item.icon"></i>
         </div>
