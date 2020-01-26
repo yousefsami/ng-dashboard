@@ -55,9 +55,9 @@
           <i [class]="item.icon"></i>
         </div>
         <div class="notification-content">
-          <div *ngIf="item.title" class="notification-title">{{ item.title }}</div>
+          <div *ngIf="item.title" class="notification-title">{{ item.title | t }}</div>
           <p *ngIf="item.message" class="notification-message">
-            {{ item.message }}
+            {{ item.message | t }}
           </p>
           <p class="notification-type">
             {{ item.date | date: 'fullDate' }} - {{ item.date | date: 'HH:MM' }}

@@ -65,6 +65,7 @@ export class GuideComponent implements OnInit {
     const notification: INotification = {
       id: '213123',
       date: new Date(),
+      importance: 'IMPORTANT',
       type: 'success',
       message: 'Kitcheb temprature is higher than normal temp',
       title: 'Ali has done something'
@@ -79,12 +80,14 @@ export class GuideComponent implements OnInit {
         date: new Date(),
         icon: 'icon-comment',
         type: 'success',
+        importance: 'NORMAL',
         message: 'Kitcheb temprature is higher than normal temp',
         title: 'Ali has done something'
       },
       {
         date: new Date(),
         icon: 'icon-call_missed',
+        importance: 'NORMAL',
         type: 'success',
         message: 'New user has been joined us'
       },
@@ -92,12 +95,14 @@ export class GuideComponent implements OnInit {
         date: new Date(),
         icon: 'icon-error',
         type: 'success',
+        importance: 'NORMAL',
         message: 'All Lights on for 2 days, Called to +98901234567 and answerd'
       },
       {
         date: new Date(),
         icon: 'icon-remove_circle',
         type: 'success',
+        importance: 'IMPORTANT',
         message: 'Edited Device: Temrature has edited successfuly'
       }
     ];

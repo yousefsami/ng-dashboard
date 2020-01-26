@@ -44,6 +44,7 @@ export class LoginFormComponent extends NgdBaseComponent implements OnInit {
   ngOnInit() {
     this.user.SetToken(null);
     this.user.SetUser(null);
+    this.config.Notifications.next([]);
     this.facebookUrl = this.config.API(`/api/facebook/auth`);
     this.auth.events.emit({
       type: AuthEvent.REVOKE
