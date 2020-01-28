@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Team } from '../definitions';
+import { Team, INotification } from '../definitions';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { ConfigurationService } from './configuration.service';
@@ -118,4 +118,21 @@ export class TeamsService {
   public InsertTeam(team: Team) {
     this.TeamsStore.next([...this.state, team]);
   }
+}
+
+export function UpdateNotificationByTempKey(
+  notifications: Array<INotification> = []
+) {
+  let items = this.config.Notifications.value;
+  items = items.map(item => {
+    const findNew = notifications.find(t => t.$temp_key === item.id);
+    if (!findNew) {
+      return item;
+    }
+    return {
+      ...item,
+      ...findNew
+    };
+  });
+  this.config.Notifications.next(items);
 }

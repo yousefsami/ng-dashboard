@@ -344,3 +344,31 @@ body[dir='rtl'] {
     right: 30px !important;
   }
 }
+
+/* You can add global styles to this file, and also import other style files */
+ 
+input,
+select {
+  font-size: 16px !important;
+}
+* {
+  -webkit-overflow-scrolling: touch;
+}
+.ngd-outlet {
+  overflow-x: hidden;
+}
+
+@media only screen and (max-width: 760px) {
+  .hide-on-mobile {
+    display: none;
+  }
+  .ngd-outlet {
+    padding: 0 5px !important;
+  }
+}
+
+@media only screen and (min-width: 760px) {
+  .modal-dialog {
+    max-width: 90% !important;
+  }
+}

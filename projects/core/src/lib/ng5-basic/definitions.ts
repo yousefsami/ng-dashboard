@@ -172,6 +172,7 @@ export interface ICloudDeviceDailyHistory {
 
 export interface INotification {
   title?: string;
+  $temp_key?: string;
   id?: string;
   type: 'error' | 'success' | 'info' | 'success';
   icon?: string;

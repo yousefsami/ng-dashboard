@@ -3,21 +3,15 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor,
-  HttpHeaders
+  HttpInterceptor
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { UserService } from '../services/user.service';
-import { TranslateService } from './translate.service';
+import { UserService } from './user.service';
 import { TeamsService } from './teams.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(
-    private user: UserService,
-    private translate: TranslateService,
-    private teams: TeamsService
-  ) {}
+  constructor(private user: UserService, private teams: TeamsService) {}
 
   intercept(
     request: HttpRequest<any>,
@@ -26,7 +20,6 @@ export class TokenInterceptor implements HttpInterceptor {
     request = request.clone({
       setHeaders: {
         'x-token': `${this.user.GetToken()}`,
-        'x-lang': this.translate.currentLang,
         'x-team': '' + this.teams.CurrentSelectedTeam
       }
     });

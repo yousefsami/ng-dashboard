@@ -218,3 +218,29 @@ export function parseStorage(key: string) {
   }
   return null;
 }
+
+export const LocalStorageGetItem = parseStorage;
+
+export function CurrencyFormat(value, currency = 'pln') {
+  currency = currency.toLowerCase();
+  if (currency === 'pln') {
+    return new Intl.NumberFormat('pl-PL', {
+      style: 'currency',
+      currency: 'PLN'
+    }).format(value);
+  }
+}
+
+export function getQuerystring(key) {
+  const query = window.location.search.substring(1);
+  const vars = query.split('&');
+
+  /* tslint:disable */
+  for (let i = 0; i < vars.length; i++) {
+    const pair = vars[i].split('=');
+    if (pair[0] === key) {
+      return pair[1];
+    }
+  }
+  /* tslint:enable */
+}
