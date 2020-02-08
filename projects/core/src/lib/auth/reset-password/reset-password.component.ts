@@ -5,7 +5,12 @@ import { IResponse } from 'response-type';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { IResetForm } from '../../ng5-basic/definitions';
-import { ConfigurationService } from '../../ng5-basic/services/configuration.service';
+import {
+  ConfigurationService,
+  ShowToast
+} from '../../ng5-basic/services/configuration.service';
+import { AuthPublicService, AuthEvent } from '../auth-public.service';
+import { UserService } from '../../ng5-basic/services/user.service';
 
 @Component({
   templateUrl: './reset-password.component.html',
@@ -27,25 +32,44 @@ export class ResetPasswordComponent implements OnInit {
     private http: HttpClient,
     private router: Router,
     private route: ActivatedRoute,
-    private config: ConfigurationService
+    private config: ConfigurationService,
+    private auth: AuthPublicService,
+    private user: UserService
   ) {}
 
   ngOnInit() {
-    this.url = this.config.API('/api/user/reset-password');
+    this.url = this.config.API('/api/reset-password');
 
     this.route.params.subscribe((data: { key: string }) => {
       this.key = this.form.key = data.key;
     });
   }
   public SubmitForm() {
-    this.execute(this.form);
+    this.execute({
+      resetkey: this.form.key,
+      password: this.form.password1
+    });
   }
-  private execute(data: IResetForm) {
+  private execute(data) {
+    const conf = this.config.Config;
     this.http.post(this.url, data).subscribe(
       response => {
         this.response = response;
         if (this.response.data && this.response.data.items[0]) {
-          this.router.navigateByUrl('/login');
+          this.auth.events.emit({
+            payload: this.response.data.items[0],
+            type: AuthEvent.LOGIN_SUCCESS
+          });
+          if (conf.afterLoginRedirect) {
+            this.router.navigateByUrl(conf.afterLoginRedirect);
+          }
+          this.user.SetToken(this.response.data.items[0].token);
+          this.user.SetUser(this.response.data.items[0].user);
+          ShowToast({
+            message: this.config.translationsDictionary.value
+              .password_successfully_changed,
+            type: 'SUCCESS'
+          });
         }
         this.isRequesting = false;
       },

@@ -1,3 +1,4 @@
+import { debounce } from 'lodash';
 import { IResponse, IResponseError } from 'response-type';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import {
@@ -243,4 +244,74 @@ export function getQuerystring(key) {
     }
   }
   /* tslint:enable */
+}
+
+export const monthNames = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+];
+
+export const InteractiveButtons = {
+  /**
+   * Export to ng-dashboard.
+   * Builds a refresh button for the component.
+   */
+  Refresh: (onPress: (source?: string) => void) => {
+    return {
+      icon: 'icon-refresh',
+      key: 'refresh',
+      keyboardShortcut: 'r',
+      onPress
+    };
+  },
+  /**
+   * Export to ng-dashboard.
+   * Builds a list button for component, useful for components that showing a single entity
+   * of a list of elemets (a.k. a post of posts)
+   */
+  List: (onPress: (source?: string) => void) => {
+    return {
+      icon: 'icon-list',
+      key: 'list',
+      keyboardShortcut: 'l',
+      onPress
+    };
+  },
+  /**
+   * Export to ng-dashboard.
+   * Save button for any component that has a form. Also it will debounce amount
+   * of types user presses enter.
+   */
+  SafeSave: (onPress: (source?: string) => void) => {
+    return {
+      icon: 'icon-save',
+      key: 'save',
+      onPress: debounce(onPress, 500)
+    };
+  }
+};
+
+export function StoreActionDelete(state: Array<any>, action: any) {
+  return state.filter(
+    t => t.id !== (action.payload.id ? action.payload.id : +action.payload)
+  );
+}
+
+export function StoreActionUpdate(state: Array<any>, action: any) {
+  return state.map(t => {
+    if (t.id === action.payload.id) {
+      return action.payload;
+    }
+    return t;
+  });
 }

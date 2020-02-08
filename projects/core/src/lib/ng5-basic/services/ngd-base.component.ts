@@ -1,5 +1,4 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { ToastOptions, ToastaService } from 'ngx-toasta';
 import { OnDestroy } from '@angular/core';
 import { IResponse, IResponseErrorItem } from 'response-type';
 import { FormGroup } from '@angular/forms';
@@ -18,7 +17,6 @@ export abstract class NgdBaseComponent implements OnDestroy {
    * List of RxJs observations that should be unsubscribed
    */
 
-  protected toastaService: ToastaService;
   protected validator: (formDataObject) => IResponseErrorItem[];
   protected form: FormGroup;
   public res: IResponse<any>;
@@ -158,12 +156,10 @@ export abstract class NgdBaseComponent implements OnDestroy {
         };
       } else {
         if (params.notifyAPIErrors) {
-          const toastOptions: ToastOptions = {
-            title: response.error.message,
-            showClose: true,
-            timeout: 5000
-          };
-          this.toastaService.error(toastOptions);
+          ShowToast({
+            type: 'ERROR',
+            message: response.error.message
+          });
         }
         return {
           error: response.error
@@ -182,5 +178,77 @@ export abstract class NgdBaseComponent implements OnDestroy {
         items: null
       };
     }
+  }
+
+  /**
+   * Useful when you want to subscribe the input, select,... events directly
+   * to form change, or from a custom input which doesn't support Reactive forms.
+   * @param field form element name
+   */
+  public setFormData(field: string, value: any) {
+    if (!this.form || !this.form.patchValue || !field) {
+      return null;
+    }
+    this.form.patchValue({
+      [field]: value
+    });
+  }
+
+  /**
+   * Subscribe to store and get data from API at the same time, without letting user
+   * to see if the UI is flickering, or waiting for data to be loaded. Use it,
+   * when data might already be in the store before the new API request.
+   * e.g. user navigates back to a previous URL
+   *
+   * Subscriptions will be removed automatically
+   * @param storeSection AppState<...> name, where we should look in. (string)
+   * @param request callback, which receives the id, and entity.
+   * @param entityFilter callback, which receives the entity before patch to form. you can edit fields before
+   * anything else happens
+   */
+  public SubscribeAndFetchForm<T>(
+    storeSection: any,
+    request: (id: number, entity?: T) => Promise<IResponse<T>>,
+    entityFilter: (T) => any = x => x
+  ) {
+    /* tslint:disable */
+    const route = this['route'];
+    const store = this['store'];
+    /* tslint:enable */
+
+    if (!route) {
+      return console.warn(
+        'SubscribeAndFetchForm needs Angular ActivatedRoute to exists. Add to your constructor (this.route: ActivatedRoute)'
+      );
+    }
+    if (!store) {
+      return console.warn(
+        'This function requires to have store on the child component to be injected (this.store is undefined)'
+      );
+    }
+    let entity = null;
+    const { id } = route.snapshot.params;
+    if (!id) {
+      return;
+    }
+    this.ComponentSubscription(
+      store.select(storeSection).subscribe(items => {
+        if (items && items.length) {
+          entity = items.find(t => t.id === +id);
+        }
+      })
+    );
+    if (entity) {
+      this.form.patchValue(entityFilter(entity));
+    }
+    this.StartRequest<T>(() => request(id, entity)).then(result => {
+      if (result && result.item) {
+        this.form.patchValue(
+          entityFilter({
+            ...result.item
+          })
+        );
+      }
+    });
   }
 }

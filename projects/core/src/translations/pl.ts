@@ -11,5 +11,6 @@ export const NgDashboardPl = {
   search_place_holder: 'Wyszukaj (S) ...',
   search_place_holder_mobile: 'Stuknij, aby wyszukać ...',
   no_notification: 'Nie ma jeszcze żadnych działań',
-  notifications: 'Powiadomienia'
+  notifications: 'Powiadomienia',
+  password_successfully_changed: 'Hasło zostało pomyślnie zmienione'
 };

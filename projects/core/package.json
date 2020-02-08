@@ -1,6 +1,6 @@
 {
   "name": "@ng-dashboard/core",
-  "version": "1.0.34",
+  "version": "1.0.40",
   "private": false,
   "peerDependencies": {
     "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
@@ -12,8 +12,9 @@
     "@ngx-translate/core": "^11.0.1",
     "amazing-search": "^1.0.3",
     "bootstrap": "^4.4.1",
+    "lodash": "^4.17.15",
     "ngx-toasta": "^0.1.0",
-     "response-type": "^1.0.3",
+    "response-type": "^1.0.3",
     "rxjs-compat": "^6.2.2",
     "sass-material-colors": "0.0.5",
     "simplebar": "^5.1.0",
