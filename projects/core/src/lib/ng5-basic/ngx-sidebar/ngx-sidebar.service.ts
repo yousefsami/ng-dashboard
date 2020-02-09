@@ -170,7 +170,10 @@ export class NgxSidebarService {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(true));
   }
 
-  public Hide(type: null | 'OUTSIDE_CLICK' = null) {
+  public Hide(type: null | 'OUTSIDE_CLICK' | 'MENU_ITEM_CLICK' = null) {
+    if (window.innerWidth > 992 && type === 'MENU_ITEM_CLICK') {
+      return;
+    }
     if (window.innerWidth > 992 && 'OUTSIDE_CLICK' === type) {
       return;
     }

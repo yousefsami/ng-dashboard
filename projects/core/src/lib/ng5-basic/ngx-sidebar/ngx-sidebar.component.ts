@@ -122,7 +122,7 @@ export class NgxSidebarComponent implements OnInit {
         $collapsed: !nav.$collapsed
       });
     } else {
-      this.sidebar.Hide();
+      this.sidebar.Hide('MENU_ITEM_CLICK');
     }
   }
 }
