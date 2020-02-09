@@ -47,7 +47,7 @@ import { NgxSidebarService } from './ng5-basic/ngx-sidebar/ngx-sidebar.service';
 import { TeamSelectorComponent } from './ng5-basic/components/team-selector/team-selector.component';
 import { TeamsService } from './ng5-basic/services/teams.service';
 import { InteractiveButtonsComponent } from './ng5-basic/components/interactive-buttons/interactive-buttons.component';
-
+import { AutofocusDirective } from './ng5-basic/services/autofocus.directive';
 @NgModule({
   declarations: [
     LayoutComponent,
@@ -55,6 +55,7 @@ import { InteractiveButtonsComponent } from './ng5-basic/components/interactive-
     SideBarComponent,
     NavBarComponent,
     InteractiveButtonsComponent,
+    AutofocusDirective,
     ProfileMenuComponent,
     NotificationListComponent,
     UiIconBoxComponent,
@@ -93,6 +94,7 @@ import { InteractiveButtonsComponent } from './ng5-basic/components/interactive-
     TeamSelectorComponent,
     ProgressLineComponent,
     ErrorMessageComponent,
+    AutofocusDirective,
     SignupFormComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,

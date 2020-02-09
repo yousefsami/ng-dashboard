@@ -13,16 +13,6 @@ export class TPipe implements PipeTransform {
     });
   }
   transform(value: any, ...args: any[]): any {
-    const translatedPhrase = this.keys[value];
-
-    if (!translatedPhrase) {
-      console.warn(
-        'There is no translation for',
-        value,
-        '>>>>',
-        this.config.language.value
-      );
-    }
-    return translatedPhrase || value;
+    return this.config.translate(value, args);
   }
 }

@@ -29,8 +29,6 @@ export class NgxSidebarService {
     window.addEventListener('resize', (event: any) => {
       if (event.target.innerWidth < 992) {
         this.Hide();
-      } else {
-        this.Show();
       }
     });
     this.addListenerMulti(

@@ -91,7 +91,14 @@ export class ConfigurationService {
   constructor(
     @Inject('config') public config: NgBasicConfig,
     private ref: ApplicationRef
-  ) {}
+  ) {
+    if (typeof window !== 'undefined') {
+      // Helps developers to understand the missing translation keys
+      /* tslint:disable */
+      window['ngd_missing_translate'] = {};
+      /* tslint:enable */
+    }
+  }
 
   private hasChangedSinceLastRefresh(data: any, key: string) {
     let cached;
@@ -161,6 +168,28 @@ export class ConfigurationService {
     this.Notifications.next([...items, ...this.Notifications.value]);
   }
 
+  public translate(key: string, params: any): string {
+    const dic = this.translationsDictionary.value;
+    if (!key || typeof key !== 'string') {
+      return '';
+    }
+    if (!dic[key]) {
+      /* tslint:disable */
+      window['ngd_missing_translate'][key] = false;
+      /* tslint:enable */
+
+      return key.split('_').join(' ');
+    }
+
+    if (typeof params === 'object' && params.constructor.name === 'Array') {
+      return replacePlaceHolderByArray(dic[key], params);
+    } else if (typeof params === 'object') {
+      return replacePlaceHolderByObject(dic[key], params);
+    }
+
+    return dic[key];
+  }
+
   public getNavigationItems(): INavigation[] {
     const programDefaultNaviation = this.NavigationItems.value;
 
@@ -201,4 +230,29 @@ export class ConfigurationService {
   public get Navigation(): INavigation[] {
     return this.config.navigation;
   }
+}
+
+function replacePlaceHolderByArray(phrase: string, args = []) {
+  // Replaces the first %{} place holder occurence
+  let str = phrase;
+  const placeholders = phrase.match(/\%\{(.*?)\}/g);
+
+  if (!placeholders || !placeholders.length) {
+    return str;
+  }
+  const regex = /\%\{(.*?)\}/;
+
+  for (let i = 1; i <= placeholders.length; i++) {
+    str = str.replace(regex, args[i - 1] || '...');
+  }
+  return str;
+}
+
+function replacePlaceHolderByObject(phrase: string, args = {}) {
+  let str = phrase;
+  const keys = Object.keys(args);
+  for (const key of keys) {
+    str = str.replace(new RegExp(`%{${key}}`, 'g'), args[key] || '...');
+  }
+  return str;
 }

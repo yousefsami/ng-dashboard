@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { UiSmallBoxComponent } from './ng-ui-small-box.component';
+import { UiSmallBoxComponent } from './ui-small-box.component';
 
 describe('UiSmallBoxComponent', () => {
   let component: UiSmallBoxComponent;
@@ -8,9 +7,8 @@ describe('UiSmallBoxComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UiSmallBoxComponent ]
-    })
-    .compileComponents();
+      declarations: [UiSmallBoxComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
