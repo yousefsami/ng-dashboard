@@ -7,6 +7,7 @@ export * from './lib/ng-dashboard.module';
 export * from './lib/ng5-basic/services/configuration.service';
 export * from './lib/ng5-basic/services/user.service';
 export * from './lib/ng5-basic/services/teams.service';
+export * from './lib/ng5-basic/services/confirm.service';
 export * from './lib/ng5-basic/services/response.interceptor';
 export * from './lib/ng5-basic/services/token.interceptor';
 export * from './lib/ng5-basic/components/layout/layout.component';

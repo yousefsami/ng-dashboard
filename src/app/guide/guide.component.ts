@@ -4,7 +4,9 @@ import {
   WorkingStates,
   NgDashboardPl,
   NgDashboardEn,
-  INotification
+  ConfirmService,
+  INotification,
+  ModalDialog
 } from 'projects/core/src/public_api';
 
 @Component({
@@ -13,7 +15,19 @@ import {
   styleUrls: ['./guide.component.scss']
 })
 export class GuideComponent implements OnInit {
-  constructor(private config: ConfigurationService) {}
+  public sampleModal: ModalDialog = {
+    title: 'Deleting',
+    content: 'Are you sure deleting?'
+  };
+  public sampleModalYes: ModalDialog = {
+    title: 'Deleting',
+    content: 'Are you sure deleting?',
+    type: 'YESNO'
+  };
+  constructor(
+    private config: ConfigurationService,
+    public modal: ConfirmService
+  ) {}
 
   ngOnInit() {
     this.config.NotificationEvent.subscribe(event => {
@@ -116,6 +130,18 @@ export class GuideComponent implements OnInit {
     if (lang === 'en') {
       this.config.SetLanguage(lang, NgDashboardEn);
     }
+  }
+
+  public showDialog() {
+    this.modal.open(this.sampleModal).subscribe(result => {
+      console.log(result);
+    });
+  }
+
+  public showDialogYes() {
+    this.modal.open(this.sampleModalYes).subscribe(result => {
+      console.log(result);
+    });
   }
 
   public showMessage() {

@@ -168,7 +168,17 @@ export class ConfigurationService {
     this.Notifications.next([...items, ...this.Notifications.value]);
   }
 
-  public translate(key: string, params: any): string {
+  /**
+   * @description Returns the object of translations, for bulk actions
+   */
+  public translations(): any {
+    return this.translationsDictionary.value;
+  }
+
+  /**
+   * @description Get translate key, and replace params (Objecy or Array) of placeholders
+   */
+  public translate(key: string, params: any = null): any {
     const dic = this.translationsDictionary.value;
     if (!key || typeof key !== 'string') {
       return '';
@@ -181,9 +191,13 @@ export class ConfigurationService {
       return key.split('_').join(' ');
     }
 
-    if (typeof params === 'object' && params.constructor.name === 'Array') {
+    if (
+      params !== null &&
+      typeof params === 'object' &&
+      params.constructor.name === 'Array'
+    ) {
       return replacePlaceHolderByArray(dic[key], params);
-    } else if (typeof params === 'object') {
+    } else if (params !== null && typeof params === 'object') {
       return replacePlaceHolderByObject(dic[key], params);
     }
 

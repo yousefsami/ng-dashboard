@@ -48,9 +48,12 @@ import { TeamSelectorComponent } from './ng5-basic/components/team-selector/team
 import { TeamsService } from './ng5-basic/services/teams.service';
 import { InteractiveButtonsComponent } from './ng5-basic/components/interactive-buttons/interactive-buttons.component';
 import { AutofocusDirective } from './ng5-basic/services/autofocus.directive';
+import { ConfirmComponent } from './ng5-basic/components/confirm/confirm.component';
+import { ConfirmService } from './ng5-basic/services/confirm.service';
 @NgModule({
   declarations: [
     LayoutComponent,
+    ConfirmComponent,
     LayoutFadeComponent,
     SideBarComponent,
     NavBarComponent,
@@ -76,6 +79,7 @@ import { AutofocusDirective } from './ng5-basic/services/autofocus.directive';
     TPipe
   ],
   exports: [
+    ConfirmComponent,
     LayoutComponent,
     SideBarComponent,
     NavBarComponent,
@@ -89,6 +93,7 @@ import { AutofocusDirective } from './ng5-basic/services/autofocus.directive';
     SpinnerComponent,
     UiSmallBoxComponent,
     PageContainerComponent,
+    ConfirmComponent,
     ErrorMessageComponent,
     LoginFormComponent,
     TeamSelectorComponent,
@@ -119,6 +124,7 @@ import { AutofocusDirective } from './ng5-basic/services/autofocus.directive';
     TranslateService,
     RequestsService,
     MockService,
+    ConfirmService,
     ActionsService,
     ConfigurationService,
     NgxSidebarService,
@@ -127,7 +133,7 @@ import { AutofocusDirective } from './ng5-basic/services/autofocus.directive';
     TeamsService,
     GlobalizationService
   ],
-  entryComponents: []
+  entryComponents: [ConfirmComponent]
 })
 export class NgDashboardModule {
   static forRoot(config: NgBasicConfig = {}): ModuleWithProviders {

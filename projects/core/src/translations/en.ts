@@ -12,5 +12,9 @@ export const NgDashboardEn = {
   search_place_holder_mobile: 'Tap to search...',
   no_notification: 'There are not any activities yet',
   notifications: 'Notifications',
-  password_successfully_changed: 'Password successfully has changed'
+  password_successfully_changed: 'Password successfully has changed',
+  modal_confirm: 'Confirm',
+  modal_cancel: 'Cancel',
+  modal_yes: 'Yes',
+  modal_no: 'No'
 };

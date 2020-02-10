@@ -308,3 +308,9 @@ export interface StartRequestResponse<T> {
   items?: T[];
   error?: IResponseError;
 }
+
+export interface ModalDialog {
+  title?: string;
+  content?: string;
+  type?: 'CONFIRMATION' | 'NOTIFY' | 'YESNO';
+}

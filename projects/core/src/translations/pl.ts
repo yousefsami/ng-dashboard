@@ -12,5 +12,9 @@ export const NgDashboardPl = {
   search_place_holder_mobile: 'Stuknij, aby wyszukać ...',
   no_notification: 'Nie ma jeszcze żadnych działań',
   notifications: 'Powiadomienia',
-  password_successfully_changed: 'Hasło zostało pomyślnie zmienione'
+  password_successfully_changed: 'Hasło zostało pomyślnie zmienione',
+  modal_confirm: 'Potwierdzać',
+  modal_cancel: 'Anuluj',
+  modal_yes: 'Tak',
+  modal_no: 'Nie'
 };
