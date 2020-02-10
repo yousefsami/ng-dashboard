@@ -88,6 +88,7 @@ ul li {
 .child-ul {
   padding-left: 10px;
   display: none;
+  
 }
 
 .main-ul li.opened > ngx-sidebar > .child-ul {
@@ -98,6 +99,10 @@ ul li {
   position: relative;
   &:hover > a {
     color: #4c84ff;
+  }
+  a {
+    color: gray;
+    font-size: 15px;
   }
 }
 

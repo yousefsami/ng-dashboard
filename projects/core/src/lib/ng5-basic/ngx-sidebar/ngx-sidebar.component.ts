@@ -94,9 +94,13 @@ export class NgxSidebarComponent implements OnInit {
   }
 
   public menuActive(nav) {
+    const route =
+      this.currentRoute.indexOf('?') >= 0
+        ? this.currentRoute.substr(0, this.currentRoute.indexOf('?'))
+        : this.currentRoute;
     if (nav.activeMatches && nav.activeMatches.length) {
       for (const xa of nav.activeMatches) {
-        const matches = new RegExp(xa).test(this.currentRoute);
+        const matches = new RegExp(xa).test(route);
         if (matches) {
           return true;
         }
@@ -106,7 +110,7 @@ export class NgxSidebarComponent implements OnInit {
       for (const item of nav.children) {
         if (item.activeMatches) {
           for (const xa of item.activeMatches) {
-            const matches = new RegExp(xa).test(this.currentRoute);
+            const matches = new RegExp(xa).test(route);
             if (matches) {
               return true;
             }
@@ -114,12 +118,12 @@ export class NgxSidebarComponent implements OnInit {
         }
       }
     }
-    if (nav.link === this.currentRoute) {
+    if (nav.link === route) {
       return true;
     }
     if (nav.children) {
       for (const item of nav.children) {
-        if (item.link === this.currentRoute) {
+        if (item.link === route) {
           return true;
         }
       }

@@ -214,6 +214,7 @@ export interface INavigation {
   active?: boolean;
   class?: string;
   permissions?: Array<string>;
+  $collapsed?: boolean;
   activeMatches?: Array<string>;
   component?: any;
   auth?: boolean;

@@ -3,7 +3,12 @@ import { OnDestroy } from '@angular/core';
 import { IResponse, IResponseErrorItem } from 'response-type';
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { IsSuccessEntity, error, WorkingStates } from './common';
+import {
+  IsSuccessEntity,
+  error,
+  WorkingStates,
+  getQuerystring
+} from './common';
 import { StartRequestResponse } from '../definitions';
 import { ShowToast } from './configuration.service';
 
@@ -250,5 +255,17 @@ export abstract class NgdBaseComponent implements OnDestroy {
         );
       }
     });
+  }
+  /**
+   * @todo ng-dashboard NgdBaseComponent
+   * Sometimes when coming back from a single record form to list of items
+   * we want to most recent added element be focused to get users attention.
+   * @param id number
+   */
+  public IsFocusedItem(id: number) {
+    if (!id) {
+      return false;
+    }
+    return getQuerystring('focus') === id.toString();
   }
 }

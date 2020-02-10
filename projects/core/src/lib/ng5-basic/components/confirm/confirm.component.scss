@@ -9,7 +9,7 @@
   background: transparent;
   transition: background 0.4s;
   font-family: 'Roboto', sans-serif;
-  z-index: 1000;
+  z-index: 2000;
 
   &.active {
     background: rgba(0, 0, 0, 0.3);
