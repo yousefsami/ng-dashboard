@@ -15,6 +15,18 @@ const routes: Routes = [
       {
         path: '',
         component: GuideComponent
+      },
+      {
+        path: 'link1',
+        component: GuideComponent
+      },
+      {
+        path: 'link1/:id',
+        component: GuideComponent
+      },
+      {
+        path: 'link2',
+        component: GuideComponent
       }
     ]
   },

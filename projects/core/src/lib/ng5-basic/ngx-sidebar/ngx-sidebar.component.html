@@ -22,9 +22,10 @@
       <li
         *ngIf="nav"
         [routerLinkActive]="nav.link || nav.$collapsed ? 'opened' : ''"
+        [ngClass]="{ 'menu-active': menuActive(nav) }"
         (click)="menuToggle($event, nav); $event.stopPropagation()"
         placement="right"
-        [tooltip]="nav.tooltip ? nav.tooltip: undefined"
+        [tooltip]="nav.tooltip ? nav.tooltip : undefined"
       >
         <a
           (click)="renderComponents(nav.component)"

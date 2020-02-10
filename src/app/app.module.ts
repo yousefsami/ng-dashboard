@@ -119,10 +119,13 @@ export class AppModule {
             link: '/login'
           },
           {
-            title: 'Item 2'
+            title: 'Item 1',
+            link: '/link1',
+            activeMatches: ['/link1/1']
           },
           {
-            title: 'Item 3'
+            title: 'Item 3',
+            link: '/link1'
           },
           {
             title: 'Item 4'
@@ -136,7 +139,8 @@ export class AppModule {
             title: 'Item 1'
           },
           {
-            title: 'Item 2'
+            title: 'Item 2',
+            link: '/link2'
           },
           {
             title: 'Item 3'

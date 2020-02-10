@@ -34,9 +34,11 @@ ul li {
 .main-ul {
   > li {
     display: block;
-    &.opened {
+    border-left: 3px solid transparent;
+    &.menu-active {
       background: #f7f7f7;
       border-left: 3px solid #4c84ff;
+      transition: all 0.2s ease-in-out;
 
       .child-ul {
         background: #f9f9f9;
@@ -71,7 +73,7 @@ ul li {
       color: #333;
       text-decoration: none;
     }
-    &.opened > a {
+    &.menu-active > a {
       color: #4c84ff !important;
     }
     &.opened > ngx-sidebar > .child-ul > li {
@@ -116,7 +118,7 @@ ul li {
     }
     .main-ul {
       > li {
-        &.opened {
+        &.menu-active {
           border-right: 3px solid #4c84ff;
           border-left: 0 !important;
         }

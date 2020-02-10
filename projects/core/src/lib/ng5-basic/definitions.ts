@@ -214,6 +214,7 @@ export interface INavigation {
   active?: boolean;
   class?: string;
   permissions?: Array<string>;
+  activeMatches?: Array<string>;
   component?: any;
   auth?: boolean;
   focused?: boolean;

@@ -9,7 +9,7 @@ import {
   ComponentFactoryResolver,
   HostListener
 } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { ConfigurationService } from '../services/configuration.service';
 import { flatten } from 'lodash';
 import { NgxSidebarService } from './ngx-sidebar.service';
@@ -52,12 +52,12 @@ export class NgxSidebarComponent implements OnInit {
   public currentRoute = null;
   public isRouteFocused = false;
   public nav = null;
+  public currrent;
   private componentRef: ComponentRef<any>;
 
   constructor(
-    private renderer: Renderer,
     private router: Router,
-    private config: ConfigurationService,
+    private route: ActivatedRoute,
     private compiler: ComponentFactoryResolver,
     private sidebar: NgxSidebarService
   ) {
@@ -92,6 +92,41 @@ export class NgxSidebarComponent implements OnInit {
     this.currentRoute = this.router.url;
     this.IsRouteFocused(this.currentRoute);
   }
+
+  public menuActive(nav) {
+    if (nav.activeMatches && nav.activeMatches.length) {
+      for (const xa of nav.activeMatches) {
+        const matches = new RegExp(xa).test(this.currentRoute);
+        if (matches) {
+          return true;
+        }
+      }
+    }
+    if (nav.children) {
+      for (const item of nav.children) {
+        if (item.activeMatches) {
+          for (const xa of item.activeMatches) {
+            const matches = new RegExp(xa).test(this.currentRoute);
+            if (matches) {
+              return true;
+            }
+          }
+        }
+      }
+    }
+    if (nav.link === this.currentRoute) {
+      return true;
+    }
+    if (nav.children) {
+      for (const item of nav.children) {
+        if (item.link === this.currentRoute) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   renderComponent() {
     if (this.componentRef) this.componentRef.instance.value = this.value;
   }
