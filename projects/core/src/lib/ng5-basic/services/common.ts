@@ -223,11 +223,25 @@ export function parseStorage(key: string) {
 export const LocalStorageGetItem = parseStorage;
 
 export function CurrencyFormat(value, currency = 'pln') {
+  if (!currency) {
+    console.warn(
+      'You intent to format a value without a currency. This is severe issue, you need to track it why.',
+      currency,
+      value
+    );
+    return value;
+  }
   currency = currency.toLowerCase();
   if (currency === 'pln') {
     return new Intl.NumberFormat('pl-PL', {
       style: 'currency',
       currency: 'PLN'
+    }).format(value);
+  }
+  if (currency === 'euro' || currency === 'eur') {
+    return new Intl.NumberFormat('de-DE', {
+      style: 'currency',
+      currency: 'EUR'
     }).format(value);
   }
 }

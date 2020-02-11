@@ -1,4 +1,4 @@
-import { Injectable, Inject, EventEmitter, HostListener } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { NgBasicConfig, PagePointerPosition } from '../definitions';
 import { GlobalizationService } from '../services/globalization.service';
 import { BehaviorSubject } from 'rxjs';
@@ -54,7 +54,8 @@ export class NgxSidebarService {
                 ) {
                   if (this.globalization.getLayoutDirection() === 'rtl') {
                     if (this.eventStartPoint.x > this.eventMoveChange.x + 15) {
-                      this.Show();
+                      // Disabled opening on mobile - it really sucks and distracts user
+                      // this.Show();
                     } else if (
                       this.eventStartPoint.x <
                       this.eventMoveChange.x - 15
@@ -68,7 +69,8 @@ export class NgxSidebarService {
                       this.eventStartPoint.x <
                       this.eventMoveChange.x - 15
                     ) {
-                      this.Show();
+                      //// Disabled opening on mobile - it really sucks and distracts user
+                      // this.Show();
                     }
                   }
                 }
