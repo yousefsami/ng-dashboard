@@ -68,16 +68,18 @@ export class AppModule {
     this.config.SearchTerms.next([
       {
         title: 'Say hello',
-        description: 'Select me, and there will be a hello',
-        onClick: () => {
-          alert('Hello!');
+        description: 'Select me, and there will be a hello in console',
+        onSelect: () => {
+          console.log('Hello!');
         },
         id: '2',
+        key: '2',
         keywords: 'Hello, Hi, Hello, Test'
       },
       {
         description: 'Guide about using this dashboard',
         title: 'Guide',
+        key: '1',
         id: '1',
         keywords: 'Guide, Guideline, help'
       }
