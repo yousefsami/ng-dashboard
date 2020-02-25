@@ -3,11 +3,13 @@
     <div class="box-title">
       <div class="d-flex flex-wrap justify-content-between align-items-center">
         <div class="d-2">
-            <h2 [title]="maintitle" class="app-page-title" >{{maintitle | translate}}</h2>
-            <p [title]="subtitle" >{{subtitle | translate}}</p>
+          <h2 [title]="maintitle" class="app-page-title">
+            {{ maintitle | t }}
+          </h2>
+          <p [title]="subtitle">{{ subtitle | t }}</p>
         </div>
         <div class="d-2">
-          <ng-content select=[action-button]></ng-content>
+          <ng-content select="[action-button]"></ng-content>
         </div>
       </div>
     </div>

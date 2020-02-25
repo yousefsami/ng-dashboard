@@ -6,7 +6,6 @@ import { GuideComponent } from './guide/guide.component';
 import {
   NgDashboardModule,
   ConfigurationService,
-  NgDashboardEn,
   UserService,
   NgDashboardPl
 } from 'projects/core/src/public_api';

@@ -17,7 +17,7 @@ import {
 export class GuideComponent implements OnInit {
   public sampleModal: ModalDialog = {
     title: 'Deleting',
-    content: 'Are you sure deleting?'
+    content: 'Delete???? Really?'
   };
   public sampleModalYes: ModalDialog = {
     title: 'Deleting',

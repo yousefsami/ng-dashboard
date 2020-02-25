@@ -313,6 +313,6 @@ export interface StartRequestResponse<T> {
 
 export interface ModalDialog {
   title?: string;
-  content?: string;
+  content?: any;
   type?: 'CONFIRMATION' | 'NOTIFY' | 'YESNO';
 }

@@ -2,10 +2,17 @@
   class="notification-container"
   id="notification-button"
   (click)="ToggleNotification()"
-  [ngClass]="{ active: notificationStatus, hasunseen: UserUnseenNotifications.length }"
+  [ngClass]="{
+    active: notificationStatus,
+    hasunseen: UserUnseenNotifications.length
+  }"
 >
   <span class="notification-badge">{{ NotificationCountNumber }}</span>
-  <i class="icon-notifications_{{ NotificationCountNumber.length ? 'active' : 'none'}}"></i>
+  <i
+    class="icon-notifications_{{
+      NotificationCountNumber.length ? 'active' : 'none'
+    }}"
+  ></i>
 </div>
 
 <div
@@ -18,7 +25,7 @@
   [ngClass]="{ active: notificationStatus }"
 >
   <div class="d-flex justify-content-between notification-header">
-    <div class="d-2" translate>
+    <div class="d-2">
       {{ 'notifications' | t }}
     </div>
     <!-- <div class="d-2">
@@ -55,7 +62,9 @@
           <i [class]="item.icon"></i>
         </div>
         <div class="notification-content">
-          <div *ngIf="item.title" class="notification-title">{{ item.title | t }}</div>
+          <div *ngIf="item.title" class="notification-title">
+            {{ item.title | t }}
+          </div>
           <p *ngIf="item.message" class="notification-message">
             {{ item.message | t }}
           </p>
@@ -64,7 +73,6 @@
           </p>
         </div>
       </li>
-
     </ul>
   </div>
 </div>

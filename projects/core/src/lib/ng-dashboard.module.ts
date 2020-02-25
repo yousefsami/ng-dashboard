@@ -49,13 +49,17 @@ import { TeamsService } from './ng5-basic/services/teams.service';
 import { InteractiveButtonsComponent } from './ng5-basic/components/interactive-buttons/interactive-buttons.component';
 import { AutofocusDirective } from './ng5-basic/services/autofocus.directive';
 import { ConfirmComponent } from './ng5-basic/components/confirm/confirm.component';
+import { BaseModalComponent } from './ng5-basic/components/base-modal/base-modal.component';
+
 import { ConfirmService } from './ng5-basic/services/confirm.service';
+import { ModalService } from './ng5-basic/services/modal.service';
 @NgModule({
   declarations: [
     LayoutComponent,
     ConfirmComponent,
     LayoutFadeComponent,
     SideBarComponent,
+    BaseModalComponent,
     NavBarComponent,
     InteractiveButtonsComponent,
     AutofocusDirective,
@@ -83,10 +87,12 @@ import { ConfirmService } from './ng5-basic/services/confirm.service';
     LayoutComponent,
     SideBarComponent,
     NavBarComponent,
+    BaseModalComponent,
     ProfileMenuComponent,
     InteractiveButtonsComponent,
     LayoutFadeComponent,
     NotificationListComponent,
+    BaseModalComponent,
     UiIconBoxComponent,
     ProgressLineComponent,
     UiPanelBoxComponent,
@@ -125,6 +131,7 @@ import { ConfirmService } from './ng5-basic/services/confirm.service';
     RequestsService,
     MockService,
     ConfirmService,
+    ModalService,
     ActionsService,
     ConfigurationService,
     NgxSidebarService,
@@ -133,7 +140,7 @@ import { ConfirmService } from './ng5-basic/services/confirm.service';
     TeamsService,
     GlobalizationService
   ],
-  entryComponents: [ConfirmComponent]
+  entryComponents: [ConfirmComponent, BaseModalComponent]
 })
 export class NgDashboardModule {
   static forRoot(config: NgBasicConfig = {}): ModuleWithProviders {
