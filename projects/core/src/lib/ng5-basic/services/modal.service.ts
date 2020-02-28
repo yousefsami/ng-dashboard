@@ -14,9 +14,9 @@ import { BaseModalComponent } from '../components/base-modal/base-modal.componen
 })
 export class ModalService {
   constructor(
-    private resolver: ComponentFactoryResolver,
-    private appRef: ApplicationRef,
-    private injector: Injector
+    protected resolver: ComponentFactoryResolver,
+    protected appRef: ApplicationRef,
+    protected injector: Injector
   ) {}
 
   open(modal: ModalDialog): Observable<'CONFIRMED' | 'CANCELED'> {

@@ -6,7 +6,8 @@ import {
   NgDashboardEn,
   ConfirmService,
   INotification,
-  ModalDialog
+  ModalDialog,
+  PageContainerAction
 } from 'projects/core/src/public_api';
 
 @Component({
@@ -19,6 +20,30 @@ export class GuideComponent implements OnInit {
     title: 'Deleting',
     content: 'Delete???? Really?'
   };
+  public pageContainerActions: Array<PageContainerAction> = [
+    {
+      type: 'BUTTON',
+      title: 'sampleButton',
+      onClick: () => {
+        alert('hi');
+      }
+    },
+    {
+      type: 'ICON',
+      title: 'icon button',
+      onClick: () => {
+        alert('hi 2');
+      }
+    },
+    {
+      type: 'ICON',
+      title: 'notifications',
+      icon: 'icon-notifications_none',
+      onClick: () => {
+        alert('hi 3');
+      }
+    }
+  ];
   public sampleModalYes: ModalDialog = {
     title: 'Deleting',
     content: 'Are you sure deleting?',

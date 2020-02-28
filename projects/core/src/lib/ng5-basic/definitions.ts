@@ -316,3 +316,10 @@ export interface ModalDialog {
   content?: any;
   type?: 'CONFIRMATION' | 'NOTIFY' | 'YESNO';
 }
+
+export interface PageContainerAction {
+  title?: string;
+  type: 'ICON' | 'BUTTON';
+  icon?: string;
+  onClick: (params?: any) => void;
+}

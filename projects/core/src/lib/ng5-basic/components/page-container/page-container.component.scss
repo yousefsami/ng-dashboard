@@ -1,0 +1,28 @@
+.page-container-title {
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  display: flex;
+}
+
+.box-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.page-container-actions {
+  display: flex;
+  align-items: center;
+}
+
+.action-icon-button {
+  display: inline-flex;
+  align-items: center;
+  i {
+    font-size: 36px;
+  }
+}
+.action-button {
+  margin-left: 15px;
+}

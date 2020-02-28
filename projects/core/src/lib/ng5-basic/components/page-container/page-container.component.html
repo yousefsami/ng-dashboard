@@ -1,7 +1,7 @@
 <div class="box-wrapper">
   <div class="row">
     <div class="box-title">
-      <div class="d-flex flex-wrap justify-content-between align-items-center">
+      <div class="page-container-title">
         <div class="d-2">
           <h2 [title]="maintitle" class="app-page-title">
             {{ maintitle | t }}
@@ -11,6 +11,27 @@
         <div class="d-2">
           <ng-content select="[action-button]"></ng-content>
         </div>
+      </div>
+
+      <div class="page-container-actions">
+        <ng-container *ngFor="let action of actions">
+          <button
+            (click)="action.onClick(params)"
+            *ngIf="action.type === 'BUTTON'"
+            class="btn btn-primary action-button "
+          >
+            {{ action.title }}
+          </button>
+          <a
+            href="javascript:void();"
+            class="action-button action-icon-button"
+            (click)="action.onClick(params)"
+            *ngIf="action.type === 'ICON'"
+          >
+            <i _ngcontent-jgc-c8="" class="{{ action.icon }}"></i>
+            {{ action.title }}
+          </a>
+        </ng-container>
       </div>
     </div>
   </div>

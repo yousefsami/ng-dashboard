@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { PageContainerAction } from '../../definitions';
 
 @Component({
   selector: 'ng-page-container',
@@ -8,6 +9,8 @@ import { Component, OnInit, Input } from '@angular/core';
 export class PageContainerComponent implements OnInit {
   @Input() public maintitle = '';
   @Input() public subtitle = '';
+  @Input() public params = {};
+  @Input() public actions: Array<PageContainerAction> = [];
   constructor() {}
 
   ngOnInit() {}
