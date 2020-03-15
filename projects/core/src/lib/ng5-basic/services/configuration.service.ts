@@ -59,6 +59,7 @@ export class ConfigurationService {
   > = new BehaviorSubject([]);
 
   public SearchTerms: BehaviorSubject<Array<any>> = new BehaviorSubject([]);
+  public ToolbarComponent: BehaviorSubject<any> = new BehaviorSubject(null);
   public NotificationState: BehaviorSubject<
     'OPEN' | 'CLOSE'
   > = new BehaviorSubject('CLOSE');

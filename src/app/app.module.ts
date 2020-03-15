@@ -11,9 +11,10 @@ import {
 } from 'projects/core/src/public_api';
 import { Router } from '@angular/router';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { SimpleToolbarComponent } from './simple-toolbar/simple-toolbar.component';
 
 @NgModule({
-  declarations: [AppComponent, GuideComponent],
+  declarations: [AppComponent, GuideComponent, SimpleToolbarComponent],
   imports: [
     NoopAnimationsModule,
     BrowserModule,
@@ -31,6 +32,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     })
   ],
   exports: [],
+  entryComponents: [SimpleToolbarComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -1,12 +1,19 @@
- <ng-nav-bar></ng-nav-bar>
+<ng-nav-bar></ng-nav-bar>
 <ng-side-bar></ng-side-bar>
 <div
-[ngClass]="{'ngd-sidebar-visible': isSidebarVisible }"
-class="ngd-outlet"
-(click)="sideOff();"
+  [ngClass]="{
+    'ngd-sidebar-visible': isSidebarVisible,
+    'ngd-has-toolbar': toolbarData ? true : false
+  }"
+  class="ngd-outlet"
+  (click)="sideOff()"
 >
-<router-outlet class="layout-router-outlet" #outlet="outlet"></router-outlet>
-
+  <ngd-toolbar
+    *ngIf="toolbarData"
+    [isSidebarVisible]="isSidebarVisible"
+    [toolbarData]="toolbarData"
+  ></ngd-toolbar>
+  <router-outlet class="layout-router-outlet" #outlet="outlet"></router-outlet>
 </div>
 
 <ng-window-spinner *ngFor="let working of workers"></ng-window-spinner>

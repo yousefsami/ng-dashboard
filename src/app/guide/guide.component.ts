@@ -9,6 +9,7 @@ import {
   ModalDialog,
   PageContainerAction
 } from 'projects/core/src/public_api';
+import { SimpleToolbarComponent } from '../simple-toolbar/simple-toolbar.component';
 
 @Component({
   selector: 'app-guide',
@@ -57,6 +58,15 @@ export class GuideComponent implements OnInit {
   ngOnInit() {
     this.config.NotificationEvent.subscribe(event => {
       console.log('Notification event: ', event);
+    });
+    const callback = t => {
+      setInterval(() => {
+        t.instance.count += 1;
+      }, 1000);
+    };
+    this.config.ToolbarComponent.next({
+      component: SimpleToolbarComponent,
+      callback
     });
   }
 

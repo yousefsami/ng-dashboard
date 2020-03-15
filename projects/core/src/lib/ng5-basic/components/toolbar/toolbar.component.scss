@@ -1,0 +1,22 @@
+@import '../../scss/layout';
+
+.ngd-toolbar {
+  background-color: white;
+  box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  height: 40px;
+  top: 55px;
+  padding: 5px 15px;
+  display: flex;
+  align-items: center;
+  right: 0;
+  z-index: 99999999;
+  left: 0;
+  &.ngd-sidebar-visible {
+    left: $sidebar_width;
+  }
+
+  transition-duration: 0.7s;
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-property: right, left;
+}

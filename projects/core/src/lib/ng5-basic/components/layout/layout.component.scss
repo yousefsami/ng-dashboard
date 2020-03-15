@@ -15,6 +15,9 @@
     left: $sidebar_width;
     right: -$sidebar_width;
   }
+  &.ngd-has-toolbar {
+    padding-top: 50px;
+  }
 }
 
 ::ng-deep body[dir='rtl'] {
@@ -36,4 +39,16 @@
       right: 0;
     }
   }
+}
+
+
+.ngd-outlet {
+  overflow-x: hidden;
+}
+
+@media only screen and (max-width: 760px) {
+  .hide-on-mobile {
+    display: none;
+  }
+ 
 }

@@ -49,6 +49,7 @@ import { TeamsService } from './ng5-basic/services/teams.service';
 import { InteractiveButtonsComponent } from './ng5-basic/components/interactive-buttons/interactive-buttons.component';
 import { AutofocusDirective } from './ng5-basic/services/autofocus.directive';
 import { ConfirmComponent } from './ng5-basic/components/confirm/confirm.component';
+import { ToolbarComponent } from './ng5-basic/components/toolbar/toolbar.component';
 import { BaseModalComponent } from './ng5-basic/components/base-modal/base-modal.component';
 
 import { ConfirmService } from './ng5-basic/services/confirm.service';
@@ -57,6 +58,7 @@ import { ModalService } from './ng5-basic/services/modal.service';
   declarations: [
     LayoutComponent,
     ConfirmComponent,
+    ToolbarComponent,
     LayoutFadeComponent,
     SideBarComponent,
     BaseModalComponent,
@@ -101,6 +103,7 @@ import { ModalService } from './ng5-basic/services/modal.service';
     PageContainerComponent,
     ConfirmComponent,
     ErrorMessageComponent,
+    ToolbarComponent,
     LoginFormComponent,
     TeamSelectorComponent,
     ProgressLineComponent,
