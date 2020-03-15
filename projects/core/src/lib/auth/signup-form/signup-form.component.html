@@ -1,65 +1,35 @@
-<ng-progress-line *ngIf="isRequesting"></ng-progress-line>
-<ng-error-message *ngIf="response && response.error">
-  {{ response.error.message }}
-</ng-error-message>
 <div class="container-login">
   <div class="wrap-login">
-    <form>
+    <form [formGroup]="userForm">
       <div class="login-header">
         <span> {{ 'Create your account' | t }} </span>
-        <p>{{ signupDialog | t }}</p>
+        <p>
+          Easily create your account in 10 seconds using your email and
+          password.
+        </p>
       </div>
 
-      <div class="form-group">
-        <label>{{ 'Your email (as username)' | t }}</label>
-        <input
-          class="app-signup-form-email form-control"
-          autocomplete="off"
-          type="text"
-          name="email"
-          value=""
-          [(ngModel)]="form.email"
-        />
-        <span class="focus-input" data-placeholder="Email"></span>
-        <span class="error-message" *ngIf="error(response, 'email')">{{
-          error(response, 'email')
-        }}</span>
-      </div>
+      <ngd-email-input
+        [response]="response"
+        [formGroup]="userForm"
+      ></ngd-email-input>
 
-      <div class="form-group" style="position: relative">
-        <label>{{ 'Password' | t }}</label>
-        <span class="btn-show-pass" (click)="togglePassword()">
-          <i
-            [ngClass]="{
-              'icon-visibility_off': passwordVisibility,
-              'icon-visibility': !passwordVisibility
-            }"
-          ></i>
-        </span>
-        <input
-          class="app-signup-form-password form-control"
-          autocomplete="off"
-          [type]="passwordVisibility ? 'text' : 'password'"
-          name="password"
-          [(ngModel)]="form.password"
-        />
-        <span class="focus-input" data-placeholder="Password"></span>
-        <span class="error-message" *ngIf="error(response, 'password')">{{
-          error(response, 'password')
-        }}</span>
-      </div>
+      <ngd-password-input
+        [response]="response"
+        [formGroup]="userForm"
+      ></ngd-password-input>
 
       <p class="signup-info">
-        <span>{{
-          'By clicking on "Signup" below, you are agreeing to the' | t
-        }}</span>
-        <a routerLink="/privacy-policy">Privacy Policy</a>.
+        <span
+          >{{ 'By clicking on "Signup" below, you are agreeing to the' | t }}
+        </span>
+        <a routerLink="/documenation/privacy-policy">Privacy Policy</a>.
       </p>
 
       <div class="form-group login-button">
         <button
           class="btn btn-primary app-signup-form-submit"
-          (click)="signup($event)"
+          (click)="signup()"
         >
           {{ 'Signup' | t }}
         </button>

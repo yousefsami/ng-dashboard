@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { IWorkingState } from '../../definitions';
 
 @Component({
   selector: 'ng-window-spinner',
@@ -6,9 +7,8 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./spinner.component.scss']
 })
 export class SpinnerComponent implements OnInit {
-  @Input() public level = '';
-  public isLow = false;
-  public isHigh = false;
+  @Input() public worker: IWorkingState;
+
   constructor() {}
 
   ngOnInit() {}

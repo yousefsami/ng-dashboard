@@ -19,7 +19,9 @@ export class ModalService {
     protected injector: Injector
   ) {}
 
-  open(modal: ModalDialog): Observable<'CONFIRMED' | 'CANCELED'> {
+  open(
+    modal: ModalDialog
+  ): Observable<{ type: 'CONFIRMED' | 'CANCELED'; data: any }> {
     if (!modal) {
       console.warn('Modal is not defined. add argument');
       return null;

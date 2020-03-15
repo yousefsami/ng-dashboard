@@ -28,8 +28,8 @@ export class ConfirmService extends ModalService {
   public simpleConfirm(content, callback: () => void, params: any = {}) {
     this.open({
       content: this.config.translate(content, params)
-    }).subscribe(async result => {
-      if (result !== 'CONFIRMED') {
+    }).subscribe(async ({ type }) => {
+      if (type !== 'CONFIRMED') {
         return;
       }
       callback();

@@ -1,86 +1,29 @@
-<ng-progress-line *ngIf="isRequesting"></ng-progress-line>
 <div class="container-login">
   <div class="wrap-login">
-    <form>
+    <form [formGroup]="userForm">
       <div class="login-header">
         <span>{{ 'auth_login_title' | t }}</span>
         <p>{{ 'auth_login_description' | t }}</p>
       </div>
 
-      <div class="form-group">
-        <label>{{ 'auth_login_email_label' | t }}</label>
-        <input
-          type="email"
-          class="form-control app-login-form-email"
-          name="email"
-          [(ngModel)]="form2.email"
-        />
-        <span class="focus-input" data-placeholder="Email"></span>
-        <span class="error-message" *ngIf="error(response, 'email')">{{
-          error(response, 'email')
-        }}</span>
-      </div>
+      <ngd-email-input
+        [response]="response"
+        [formGroup]="userForm"
+      ></ngd-email-input>
 
-      <div class="form-group" style="position: relative;">
-        <label>{{ 'auth_login_password_label' | t }}</label>
-        <input
-          class="app-login-form-password form-control "
-          [type]="passwordVisibility ? 'text' : 'password'"
-          name="password"
-          [(ngModel)]="form2.password"
-        />
-        <span class="focus-input" data-placeholder="Password"></span>
-        <span class="error-message" *ngIf="error(response, 'password')">{{
-          error(response, 'password')
-        }}</span>
-
-        <span class="btn-show-pass" (click)="togglePassword()">
-          <i
-            [ngClass]="{
-              'icon-visibility_off': passwordVisibility,
-              'icon-visibility': !passwordVisibility
-            }"
-          ></i>
-        </span>
-      </div>
+      <ngd-password-input
+        [response]="response"
+        [formGroup]="userForm"
+      ></ngd-password-input>
 
       <div class="form-group login-button">
         <button
           class="btn btn-primary btn-block app-login-form-submit"
-          (click)="login($event)"
+          (click)="login()"
         >
           {{ 'auth_login_submit' | t }}
         </button>
 
-        <div *ngIf="alternativeLogins.length">
-          <div class="sso-description">
-            {{ 'or alternatively login with:' | t }}
-          </div>
-
-          <ng-container *ngFor="let item of alternativeLogins">
-            <ng-container *ngIf="item.type === 'facebook'">
-              <button
-                *ngIf="!isLoggedInByFacebook"
-                class="btn-facebook btn btn-primary btn-block app-login-facebook-submit"
-                (click)="loginFacebook()"
-              >
-                <i class="fa fa-facebook"></i>
-                <span>{{ 'Login by facebook' | t }}</span>
-              </button>
-              <button
-                *ngIf="isLoggedInByFacebook"
-                class="btn-facebook btn btn-primary btn-block app-login-facebook-continue"
-                (click)="continueWithFacebook()"
-              >
-                <i class="fa fa-facebook"></i>
-                <span>{{ 'Continue with facebook' | t }}</span>
-              </button>
-            </ng-container>
-          </ng-container>
-        </div>
-      </div>
-
-      <div class="">
         <span>{{ 'auth_create_account_button' | t }}</span>
         <a routerLink="/signup" class="app-signup-button">
           {{ 'auth_login_signup_link' | t }}

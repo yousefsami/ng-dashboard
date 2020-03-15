@@ -16,5 +16,8 @@ export const NgDashboardEn = {
   modal_confirm: 'Confirm',
   modal_cancel: 'Cancel',
   modal_yes: 'Yes',
-  modal_no: 'No'
+  modal_no: 'No',
+  bug_report_title: 'Bug report',
+  bug_report_explain: 'Your feedback helps us to make this screen better.',
+  recovery_link_has_been_sent: 'Well done! Check your email for recovery link.'
 };

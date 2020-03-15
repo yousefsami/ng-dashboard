@@ -291,9 +291,11 @@ export interface DockedMenu {
 }
 
 export interface IWorkingState {
+  id?: string;
   active: boolean;
   progress?: number;
-  mode?: 'COMPLETE' | 'MINOR';
+  speed?: 'LOW' | 'HIGH' | 'NORMAL' | number;
+  mode?: 'COMPLETE' | 'MINOR' | 'INFINITE';
 }
 
 export interface IToastMessage {

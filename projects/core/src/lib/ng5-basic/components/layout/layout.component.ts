@@ -9,12 +9,9 @@ import { ConfigurationService } from '../../services/configuration.service';
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss']
 })
-export class LayoutComponent implements OnInit, OnDestroy {
-  public isRequesting = false;
+export class LayoutComponent implements OnInit {
   public isSidebarVisible = true;
   public toolbarData = null;
-  public workers: Array<IWorkingState> = [];
-  private sub: Subscription = null;
 
   constructor(
     public sidebar: NgxSidebarService,
@@ -27,9 +24,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isSidebarVisible = this.sidebar.IsSidebarVisibleInitially();
-    this.sub = WorkingStates.subscribe(t => {
-      this.workers = t;
-    });
+
     this.config.ToolbarComponent.subscribe(t => {
       if (!t) {
         return;
@@ -38,12 +33,6 @@ export class LayoutComponent implements OnInit, OnDestroy {
         this.toolbarData = t;
       }, 100);
     });
-  }
-
-  ngOnDestroy() {
-    if (this.sub.unsubscribe) {
-      this.sub.unsubscribe();
-    }
   }
 
   sideOff() {

@@ -9,7 +9,7 @@ import {
   ViewChild
 } from '@angular/core';
 import { ModalDialog } from '../../definitions';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { ConfigurationService } from '../../services/configuration.service';
 
 @Component({
@@ -24,6 +24,8 @@ export class BaseModalComponent implements AfterViewInit {
   @Input() public content: any;
   @Input() public modal: ModalDialog;
   @Input() public subject: Subject<any> = null;
+  public contentRef: any;
+
   @ViewChild('content', { read: ViewContainerRef, static: false })
   viewContainerRef: ViewContainerRef;
 
@@ -34,7 +36,6 @@ export class BaseModalComponent implements AfterViewInit {
   ) {
     if (event.code === 'Escape') {
       this.Close(event);
-      this.subject.next('CANCELED');
     }
   }
 
@@ -50,8 +51,8 @@ export class BaseModalComponent implements AfterViewInit {
       const factory = this.componentFactoryResolver.resolveComponentFactory(
         this.modal.content
       );
-      const ref = this.viewContainerRef.createComponent(factory);
-      ref.changeDetectorRef.detectChanges();
+      this.contentRef = this.viewContainerRef.createComponent(factory);
+      this.contentRef.changeDetectorRef.detectChanges();
     }
   }
 
@@ -66,8 +67,13 @@ export class BaseModalComponent implements AfterViewInit {
     }, 1);
   }
 
-  private Close(e: any) {
+  private Close(e: any, type = 'CANCELED') {
     if (e.target === e.currentTarget || e.code === 'Escape') {
+      let data = {};
+      if (this.contentRef && this.contentRef.instance.data) {
+        data = this.contentRef.instance.data.value;
+      }
+      this.subject.next({ type, data });
       this.activeModal = false;
       setTimeout(() => {
         this.appRef.detachView(this.ref.hostView);
@@ -77,13 +83,11 @@ export class BaseModalComponent implements AfterViewInit {
   }
 
   public Cancel(e: any) {
-    this.subject.next('CANCELED');
-    this.Close(e);
+    this.Close(e, 'CANCELED');
   }
 
   public Confirm(e: any) {
-    this.subject.next('CONFIRMED');
-    this.Close(e);
+    this.Close(e, 'CONFIRMED');
   }
 
   public ModalButtons(dialog: ModalDialog) {

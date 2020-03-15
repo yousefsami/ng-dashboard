@@ -1,0 +1,19 @@
+<div
+  class="form-group"
+  [ngClass]="{ 'has-error-message': error(response, 'email') }"
+  [formGroup]="formGroup"
+>
+  <label>{{ 'auth_login_email_label' | t }}</label>
+
+  <input
+    class="app-signup-form-email form-control"
+    type="text"
+    ngdAutoFocus
+    [ngClass]="{ 'is-invalid': error(response, 'email') }"
+    name="email"
+    formControlName="email"
+  />
+  <span class="invalid-feedback" *ngIf="error(response, 'email')">{{
+    error(response, 'email')
+  }}</span>
+</div>

@@ -1,0 +1,13 @@
+<form [formGroup]="form">
+  <div class="form-group">
+    <label>{{ 'bug_report_explain' | t }}</label>
+    <textarea
+      class="app-signup-form-email form-control"
+      autocomplete="off"
+      formControlName="content"
+      type="text"
+      name="email"
+      value=""
+    ></textarea>
+  </div>
+</form>
