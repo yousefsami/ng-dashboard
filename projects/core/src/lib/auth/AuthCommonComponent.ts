@@ -18,7 +18,6 @@ export class AuthCommonComponent extends NgdBaseComponent {
   });
 
   public response: IResponse<any> = null;
-  public passwordVisibility = false;
   // public error = error;
 
   constructor(
@@ -83,10 +82,6 @@ export class AuthCommonComponent extends NgdBaseComponent {
     if (this.config.Config.afterSignupRedirect) {
       this.router.navigateByUrl(this.config.Config.afterSignupRedirect);
     }
-  }
-
-  togglePassword() {
-    this.passwordVisibility = this.passwordVisibility ? false : true;
   }
 
   /**

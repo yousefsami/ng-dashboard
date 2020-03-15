@@ -13,4 +13,10 @@ export class PasswordInputComponent {
   @Input() public response: IResponse<any>;
   @Input() public input: FormControl;
   @Input() public formGroup: FormGroup;
+
+  public passwordVisibility = false;
+
+  togglePassword() {
+    this.passwordVisibility = this.passwordVisibility ? false : true;
+  }
 }
