@@ -1,8 +1,8 @@
 @import '../../scss/layout';
 
 .ngd-outlet {
-  overflow-y: scroll !important;
-  position: fixed !important;
+  overflow-y: scroll;
+  position: fixed;
   padding: 30px;
   bottom: 0;
   right: 0;
@@ -17,6 +17,10 @@
   }
   &.ngd-has-toolbar {
     padding-top: 50px;
+  }
+
+  @media (max-width: 992px) {
+    padding: 0 10px !important;
   }
 }
 
@@ -41,7 +45,6 @@
   }
 }
 
-
 .ngd-outlet {
   overflow-x: hidden;
 }
@@ -50,5 +53,4 @@
   .hide-on-mobile {
     display: none;
   }
- 
 }

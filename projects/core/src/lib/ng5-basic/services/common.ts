@@ -320,7 +320,7 @@ export const InteractiveButtons = {
       title: 'bug_report',
       key: 'bug_report_button',
       onPress,
-      keyboardShortcut: 'Enter'
+      keyboardShortcut: 'b'
     };
   }
 };
