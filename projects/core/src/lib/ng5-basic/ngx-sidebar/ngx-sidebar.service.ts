@@ -177,6 +177,10 @@ export class NgxSidebarService {
     if (window.innerWidth > 992 && 'OUTSIDE_CLICK' === type) {
       return;
     }
+    this.ForceHide();
+  }
+
+  public ForceHide() {
     this.SidebarVisibilityState.next(false);
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(false));
   }
