@@ -10,10 +10,11 @@ import {
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { RouterService } from './router.service';
 
 @Injectable()
 export class ResponseInterceptor implements HttpInterceptor {
-  constructor(private router: Router) {}
+  constructor(private ngdRouter: RouterService) {}
 
   intercept(
     request: HttpRequest<any>,
@@ -28,7 +29,7 @@ export class ResponseInterceptor implements HttpInterceptor {
         },
         (error: HttpErrorResponse) => {
           if (error.status === 401) {
-            this.router.navigateByUrl('/login');
+            this.ngdRouter.navigateTo('/login');
           }
         }
       )

@@ -10,6 +10,7 @@ import { AuthPublicService, AuthEvent } from './auth-public.service';
 import { ConfigurationService } from '../ng5-basic/services/configuration.service';
 import { UserService } from '../ng5-basic/services/user.service';
 import { debounceTime, timeout } from 'rxjs/operators';
+import { RouterService } from '../ng5-basic/services/router.service';
 
 export class AuthCommonComponent extends NgdBaseComponent {
   public userForm = new FormGroup({
@@ -23,6 +24,7 @@ export class AuthCommonComponent extends NgdBaseComponent {
   constructor(
     public http: HttpClient,
     public router: Router,
+    public ngdRouter: RouterService,
     public auth: AuthPublicService,
     public config: ConfigurationService,
     public user: UserService
@@ -80,7 +82,7 @@ export class AuthCommonComponent extends NgdBaseComponent {
       payload: result
     });
     if (this.config.Config.afterSignupRedirect) {
-      this.router.navigateByUrl(this.config.Config.afterSignupRedirect);
+      this.ngdRouter.navigateTo(this.config.Config.afterSignupRedirect);
     }
   }
 

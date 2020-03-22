@@ -55,6 +55,7 @@ import { ModalService } from './ng5-basic/services/modal.service';
 import { BugReportComponent } from './ng5-basic/components/bug-report/bug-report.component';
 import { EmailInputComponent } from './auth/email-input/email-input.component';
 import { PasswordInputComponent } from './auth/password-input/password-input.component';
+import { RouterService } from './ng5-basic/services/router.service';
 @NgModule({
   declarations: [
     LayoutComponent,
@@ -132,6 +133,7 @@ import { PasswordInputComponent } from './auth/password-input/password-input.com
   providers: [
     PermissionsService,
     TranslateService,
+    RouterService,
     RequestsService,
     MockService,
     ConfirmService,

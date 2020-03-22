@@ -13,6 +13,7 @@ import { AuthPublicService, AuthEvent } from '../auth-public.service';
 import { UserService } from '../../ng5-basic/services/user.service';
 import { NgdBaseComponent } from '../../ng5-basic/services/ngd-base.component';
 import { FormGroup, FormControl } from '@angular/forms';
+import { RouterService } from '../../ng5-basic/services/router.service';
 
 @Component({
   templateUrl: './reset-password.component.html',
@@ -33,6 +34,7 @@ export class ResetPasswordComponent extends NgdBaseComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private router: Router,
+    private ngdRouter: RouterService,
     private route: ActivatedRoute,
     public config: ConfigurationService,
     private auth: AuthPublicService,
@@ -62,7 +64,7 @@ export class ResetPasswordComponent extends NgdBaseComponent implements OnInit {
             type: AuthEvent.LOGIN_SUCCESS
           });
           if (conf.afterLoginRedirect) {
-            this.router.navigateByUrl(conf.afterLoginRedirect);
+            this.ngdRouter.navigateTo(conf.afterLoginRedirect);
           }
           this.user.SetToken(this.response.data.items[0].token);
           this.user.SetUser(this.response.data.items[0].user);

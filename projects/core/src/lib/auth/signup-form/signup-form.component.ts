@@ -7,6 +7,7 @@ import { ConfigurationService } from '../../ng5-basic/services/configuration.ser
 import { UserService } from '../../ng5-basic/services/user.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AuthCommonComponent } from '../AuthCommonComponent';
+import { RouterService } from '../../ng5-basic/services/router.service';
 
 @Component({
   templateUrl: './signup-form.component.html',
@@ -17,9 +18,10 @@ export class SignupFormComponent extends AuthCommonComponent {
     public http: HttpClient,
     public router: Router,
     public auth: AuthPublicService,
+    public ngdRouter: RouterService,
     public config: ConfigurationService,
     public user: UserService
   ) {
-    super(http, router, auth, config, user);
+    super(http, router, ngdRouter, auth, config, user);
   }
 }

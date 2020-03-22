@@ -8,7 +8,8 @@ import {
   ConfigurationService,
   UserService,
   NgDashboardPl,
-  ModalService
+  ModalService,
+  RouterService
 } from 'projects/core/src/public_api';
 import { Router } from '@angular/router';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -55,7 +56,7 @@ export class AppModule {
     private config: ConfigurationService,
     private user: UserService,
     private modal: ModalService,
-    private router: Router
+    private ngdRouter: RouterService
   ) {
     this.user.SetUser({
       firstname: 'Ali',
@@ -111,7 +112,7 @@ export class AppModule {
       manageTeams: true,
       manageTeamsText: 'ManageTeams',
       onClick: () => {
-        this.router.navigateByUrl('/teams');
+        this.ngdRouter.navigateTo('/teams');
       }
     });
 
@@ -120,7 +121,7 @@ export class AppModule {
         icon: 'icon-logout',
         title: 'Sign-out',
         onClick: () => {
-          this.router.navigateByUrl('/login');
+          this.ngdRouter.navigateTo('/login');
         }
       }
     ]);
