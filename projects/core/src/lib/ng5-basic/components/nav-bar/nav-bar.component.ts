@@ -56,6 +56,13 @@ export class NavBarComponent implements OnInit, OnDestroy {
       if (matchedButton) {
         this.interactiveBtnClick(matchedButton);
       }
+
+      if (event.key === 'm' || event.key === 'M') {
+        if (this.sidebar.IsVisible) {
+          return this.sidebar.ForceHide();
+        }
+        return this.sidebar.Show();
+      }
     }
   }
   constructor(
