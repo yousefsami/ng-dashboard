@@ -93,6 +93,16 @@ export class ConfigurationService {
   }
 
   /**
+   * Any route in (navigateByUrl) will pass through here.
+   */
+  public RouteFilter(to, params = null) {
+    return {
+      to,
+      params
+    };
+  }
+
+  /**
    * @description Sets interactive buttons that should be available in every screen.
    */
   public SetGlobalInteractiveButtons(buttons: InteractiveButton[]) {
