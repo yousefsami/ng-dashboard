@@ -23,7 +23,9 @@
         <span
           >{{ 'By clicking on "Signup" below, you are agreeing to the' | t }}
         </span>
-        <a routerLink="/documenation/privacy-policy">Privacy Policy</a>.
+        <a [routerLink]="ngdRouter.publicLink('/documenation/privacy-policy')"
+          >Privacy Policy</a
+        >.
       </p>
 
       <div class="form-group login-button">
@@ -37,7 +39,7 @@
 
       <div>
         <span>{{ 'Do you have an account?' | t }}</span>
-        <a routerLink="/login"> {{ 'Login' | t }} </a>
+        <a [routerLink]="ngdRouter.publicLink('/login')"> {{ 'Login' | t }} </a>
       </div>
     </form>
   </div>

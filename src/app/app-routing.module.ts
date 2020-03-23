@@ -12,7 +12,7 @@ import {
 const routes: Routes = [
   {
     component: LayoutComponent,
-    path: '',
+    path: ':lang',
     children: [
       {
         path: '',

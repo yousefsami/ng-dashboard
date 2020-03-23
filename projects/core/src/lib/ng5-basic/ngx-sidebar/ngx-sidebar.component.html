@@ -23,6 +23,7 @@
       <ng-container *ngIf="nav.children">
         <li
           *ngIf="nav"
+          class="ngx-parent-menu"
           [ngClass]="{
             'menu-active': menuActive(nav),
             opened: !nav.$collapsed

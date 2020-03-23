@@ -9,7 +9,8 @@ import {
   UserService,
   NgDashboardPl,
   ModalService,
-  RouterService
+  RouterService,
+  TeamsService
 } from 'projects/core/src/public_api';
 import { Router } from '@angular/router';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -55,6 +56,7 @@ export class AppModule {
   constructor(
     private config: ConfigurationService,
     private user: UserService,
+    private teamsService: TeamsService,
     private modal: ModalService,
     private ngdRouter: RouterService
   ) {
@@ -67,6 +69,7 @@ export class AppModule {
       profile: false,
       notification: true
     };
+
     this.config.SetGlobalInteractiveButtons([
       {
         icon: 'icon-bug_report',

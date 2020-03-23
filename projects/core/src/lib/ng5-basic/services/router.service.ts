@@ -1,20 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConfigurationService } from './configuration.service';
+import { BehaviorSubject } from 'rxjs';
+import { TeamsService } from './teams.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RouterService {
-  constructor(private router: Router, private config: ConfigurationService) {}
+  public CurrentLanguage: BehaviorSubject<string> = new BehaviorSubject('en');
 
-  public navigateTo(path: string, extras = null) {
-    const { to, params } = this.config.RouteFilter(path, extras);
-    this.router.navigateByUrl(to, params);
+  constructor(private router: Router, private teams: TeamsService) {}
+
+  public navigateTo(path: string, extras = {}) {
+    this.router.navigateByUrl(this.routerLink(path), extras);
   }
 
-  public routerLink(path: string = '', extras = null): string {
-    const { to } = this.config.RouteFilter(path, extras);
-    return to;
+  public navigatePublic(path: string, extras = {}) {
+    this.router.navigateByUrl(this.publicLink(path), extras);
+  }
+
+  public routerLink(path: string = '', extras = {}): string {
+    return `/${this.teams.CurrentSelectedTeam || ''}${path}`;
+  }
+
+  public publicLink(path: string) {
+    return '/' + this.CurrentLanguage.value + path;
   }
 }

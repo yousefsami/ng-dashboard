@@ -18,18 +18,22 @@
 
       <div class="form-group login-button">
         <button
-          class="btn btn-primary btn-block app-login-form-submit"
+          class="btn btn-success btn-block app-login-form-submit"
           (click)="login()"
         >
           {{ 'auth_login_submit' | t }}
         </button>
-
-        <span>{{ 'auth_create_account_button' | t }}</span>
-        <a routerLink="/signup" class="app-signup-button">
+        <hr />
+        <a
+          [routerLink]="ngdRouter.publicLink('/signup')"
+          class="app-signup-button btn btn-block btn-primary"
+        >
           {{ 'auth_login_signup_link' | t }}
         </a>
-        <br />
-        <a routerLink="/forgot-password" class="app-forget-password-link">
+        <a
+          [routerLink]="ngdRouter.publicLink('/forgot-password')"
+          class="app-forget-password-link"
+        >
           {{ 'auth_login_forgot_password' | t }}
         </a>
       </div>

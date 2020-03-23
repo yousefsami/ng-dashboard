@@ -34,7 +34,7 @@ export class ResetPasswordComponent extends NgdBaseComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private ngdRouter: RouterService,
+    public ngdRouter: RouterService,
     private route: ActivatedRoute,
     public config: ConfigurationService,
     private auth: AuthPublicService,

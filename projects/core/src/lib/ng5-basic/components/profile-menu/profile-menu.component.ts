@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { IUser } from '../../definitions';
+import { RouterService } from '../../services/router.service';
 
 @Component({
   selector: 'ng-profile-menu',
@@ -9,7 +10,7 @@ import { IUser } from '../../definitions';
 })
 export class ProfileMenuComponent {
   public display = '';
-  constructor(public user: UserService) {}
+  constructor(public user: UserService, public ngdRouter: RouterService) {}
 
   public name(user: IUser) {
     if (!user) {

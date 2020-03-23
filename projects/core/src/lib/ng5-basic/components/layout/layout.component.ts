@@ -26,9 +26,6 @@ export class LayoutComponent implements OnInit {
     this.isSidebarVisible = this.sidebar.IsSidebarVisibleInitially();
 
     this.config.ToolbarComponent.subscribe(t => {
-      if (!t) {
-        return;
-      }
       setTimeout(() => {
         this.toolbarData = t;
       }, 100);

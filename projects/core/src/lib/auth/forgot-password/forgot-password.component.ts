@@ -6,6 +6,7 @@ import { ConfigurationService } from '../../ng5-basic/services/configuration.ser
 import { NgdBaseComponent } from '../../ng5-basic/services/ngd-base.component';
 import { FormGroup, FormControl } from '@angular/forms';
 import { timeout } from 'rxjs/operators';
+import { RouterService } from '../../ng5-basic/services/router.service';
 
 @Component({
   templateUrl: './forgot-password.component.html',
@@ -18,7 +19,11 @@ export class ForgotPasswordComponent extends NgdBaseComponent {
   });
   public response: IResponse<any> = null;
 
-  constructor(private http: HttpClient, public config: ConfigurationService) {
+  constructor(
+    private http: HttpClient,
+    public config: ConfigurationService,
+    public ngdRouter: RouterService
+  ) {
     super();
   }
 
