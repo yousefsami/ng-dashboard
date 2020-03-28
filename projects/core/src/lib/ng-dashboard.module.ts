@@ -100,6 +100,7 @@ import { RouterService } from './ng5-basic/services/router.service';
     UiIconBoxComponent,
     UiPanelBoxComponent,
     SpinnerComponent,
+    NgxSidebarComponent,
     UiSmallBoxComponent,
     PageContainerComponent,
     ConfirmComponent,

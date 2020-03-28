@@ -24,6 +24,7 @@
         <li
           *ngIf="nav"
           class="ngx-parent-menu"
+          [attr.id]="nav.id ? 'ngx-menu-item-' + nav.id : null"
           [ngClass]="{
             'menu-active': menuActive(nav),
             opened: !nav.$collapsed
@@ -50,6 +51,7 @@
       <ng-container *ngIf="!nav.children">
         <li
           *ngIf="nav"
+          [attr.id]="nav.id ? 'ngx-menu-item-' + nav.id : null"
           [ngClass]="{
             'menu-active': menuActive(nav),
             opened: !nav.$collapsed

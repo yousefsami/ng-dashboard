@@ -211,6 +211,7 @@ export interface INavigation {
   link?: string;
   icon?: string;
   title: string;
+  id?: string;
   active?: boolean;
   class?: string;
   permissions?: Array<string>;
@@ -287,6 +288,7 @@ export interface TeamsConfig {
 export interface DockedMenu {
   title?: string;
   icon?: string;
+  id?: string;
   onClick?: () => void;
 }
 
