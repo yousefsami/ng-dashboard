@@ -6,7 +6,8 @@ import {
   ComponentFactoryResolver,
   ViewContainerRef,
   ViewChild,
-  OnDestroy
+  OnDestroy,
+  AfterViewInit
 } from '@angular/core';
 import { SupportedLanguages } from '../../services/globalization.service';
 import {
@@ -27,8 +28,9 @@ import { WorkingStates } from '../../services/common';
   styleUrls: ['./nav-bar.component.scss'],
   providers: [TranslateService]
 })
-export class NavBarComponent implements OnInit, OnDestroy {
+export class NavBarComponent implements OnInit, OnDestroy, AfterViewInit {
   public MobileSearchBar = false;
+  public leftContent: Subscription;
   private sub: Subscription = null;
 
   public workers: Array<IWorkingState> = [];
@@ -91,6 +93,9 @@ export class NavBarComponent implements OnInit, OnDestroy {
     if (this.sub.unsubscribe) {
       this.sub.unsubscribe();
     }
+    if (this.leftContent) {
+      this.leftContent.unsubscribe();
+    }
   }
 
   ngOnInit() {
@@ -103,21 +108,30 @@ export class NavBarComponent implements OnInit, OnDestroy {
     this.configService.NavbarInteractiveButtons.subscribe(buttons => {
       this.interactiveButtons = buttons;
     });
+  }
 
-    this.configService.NavigationLeftContent.subscribe(content => {
-      if (!content || typeof content !== 'function') {
-        console.warn(
-          'You should provide an angular component for NavigationLeftContent'
+  ngAfterViewInit() {
+    this.leftContent = this.configService.NavigationLeftContent.subscribe(
+      content => {
+        if (!content || typeof content !== 'function') {
+          console.warn(
+            'You should provide an angular component for NavigationLeftContent'
+          );
+          return;
+        }
+
+        const factory = this.componentFactoryResolver.resolveComponentFactory(
+          content
         );
-        return;
-      }
 
-      const factory = this.componentFactoryResolver.resolveComponentFactory(
-        content
-      );
-      const ref = this.viewContainerRef.createComponent(factory);
-      ref.changeDetectorRef.detectChanges();
-    });
+        if (!this.viewContainerRef) {
+          return;
+        }
+
+        const ref = this.viewContainerRef.createComponent(factory);
+        ref.changeDetectorRef.detectChanges();
+      }
+    );
   }
 
   public interactiveBtnClick(btn: InteractiveButton) {
