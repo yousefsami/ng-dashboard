@@ -1,6 +1,6 @@
 {
   "name": "@ng-dashboard/core",
-  "version": "1.0.74",
+  "version": "1.0.90",
   "private": false,
   "peerDependencies": {
     "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
@@ -10,7 +10,6 @@
     "@ngrx/core": "^1.2.0",
     "@ngrx/store": "^8.6.0",
     "@ngx-translate/core": "^11.0.1",
-    "amazing-search": "^1.0.4",
     "bootstrap": "^4.4.1",
     "lodash": "^4.17.15",
     "ngx-toasta": "^0.1.0",

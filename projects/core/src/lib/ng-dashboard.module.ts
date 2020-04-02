@@ -33,7 +33,6 @@ import { ConfigurationService } from './ng5-basic/services/configuration.service
 import { StoreModule } from '@ngrx/store';
 import { SpinnerComponent } from './ng5-basic/components/spinner/spinner.component';
 import { LayoutFadeComponent } from './ng5-basic/components/layout-fade/layout-fade.component';
-import { AmazingSearchModule } from 'amazing-search';
 import { TranslateService } from './ng5-basic/services/translate.service';
 
 import { LoginFormComponent } from './auth/login-form/login-form.component';
@@ -53,6 +52,7 @@ import { BaseModalComponent } from './ng5-basic/components/base-modal/base-modal
 
 import { ConfirmService } from './ng5-basic/services/confirm.service';
 import { ModalService } from './ng5-basic/services/modal.service';
+import { NavbarLeftContentComponent } from './ng5-basic/components/navbar-left-content/navbar-left-content.component';
 @NgModule({
   declarations: [
     LayoutComponent,
@@ -74,9 +74,9 @@ import { ModalService } from './ng5-basic/services/modal.service';
     UiSmallBoxComponent,
     PageContainerComponent,
     ErrorMessageComponent,
+    NavbarLeftContentComponent,
     LoginFormComponent,
     ProgressLineComponent,
-    ErrorMessageComponent,
     SignupFormComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
@@ -100,7 +100,7 @@ import { ModalService } from './ng5-basic/services/modal.service';
     UiSmallBoxComponent,
     PageContainerComponent,
     ConfirmComponent,
-    ErrorMessageComponent,
+    NavbarLeftContentComponent,
     LoginFormComponent,
     TeamSelectorComponent,
     ProgressLineComponent,
@@ -112,7 +112,6 @@ import { ModalService } from './ng5-basic/services/modal.service';
     TPipe
   ],
   imports: [
-    AmazingSearchModule,
     TranslateModule.forRoot({}),
     HttpClientModule,
     NoopAnimationsModule,
@@ -140,7 +139,11 @@ import { ModalService } from './ng5-basic/services/modal.service';
     TeamsService,
     GlobalizationService
   ],
-  entryComponents: [ConfirmComponent, BaseModalComponent]
+  entryComponents: [
+    ConfirmComponent,
+    BaseModalComponent,
+    NavbarLeftContentComponent
+  ]
 })
 export class NgDashboardModule {
   static forRoot(config: NgBasicConfig = {}): ModuleWithProviders {

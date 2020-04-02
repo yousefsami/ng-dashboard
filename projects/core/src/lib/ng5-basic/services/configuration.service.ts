@@ -75,6 +75,7 @@ export class ConfigurationService {
   public DockedMenu: BehaviorSubject<Array<DockedMenu>> = new BehaviorSubject(
     []
   );
+  public NavigationLeftContent: BehaviorSubject<any> = new BehaviorSubject([]);
   public TeamsConfig: BehaviorSubject<TeamsConfig> = new BehaviorSubject({});
   public Teams: BehaviorSubject<Array<Team>> = new BehaviorSubject([]);
 

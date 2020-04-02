@@ -4,9 +4,7 @@
   "deleteDestPath": false,
   "lib": {
     "entryFile": "src/public_api.ts",
-    "styleIncludePaths": [
-      "src/lib/ng5-basic/scss"
-    ]
+    "styleIncludePaths": ["src/lib/ng5-basic/scss"]
   },
   "whitelistedNonPeerDependencies": [
     "tslib",
@@ -20,7 +18,6 @@
     "url-matcher",
     "lodash",
     "ngx-toasta",
-    "bootstrap",
-    "amazing-search"
+    "bootstrap"
   ]
 }

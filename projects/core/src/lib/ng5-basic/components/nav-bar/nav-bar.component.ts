@@ -1,4 +1,12 @@
-import { Component, OnInit, Inject, HostListener } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Inject,
+  HostListener,
+  ComponentFactoryResolver,
+  ViewContainerRef,
+  ViewChild
+} from '@angular/core';
 import { SupportedLanguages } from '../../services/globalization.service';
 import {
   NavbarConfig,
@@ -8,6 +16,7 @@ import {
 import { ConfigurationService } from '../../services/configuration.service';
 import { TranslateService } from '../../services/translate.service';
 import { NgxSidebarService } from '../../ngx-sidebar/ngx-sidebar.service';
+import { NavbarLeftContentComponent } from '../navbar-left-content/navbar-left-content.component';
 
 @Component({
   selector: 'ng-nav-bar',
@@ -28,6 +37,9 @@ export class NavBarComponent implements OnInit {
       terms: []
     }
   };
+
+  @ViewChild('leftNavbarArea', { read: ViewContainerRef, static: false })
+  viewContainerRef: ViewContainerRef;
 
   @HostListener('window:keyup', ['$event']) public onKeyDown(
     event: KeyboardEvent
@@ -50,7 +62,8 @@ export class NavBarComponent implements OnInit {
     @Inject('config') public gconfig: NgBasicConfig,
     public sidebar: NgxSidebarService,
     private translate: TranslateService,
-    private configService: ConfigurationService
+    private configService: ConfigurationService,
+    private componentFactoryResolver: ComponentFactoryResolver
   ) {}
 
   public get Terms() {
@@ -67,6 +80,21 @@ export class NavBarComponent implements OnInit {
     }
     this.configService.NavbarInteractiveButtons.subscribe(buttons => {
       this.interactiveButtons = buttons;
+    });
+
+    this.configService.NavigationLeftContent.subscribe(content => {
+      if (!content || typeof content !== 'function') {
+        console.warn(
+          'You should provide an angular component for NavigationLeftContent'
+        );
+        return;
+      }
+
+      const factory = this.componentFactoryResolver.resolveComponentFactory(
+        content
+      );
+      const ref = this.viewContainerRef.createComponent(factory);
+      ref.changeDetectorRef.detectChanges();
     });
   }
 

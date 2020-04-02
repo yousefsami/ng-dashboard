@@ -1,5 +1,4 @@
 import { Action as NgrxAction } from '@ngrx/store';
-// import { ISearchable } from 'amazing-search';
 import { IAuthConfig } from '../auth/definitions';
 import { IResponseError } from 'response-type';
 

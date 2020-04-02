@@ -9,6 +9,7 @@ import {
   ModalDialog,
   PageContainerAction
 } from 'projects/core/src/public_api';
+import { NavbarLeftContentComponent } from 'projects/core/src/lib/ng5-basic/components/navbar-left-content/navbar-left-content.component';
 
 @Component({
   selector: 'app-guide',
@@ -187,5 +188,9 @@ export class GuideComponent implements OnInit {
       message: 'Error',
       type: 'ERROR'
     });
+  }
+
+  public SetNavigationLeftContent() {
+    this.config.NavigationLeftContent.next(NavbarLeftContentComponent);
   }
 }
