@@ -1,4 +1,7 @@
-<span
-  class="spinner-double-section-in"
-  [ngClass]="{'spinner-high': isHigh, 'spinner-low': isLow}">
-</span>
+<div
+  [ngClass]="{
+    'spinner-high': worker.speed === 'HIGH',
+    'spinner-low': worker.speed === 'LOW'
+  }"
+  class="loader warning"
+></div>

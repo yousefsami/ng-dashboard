@@ -7,13 +7,18 @@ import {
   NgDashboardModule,
   ConfigurationService,
   UserService,
-  NgDashboardPl
+  NgDashboardPl,
+  ModalService,
+  RouterService,
+  TeamsService
 } from 'projects/core/src/public_api';
 import { Router } from '@angular/router';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { SimpleToolbarComponent } from './simple-toolbar/simple-toolbar.component';
+import { BugReportComponent } from 'projects/core/src/lib/ng5-basic/components/bug-report/bug-report.component';
 
 @NgModule({
-  declarations: [AppComponent, GuideComponent],
+  declarations: [AppComponent, GuideComponent, SimpleToolbarComponent],
   imports: [
     NoopAnimationsModule,
     BrowserModule,
@@ -24,21 +29,36 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
         notification: true,
         profile: true
       },
-      api: 'http://localhost:1337',
+      api: 'https://taxopit.com',
       auth: {
         afterSignupRedirect: '/'
       }
     })
   ],
   exports: [],
+  entryComponents: [SimpleToolbarComponent],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
+  public BugReport() {
+    this.modal
+      .open({
+        content: BugReportComponent,
+        title: this.config.translate('bug_report_title'),
+        type: 'CONFIRMATION'
+      })
+      .subscribe(result => {
+        console.log(result);
+      });
+  }
+
   constructor(
     private config: ConfigurationService,
     private user: UserService,
-    private router: Router
+    private teamsService: TeamsService,
+    private modal: ModalService,
+    private ngdRouter: RouterService
   ) {
     this.user.SetUser({
       firstname: 'Ali',
@@ -49,16 +69,14 @@ export class AppModule {
       profile: false,
       notification: true
     };
-    this.config.SetInteractiveButtons([
+
+    this.config.SetGlobalInteractiveButtons([
       {
-        icon: 'icon-info',
-        title: 'info',
-        tooltip: 'Also it can have tool tip',
-        key: 'info_btn',
+        icon: 'icon-bug_report',
+        title: 'bug_report',
+        key: 'bug_report_button',
         onPress: () => {
-          alert(
-            'Wow! You are now using interactive buttons! see app.module.ts for more info'
-          );
+          this.BugReport();
         },
         keyboardShortcut: 'Enter'
       }
@@ -97,7 +115,7 @@ export class AppModule {
       manageTeams: true,
       manageTeamsText: 'ManageTeams',
       onClick: () => {
-        this.router.navigateByUrl('/teams');
+        this.ngdRouter.navigateTo('/teams');
       }
     });
 
@@ -106,7 +124,7 @@ export class AppModule {
         icon: 'icon-logout',
         title: 'Sign-out',
         onClick: () => {
-          this.router.navigateByUrl('/login');
+          this.ngdRouter.navigateTo('/login');
         }
       }
     ]);
@@ -116,20 +134,29 @@ export class AppModule {
         title: 'Auth',
         children: [
           {
-            title: 'Login',
-            link: '/login'
-          },
-          {
             title: 'Item 1',
             link: '/link1',
             activeMatches: ['/link1/1']
           },
           {
-            title: 'Item 3',
-            link: '/link1'
+            title: 'Login',
+            link: '/login'
           },
           {
-            title: 'Item 4'
+            title: 'Login',
+            link: '/login'
+          },
+          {
+            title: 'Signup',
+            link: '/signup'
+          },
+          {
+            title: 'Reset password',
+            link: '/reset-password'
+          },
+          {
+            title: 'Forgot password',
+            link: '/forgot-password'
           }
         ]
       },

@@ -6,6 +6,7 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
 import { UserService } from './user.service';
 import { TeamsService } from './teams.service';
 
@@ -17,11 +18,19 @@ export class TokenInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+    const token = this.user.GetToken();
+    const team = this.teams.CurrentSelectedTeam;
+    const headers: any = {};
+
+    if (token) {
+      headers['x-token'] = token.toString();
+    }
+    if (team) {
+      headers['x-team'] = team.toString();
+    }
+
     request = request.clone({
-      setHeaders: {
-        'x-token': `${this.user.GetToken()}`,
-        'x-team': '' + this.teams.CurrentSelectedTeam
-      }
+      setHeaders: headers
     });
     return next.handle(request);
   }

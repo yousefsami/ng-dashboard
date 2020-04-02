@@ -10,6 +10,26 @@ You can add a component on navigation. Use it for search bar.
   Set component
 </button>
 
+<h2>Progress (working)</h2>
+
+Set this.working = true and you will get progress.
+
+<button class="btn btn-primary" (click)="working = true">
+  Start working
+</button>
+
+<button class="btn btn-primary" (click)="AdvanceWorker('LOW')">
+  Advanced Worker (SLOW)
+</button>
+
+<button class="btn btn-primary" (click)="AdvanceWorker('HIGH')">
+  Advanced Worker (Fast)
+</button>
+
+<button class="btn btn-primary" (click)="working = false; ClearUploadWorker()">
+  Stop working
+</button>
+
 <ng-page-container
   maintitle="Header"
   subtitle="Explain more on subtitle"

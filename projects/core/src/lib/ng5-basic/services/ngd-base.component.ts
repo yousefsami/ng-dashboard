@@ -2,15 +2,19 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { OnDestroy } from '@angular/core';
 import { IResponse, IResponseErrorItem } from 'response-type';
 import { FormGroup } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Subscription, TimeoutError } from 'rxjs';
 import {
   IsSuccessEntity,
   error,
   WorkingStates,
   getQuerystring
 } from './common';
-import { StartRequestResponse } from '../definitions';
-import { ShowToast } from './configuration.service';
+import {
+  StartRequestResponse,
+  InteractiveButton,
+  IWorkingState
+} from '../definitions';
+import { ShowToast, ConfigurationService } from './configuration.service';
 
 /**
  * @description Set of functions that every component needs.
@@ -22,11 +26,30 @@ export abstract class NgdBaseComponent implements OnDestroy {
    * List of RxJs observations that should be unsubscribed
    */
 
+  public config: ConfigurationService;
+  protected componentInteractiveButtons: InteractiveButton[] = [];
+
   protected validator: (formDataObject) => IResponseErrorItem[];
   protected form: FormGroup;
   public res: IResponse<any>;
   public error = error;
   public ComponentType = 'COMPONENT';
+
+  public setWorker(worker: IWorkingState) {
+    if (!worker.id) {
+      console.warn('Working should have id in order to update or cancel later');
+      return;
+    }
+    WorkingStates.next([worker]);
+  }
+
+  public clearWorkers() {
+    WorkingStates.next([]);
+  }
+
+  public clearWorker(id: string) {
+    WorkingStates.next(WorkingStates.value.filter(worker => worker.id !== id));
+  }
 
   public set working(value: boolean) {
     setTimeout(() => {
@@ -73,12 +96,10 @@ export abstract class NgdBaseComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    /* tslint:disable */
-    // Config refers to the ngdashboard config, if exists, it will clear it's auto interative buttons
-    const config = this['config'];
-    /* tslint:enable */
-    if (config && this.ComponentType === 'COMPONENT') {
-      config.SetInteractiveButtons([]);
+    if (this.config && this.ComponentType === 'COMPONENT') {
+      this.config.SetInteractiveButtons(
+        this.config.GlobalInteractiveButtons.value
+      );
     }
     this.$unsubscribe.forEach(t => t.unsubscribe());
   }
@@ -163,7 +184,8 @@ export abstract class NgdBaseComponent implements OnDestroy {
         if (params.notifyAPIErrors) {
           ShowToast({
             type: 'ERROR',
-            message: response.error.message
+            message:
+              response.error.message || (response.error.code || '').toString()
           });
         }
         return {
@@ -172,6 +194,7 @@ export abstract class NgdBaseComponent implements OnDestroy {
       }
     } catch (error) {
       this.working = false;
+
       if (error instanceof HttpErrorResponse) {
         this.ResponseError(error);
       } else {
@@ -267,5 +290,17 @@ export abstract class NgdBaseComponent implements OnDestroy {
       return false;
     }
     return getQuerystring('focus') === id.toString();
+  }
+
+  /**
+   * Sets this component interactive buttons, and clears them when leaving this component
+   */
+  public SetInteractiveButtons(buttons: InteractiveButton[]) {
+    this.componentInteractiveButtons = buttons;
+
+    this.config.SetInteractiveButtons([
+      ...buttons,
+      ...this.config.GlobalInteractiveButtons.value
+    ]);
   }
 }

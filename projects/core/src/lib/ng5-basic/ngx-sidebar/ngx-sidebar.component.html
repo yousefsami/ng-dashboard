@@ -19,28 +19,57 @@
   <ng-template #dynamic></ng-template>
   <ng-container *ngIf="!isRouteFocused">
     <ng-container *ngFor="let nav of navigation">
-      <li
-        *ngIf="nav"
-        [routerLinkActive]="nav.link || nav.$collapsed ? 'opened' : ''"
-        [ngClass]="{ 'menu-active': menuActive(nav) }"
-        (click)="menuToggle($event, nav); $event.stopPropagation()"
-        placement="right"
-        [tooltip]="nav.tooltip ? nav.tooltip : undefined"
-      >
-        <a
-          (click)="renderComponents(nav.component)"
-          class="ngx-menu-item ngx-menu-link-{{ nav.class }}"
-          [routerLink]="nav.link"
+      <!-- element with children -->
+      <ng-container *ngIf="nav.children">
+        <li
+          *ngIf="nav"
+          class="ngx-parent-menu"
+          [attr.id]="nav.id ? 'ngx-menu-item-' + nav.id : null"
+          [ngClass]="{
+            'menu-active': menuActive(nav),
+            opened: !nav.$collapsed
+          }"
+          (click)="menuToggle($event, nav); $event.stopPropagation()"
+          placement="right"
+          [tooltip]="nav.tooltip ? nav.tooltip : undefined"
         >
-          <i [class]="nav.icon"></i>
-          {{ nav.title | t }}
-        </a>
-        <ngx-sidebar
-          *ngIf="nav.children"
-          [navigation]="nav.children"
-          [containerClass]="'child-ul'"
-        ></ngx-sidebar>
-      </li>
+          <a
+            (click)="renderComponents(nav.component)"
+            class="ngx-menu-item ngx-menu-link-{{ nav.class }}"
+          >
+            <i [class]="nav.icon"></i>
+            {{ nav.title | t }}
+          </a>
+          <ngx-sidebar
+            [navigation]="nav.children"
+            [containerClass]="'child-ul'"
+          ></ngx-sidebar>
+        </li>
+      </ng-container>
+
+      <!-- without children -->
+      <ng-container *ngIf="!nav.children">
+        <li
+          *ngIf="nav"
+          [attr.id]="nav.id ? 'ngx-menu-item-' + nav.id : null"
+          [ngClass]="{
+            'menu-active': menuActive(nav),
+            opened: !nav.$collapsed
+          }"
+          (click)="menuToggle($event, nav); $event.stopPropagation()"
+          placement="right"
+          [tooltip]="nav.tooltip ? nav.tooltip : undefined"
+        >
+          <a
+            (click)="renderComponents(nav.component)"
+            class="ngx-menu-item ngx-menu-link-{{ nav.class }}"
+            [routerLink]="ngdRouter.routerLink(nav.link)"
+          >
+            <i [class]="nav.icon"></i>
+            {{ nav.title | t }}
+          </a>
+        </li>
+      </ng-container>
     </ng-container>
   </ng-container>
 </ul>

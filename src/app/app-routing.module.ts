@@ -4,29 +4,35 @@ import { GuideComponent } from './guide/guide.component';
 import {
   LayoutComponent,
   LoginFormComponent,
-  SignupFormComponent
+  SignupFormComponent,
+  ForgotPasswordComponent,
+  ResetPasswordComponent
 } from 'projects/core/src/public_api';
 
 const routes: Routes = [
   {
     component: LayoutComponent,
-    path: '',
+    path: ':lang',
     children: [
       {
         path: '',
         component: GuideComponent
       },
       {
-        path: 'link1',
-        component: GuideComponent
+        path: 'login',
+        component: LoginFormComponent
       },
       {
-        path: 'link1/:id',
-        component: GuideComponent
+        path: 'signup',
+        component: SignupFormComponent
       },
       {
-        path: 'link2',
-        component: GuideComponent
+        path: 'reset-password',
+        component: ResetPasswordComponent
+      },
+      {
+        path: 'forgot-password',
+        component: ForgotPasswordComponent
       }
     ]
   },

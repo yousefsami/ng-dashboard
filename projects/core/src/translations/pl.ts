@@ -16,5 +16,7 @@ export const NgDashboardPl = {
   modal_confirm: 'Potwierdzać',
   modal_cancel: 'Anuluj',
   modal_yes: 'Tak',
-  modal_no: 'Nie'
+  modal_no: 'Nie',
+  bug_report_title: 'Zgłoszenie błędu',
+  bug_report_explain: 'Twoja opinia pomaga nam ulepszyć ten ekran.'
 };

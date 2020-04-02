@@ -57,8 +57,12 @@ export class ConfigurationService {
   public NavbarInteractiveButtons: BehaviorSubject<
     InteractiveButton[]
   > = new BehaviorSubject([]);
+  public GlobalInteractiveButtons: BehaviorSubject<
+    InteractiveButton[]
+  > = new BehaviorSubject([]);
 
   public SearchTerms: BehaviorSubject<Array<any>> = new BehaviorSubject([]);
+  public ToolbarComponent: BehaviorSubject<any> = new BehaviorSubject(null);
   public NotificationState: BehaviorSubject<
     'OPEN' | 'CLOSE'
   > = new BehaviorSubject('CLOSE');
@@ -87,6 +91,23 @@ export class ConfigurationService {
   public ShowToast = ShowToast;
   public SetInteractiveButtons(buttons: InteractiveButton[]) {
     this.NavbarInteractiveButtons.next(buttons);
+  }
+
+  /**
+   * Any route in (navigateByUrl) will pass through here.
+   */
+  public RouteFilter(to, params = null) {
+    return {
+      to,
+      params
+    };
+  }
+
+  /**
+   * @description Sets interactive buttons that should be available in every screen.
+   */
+  public SetGlobalInteractiveButtons(buttons: InteractiveButton[]) {
+    this.GlobalInteractiveButtons.next(buttons);
   }
 
   constructor(

@@ -10,9 +10,9 @@ import {
   HostListener
 } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
-import { ConfigurationService } from '../services/configuration.service';
 import { flatten } from 'lodash';
 import { NgxSidebarService } from './ngx-sidebar.service';
+import { RouterService } from '../services/router.service';
 
 @Component({
   /* tslint:disable */
@@ -30,9 +30,6 @@ export class NgxSidebarComponent implements OnInit {
         ($event.target as any).tagName
       )
     ) {
-      if (event.key === 'm' || event.key === 'M') {
-        this.sidebar.Toggle();
-      }
       if (event.key === 'Escape' || event.key === 'Backspace') {
         this.sidebar.Hide();
       }
@@ -59,7 +56,8 @@ export class NgxSidebarComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private compiler: ComponentFactoryResolver,
-    private sidebar: NgxSidebarService
+    private sidebar: NgxSidebarService,
+    public ngdRouter: RouterService
   ) {
     this.router.events.subscribe(e => {
       if (e instanceof NavigationEnd) {
@@ -93,19 +91,33 @@ export class NgxSidebarComponent implements OnInit {
     this.IsRouteFocused(this.currentRoute);
   }
 
-  public menuActive(nav) {
+  public get CurrentRoute() {
     const route =
       this.currentRoute.indexOf('?') >= 0
         ? this.currentRoute.substr(0, this.currentRoute.indexOf('?'))
         : this.currentRoute;
+
+    return route;
+  }
+
+  public MenuActiveByActiveMatches(nav) {
     if (nav.activeMatches && nav.activeMatches.length) {
       for (const xa of nav.activeMatches) {
-        const matches = new RegExp(xa).test(route);
+        const matches = new RegExp(xa).test(this.CurrentRoute);
         if (matches) {
           return true;
         }
       }
     }
+  }
+
+  public menuActive(nav) {
+    const route = this.CurrentRoute;
+
+    if (this.MenuActiveByActiveMatches(nav)) {
+      return true;
+    }
+
     if (nav.children) {
       for (const item of nav.children) {
         if (item.activeMatches) {
@@ -118,12 +130,14 @@ export class NgxSidebarComponent implements OnInit {
         }
       }
     }
-    if (nav.link === route) {
+
+    if (this.ngdRouter.routerLink(nav.link) === route && !nav.children) {
       return true;
     }
+
     if (nav.children) {
       for (const item of nav.children) {
-        if (item.link === route) {
+        if (this.ngdRouter.routerLink(item.link) === route) {
           return true;
         }
       }

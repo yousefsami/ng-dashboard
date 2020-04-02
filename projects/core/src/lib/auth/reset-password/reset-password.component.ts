@@ -11,48 +11,51 @@ import {
 } from '../../ng5-basic/services/configuration.service';
 import { AuthPublicService, AuthEvent } from '../auth-public.service';
 import { UserService } from '../../ng5-basic/services/user.service';
+import { NgdBaseComponent } from '../../ng5-basic/services/ngd-base.component';
+import { FormGroup, FormControl } from '@angular/forms';
+import { RouterService } from '../../ng5-basic/services/router.service';
 
 @Component({
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.scss']
 })
-export class ResetPasswordComponent implements OnInit {
+export class ResetPasswordComponent extends NgdBaseComponent implements OnInit {
   public key = '';
   public url = null;
   public error = error;
   public response: IResponse<any> = null;
-  public isRequesting = false;
-  public form: IResetForm = {
-    password1: null,
-    password2: null,
-    key: null
-  };
+
+  public form = new FormGroup({
+    password: new FormControl(null),
+    passwordRepeat: new FormControl(null),
+    resetkey: new FormControl(null)
+  });
 
   constructor(
     private http: HttpClient,
     private router: Router,
+    public ngdRouter: RouterService,
     private route: ActivatedRoute,
-    private config: ConfigurationService,
+    public config: ConfigurationService,
     private auth: AuthPublicService,
     private user: UserService
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit() {
     this.url = this.config.API('/api/reset-password');
 
     this.route.params.subscribe((data: { key: string }) => {
-      this.key = this.form.key = data.key;
+      this.form.patchValue({
+        resetkey: data.key
+      });
     });
   }
+
   public SubmitForm() {
-    this.execute({
-      resetkey: this.form.key,
-      password: this.form.password1
-    });
-  }
-  private execute(data) {
     const conf = this.config.Config;
-    this.http.post(this.url, data).subscribe(
+    this.http.post(this.url, this.form.value).subscribe(
       response => {
         this.response = response;
         if (this.response.data && this.response.data.items[0]) {
@@ -61,7 +64,7 @@ export class ResetPasswordComponent implements OnInit {
             type: AuthEvent.LOGIN_SUCCESS
           });
           if (conf.afterLoginRedirect) {
-            this.router.navigateByUrl(conf.afterLoginRedirect);
+            this.ngdRouter.navigateTo(conf.afterLoginRedirect);
           }
           this.user.SetToken(this.response.data.items[0].token);
           this.user.SetUser(this.response.data.items[0].user);
@@ -71,10 +74,10 @@ export class ResetPasswordComponent implements OnInit {
             type: 'SUCCESS'
           });
         }
-        this.isRequesting = false;
+        this.working = false;
       },
       response => {
-        this.isRequesting = false;
+        this.working = false;
         if (response.name === 'HttpErrorResponse') {
           this.response = GetNetworkError();
           return false;

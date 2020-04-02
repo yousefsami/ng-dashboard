@@ -5,21 +5,6 @@ import { BehaviorSubject } from 'rxjs';
 import { ConfigurationService } from './configuration.service';
 import { AuthPublicService } from '../../auth/auth-public.service';
 
-// if (this.user.GetToken()) {
-//   this.requests.GetTeams().then((res: any) => {
-//     if (IsSuccessEntity(res)) {
-//       this.teams.SetTeams(res.data.items);
-//     }
-//   });
-// }
-// this.config.TeamsConfig.next({
-//   manageTeams: true,
-//   manageTeamsText: 'ManageTeams',
-//   onClick: () => {
-//     this.router.navigateByUrl('/teams');
-//   }
-// });
-
 /**
  * @description Manages your teams in the application
  * In your app.module, import this service. For pushing changes, use SetTeams

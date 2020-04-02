@@ -312,6 +312,16 @@ export const InteractiveButtons = {
       key: 'save',
       onPress: debounce(onPress, 500)
     };
+  },
+
+  BugReport: (onPress: (source?: string) => void) => {
+    return {
+      icon: 'icon-bug_report',
+      title: 'bug_report',
+      key: 'bug_report_button',
+      onPress,
+      keyboardShortcut: 'b'
+    };
   }
 };
 

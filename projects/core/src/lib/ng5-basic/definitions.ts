@@ -210,6 +210,7 @@ export interface INavigation {
   link?: string;
   icon?: string;
   title: string;
+  id?: string;
   active?: boolean;
   class?: string;
   permissions?: Array<string>;
@@ -286,13 +287,16 @@ export interface TeamsConfig {
 export interface DockedMenu {
   title?: string;
   icon?: string;
+  id?: string;
   onClick?: () => void;
 }
 
 export interface IWorkingState {
+  id?: string;
   active: boolean;
   progress?: number;
-  mode?: 'COMPLETE' | 'MINOR';
+  speed?: 'LOW' | 'HIGH' | 'NORMAL' | number;
+  mode?: 'COMPLETE' | 'MINOR' | 'INFINITE';
 }
 
 export interface IToastMessage {

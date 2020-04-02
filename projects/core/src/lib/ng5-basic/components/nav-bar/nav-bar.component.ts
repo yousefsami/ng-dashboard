@@ -5,18 +5,21 @@ import {
   HostListener,
   ComponentFactoryResolver,
   ViewContainerRef,
-  ViewChild
+  ViewChild,
+  OnDestroy
 } from '@angular/core';
 import { SupportedLanguages } from '../../services/globalization.service';
 import {
   NavbarConfig,
   NgBasicConfig,
-  InteractiveButton
+  InteractiveButton,
+  IWorkingState
 } from '../../definitions';
 import { ConfigurationService } from '../../services/configuration.service';
 import { TranslateService } from '../../services/translate.service';
 import { NgxSidebarService } from '../../ngx-sidebar/ngx-sidebar.service';
-import { NavbarLeftContentComponent } from '../navbar-left-content/navbar-left-content.component';
+import { Subscription } from 'rxjs';
+import { WorkingStates } from '../../services/common';
 
 @Component({
   selector: 'ng-nav-bar',
@@ -24,8 +27,11 @@ import { NavbarLeftContentComponent } from '../navbar-left-content/navbar-left-c
   styleUrls: ['./nav-bar.component.scss'],
   providers: [TranslateService]
 })
-export class NavBarComponent implements OnInit {
+export class NavBarComponent implements OnInit, OnDestroy {
   public MobileSearchBar = false;
+  private sub: Subscription = null;
+
+  public workers: Array<IWorkingState> = [];
   public interactiveButtons: InteractiveButton[] = [];
   public config: NavbarConfig = {
     notification: false,
@@ -56,6 +62,13 @@ export class NavBarComponent implements OnInit {
       if (matchedButton) {
         this.interactiveBtnClick(matchedButton);
       }
+
+      if (event.key === 'm' || event.key === 'M') {
+        if (this.sidebar.IsVisible) {
+          return this.sidebar.ForceHide();
+        }
+        return this.sidebar.Show();
+      }
     }
   }
   constructor(
@@ -74,10 +87,19 @@ export class NavBarComponent implements OnInit {
     this.MobileSearchBar = !this.MobileSearchBar;
   }
 
+  ngOnDestroy() {
+    if (this.sub.unsubscribe) {
+      this.sub.unsubscribe();
+    }
+  }
+
   ngOnInit() {
     if (this.gconfig && this.gconfig.navbar) {
       this.config = this.gconfig.navbar;
     }
+    this.sub = WorkingStates.subscribe(t => {
+      this.workers = t;
+    });
     this.configService.NavbarInteractiveButtons.subscribe(buttons => {
       this.interactiveButtons = buttons;
     });

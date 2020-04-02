@@ -63,6 +63,7 @@ export class SideBarComponent implements OnInit {
 
   ngOnInit() {
     this.navigation = this.config.getNavigationItems();
+
     this.isSidebarVisible = this.sidebar.IsSidebarVisibleInitially();
     this.sidebar.menuItemChange.subscribe((menu: any) => {
       if (!menu) {

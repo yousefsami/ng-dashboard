@@ -1,7 +1,7 @@
 <div
   class="ngd-modal-wrapper"
   [ngClass]="{ active: activeModal }"
-  (click)="Cancel($event)"
+  (click)="$event.stopPropagation(); Cancel($event)"
 >
   <div class="ngd-modal-content" [ngClass]="{ active: activeModal }">
     <div>

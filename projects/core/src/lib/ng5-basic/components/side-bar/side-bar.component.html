@@ -8,7 +8,11 @@
     *ngIf="DockedMenu && DockedMenu.length"
   >
     <ng-container *ngFor="let item of DockedMenu">
-      <span class="ngd-docker-menu-item" (click)="item.onClick()">
+      <span
+        class="ngd-docker-menu-item"
+        [attr.id]="item.id ? 'docked-menu-' + item.id : null"
+        (click)="item.onClick()"
+      >
         <i *ngIf="item.icon" [class]="item.icon"></i> {{ item.title }}
       </span>
     </ng-container>

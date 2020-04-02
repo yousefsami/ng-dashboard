@@ -42,3 +42,7 @@
     ></ng-notification-list>
   </div>
 </nav>
+
+<ng-container *ngFor="let worker of workers">
+  <ng-window-spinner [worker]="worker"></ng-window-spinner>
+</ng-container>

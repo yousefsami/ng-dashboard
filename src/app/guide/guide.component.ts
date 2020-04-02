@@ -7,16 +7,18 @@ import {
   ConfirmService,
   INotification,
   ModalDialog,
-  PageContainerAction
+  PageContainerAction,
+  NgdBaseComponent
 } from 'projects/core/src/public_api';
 import { NavbarLeftContentComponent } from 'projects/core/src/lib/ng5-basic/components/navbar-left-content/navbar-left-content.component';
+import { SimpleToolbarComponent } from '../simple-toolbar/simple-toolbar.component';
 
 @Component({
   selector: 'app-guide',
   templateUrl: './guide.component.html',
   styleUrls: ['./guide.component.scss']
 })
-export class GuideComponent implements OnInit {
+export class GuideComponent extends NgdBaseComponent implements OnInit {
   public sampleModal: ModalDialog = {
     title: 'Deleting',
     content: 'Delete???? Really?'
@@ -51,13 +53,52 @@ export class GuideComponent implements OnInit {
     type: 'YESNO'
   };
   constructor(
-    private config: ConfigurationService,
+    public config: ConfigurationService,
     public modal: ConfirmService
-  ) {}
+  ) {
+    super();
+  }
+
+  public AdvanceWorker(speed) {
+    this.setWorker({
+      id: 'uploader',
+      active: true,
+      speed,
+      mode: 'INFINITE'
+    });
+  }
+
+  public ClearUploadWorker() {
+    this.clearWorker('uploader');
+  }
 
   ngOnInit() {
     this.config.NotificationEvent.subscribe(event => {
       console.log('Notification event: ', event);
+    });
+    const callback = t => {
+      setInterval(() => {
+        t.instance.count += 1;
+      }, 1000);
+    };
+
+    this.SetInteractiveButtons([
+      {
+        icon: 'icon-info',
+        title: 'info',
+        tooltip: 'Also it can have tool tip',
+        key: 'info_btn',
+        onPress: () => {
+          alert(
+            'Wow! You are now using interactive buttons! see app.module.ts for more info'
+          );
+        },
+        keyboardShortcut: 'Enter'
+      }
+    ]);
+    this.config.ToolbarComponent.next({
+      component: SimpleToolbarComponent,
+      callback
     });
   }
 

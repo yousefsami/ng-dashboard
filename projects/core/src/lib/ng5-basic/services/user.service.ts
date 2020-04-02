@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { IUser } from '../definitions';
 import { PermissionsService } from './permissions.service';
+import { RouterService } from './router.service';
 @Injectable()
 export class UserService {
   private user: IUser;
@@ -59,10 +60,10 @@ export class UserService {
 
 @Injectable()
 export class UserLoggedInGuard implements CanActivate {
-  constructor(private user: UserService, private router: Router) {}
+  constructor(private user: UserService, private ngdRouter: RouterService) {}
   canActivate(): boolean {
     if (!this.user.GetToken()) {
-      this.router.navigateByUrl('/login');
+      this.ngdRouter.navigateTo('/login');
       return false;
     }
     return true;
