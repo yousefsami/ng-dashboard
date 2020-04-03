@@ -7,14 +7,25 @@ import {
   IsSuccessEntity,
   error,
   WorkingStates,
-  getQuerystring
+  getQuerystring,
 } from './common';
 import {
   StartRequestResponse,
   InteractiveButton,
-  IWorkingState
+  IWorkingState,
 } from '../definitions';
 import { ShowToast, ConfigurationService } from './configuration.service';
+import { startWith, pairwise } from 'rxjs/operators';
+
+function diff(obj1, obj2) {
+  const keys = Object.keys(obj1);
+
+  for (const k of keys) {
+    if (obj1[k] !== obj2[k]) {
+      return k;
+    }
+  }
+}
 
 /**
  * @description Set of functions that every component needs.
@@ -28,12 +39,15 @@ export abstract class NgdBaseComponent implements OnDestroy {
 
   public config: ConfigurationService;
   protected componentInteractiveButtons: InteractiveButton[] = [];
+  private $unsubscribe: Array<Subscription> = [];
 
   protected validator: (formDataObject) => IResponseErrorItem[];
   protected form: FormGroup;
   public res: IResponse<any>;
   public error = error;
+  public formTouchedElements: any = {};
   public ComponentType = 'COMPONENT';
+  public submitRes;
 
   public setWorker(worker: IWorkingState) {
     if (!worker.id) {
@@ -47,8 +61,121 @@ export abstract class NgdBaseComponent implements OnDestroy {
     WorkingStates.next([]);
   }
 
+  public ReactiveToFormChanges() {
+    this.ComponentSubscription(
+      this.form.valueChanges
+        .pipe(startWith({}), pairwise())
+        .subscribe(([before, now]) => {
+          const lastTouchedField = diff(before, now);
+          if (lastTouchedField) {
+            this.formTouchedElements[lastTouchedField] = true;
+          }
+
+          let validation = this.validator(now);
+          validation = validation.filter(
+            (t) => this.formTouchedElements[t.location]
+          );
+
+          if (validation.length > 0) {
+            this.res = {
+              error: {
+                message: 'VALIDATION_ERROR',
+                errors: validation,
+              },
+            };
+          } else {
+            this.res = null;
+          }
+        })
+    );
+  }
+
+  public touchForm() {
+    if (!this.form) {
+      return;
+    }
+    const keys = Object.keys(this.form.value);
+
+    for (const key of keys) {
+      this.formTouchedElements[key] = true;
+    }
+  }
+
+  getPosition(element) {
+    let yPosition = 0;
+
+    while (element) {
+      yPosition += element.offsetTop + element.clientTop;
+      element = element.offsetParent;
+    }
+
+    return yPosition;
+  }
+
+  public get hasErrors() {
+    if (
+      this.res &&
+      this.res.error &&
+      this.res.error.errors &&
+      this.res.error.errors.length > 0
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  private responseWarningToast(result) {
+    if (
+      !result.item &&
+      this.res.error &&
+      this.res.error.errors.length &&
+      window.innerWidth > 779
+    ) {
+      const key =
+        this.res.error.errors.length > 1
+          ? 'you_have_issues_in_the_form'
+          : 'you_have_issue_in_the_form';
+      this.config.ShowToast({
+        message: this.config.translate(key, {
+          count: this.res.error.errors.length,
+        }),
+        type: 'WARNING',
+      });
+    }
+  }
+
+  private scrollToFirstInputWithErrors() {
+    setTimeout(() => {
+      const firstInvalidField = document.querySelector(
+        '.form-group .is-invalid'
+      ) as any;
+
+      if (!firstInvalidField) {
+        return;
+      }
+      const firstFieldDistance = this.getPosition(firstInvalidField);
+
+      const visible = (elem) => {
+        // Check if the invalid field is really visible.
+        // for now, always we scroll to it
+        return false;
+      };
+
+      if (visible(firstInvalidField)) {
+        return;
+      }
+
+      firstInvalidField.focus();
+      document
+        .getElementsByClassName('ngd-outlet')[0]
+        .scrollTo(0, firstFieldDistance - 100);
+    }, 50);
+  }
+
   public clearWorker(id: string) {
-    WorkingStates.next(WorkingStates.value.filter(worker => worker.id !== id));
+    WorkingStates.next(
+      WorkingStates.value.filter((worker) => worker.id !== id)
+    );
   }
 
   public set working(value: boolean) {
@@ -56,8 +183,8 @@ export abstract class NgdBaseComponent implements OnDestroy {
       if (value) {
         WorkingStates.next([
           {
-            active: true
-          }
+            active: true,
+          },
         ]);
       } else {
         WorkingStates.next([]);
@@ -68,14 +195,13 @@ export abstract class NgdBaseComponent implements OnDestroy {
     return WorkingStates.value.length > 0;
   }
 
-  private $unsubscribe: Array<Subscription> = [];
-
   /**
    * Set the latest response from a google json style guide API.
    * It's useful to validate the forms data easily, instead of writing code for it.
    */
   public SetLastResponse(res: IResponse<any>) {
     this.res = res;
+    this.submitRes = res;
   }
 
   public ComponentSubscription(t: Subscription) {
@@ -90,8 +216,8 @@ export abstract class NgdBaseComponent implements OnDestroy {
     this.SetLastResponse({
       error: {
         errors,
-        message
-      }
+        message,
+      },
     });
   }
 
@@ -101,7 +227,7 @@ export abstract class NgdBaseComponent implements OnDestroy {
         this.config.GlobalInteractiveButtons.value
       );
     }
-    this.$unsubscribe.forEach(t => t.unsubscribe());
+    this.$unsubscribe.forEach((t) => t.unsubscribe());
   }
 
   public ResponseError(err: HttpErrorResponse) {
@@ -125,7 +251,7 @@ export abstract class NgdBaseComponent implements OnDestroy {
     ShowToast({
       type: 'ERROR',
       title: 'Server unavailable ' + code,
-      message: msg
+      message: msg,
     });
   }
 
@@ -136,30 +262,37 @@ export abstract class NgdBaseComponent implements OnDestroy {
     ShowToast({
       title: err.name,
       message: err.message,
-      type: 'ERROR'
+      type: 'ERROR',
     });
   }
 
   public async StartValidatedRequest<T>(
     callableRequest: any
   ): Promise<StartRequestResponse<T>> {
-    return this.StartRequest<T>(callableRequest, {
+    const res = await this.StartRequest<T>(callableRequest, {
       validator: true,
-      notifyAPIErrors: true
+      notifyAPIErrors: true,
     });
+
+    this.scrollToFirstInputWithErrors();
+    this.responseWarningToast(res);
+    return res;
   }
 
   public async StartRequest<T>(
     callableRequest: any,
     params = { validator: false, notifyAPIErrors: true }
   ): Promise<StartRequestResponse<T>> {
+    this.touchForm();
+
     if (this.validator && params.validator) {
       const formErrors = this.validator(this.form.value);
       if (formErrors.length) {
         this.ResponseFromErrors(formErrors);
+
         return {
           item: null,
-          items: null
+          items: null,
         };
       }
     }
@@ -178,18 +311,18 @@ export abstract class NgdBaseComponent implements OnDestroy {
       ) {
         return {
           items: response.data.items,
-          item: response.data.items[0]
+          item: response.data.items[0],
         };
       } else {
         if (params.notifyAPIErrors) {
           ShowToast({
             type: 'ERROR',
             message:
-              response.error.message || (response.error.code || '').toString()
+              response.error.message || (response.error.code || '').toString(),
           });
         }
         return {
-          error: response.error
+          error: response.error,
         };
       }
     } catch (error) {
@@ -203,7 +336,7 @@ export abstract class NgdBaseComponent implements OnDestroy {
       return {
         error,
         item: null,
-        items: null
+        items: null,
       };
     }
   }
@@ -218,7 +351,7 @@ export abstract class NgdBaseComponent implements OnDestroy {
       return null;
     }
     this.form.patchValue({
-      [field]: value
+      [field]: value,
     });
   }
 
@@ -237,7 +370,7 @@ export abstract class NgdBaseComponent implements OnDestroy {
   public SubscribeAndFetchForm<T>(
     storeSection: any,
     request: (id: number, entity?: T) => Promise<IResponse<T>>,
-    entityFilter: (T) => any = x => x
+    entityFilter: (T) => any = (x) => x
   ) {
     /* tslint:disable */
     const route = this['route'];
@@ -261,20 +394,20 @@ export abstract class NgdBaseComponent implements OnDestroy {
     }
 
     this.ComponentSubscription(
-      store.select(storeSection).subscribe(items => {
+      store.select(storeSection).subscribe((items) => {
         if (items && items.length) {
-          entity = items.find(t => t.id === +id);
+          entity = items.find((t) => t.id === +id);
           if (entity) {
             this.form.patchValue(entityFilter(entity));
           }
         }
       })
     );
-    this.StartRequest<T>(() => request(id, entity)).then(result => {
+    this.StartRequest<T>(() => request(id, entity)).then((result) => {
       if (result && result.item) {
         this.form.patchValue(
           entityFilter({
-            ...result.item
+            ...result.item,
           })
         );
       }
@@ -301,7 +434,7 @@ export abstract class NgdBaseComponent implements OnDestroy {
 
     this.config.SetInteractiveButtons([
       ...buttons,
-      ...this.config.GlobalInteractiveButtons.value
+      ...this.config.GlobalInteractiveButtons.value,
     ]);
   }
 }
