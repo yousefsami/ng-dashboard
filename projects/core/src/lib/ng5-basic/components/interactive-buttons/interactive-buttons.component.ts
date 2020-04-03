@@ -3,7 +3,7 @@ import { SupportedLanguages } from '../../services/globalization.service';
 import {
   NavbarConfig,
   NgBasicConfig,
-  InteractiveButton
+  InteractiveButton,
 } from '../../definitions';
 import { ConfigurationService } from '../../services/configuration.service';
 import { TranslateService } from '../../services/translate.service';
@@ -13,7 +13,7 @@ import { NgxSidebarService } from '../../ngx-sidebar/ngx-sidebar.service';
   selector: 'ng-interactive-buttons',
   templateUrl: './interactive-buttons.component.html',
   styleUrls: ['./interactive-buttons.component.scss'],
-  providers: [TranslateService]
+  providers: [TranslateService],
 })
 export class InteractiveButtonsComponent implements OnInit {
   public interactiveButtons: InteractiveButton[] = [];
@@ -28,7 +28,7 @@ export class InteractiveButtonsComponent implements OnInit {
       )
     ) {
       const matchedButton = this.interactiveButtons.find(
-        button => event.key === button.keyboardShortcut
+        (button) => event.key === button.keyboardShortcut
       );
       if (matchedButton) {
         this.interactiveBtnClick(matchedButton);
@@ -41,13 +41,21 @@ export class InteractiveButtonsComponent implements OnInit {
     private configService: ConfigurationService
   ) {}
 
+  public trackByIdentity(index: number, item: InteractiveButton) {
+    return item.key || item.title;
+  }
+
   ngOnInit() {
-    this.configService.NavbarInteractiveButtons.subscribe(buttons => {
+    this.configService.NavbarInteractiveButtons.subscribe((buttons) => {
       this.interactiveButtons = buttons;
     });
   }
 
   public interactiveBtnClick(btn: InteractiveButton) {
+    btn.$animating = true;
+    setTimeout(() => {
+      btn.$animating = false;
+    }, 500);
     if (btn.onPress) {
       btn.onPress(btn);
     }

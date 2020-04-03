@@ -1,12 +1,15 @@
-<div class="interactive-button">
-  <ng-container *ngFor="let button of interactiveButtons">
-    <span
+<div class="interactive-buttons">
+  <ng-container
+    *ngFor="let button of interactiveButtons; trackBy: trackByIdentity"
+  >
+    <div
       (click)="interactiveBtnClick(button)"
-      placement="left"
+      [attr.id]="button.id"
       [tooltip]="button.tooltip"
-      [ngClass]="{ clickable: button.onPress }"
+      class="interactive-button-item"
+      [ngClass]="{ clickable: button.onPress, 'blink-2': button.$animating }"
     >
-      <i [class]="button.icon"></i>
-    </span>
+      <i [ngClass]="button.icon"></i>
+    </div>
   </ng-container>
 </div>

@@ -1,6 +1,6 @@
 
 
-.interactive-button {
+.interactive-buttons {
   font-size: 28px;
 
   .clickable {
@@ -8,5 +8,16 @@
     &:hover {
       color: #4c84ff;
     }
+  }
+}
+
+.interactive-button-item {
+  display: inline-block;
+}
+
+.interactive-button-item {
+  transition: 0.3s color ease-in-out;
+  &:hover {
+    color: #4c84ff;
   }
 }

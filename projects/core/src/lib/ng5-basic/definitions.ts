@@ -74,7 +74,7 @@ export interface Ng5ModuleState {
  * Occures when a device changes
  */
 export enum ActivityTypes {
-  DevicePinChange
+  DevicePinChange,
 }
 /**
  * This represents if an activity occures in application
@@ -110,7 +110,7 @@ export interface WorkspaceUser {
 
 export enum TemperatureCustomization {
   SidebarRealTimeValue,
-  SidebarLastWeekAverage
+  SidebarLastWeekAverage,
 }
 
 export interface IDeviceDisplayPreference {
@@ -135,7 +135,7 @@ export enum CloudDeviceType {
   TemperatureSensor = 0,
   LampBridge = 1,
   HumiditySensor = 2,
-  CO2Sensor = 3
+  CO2Sensor = 3,
 }
 
 export interface CloudDeviceStatistics {
@@ -261,9 +261,11 @@ export interface IUser {
 
 export interface InteractiveButton {
   icon?: string;
+  id?: string;
   title?: string;
   key?: string;
   tooltip?: string;
+  $animating?: boolean;
   onPress?: (InteractiveButton?) => void;
   keyboardShortcut?: string;
 }

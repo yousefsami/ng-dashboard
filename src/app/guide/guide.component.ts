@@ -8,7 +8,7 @@ import {
   INotification,
   ModalDialog,
   PageContainerAction,
-  NgdBaseComponent
+  NgdBaseComponent,
 } from 'projects/core/src/public_api';
 import { NavbarLeftContentComponent } from 'projects/core/src/lib/ng5-basic/components/navbar-left-content/navbar-left-content.component';
 import { SimpleToolbarComponent } from '../simple-toolbar/simple-toolbar.component';
@@ -16,12 +16,12 @@ import { SimpleToolbarComponent } from '../simple-toolbar/simple-toolbar.compone
 @Component({
   selector: 'app-guide',
   templateUrl: './guide.component.html',
-  styleUrls: ['./guide.component.scss']
+  styleUrls: ['./guide.component.scss'],
 })
 export class GuideComponent extends NgdBaseComponent implements OnInit {
   public sampleModal: ModalDialog = {
     title: 'Deleting',
-    content: 'Delete???? Really?'
+    content: 'Delete???? Really?',
   };
   public pageContainerActions: Array<PageContainerAction> = [
     {
@@ -29,14 +29,14 @@ export class GuideComponent extends NgdBaseComponent implements OnInit {
       title: 'sampleButton',
       onClick: () => {
         alert('hi');
-      }
+      },
     },
     {
       type: 'ICON',
       title: 'icon button',
       onClick: () => {
         alert('hi 2');
-      }
+      },
     },
     {
       type: 'ICON',
@@ -44,13 +44,13 @@ export class GuideComponent extends NgdBaseComponent implements OnInit {
       icon: 'icon-notifications_none',
       onClick: () => {
         alert('hi 3');
-      }
-    }
+      },
+    },
   ];
   public sampleModalYes: ModalDialog = {
     title: 'Deleting',
     content: 'Are you sure deleting?',
-    type: 'YESNO'
+    type: 'YESNO',
   };
   constructor(
     public config: ConfigurationService,
@@ -64,7 +64,7 @@ export class GuideComponent extends NgdBaseComponent implements OnInit {
       id: 'uploader',
       active: true,
       speed,
-      mode: 'INFINITE'
+      mode: 'INFINITE',
     });
   }
 
@@ -73,10 +73,10 @@ export class GuideComponent extends NgdBaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.config.NotificationEvent.subscribe(event => {
+    this.config.NotificationEvent.subscribe((event) => {
       console.log('Notification event: ', event);
     });
-    const callback = t => {
+    const callback = (t) => {
       setInterval(() => {
         t.instance.count += 1;
       }, 1000);
@@ -85,6 +85,7 @@ export class GuideComponent extends NgdBaseComponent implements OnInit {
     this.SetInteractiveButtons([
       {
         icon: 'icon-info',
+        id: 'interactive-icon-info',
         title: 'info',
         tooltip: 'Also it can have tool tip',
         key: 'info_btn',
@@ -93,12 +94,12 @@ export class GuideComponent extends NgdBaseComponent implements OnInit {
             'Wow! You are now using interactive buttons! see app.module.ts for more info'
           );
         },
-        keyboardShortcut: 'Enter'
-      }
+        keyboardShortcut: 'Enter',
+      },
     ]);
     this.config.ToolbarComponent.next({
       component: SimpleToolbarComponent,
-      callback
+      callback,
     });
   }
 
@@ -110,31 +111,31 @@ export class GuideComponent extends NgdBaseComponent implements OnInit {
     this.config.Teams.next([
       {
         members: [],
-        name: 'Personal team'
+        name: 'Personal team',
       },
       {
         members: [],
         name: `Ali's team`,
-        $selected: true
-      }
+        $selected: true,
+      },
     ]);
     this.config.TeamsConfig.next({
       manageTeams: true,
       manageTeamsText: 'ManageTeams',
       onClick: () => {
         alert('You clicked this. Use angular router to go to teams page');
-      }
+      },
     });
   }
 
   public showLoader() {
     WorkingStates.next([
       {
-        active: true
+        active: true,
       },
       {
-        active: true
-      }
+        active: true,
+      },
     ]);
   }
 
@@ -149,7 +150,7 @@ export class GuideComponent extends NgdBaseComponent implements OnInit {
       importance: 'IMPORTANT',
       type: 'success',
       message: 'Kitcheb temprature is higher than normal temp',
-      title: 'Ali has done something'
+      title: 'Ali has done something',
     };
     this.config.Notify(notification);
   }
@@ -163,29 +164,29 @@ export class GuideComponent extends NgdBaseComponent implements OnInit {
         type: 'success',
         importance: 'NORMAL',
         message: 'Kitcheb temprature is higher than normal temp',
-        title: 'Ali has done something'
+        title: 'Ali has done something',
       },
       {
         date: new Date(),
         icon: 'icon-call_missed',
         importance: 'NORMAL',
         type: 'success',
-        message: 'New user has been joined us'
+        message: 'New user has been joined us',
       },
       {
         date: new Date(),
         icon: 'icon-error',
         type: 'success',
         importance: 'NORMAL',
-        message: 'All Lights on for 2 days, Called to +98901234567 and answerd'
+        message: 'All Lights on for 2 days, Called to +98901234567 and answerd',
       },
       {
         date: new Date(),
         icon: 'icon-remove_circle',
         type: 'success',
         importance: 'IMPORTANT',
-        message: 'Edited Device: Temrature has edited successfuly'
-      }
+        message: 'Edited Device: Temrature has edited successfuly',
+      },
     ];
     this.config.Notify(notifications);
   }
@@ -200,13 +201,13 @@ export class GuideComponent extends NgdBaseComponent implements OnInit {
   }
 
   public showDialog() {
-    this.modal.open(this.sampleModal).subscribe(result => {
+    this.modal.open(this.sampleModal).subscribe((result) => {
       console.log(result);
     });
   }
 
   public showDialogYes() {
-    this.modal.open(this.sampleModalYes).subscribe(result => {
+    this.modal.open(this.sampleModalYes).subscribe((result) => {
       console.log(result);
     });
   }
@@ -215,19 +216,19 @@ export class GuideComponent extends NgdBaseComponent implements OnInit {
     this.config.ShowToast({
       message:
         'This is warning, you see, when the text is longer it will stay longer time to give user time to read',
-      type: 'WARNING'
+      type: 'WARNING',
     });
     this.config.ShowToast({
       message: 'This is success',
-      type: 'SUCCESS'
+      type: 'SUCCESS',
     });
     this.config.ShowToast({
       message: 'This is info',
-      type: 'INFO'
+      type: 'INFO',
     });
     this.config.ShowToast({
       message: 'Error',
-      type: 'ERROR'
+      type: 'ERROR',
     });
   }
 
