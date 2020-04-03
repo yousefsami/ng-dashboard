@@ -1,14 +1,17 @@
 <div class="btn-group ngd-user-profile" dropdown>
-  <button
+  <a
     id="ngd-user-profile-button"
     dropdownToggle
     type="button"
-    class="btn btn-secondary dropdown-toggle"
+    class="  dropdown-toggle"
     aria-controls="dropdown-animated"
   >
-    <span class="mobile-hidden"> {{ name(user.User) }} </span>
+    <span>
+      {{ name(user.User) }}
+      <span *ngIf="label" class="mobile-hidden">({{ label }}) </span></span
+    >
     <span class="caret"></span>
-  </button>
+  </a>
   <ul
     id="dropdown-animated"
     *dropdownMenu
@@ -17,9 +20,24 @@
     aria-labelledby="button-animated"
   >
     <ng-container>
+      <ng-container *ngFor="let team of teams">
+        <li role="menuitem">
+          <button
+            class="dropdown-item"
+            placement="right"
+            [tooltip]="team.$tooltip ? team.$tooltip : undefined"
+            (click)="selectTeam(team)"
+          >
+            <span *ngIf="team.$selected" class="active-bullet">&bull;</span>
+            {{ team.name }}
+          </button>
+        </li>
+      </ng-container>
+
+      <div class="dropdown-divider"></div>
       <li role="menuitem">
         <a routerLink="/profile" class="dropdown-item" placement="right">
-          Your profile
+          {{ 'your_profile' | t }}
         </a>
       </li>
       <li role="menuitem">
@@ -28,7 +46,7 @@
           class="dropdown-item"
           placement="right"
         >
-          Signout
+          {{ 'signout' | t }}
         </a>
       </li>
     </ng-container>

@@ -43,3 +43,18 @@
   margin-left: 15px;
   margin-right: 0;
 }
+
+.ngd-user-profile {
+  margin-right: 15px;
+}
+
+@media screen and (max-width: 693px) {
+  .mobile-hidden {
+    display: none;
+  }
+}
+
+.active-bullet {
+  margin-left: -10px;
+  color: blue;
+}
