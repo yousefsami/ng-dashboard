@@ -259,16 +259,17 @@ export abstract class NgdBaseComponent implements OnDestroy {
     if (!id) {
       return;
     }
+
     this.ComponentSubscription(
       store.select(storeSection).subscribe(items => {
         if (items && items.length) {
           entity = items.find(t => t.id === +id);
+          if (entity) {
+            this.form.patchValue(entityFilter(entity));
+          }
         }
       })
     );
-    if (entity) {
-      this.form.patchValue(entityFilter(entity));
-    }
     this.StartRequest<T>(() => request(id, entity)).then(result => {
       if (result && result.item) {
         this.form.patchValue(
