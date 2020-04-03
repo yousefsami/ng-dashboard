@@ -7,7 +7,11 @@
       [attr.id]="button.id"
       [tooltip]="button.tooltip"
       class="interactive-button-item"
-      [ngClass]="{ clickable: button.onPress, 'blink-2': button.$animating }"
+      [ngClass]="{
+        clickable: button.onPress,
+        'blink-2': button.$animating,
+        'rotate-center': button.rotates && button.$animating
+      }"
     >
       <i [ngClass]="button.icon"></i>
     </div>

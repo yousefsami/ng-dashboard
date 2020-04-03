@@ -266,6 +266,7 @@ export interface InteractiveButton {
   key?: string;
   tooltip?: string;
   $animating?: boolean;
+  rotates?: boolean;
   onPress?: (InteractiveButton?) => void;
   keyboardShortcut?: string;
 }

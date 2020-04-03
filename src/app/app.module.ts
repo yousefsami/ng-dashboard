@@ -10,7 +10,8 @@ import {
   NgDashboardPl,
   ModalService,
   RouterService,
-  TeamsService
+  TeamsService,
+  InteractiveButtons,
 } from 'projects/core/src/public_api';
 import { Router } from '@angular/router';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -27,18 +28,18 @@ import { BugReportComponent } from 'projects/core/src/lib/ng5-basic/components/b
       navbar: {
         search: {},
         notification: true,
-        profile: true
+        profile: true,
       },
       api: 'https://taxopit.com',
       auth: {
-        afterSignupRedirect: '/'
-      }
-    })
+        afterSignupRedirect: '/',
+      },
+    }),
   ],
   exports: [],
   entryComponents: [SimpleToolbarComponent],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {
   public BugReport() {
@@ -46,9 +47,9 @@ export class AppModule {
       .open({
         content: BugReportComponent,
         title: this.config.translate('bug_report_title'),
-        type: 'CONFIRMATION'
+        type: 'CONFIRMATION',
       })
-      .subscribe(result => {
+      .subscribe((result) => {
         console.log(result);
       });
   }
@@ -63,23 +64,16 @@ export class AppModule {
     this.user.SetUser({
       firstname: 'Ali',
       lastname: 'Torabi',
-      email: 'ali.torabi@pixelplux.com'
+      email: 'ali.torabi@pixelplux.com',
     });
     this.config.config.navbar = {
       profile: false,
-      notification: true
+      notification: true,
     };
 
     this.config.SetGlobalInteractiveButtons([
-      {
-        icon: 'icon-bug_report',
-        title: 'bug_report',
-        key: 'bug_report_button',
-        onPress: () => {
-          this.BugReport();
-        },
-        keyboardShortcut: 'Enter'
-      }
+      InteractiveButtons.BugReport(() => {}),
+      InteractiveButtons.Refresh(() => {}),
     ]);
     this.config.SetLanguage('pl', NgDashboardPl);
     this.config.SearchTerms.next([
@@ -91,32 +85,32 @@ export class AppModule {
         },
         id: '2',
         key: '2',
-        keywords: 'Hello, Hi, Hello, Test'
+        keywords: 'Hello, Hi, Hello, Test',
       },
       {
         description: 'Guide about using this dashboard',
         title: 'Guide',
         key: '1',
         id: '1',
-        keywords: 'Guide, Guideline, help'
-      }
+        keywords: 'Guide, Guideline, help',
+      },
     ]);
     this.config.Teams.next([
       {
         members: [],
-        name: 'Personal team'
+        name: 'Personal team',
       },
       {
         members: [],
-        name: `Ali's team`
-      }
+        name: `Ali's team`,
+      },
     ]);
     this.config.TeamsConfig.next({
       manageTeams: true,
       manageTeamsText: 'ManageTeams',
       onClick: () => {
         this.ngdRouter.navigateTo('/teams');
-      }
+      },
     });
 
     this.config.DockedMenu.next([
@@ -125,8 +119,8 @@ export class AppModule {
         title: 'Sign-out',
         onClick: () => {
           this.ngdRouter.navigateTo('/login');
-        }
-      }
+        },
+      },
     ]);
 
     this.config.NavigationItems.next([
@@ -136,48 +130,48 @@ export class AppModule {
           {
             title: 'Item 1',
             link: '/link1',
-            activeMatches: ['/link1/1']
+            activeMatches: ['/link1/1'],
           },
           {
             title: 'Login',
-            link: '/login'
+            link: '/login',
           },
           {
             title: 'Login',
-            link: '/login'
+            link: '/login',
           },
           {
             title: 'Signup',
-            link: '/signup'
+            link: '/signup',
           },
           {
             title: 'Reset password',
-            link: '/reset-password'
+            link: '/reset-password',
           },
           {
             title: 'Forgot password',
-            link: '/forgot-password'
-          }
-        ]
+            link: '/forgot-password',
+          },
+        ],
       },
       {
         title: 'Second menu',
         children: [
           {
-            title: 'Item 1'
+            title: 'Item 1',
           },
           {
             title: 'Item 2',
-            link: '/link2'
+            link: '/link2',
           },
           {
-            title: 'Item 3'
+            title: 'Item 3',
           },
           {
-            title: 'Item 4'
-          }
-        ]
-      }
+            title: 'Item 4',
+          },
+        ],
+      },
     ]);
   }
 }

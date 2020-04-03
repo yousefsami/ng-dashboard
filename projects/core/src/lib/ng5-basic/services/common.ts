@@ -6,14 +6,15 @@ import {
   HttpHeaders,
   HttpRequest,
   HttpResponse,
-  HttpErrorResponse
+  HttpErrorResponse,
 } from '@angular/common/http';
 import { matchPattern } from 'url-matcher';
 import { merge } from 'lodash';
 import {
   DataSource,
   IWorkingState,
-  StartRequestResponse
+  StartRequestResponse,
+  InteractiveButton,
 } from '../definitions';
 import { OnDestroy } from '@angular/core';
 
@@ -22,8 +23,8 @@ export function GetNetworkError(): IResponse<any> {
     error: {
       code: 0,
       message:
-        'It seems you are not connected to internet. Please check your connection and try again'
-    }
+        'It seems you are not connected to internet. Please check your connection and try again',
+    },
   };
 }
 
@@ -31,7 +32,7 @@ export function error(response: IResponse<any>, fieldName: string) {
   if (!response || !response.error || !response.error.errors) {
     return '';
   }
-  const $error = response.error.errors.find(x => x.location === fieldName);
+  const $error = response.error.errors.find((x) => x.location === fieldName);
   return $error ? $error.message : '';
 }
 
@@ -65,7 +66,7 @@ export function handleRoute(
     headers: new HttpHeaders(),
     status: result.data ? 200 : result.error.code,
     statusText: 'OK',
-    url: req.url
+    url: req.url,
   });
   return of(mockResponse);
 }
@@ -94,7 +95,7 @@ export function urlMatch(
     if (result) {
       return {
         url: route,
-        match: result
+        match: result,
       };
     }
   }
@@ -108,7 +109,7 @@ export function UpdateOrPrepend(
 ) {
   let updated = false;
   let newContext;
-  newContext = context.map($el => {
+  newContext = context.map(($el) => {
     if ($el[compareKey] === element[compareKey]) {
       updated = true;
       return element;
@@ -129,7 +130,7 @@ export function UpdateOrInsert(
 ) {
   let updated = false;
   let newContext;
-  newContext = context.map($el => {
+  newContext = context.map(($el) => {
     if ($el[compareKey] === element[compareKey]) {
       updated = true;
       if (mergeWithExisting) {
@@ -183,11 +184,11 @@ export abstract class ComponentCommon implements OnDestroy {
       if (IsSuccessEntity(response)) {
         return {
           items: response.data.items,
-          item: response.data.items[0]
+          item: response.data.items[0],
         };
       } else {
         return {
-          error: response.error
+          error: response.error,
         };
       }
     } catch (error) {
@@ -235,13 +236,13 @@ export function CurrencyFormat(value, currency = 'pln') {
   if (currency === 'pln') {
     return new Intl.NumberFormat('pl-PL', {
       style: 'currency',
-      currency: 'PLN'
+      currency: 'PLN',
     }).format(value);
   }
   if (currency === 'euro' || currency === 'eur') {
     return new Intl.NumberFormat('de-DE', {
       style: 'currency',
-      currency: 'EUR'
+      currency: 'EUR',
     }).format(value);
   }
 }
@@ -272,7 +273,7 @@ export const monthNames = [
   'September',
   'October',
   'November',
-  'December'
+  'December',
 ];
 
 export const InteractiveButtons = {
@@ -282,11 +283,13 @@ export const InteractiveButtons = {
    */
   Refresh: (onPress: (source?: string) => void) => {
     return {
+      id: 'ngd-navbar-refresh-icon',
+      rotates: true,
       icon: 'icon-refresh',
       key: 'refresh',
       keyboardShortcut: 'r',
-      onPress
-    };
+      onPress,
+    } as InteractiveButton;
   },
   /**
    * Export to ng-dashboard.
@@ -295,10 +298,11 @@ export const InteractiveButtons = {
    */
   List: (onPress: (source?: string) => void) => {
     return {
+      id: 'ngd-navbar-list-icon',
       icon: 'icon-list',
       key: 'list',
       keyboardShortcut: 'l',
-      onPress
+      onPress,
     };
   },
   /**
@@ -308,9 +312,10 @@ export const InteractiveButtons = {
    */
   SafeSave: (onPress: (source?: string) => void) => {
     return {
+      id: 'ngd-navbar-save-icon',
       icon: 'icon-save',
       key: 'save',
-      onPress: debounce(onPress, 500)
+      onPress: debounce(onPress, 500),
     };
   },
 
@@ -318,21 +323,22 @@ export const InteractiveButtons = {
     return {
       icon: 'icon-bug_report',
       title: 'bug_report',
+      id: 'ngd-navbar-bug-report',
       key: 'bug_report_button',
       onPress,
-      keyboardShortcut: 'b'
+      keyboardShortcut: 'b',
     };
-  }
+  },
 };
 
 export function StoreActionDelete(state: Array<any>, action: any) {
   return state.filter(
-    t => t.id !== (action.payload.id ? action.payload.id : +action.payload)
+    (t) => t.id !== (action.payload.id ? action.payload.id : +action.payload)
   );
 }
 
 export function StoreActionUpdate(state: Array<any>, action: any) {
-  return state.map(t => {
+  return state.map((t) => {
     if (t.id === action.payload.id) {
       return action.payload;
     }
