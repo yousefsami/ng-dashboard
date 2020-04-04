@@ -12,6 +12,7 @@
     "@ngrx/core",
     "@ngrx/store",
     "@ngx-translate/core",
+    "ngx-universal-cookies",
     "rxjs-compat",
     "response-type",
     "simplebar",
