@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { TeamsService } from './teams.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RouterService {
   public CurrentLanguage: BehaviorSubject<string> = new BehaviorSubject('en');
@@ -20,7 +20,9 @@ export class RouterService {
   }
 
   public routerLink(path: string = '', extras = {}): string {
-    return `/${this.teams.CurrentSelectedTeam || ''}${path}`;
+    const team = this.teams.CurrentSelectedTeam;
+    const t = `/${team || ''}${path}`;
+    return t;
   }
 
   public publicLink(path: string) {

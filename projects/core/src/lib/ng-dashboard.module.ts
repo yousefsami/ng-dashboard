@@ -2,6 +2,7 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { NgBasicConfig } from './ng5-basic/definitions';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { BrowserCookiesModule } from 'ngx-universal-cookies/browser';
 
 import { TranslateModule } from '@ngx-translate/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -56,6 +57,13 @@ import { BugReportComponent } from './ng5-basic/components/bug-report/bug-report
 import { EmailInputComponent } from './auth/email-input/email-input.component';
 import { PasswordInputComponent } from './auth/password-input/password-input.component';
 import { RouterService } from './ng5-basic/services/router.service';
+import { TokenInterceptor } from './ng5-basic/services/token.interceptor';
+import {
+  AccessWithTokenGuard,
+  NoAccessTokenGuard,
+} from './ng5-basic/services/access-token-guard';
+import { PublicLangaugeAuth } from './ng5-basic/services/public-lang.guard';
+import { TeamGuardAuth } from './ng5-basic/services/team.guard';
 @NgModule({
   declarations: [
     LayoutComponent,
@@ -85,7 +93,7 @@ import { RouterService } from './ng5-basic/services/router.service';
     SignupFormComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
-    TPipe
+    TPipe,
   ],
   exports: [
     ConfirmComponent,
@@ -116,11 +124,12 @@ import { RouterService } from './ng5-basic/services/router.service';
     SignupFormComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
-    TPipe
+    TPipe,
   ],
   imports: [
     TranslateModule.forRoot({}),
     HttpClientModule,
+    BrowserCookiesModule.forRoot(),
     NoopAnimationsModule,
     BrowserModule,
     BsDropdownModule.forRoot(),
@@ -130,7 +139,7 @@ import { RouterService } from './ng5-basic/services/router.service';
     ReactiveFormsModule,
     StoreModule.forRoot({}),
     RouterModule.forRoot([]),
-    ng5ReducerGenerator()
+    ng5ReducerGenerator(),
   ],
   providers: [
     PermissionsService,
@@ -138,22 +147,27 @@ import { RouterService } from './ng5-basic/services/router.service';
     RouterService,
     RequestsService,
     MockService,
+    TeamGuardAuth,
+    PublicLangaugeAuth,
     ConfirmService,
     ModalService,
+    TokenInterceptor,
+    AccessWithTokenGuard,
+    NoAccessTokenGuard,
     ActionsService,
     ConfigurationService,
     NgxSidebarService,
     FacebookService,
     UserService,
     TeamsService,
-    GlobalizationService
+    GlobalizationService,
   ],
   entryComponents: [
     ConfirmComponent,
     BaseModalComponent,
     BugReportComponent,
-    NavbarLeftContentComponent
-  ]
+    NavbarLeftContentComponent,
+  ],
 })
 export class NgDashboardModule {
   static forRoot(config: NgBasicConfig = {}): ModuleWithProviders {
@@ -162,8 +176,8 @@ export class NgDashboardModule {
       providers: [
         MockService,
         ConfigurationService,
-        { provide: 'config', useValue: config }
-      ]
+        { provide: 'config', useValue: config },
+      ],
     };
   }
 }

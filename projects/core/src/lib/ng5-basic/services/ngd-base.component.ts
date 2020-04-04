@@ -127,6 +127,7 @@ export abstract class NgdBaseComponent implements OnDestroy {
   private responseWarningToast(result) {
     if (
       !result.item &&
+      this.res &&
       this.res.error &&
       this.res.error.errors.length &&
       window.innerWidth > 779
@@ -166,8 +167,14 @@ export abstract class NgdBaseComponent implements OnDestroy {
       }
 
       firstInvalidField.focus();
+
+      const ngdOutlet = document.querySelector('.ngd-outlet');
+      if (!ngdOutlet) {
+        return;
+      }
+
       document
-        .getElementsByClassName('ngd-outlet')[0]
+        .querySelector('.ngd-outlet')
         .scrollTo(0, firstFieldDistance - 100);
     }, 50);
   }

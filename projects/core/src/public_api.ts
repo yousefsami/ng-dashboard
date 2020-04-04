@@ -13,6 +13,8 @@ export * from './lib/ng5-basic/services/router.service';
 export * from './lib/ng5-basic/ngx-sidebar/ngx-sidebar.component';
 export * from './lib/ng5-basic/services/response.interceptor';
 export * from './lib/ng5-basic/services/token.interceptor';
+export * from './lib/ng5-basic/services/public-lang.guard';
+export * from './lib/ng5-basic/services/team.guard';
 export * from './lib/ng5-basic/components/layout/layout.component';
 export * from './lib/ng5-basic/components/bug-report/bug-report.component';
 export * from './lib/ng5-basic/services/helpers';

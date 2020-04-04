@@ -3,34 +3,29 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-import { UserService } from './user.service';
+import { CookiesService } from 'ngx-universal-cookies';
 import { TeamsService } from './teams.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(private user: UserService, private teams: TeamsService) {}
+  constructor(private cookie: CookiesService, private teams: TeamsService) {}
 
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const token = this.user.GetToken();
-    const team = this.teams.CurrentSelectedTeam;
-    const headers: any = {};
-
-    if (token) {
-      headers['x-token'] = token.toString();
-    }
-    if (team) {
-      headers['x-team'] = team.toString();
-    }
+    const headers = {
+      'x-token': this.cookie.get('token') || '',
+      'x-team': this.cookie.get('team') || this.teams.CurrentSelectedTeam || '',
+    };
 
     request = request.clone({
-      setHeaders: headers
+      setHeaders: {
+        ...headers,
+      },
     });
     return next.handle(request);
   }

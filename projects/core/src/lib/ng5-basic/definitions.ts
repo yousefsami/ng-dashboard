@@ -329,3 +329,9 @@ export interface PageContainerAction {
   icon?: string;
   onClick: (params?: any) => void;
 }
+
+export interface IGeneralUserResponse {
+  teams: Array<any>;
+  user: IUser;
+  notifications: INotification[];
+}

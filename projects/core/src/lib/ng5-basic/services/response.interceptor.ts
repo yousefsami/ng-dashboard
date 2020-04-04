@@ -5,16 +5,15 @@ import {
   HttpEvent,
   HttpInterceptor,
   HttpResponse,
-  HttpErrorResponse
+  HttpErrorResponse,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { Router } from '@angular/router';
 import { RouterService } from './router.service';
 
 @Injectable()
 export class ResponseInterceptor implements HttpInterceptor {
-  constructor(private ngdRouter: RouterService) {}
+  constructor(private router: RouterService) {}
 
   intercept(
     request: HttpRequest<any>,
@@ -22,14 +21,14 @@ export class ResponseInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
       tap(
-        event => {
+        (event) => {
           if (event instanceof HttpResponse) {
             // @cover response.error is gonna be by caller
           }
         },
         (error: HttpErrorResponse) => {
           if (error.status === 401) {
-            this.ngdRouter.navigateTo('/login');
+            this.router.navigatePublic('/login');
           }
         }
       )
