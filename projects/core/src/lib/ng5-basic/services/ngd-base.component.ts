@@ -145,6 +145,70 @@ export abstract class NgdBaseComponent implements OnDestroy {
     }
   }
 
+  isVisible(elem: any) {
+    const style = getComputedStyle(elem);
+
+    if (style.display === 'none') {
+      return false;
+    }
+
+    if (style.visibility !== 'visible') {
+      return false;
+    }
+
+    if (+style.opacity < 0.1) {
+      return false;
+    }
+    if (
+      elem.offsetWidth +
+        elem.offsetHeight +
+        elem.getBoundingClientRect().height +
+        elem.getBoundingClientRect().width ===
+      0
+    ) {
+      return false;
+    }
+    const elemCenter = {
+      x: elem.getBoundingClientRect().left + elem.offsetWidth / 2,
+      y: elem.getBoundingClientRect().top + elem.offsetHeight / 2,
+    };
+
+    if (elemCenter.x < 0) {
+      return false;
+    }
+
+    if (
+      elemCenter.x > (document.documentElement.clientWidth || window.innerWidth)
+    ) {
+      return false;
+    }
+
+    if (elemCenter.y < 0) {
+      return false;
+    }
+
+    if (
+      elemCenter.y >
+      (document.documentElement.clientHeight || window.innerHeight)
+    ) {
+      return false;
+    }
+
+    let pointContainer: any = document.elementFromPoint(
+      elemCenter.x,
+      elemCenter.y
+    );
+    do {
+      if (pointContainer === elem) {
+        return true;
+      }
+
+      /* tslint:disable */
+    } while ((pointContainer = pointContainer.parentNode));
+    /* tslint:enable */
+    return false;
+  }
+
   private scrollToFirstInputWithErrors() {
     setTimeout(() => {
       const firstInvalidField = document.querySelector(
@@ -156,13 +220,7 @@ export abstract class NgdBaseComponent implements OnDestroy {
       }
       const firstFieldDistance = this.getPosition(firstInvalidField);
 
-      const visible = (elem) => {
-        // Check if the invalid field is really visible.
-        // for now, always we scroll to it
-        return false;
-      };
-
-      if (visible(firstInvalidField)) {
+      if (this.isVisible(firstInvalidField)) {
         return;
       }
 
