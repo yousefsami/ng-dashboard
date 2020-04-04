@@ -75,7 +75,8 @@ export class AppModule {
       InteractiveButtons.BugReport(() => {}),
       InteractiveButtons.Refresh(() => {}),
     ]);
-    this.config.SetLanguage('pl', NgDashboardPl);
+    this.config.ProvideTranslationForLangauge('pl', NgDashboardPl);
+    this.config.SetLanguage('pl');
     this.config.SearchTerms.next([
       {
         title: 'Say hello',

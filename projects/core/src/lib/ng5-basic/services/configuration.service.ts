@@ -253,10 +253,9 @@ export class ConfigurationService {
     return programDefaultNaviation;
   }
 
-  public SetLanguage(lang: string, keys: any = {}) {
-    keys = keys || this.translationsLibrary[lang];
+  public SetLanguage(lang: string) {
     this.translationsDictionary.next({
-      ...keys,
+      ...this.translationsLibrary[lang],
     });
     this.language.next(lang);
   }

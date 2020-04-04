@@ -192,12 +192,10 @@ export class GuideComponent extends NgdBaseComponent implements OnInit {
   }
 
   public changeLang(lang) {
-    if (lang === 'pl') {
-      this.config.SetLanguage(lang, NgDashboardPl);
-    }
-    if (lang === 'en') {
-      this.config.SetLanguage(lang, NgDashboardEn);
-    }
+    this.config.ProvideTranslationForLangauge('pl', NgDashboardPl);
+    this.config.ProvideTranslationForLangauge('pl', NgDashboardEn);
+
+    this.config.SetLanguage(lang);
   }
 
   public showDialog() {
