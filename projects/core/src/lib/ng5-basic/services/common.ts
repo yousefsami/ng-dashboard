@@ -345,3 +345,23 @@ export function StoreActionUpdate(state: Array<any>, action: any) {
     return t;
   });
 }
+
+export const REGEX_LANGUAGE = /^\/([a-z]{2})(\/.+?)?/;
+
+export function GetLanguageFromUrl(pathname) {
+  let lang = 'en';
+  if (getQuerystring('language')) {
+    return getQuerystring('language') as any;
+  } else {
+    lang = parseStorage('language') || 'en';
+  }
+
+  if (pathname) {
+    const match = pathname.match(REGEX_LANGUAGE);
+    if (match && match[1] && match[1].length === 2) {
+      return match[1];
+    }
+  }
+
+  return lang;
+}
