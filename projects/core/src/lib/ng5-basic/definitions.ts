@@ -335,3 +335,12 @@ export interface IGeneralUserResponse {
   user: IUser;
   notifications: INotification[];
 }
+
+export interface ISmartNavigation extends INavigation {
+  keywords?: string;
+  description?: string;
+  keyboardShortcut?: string;
+  helpUrl?: string;
+  $collapsed?: boolean;
+  $key?: string;
+}

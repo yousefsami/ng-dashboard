@@ -1,5 +1,5 @@
-import { debounce } from 'lodash';
-import { IResponse, IResponseError } from 'response-type';
+import { debounce, isArray } from 'lodash';
+import { IResponse } from 'response-type';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import {
   HttpEvent,
@@ -15,6 +15,7 @@ import {
   IWorkingState,
   StartRequestResponse,
   InteractiveButton,
+  ISmartNavigation,
 } from '../definitions';
 import { OnDestroy } from '@angular/core';
 
@@ -364,4 +365,53 @@ export function GetLanguageFromUrl(pathname) {
   }
 
   return lang;
+}
+
+/**
+ * @description Converts ISmartNaivgation to SearchTerms item
+ */
+export function ToSearchTerms(
+  items: Array<ISmartNavigation>,
+  translationDictionary = {}
+) {
+  const data = CastTermsToSearch(items, translationDictionary);
+  let flatten = [];
+  data.forEach((item) => {
+    if (isArray(item)) {
+      flatten = [...flatten, ...item];
+    }
+  });
+
+  return flatten;
+}
+
+export function CastTermsToSearch(
+  items: Array<ISmartNavigation>,
+  translationDictionary = {}
+) {
+  return items.map((item: ISmartNavigation) => {
+    if (item.children) {
+      return CastTermsToSearch(item.children, translationDictionary);
+    }
+    const id = `${Math.random()}`;
+    return {
+      id,
+      key: id || item.title,
+      title: translationDictionary[item.title] || '',
+      navigatesByUri: item.link,
+      description: translationDictionary[item.description] || '',
+      keywords: translationDictionary[item.keywords] || '',
+    };
+  });
+}
+
+export function IsMobile() {
+  if (
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    )
+  ) {
+    return true;
+  }
+  return false;
 }
