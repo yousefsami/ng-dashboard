@@ -10,7 +10,7 @@ import {
   DockedMenu,
   IToastMessage,
   INotification,
-  INotificationEvent
+  INotificationEvent,
 } from '../definitions';
 import { BehaviorSubject } from 'rxjs';
 import { IAuthConfig } from '../../auth/definitions';
@@ -21,7 +21,7 @@ export function ShowToast(data: IToastMessage) {
     ERROR: '#9e4651',
     INFO: '#5586c0',
     SUCCESS: 'linear-gradient(to right, #61a372, #96c93d)',
-    WARNING: '#ff7800'
+    WARNING: '#ff7800',
   };
 
   const text = `${data.title || ''} ${data.message}`;
@@ -31,7 +31,7 @@ export function ShowToast(data: IToastMessage) {
     return;
   }
   messageHistory[text] = {
-    expire
+    expire,
   };
 
   const words = text.split(' ').length;
@@ -45,14 +45,16 @@ export function ShowToast(data: IToastMessage) {
     position: 'right', // `left`, `center` or `right`
     backgroundColor: styles[data.type || 'INFO'],
     stopOnFocus: true, // Prevents dismissing of toast on hover
-    onClick: () => data.onClick(data) // Callback after click
+    onClick: () => data.onClick(data), // Callback after click
   }).showToast();
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ConfigurationService {
+  // Keeps all possible langauges transalations
+  public translationsLibrary = {};
   public language = new BehaviorSubject('en');
   public NavbarInteractiveButtons: BehaviorSubject<
     InteractiveButton[]
@@ -99,8 +101,12 @@ export class ConfigurationService {
   public RouteFilter(to, params = null) {
     return {
       to,
-      params
+      params,
     };
+  }
+
+  public ProvideTranslationForLangauge(language: string, keyPair: any) {
+    this.translationsLibrary[language] = keyPair;
   }
 
   /**
@@ -110,10 +116,7 @@ export class ConfigurationService {
     this.GlobalInteractiveButtons.next(buttons);
   }
 
-  constructor(
-    @Inject('config') public config: NgBasicConfig,
-    private ref: ApplicationRef
-  ) {
+  constructor(@Inject('config') public config: NgBasicConfig) {
     if (typeof window !== 'undefined') {
       // Helps developers to understand the missing translation keys
       /* tslint:disable */
@@ -155,14 +158,14 @@ export class ConfigurationService {
     let items = [];
     if (Array.isArray(notification)) {
       items = [...notification];
-      if (notification.find(t => t.importance === 'IMPORTANT')) {
+      if (notification.find((t) => t.importance === 'IMPORTANT')) {
         this.ShowToast({
           message: `You have ${3} new notifications`,
           duration: 2000,
           onClick: () => {
             this.NotificationState.next('OPEN');
             this.DismissToasts();
-          }
+          },
         });
       }
     } else {
@@ -174,16 +177,16 @@ export class ConfigurationService {
           onClick: () => {
             this.NotificationState.next('OPEN');
             this.DismissToasts();
-          }
+          },
         });
       }
     }
 
-    items = items.map(t => {
+    items = items.map((t) => {
       return {
         ...t,
         icon: t.icon ? t.icon : 'icon-info',
-        id: t.id ? t.id : 'auto_id_' + Math.random()
+        id: t.id ? t.id : 'auto_id_' + Math.random(),
       };
     });
 
@@ -251,8 +254,9 @@ export class ConfigurationService {
   }
 
   public SetLanguage(lang: string, keys: any = {}) {
+    keys = keys || this.translationsLibrary[lang];
     this.translationsDictionary.next({
-      ...keys
+      ...keys,
     });
     this.language.next(lang);
   }
