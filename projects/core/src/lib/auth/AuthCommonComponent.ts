@@ -15,7 +15,7 @@ import { RouterService } from '../ng5-basic/services/router.service';
 export class AuthCommonComponent extends NgdBaseComponent {
   public userForm = new FormGroup({
     email: new FormControl(null),
-    password: new FormControl(null)
+    password: new FormControl(null),
   });
 
   public response: IResponse<any> = null;
@@ -64,7 +64,7 @@ export class AuthCommonComponent extends NgdBaseComponent {
   private onLoginSuccessed(result) {
     this.auth.events.emit({
       payload: result,
-      type: AuthEvent.LOGIN_SUCCESS
+      type: AuthEvent.LOGIN_SUCCESS,
     });
     this.user.SetToken(result.token);
     this.user.SetUser(result.user);
@@ -79,7 +79,7 @@ export class AuthCommonComponent extends NgdBaseComponent {
     }
     this.auth.events.emit({
       type: AuthEvent.SIGNUP_SUCCESS,
-      payload: result
+      payload: result,
     });
     if (this.config.Config.afterSignupRedirect) {
       this.ngdRouter.navigateTo(this.config.Config.afterSignupRedirect);
@@ -95,7 +95,7 @@ export class AuthCommonComponent extends NgdBaseComponent {
     this.config.Notifications.next([]);
 
     this.auth.events.emit({
-      type: AuthEvent.REVOKE
+      type: AuthEvent.REVOKE,
     });
   }
 }

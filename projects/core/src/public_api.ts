@@ -21,6 +21,7 @@ export * from './lib/ng5-basic/components/bug-report/bug-report.component';
 export * from './lib/ng5-basic/services/helpers';
 export * from './lib/ng5-basic/definitions';
 export * from './lib/ng5-basic/services/common';
+export * from './lib/ng5-basic/services/NgdEntryRoute';
 export * from './lib/ng5-basic/services/ngd-base.component';
 
 export * from './lib/auth/login-form/login-form.component';

@@ -1,9 +1,9 @@
-<div class="btn-group ngd-user-profile" dropdown>
+<div class="btn-group ngd-user-profile" *ngIf="user && user.User" dropdown>
   <a
     id="ngd-user-profile-button"
     dropdownToggle
     type="button"
-    class="  dropdown-toggle"
+    class="dropdown-toggle"
     aria-controls="dropdown-animated"
   >
     <span>
