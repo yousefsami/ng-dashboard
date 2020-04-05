@@ -1,0 +1,33 @@
+.package-holder {
+  display: flex;
+  width: 100%;
+}
+
+.package-item {
+  flex: 1;
+  display: flex;
+  h2 {
+    font-size: 20px;
+  }
+  .package-description {
+    font-size: 14px;
+    color: #656565;
+  }
+  .package-actions {
+    margin-top: 30px;
+  }
+  .status-image {
+    width: 50px;
+  }
+  .status-image-holder {
+    text-align: right;
+    width: 60px;
+  }
+  .package-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+}

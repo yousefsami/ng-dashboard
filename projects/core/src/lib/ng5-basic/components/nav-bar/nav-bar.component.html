@@ -5,7 +5,7 @@
 >
   <div class="nav-left-buttons">
     <button
-      class="ngd-left-nav-buttons ngd-sidebar-toggle "
+      class="ngd-left-nav-buttons ngd-sidebar-toggle"
       (click)="MultiActionKey()"
     >
       <i
@@ -20,7 +20,7 @@
 
     <button
       *ngIf="!MobileSearchBar"
-      class="ngd-left-nav-buttons mobile-searchbar-button "
+      class="ngd-left-nav-buttons mobile-searchbar-button"
       (click)="ToggleSearchBar()"
     >
       <i class="icon-search icon-jump-in-animation"></i>
@@ -44,6 +44,5 @@
   </div>
 </nav>
 
-<ng-container *ngFor="let worker of workers">
-  <ng-window-spinner [worker]="worker"></ng-window-spinner>
-</ng-container>
+<!-- Window loading line on the top -->
+<ngd-worker-states></ngd-worker-states>

@@ -1,0 +1,44 @@
+<ng-page-container
+  maintitle="{{ 'invitations_list_title' | t }}"
+  subtitle="{{ 'invitations_list_description' | t }}"
+>
+  <div *ngIf="items.length === 0">
+    {{ 'no_invitations' | t }}
+  </div>
+  <div
+    ngx-sidebar-off
+    class="table-responsive iot-table"
+    *ngIf="items.length !== 0"
+  >
+    <table class="table app-devices-table">
+      <thead>
+        <tr>
+          <th class="text-center">{{ 'firstname' | t }}</th>
+          <th class="text-center hide-on-mobile">
+            {{ 'lastname' | t }}
+          </th>
+          <th class="hide-on-mobile">{{ 'email' | t }}</th>
+          <th>Key</th>
+          <th width="150">{{ 'actions' | t }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items" class="app-devices-row">
+          <td>{{ item.firstname }}</td>
+          <td class="hide-on-mobile">{{ item.lastname || '-' }}</td>
+          <td class="hide-on-mobile">
+            {{ item.email }}
+          </td>
+          <td>{{ item.key }}</td>
+          <td>
+            <a (click)="CopyLink(item)"><i class="icon-add action-btn"></i></a>
+            <a
+              [routerLink]="ngdRouter.routerLink('/user-invitation/' + item.id)"
+              ><i class="icon-mode_edit action-btn"></i
+            ></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</ng-page-container>

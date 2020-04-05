@@ -13,10 +13,15 @@ import {
   TeamsService,
   InteractiveButtons,
 } from 'projects/core/src/public_api';
-import { Router } from '@angular/router';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SimpleToolbarComponent } from './simple-toolbar/simple-toolbar.component';
 import { BugReportComponent } from 'projects/core/src/lib/ng5-basic/components/bug-report/bug-report.component';
+import { TeamNavigation } from 'projects/core/src/lib/team/team.navigation';
+import { LottieModule } from 'ngx-lottie';
+
+export function playerFactory() {
+  return import('lottie-web');
+}
 
 @NgModule({
   declarations: [AppComponent, GuideComponent, SimpleToolbarComponent],
@@ -24,6 +29,7 @@ import { BugReportComponent } from 'projects/core/src/lib/ng5-basic/components/b
     NoopAnimationsModule,
     BrowserModule,
     AppRoutingModule,
+    LottieModule.forRoot({ player: playerFactory }),
     NgDashboardModule.forRoot({
       navbar: {
         search: {},
@@ -173,6 +179,7 @@ export class AppModule {
           },
         ],
       },
+      ...TeamNavigation,
     ]);
   }
 }

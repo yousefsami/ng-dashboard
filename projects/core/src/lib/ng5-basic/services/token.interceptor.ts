@@ -17,10 +17,23 @@ export class TokenInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const headers = {
-      'x-token': this.cookie.get('token') || '',
-      'x-team': this.cookie.get('team') || this.teams.CurrentSelectedTeam || '',
-    };
+    let team = this.cookie.get('team');
+    if (!team) {
+      const currentTeam = this.teams.CurrentSelectedTeam;
+      if (currentTeam) {
+        team = currentTeam.toString();
+      }
+    }
+    const headers: any = {};
+
+    if (team) {
+      headers['x-team'] = team;
+    }
+
+    const token = this.cookie.get('token');
+    if (token) {
+      headers['x-token'] = token.toString();
+    }
 
     request = request.clone({
       setHeaders: {

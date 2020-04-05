@@ -1,0 +1,110 @@
+<ng-page-container
+  maintitle="{{ 'languages' | t }}"
+  subtitle="{{ 'languages_description' | t }}"
+>
+  <button
+    (click)="changeLanguage('en')"
+    class="btn btn-primary"
+    *ngIf="language === 'pl'"
+  >
+    {{ 'switch_to_english' | t }}
+  </button>
+
+  &nbsp;
+
+  <button
+    (click)="changeLanguage('pl')"
+    class="btn btn-primary"
+    *ngIf="language === 'en'"
+  >
+    {{ 'switch_to_polish' | t }}
+  </button>
+</ng-page-container>
+
+<ng-page-container
+  maintitle="{{ 'my_profile_avatar' | t }}"
+  subtitle="{{ 'my_profile_avatar_description' | t }}"
+>
+  <div
+    class="lottie-container"
+    *ngIf="!Form || !Form.picture || !Form.picture.publicUrl"
+  >
+    <ngd-lottie
+      width="140px"
+      height="140px"
+      [options]="{ path: 'assets/animations/profile.json' }"
+    ></ngd-lottie>
+  </div>
+
+  <div
+    class="user-profile-image"
+    *ngIf="Form && Form.picture && Form.picture.publicUrl"
+  >
+    <img [src]="Form.picture.publicUrl" class="profile-picture" />
+  </div>
+
+  <br />
+  <button (click)="OpenAvatarDialog()" class="btn btn-primary">
+    {{ 'upload_new_avatar' | t }}
+  </button>
+</ng-page-container>
+
+<form [formGroup]="form">
+  <ng-page-container
+    maintitle="{{ 'my_profile' | t }}"
+    subtitle="{{ 'my_profile_description' | t }}"
+  >
+    <div class="row" *ngIf="form">
+      <div class="form-group col-md-6">
+        <label>{{ 'email' | t }}</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="email"
+          placeholder="{{ 'email_placeholder' | t }}"
+        />
+      </div>
+      <div class="form-group col-md-6">
+        <label>{{ 'firstname' | t }}</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="firstname"
+          placeholder="{{ 'firstname_place_holder' | t }}"
+        />
+      </div>
+      <div class="form-group col-md-6">
+        <label>{{ 'lastname' | t }}</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="lastname"
+          placeholder="{{ 'lastname_place_holder' | t }}"
+        />
+      </div>
+      <div class="form-group col-md-6">
+        <label>{{ 'phone' | t }}</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="phone"
+          placeholder="{{ 'phone_place_holder' | t }}"
+        />
+      </div>
+    </div>
+    <button [disabled]="working" (click)="onSubmit()" class="btn btn-primary">
+      {{ (form.value.id ? 'update_statement' : 'create_statement') | t }}
+    </button>
+  </ng-page-container>
+</form>
+
+<ng-page-container
+  maintitle="{{ 'delete_account' | t }}"
+  subtitle="{{ 'delete_account_description' | t }}"
+>
+  <p>{{ 'delete_account_explanation' | t }}</p>
+
+  <button (click)="deleteAccount()" class="btn btn-danger">
+    {{ 'delete_my_account' | t }}
+  </button>
+</ng-page-container>

@@ -7,33 +7,29 @@ import {
   ViewContainerRef,
   ViewChild,
   OnDestroy,
-  AfterViewInit
+  AfterViewInit,
 } from '@angular/core';
 import { SupportedLanguages } from '../../services/globalization.service';
 import {
   NavbarConfig,
   NgBasicConfig,
   InteractiveButton,
-  IWorkingState
 } from '../../definitions';
 import { ConfigurationService } from '../../services/configuration.service';
 import { TranslateService } from '../../services/translate.service';
 import { NgxSidebarService } from '../../ngx-sidebar/ngx-sidebar.service';
 import { Subscription } from 'rxjs';
-import { WorkingStates } from '../../services/common';
 
 @Component({
   selector: 'ng-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss'],
-  providers: [TranslateService]
+  providers: [TranslateService],
 })
 export class NavBarComponent implements OnInit, OnDestroy, AfterViewInit {
   public MobileSearchBar = false;
   public leftContent: Subscription;
-  private sub: Subscription = null;
 
-  public workers: Array<IWorkingState> = [];
   public interactiveButtons: InteractiveButton[] = [];
   public config: NavbarConfig = {
     notification: false,
@@ -42,8 +38,8 @@ export class NavBarComponent implements OnInit, OnDestroy, AfterViewInit {
     brand: 'ng-dashboard',
     title: 'Documentations',
     search: {
-      terms: []
-    }
+      terms: [],
+    },
   };
 
   @ViewChild('leftNavbarArea', { read: ViewContainerRef, static: false })
@@ -59,7 +55,7 @@ export class NavBarComponent implements OnInit, OnDestroy, AfterViewInit {
       )
     ) {
       const matchedButton = this.interactiveButtons.find(
-        button => event.key === button.keyboardShortcut
+        (button) => event.key === button.keyboardShortcut
       );
       if (matchedButton) {
         this.interactiveBtnClick(matchedButton);
@@ -90,9 +86,6 @@ export class NavBarComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy() {
-    if (this.sub.unsubscribe) {
-      this.sub.unsubscribe();
-    }
     if (this.leftContent) {
       this.leftContent.unsubscribe();
     }
@@ -102,17 +95,15 @@ export class NavBarComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.gconfig && this.gconfig.navbar) {
       this.config = this.gconfig.navbar;
     }
-    this.sub = WorkingStates.subscribe(t => {
-      this.workers = t;
-    });
-    this.configService.NavbarInteractiveButtons.subscribe(buttons => {
+
+    this.configService.NavbarInteractiveButtons.subscribe((buttons) => {
       this.interactiveButtons = buttons;
     });
   }
 
   ngAfterViewInit() {
     this.leftContent = this.configService.NavigationLeftContent.subscribe(
-      content => {
+      (content) => {
         if (!content || typeof content !== 'function') {
           console.warn(
             'You should provide an angular component for NavigationLeftContent'

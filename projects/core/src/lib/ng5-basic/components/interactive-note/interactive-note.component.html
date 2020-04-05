@@ -1,0 +1,27 @@
+<div
+  class="box-wrapper ngd-interactive-tip"
+  [ngClass]="{ 'ngd-interactive-warning': note.type === 'WARNING' }"
+  *ngIf="note"
+>
+  <div class="icon-holder">
+    <ngd-lottie [options]="options"> </ngd-lottie>
+  </div>
+
+  <div class="content-holder">
+    <div class="headsup-title">
+      {{ note.title | t }}
+    </div>
+    <div class="headsup-description">
+      {{ note.description | t }}
+    </div>
+    <ng-container *ngIf="note.actions && note.actions.length">
+      <br />
+      <ng-container *ngFor="let action of note.actions">
+        <button class="button btn btn-primary" (click)="actionClick(action)">
+          {{ action.label | t }}
+        </button>
+        &nbsp;
+      </ng-container>
+    </ng-container>
+  </div>
+</div>

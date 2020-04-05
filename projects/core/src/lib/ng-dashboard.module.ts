@@ -5,7 +5,10 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BrowserCookiesModule } from 'ngx-universal-cookies/browser';
 
 import { TranslateModule } from '@ngx-translate/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  NoopAnimationsModule,
+  BrowserAnimationsModule,
+} from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -13,6 +16,7 @@ import { PermissionsService } from './ng5-basic/services/permissions.service';
 import { RequestsService } from './ng5-basic/services/requests.service';
 import { ActionsService } from './ng5-basic/services/actions.service';
 import { HttpClientModule } from '@angular/common/http';
+import { LottieModule } from 'ngx-lottie';
 
 import { MockService } from './ng5-basic/services/mocks.service';
 import { LayoutComponent } from './ng5-basic/components/layout/layout.component';
@@ -64,6 +68,28 @@ import {
 } from './ng5-basic/services/access-token-guard';
 import { PublicLangaugeAuth } from './ng5-basic/services/public-lang.guard';
 import { TeamGuardAuth } from './ng5-basic/services/team.guard';
+import { WorkerStatesComponent } from './ng5-basic/components/worker-states/worker-states.component';
+import { ProfileComponent } from './team/components/profile/profile.component';
+import { InvitationsComponent } from './team/components/invitations/invitations.component';
+import { PaymentCallbackComponent } from './team/components/payment-callback/payment-callback.component';
+import { PaymentsComponent } from './team/components/payments/payments.component';
+import { InviteFormComponent } from './team/components/invite-form/invite-form.component';
+import { ProfileAvatarComponent } from './team/components/profile-avatar/profile-avatar.component';
+import { TeamsComponent } from './team/components/teams/teams.component';
+import { TeamFormComponent } from './team/components/team-form/team-form.component';
+import { PackageSingleComponent } from './team/components/package-single/package-single.component';
+import { PackageListComponent } from './team/components/package-list/package-list.component';
+import { UserFlowService } from './ng5-basic/services/userflow.service';
+import { ProfileService } from './team/profile.service';
+import { TeamsCommonService } from './team/teamcommon.service';
+import { SSRLottieComponent } from './ng5-basic/components/lottie/lottie.component';
+import { InteractiveNoteComponent } from './ng5-basic/components/interactive-note/interactive-note.component';
+import { NgMediaCoreModule } from 'ng-media';
+
+export function playerFactory() {
+  return import('lottie-web');
+}
+
 @NgModule({
   declarations: [
     LayoutComponent,
@@ -75,6 +101,7 @@ import { TeamGuardAuth } from './ng5-basic/services/team.guard';
     BaseModalComponent,
     BugReportComponent,
     NavBarComponent,
+    WorkerStatesComponent,
     InteractiveButtonsComponent,
     AutofocusDirective,
     ProfileMenuComponent,
@@ -94,12 +121,26 @@ import { TeamGuardAuth } from './ng5-basic/services/team.guard';
     ForgotPasswordComponent,
     ResetPasswordComponent,
     TPipe,
+    ProfileComponent,
+    InvitationsComponent,
+    PaymentCallbackComponent,
+    PaymentsComponent,
+    InviteFormComponent,
+    ProfileAvatarComponent,
+    TeamsComponent,
+    TeamFormComponent,
+    PackageSingleComponent,
+    PackageListComponent,
+    SSRLottieComponent,
+    InteractiveNoteComponent,
   ],
   exports: [
+    InteractiveNoteComponent,
     ConfirmComponent,
     LayoutComponent,
     SideBarComponent,
     NavBarComponent,
+    WorkerStatesComponent,
     BaseModalComponent,
     ProfileMenuComponent,
     InteractiveButtonsComponent,
@@ -125,14 +166,28 @@ import { TeamGuardAuth } from './ng5-basic/services/team.guard';
     ForgotPasswordComponent,
     ResetPasswordComponent,
     TPipe,
+    ProfileComponent,
+    SSRLottieComponent,
+    InvitationsComponent,
+    PaymentCallbackComponent,
+    PaymentsComponent,
+    InviteFormComponent,
+    ProfileAvatarComponent,
+    TeamsComponent,
+    TeamFormComponent,
+    PackageSingleComponent,
+    PackageListComponent,
   ],
   imports: [
+    BrowserAnimationsModule,
     TranslateModule.forRoot({}),
     HttpClientModule,
     BrowserCookiesModule.forRoot(),
     NoopAnimationsModule,
+    LottieModule,
     BrowserModule,
     BsDropdownModule.forRoot(),
+    NgMediaCoreModule,
     FormsModule,
     NgxTooltipModule,
     TooltipModule.forRoot(),
@@ -161,10 +216,14 @@ import { TeamGuardAuth } from './ng5-basic/services/team.guard';
     UserService,
     TeamsService,
     GlobalizationService,
+    ProfileService,
+    TeamsCommonService,
+    UserFlowService,
   ],
   entryComponents: [
     ConfirmComponent,
     BaseModalComponent,
+    ProfileAvatarComponent,
     BugReportComponent,
     NavbarLeftContentComponent,
   ],

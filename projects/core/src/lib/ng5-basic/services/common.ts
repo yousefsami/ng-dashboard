@@ -43,6 +43,15 @@ export function IsSuccessEntity(response: IResponse<any>) {
   );
 }
 
+export function IsSuccessEmpty(response: IResponse<any>) {
+  return (
+    response &&
+    response.data &&
+    response.data.items &&
+    response.data.items.length === 0
+  );
+}
+
 export function IsDataSource(data: DataSource) {
   if (!data.value) {
     return false;

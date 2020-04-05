@@ -1,0 +1,18 @@
+::ng-deep.uploader-container {
+  padding: 3px 0!important;
+  .uploader-zone {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    @media screen and (max-width: 500px) {
+      flex-direction: column;
+    }
+  }
+  .ngm-upload-button {
+    margin: 3px 0 !important;
+  }
+  label[for='file-upload'] {
+    margin: 0!important;
+  }
+}

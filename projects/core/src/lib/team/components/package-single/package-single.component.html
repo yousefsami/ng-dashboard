@@ -1,0 +1,35 @@
+<ng-page-container
+  [maintitle]="Form.name"
+  [subtitle]="Form.description"
+  *ngIf="Form && Form.id"
+>
+  <div *ngIf="Form.currency">
+    <strong>Fees:</strong>
+    {{ CurrencyFormat(Form.price, Form.currency) }}
+  </div>
+  <br />
+  <div>
+    <strong>Package accesses:</strong>
+    <ul class="package-access-scope">
+      <li *ngFor="let scope of accessScopeInformation">{{ scope }}</li>
+    </ul>
+  </div>
+  <br /><br />
+  <div class="package-actions">
+    <button
+      class="btn btn-danger package-action-deactivate"
+      (click)="DeactivatePackage(package)"
+      *ngIf="IsProductActive(package)"
+    >
+      Deactivate
+    </button>
+    <!-- [disabled]="!package.can_activate || working" -->
+    <button
+      class="btn btn-primary package-action-activate"
+      (click)="ActivatePackage(package)"
+      *ngIf="!IsProductActive(package)"
+    >
+      Activate ({{ CurrencyFormat(Form.price, Form.currency) }})
+    </button>
+  </div>
+</ng-page-container>

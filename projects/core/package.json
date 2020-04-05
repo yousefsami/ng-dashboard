@@ -1,6 +1,6 @@
 {
   "name": "@ng-dashboard/core",
-  "version": "1.0.119",
+  "version": "1.0.123",
   "private": false,
   "peerDependencies": {
     "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
@@ -10,8 +10,13 @@
     "@ngrx/core": "^1.2.0",
     "@ngrx/store": "^8.6.0",
     "@ngx-translate/core": "^11.0.1",
+    "@stripe/stripe-js": "^1.3.1",
     "bootstrap": "^4.4.1",
     "lodash": "^4.17.15",
+    "lottie-web": "^5.6.7",
+    "ng-media": "^1.0.12",
+    "ngx-image-cropper": "^3.1.5",
+    "ngx-lottie": "^5.3.2",
     "ngx-toasta": "^0.1.0",
     "ngx-universal-cookies": "^8.0.1",
     "response-type": "^1.0.3",

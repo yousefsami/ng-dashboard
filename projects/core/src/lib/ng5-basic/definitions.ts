@@ -1,6 +1,8 @@
 import { Action as NgrxAction } from '@ngrx/store';
 import { IAuthConfig } from '../auth/definitions';
 import { IResponseError } from 'response-type';
+import { RouterService } from './services/router.service';
+import { Router } from '@angular/router';
 
 export interface Action extends NgrxAction {
   payload: any;
@@ -343,4 +345,17 @@ export interface ISmartNavigation extends INavigation {
   helpUrl?: string;
   $collapsed?: boolean;
   $key?: string;
+}
+
+export interface IInteraciveAction {
+  label: string;
+  click: (Router: Router, ngdRouter: RouterService) => void;
+}
+
+export interface IInteractiveNote {
+  title?: string;
+  description?: string;
+  animation?: string;
+  type?: 'WARNING' | 'INFO';
+  actions?: Array<IInteraciveAction>;
 }

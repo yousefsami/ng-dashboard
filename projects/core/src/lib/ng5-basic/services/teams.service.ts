@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Team, INotification } from '../definitions';
+import { Team, INotification, IGeneralUserResponse } from '../definitions';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { ConfigurationService } from './configuration.service';
 import { AuthPublicService } from '../../auth/auth-public.service';
+import { IResponse } from 'response-type';
+import { IsSuccessEntity } from './common';
 
 /**
  * @description Manages your teams in the application
  * In your app.module, import this service. For pushing changes, use SetTeams
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TeamsService {
   public TeamsStore: BehaviorSubject<Team[]> = new BehaviorSubject([]);
@@ -18,7 +20,6 @@ export class TeamsService {
 
   constructor(
     private config: ConfigurationService,
-    private router: Router,
     private auth: AuthPublicService
   ) {
     const team2 = localStorage.getItem('selected_team');
@@ -26,21 +27,21 @@ export class TeamsService {
       this.team = +team2;
     }
 
-    this.TeamsStore.subscribe(teams => {
+    this.TeamsStore.subscribe((teams) => {
       this.config.Teams.next(teams);
     });
 
-    this.config.SelectedTeam.subscribe(team => {
+    this.config.SelectedTeam.subscribe((team) => {
       if (!team || !team.id) {
         return;
       }
       this.SelectTeam(team.id);
 
       this.TeamsStore.next(
-        this.state.map($team => {
+        this.state.map(($team) => {
           return {
             ...$team,
-            $selected: $team.id === team.id ? true : false
+            $selected: $team.id === team.id ? true : false,
           };
         })
       );
@@ -79,14 +80,14 @@ export class TeamsService {
   }
 
   public SetTeams(teams: Array<any>) {
-    const payload = teams.map(team => {
+    const payload = teams.map((team) => {
       return {
         ...team,
-        $selected: team.id === this.CurrentSelectedTeam ? true : false
+        $selected: team.id === this.CurrentSelectedTeam ? true : false,
       };
     });
 
-    if (payload.every(t => !t.$selected)) {
+    if (payload.every((t) => !t.$selected)) {
       payload[0].$selected = true;
     }
     this.TeamsStore.next(payload);
@@ -97,7 +98,7 @@ export class TeamsService {
   }
 
   public DeleteTeam(id: number) {
-    this.TeamsStore.next(this.state.filter(t => t.id !== +id));
+    this.TeamsStore.next(this.state.filter((t) => t.id !== +id));
   }
 
   public InsertTeam(team: Team) {
@@ -109,14 +110,14 @@ export function UpdateNotificationByTempKey(
   notifications: Array<INotification> = []
 ) {
   let items = this.config.Notifications.value;
-  items = items.map(item => {
-    const findNew = notifications.find(t => t.$temp_key === item.id);
+  items = items.map((item) => {
+    const findNew = notifications.find((t) => t.$temp_key === item.id);
     if (!findNew) {
       return item;
     }
     return {
       ...item,
-      ...findNew
+      ...findNew,
     };
   });
   this.config.Notifications.next(items);

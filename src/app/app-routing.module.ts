@@ -6,8 +6,10 @@ import {
   LoginFormComponent,
   SignupFormComponent,
   ForgotPasswordComponent,
-  ResetPasswordComponent
+  ResetPasswordComponent,
 } from 'projects/core/src/public_api';
+import { ProfileComponent } from 'projects/core/src/lib/team/components/profile/profile.component';
+import { PackageListComponent } from 'projects/core/src/lib/team/components/package-list/package-list.component';
 
 const routes: Routes = [
   {
@@ -16,38 +18,47 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: GuideComponent
+        component: GuideComponent,
       },
       {
         path: 'login',
-        component: LoginFormComponent
+        component: LoginFormComponent,
       },
       {
         path: 'signup',
-        component: SignupFormComponent
+        component: SignupFormComponent,
       },
       {
         path: 'reset-password',
-        component: ResetPasswordComponent
+        component: ResetPasswordComponent,
       },
       {
         path: 'forgot-password',
-        component: ForgotPasswordComponent
-      }
-    ]
+        component: ForgotPasswordComponent,
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+      },
+      {
+        path: 'packages',
+        component: PackageListComponent,
+      },
+    ],
   },
+
   {
     path: 'login',
-    component: LoginFormComponent
+    component: LoginFormComponent,
   },
   {
     path: 'signup',
-    component: SignupFormComponent
-  }
+    component: SignupFormComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

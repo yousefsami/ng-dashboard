@@ -1,0 +1,54 @@
+<ng-invitations></ng-invitations>
+<form [formGroup]="form">
+  <ng-page-container
+    maintitle="{{ 'invite_form' | t }}"
+    subtitle="{{ 'invite_form_description' | t }}"
+  >
+    <div class="row" *ngIf="form">
+      <div class="form-group col-md-6">
+        <label>{{ 'firstname' | t }}</label>
+        <input
+          type="text"
+          class="form-control"
+          ngdAutoFocus
+          formControlName="firstname"
+          placeholder="{{ 'bank_account_name_placeholder' | t }}"
+        />
+        <span class="error-message-inline">{{ error(res, 'firstname') }}</span>
+      </div>
+      <div class="form-group col-md-6">
+        <label>{{ 'lastname' | t }}</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="lastname"
+          placeholder="{{ 'lastname_placeholder' | t }}"
+        />
+        <span class="error-message-inline">{{ error(res, 'lastname') }}</span>
+      </div>
+      <div class="form-group col-md-6">
+        <label>{{ 'phone' | t }}</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="phone"
+          placeholder="{{ 'phone' | t }}"
+        />
+        <span class="error-message-inline">{{ error(res, 'phone') }}</span>
+      </div>
+      <div class="form-group col-md-6">
+        <label>{{ 'email' | t }}</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="email"
+          placeholder="{{ 'email_placeholder' | t }}"
+        />
+        <span class="error-message-inline">{{ error(res, 'email') }}</span>
+      </div>
+    </div>
+    <button [disabled]="working" (click)="onSubmit()" class="btn btn-primary">
+      {{ (form.value.id ? 'update_invitation' : 'create_invitation') | t }}
+    </button>
+  </ng-page-container>
+</form>

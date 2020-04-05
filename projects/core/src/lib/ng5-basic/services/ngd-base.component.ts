@@ -8,6 +8,7 @@ import {
   error,
   WorkingStates,
   getQuerystring,
+  IsSuccessEmpty,
 } from './common';
 import {
   StartRequestResponse,
@@ -367,12 +368,8 @@ export abstract class NgdBaseComponent implements OnDestroy {
     try {
       const response: IResponse<T> = await callableRequest();
       this.working = false;
-      if (
-        IsSuccessEntity(response) ||
-        (response.data &&
-          response.data.items.push &&
-          response.data.items.length === 0)
-      ) {
+
+      if (IsSuccessEntity(response) || IsSuccessEmpty(response)) {
         return {
           items: response.data.items,
           item: response.data.items[0],

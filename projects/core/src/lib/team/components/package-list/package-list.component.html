@@ -1,0 +1,68 @@
+<ngd-interactive-note [note]="note"></ngd-interactive-note>
+
+<ng-page-container
+  maintitle="{{ 'packages_title' | t }}"
+  subtitle="{{ 'packages_description' | t }}"
+  *ngIf="packages.length > 0"
+>
+  <div class="row">
+    <ng-container *ngFor="let package of packages">
+      <div class="col-lg-6 package-holder">
+        <div class="box-wrapper package-item">
+          <div class="package-content">
+            <h2 class="package-title">{{ package.name }}</h2>
+            <div class="package-description">{{ package.description }}</div>
+
+            <div
+              *ngIf="package.price && package.price !== '0'"
+              class="package-formatted-price"
+            >
+              {{ CurrencyFormat(package.price, package.currency) }}
+            </div>
+            <div *ngIf="!package.price || package.price === '0'">
+              FREE
+            </div>
+
+            <div class="package-actions">
+              <a
+                class="btn btn-success package-action-manage-service"
+                *ngIf="IsProductActive(package)"
+                [routerLink]="ngdRouter.routerLink('/packages/' + package.id)"
+              >
+                Manage Service
+              </a>
+              <button
+                class="btn package-action-deactivate"
+                [disabled]="working"
+                (click)="DeactivatePackage(package)"
+                *ngIf="IsProductActive(package)"
+              >
+                Deactivate
+              </button>
+              <!-- [disabled]="!package.can_activate || working" -->
+              <a
+                class="btn btn-primary package-action-activate"
+                [routerLink]="ngdRouter.routerLink('/packages/' + package.id)"
+                *ngIf="!IsProductActive(package)"
+              >
+                Use service
+              </a>
+            </div>
+          </div>
+          <div class="status-image-holder">
+            <img
+              src="assets/check.svg"
+              class="status-image"
+              *ngIf="package.activation_status === 'ACTIVE'"
+            />
+            <img
+              src="assets/install.svg"
+              class="status-image"
+              *ngIf="package.activation_status === 'INACTIVE'"
+            />
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</ng-page-container>

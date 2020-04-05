@@ -1,0 +1,31 @@
+<ng-page-container
+  maintitle="{{ 'create_new_team' | t }}"
+  subtitle="{{ 'create_new_team_description' | t }}"
+>
+  <form [formGroup]="form">
+    <div class="row" *ngIf="form">
+      <div class="form-group col-md-6">
+        <label>{{ 'team_name' | t }}</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="name"
+          ngdAutoFocus
+          placeholder="{{ 'team_name' | t }}"
+        />
+        <span class="error-message-inline">{{ error(res, 'name') }}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <button
+          [disabled]="working"
+          (click)="teamFormSubmit()"
+          class="btn btn-primary"
+        >
+          {{ (form.value.id ? 'update_team' : 'create_team') | t }}
+        </button>
+      </div>
+    </div>
+  </form>
+</ng-page-container>
