@@ -313,6 +313,7 @@ export abstract class NgdBaseComponent implements OnDestroy {
       code = '';
     }
 
+    console.error('Server error:', err);
     ShowToast({
       type: 'ERROR',
       title: 'Server unavailable ' + code,
@@ -321,9 +322,7 @@ export abstract class NgdBaseComponent implements OnDestroy {
   }
 
   public InternalError(err: Error) {
-    if (window.location.hostname === 'localhost') {
-      console.error('Internal error:', err);
-    }
+    console.error('Internal error:', err);
     ShowToast({
       title: err.name,
       message: err.message,
@@ -381,7 +380,7 @@ export abstract class NgdBaseComponent implements OnDestroy {
       } else {
         if (params.notifyAPIErrors) {
           ShowToast({
-            type: 'ERROR',
+            type: 'WARNING',
             message:
               response.error.message || (response.error.code || '').toString(),
           });

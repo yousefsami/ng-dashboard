@@ -147,62 +147,6 @@ export function UpdateOrInsert(
   return newContext;
 }
 
-/**
- * @description Set of functions that every component needs.
- * You need to bind an instance of this component to your angular component.
- * Helps for http requests, working progress, managing response.
- */
-export abstract class ComponentCommon implements OnDestroy {
-  protected toastaService: any;
-  public working: boolean;
-
-  ngOnDestroy() {}
-  public ResponseError(error2: HttpErrorResponse) {
-    // const toastOptions: ToastOptions = {
-    //   title: error2.status.toString(),
-    //   msg: error2.statusText,
-    //   showClose: true,
-    //   timeout: 5000
-    // };
-    // this.toastaService.info(toastOptions);
-  }
-  public InternalError(error2: Error) {
-    // const toastOptions: ToastOptions = {
-    //   title: error2.name,
-    //   msg: error2.message,
-    //   showClose: true,
-    //   timeout: 5000
-    // };
-    // this.toastaService.error(toastOptions);
-  }
-  public async StartRequest<T>(
-    callableRequest: () => any
-  ): Promise<StartRequestResponse<T>> {
-    this.working = true;
-    try {
-      const response: IResponse<T> = await callableRequest();
-      this.working = false;
-      if (IsSuccessEntity(response)) {
-        return {
-          items: response.data.items,
-          item: response.data.items[0],
-        };
-      } else {
-        return {
-          error: response.error,
-        };
-      }
-    } catch (error) {
-      this.working = false;
-      if (error instanceof HttpErrorResponse) {
-        this.ResponseError(error);
-      } else {
-        this.InternalError(error);
-      }
-    }
-  }
-}
-
 export const WorkingStates: BehaviorSubject<Array<
   IWorkingState
 >> = new BehaviorSubject([]);
