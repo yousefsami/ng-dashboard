@@ -1,12 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 
-import { PageContainerAction } from '../../../ng5-basic/definitions';
+import {
+  PageContainerAction,
+  IInteractiveNote,
+} from '../../../ng5-basic/definitions';
 import { NgdBaseComponent } from '../../../ng5-basic/services/ngd-base.component';
 import { TeamsService } from '../../../ng5-basic/services/teams.service';
 import { ConfirmService } from '../../../ng5-basic/services/confirm.service';
 import { ConfigurationService } from '../../../ng5-basic/services/configuration.service';
 import { RequestsService } from '../../../ng5-basic/services/requests.service';
 import { RouterService } from '../../../ng5-basic/services/router.service';
+
+const NoTeamsAvailable: IInteractiveNote = {
+  description: 'no_teams_available',
+  animation: 'warning',
+};
 
 @Component({
   selector: 'ng-teams',
@@ -15,6 +23,7 @@ import { RouterService } from '../../../ng5-basic/services/router.service';
 })
 export class TeamsComponent extends NgdBaseComponent implements OnInit {
   public teams = [];
+  public note: IInteractiveNote;
   public teamActions: Array<PageContainerAction> = [
     {
       type: 'ICON',
@@ -45,7 +54,14 @@ export class TeamsComponent extends NgdBaseComponent implements OnInit {
 
   ngOnInit() {
     this.ComponentSubscription(
-      this.teamsService.TeamsStore.subscribe((teams) => (this.teams = teams))
+      this.teamsService.TeamsStore.subscribe((teams) => {
+        this.teams = teams;
+        if (this.teams.length === 0) {
+          this.note = NoTeamsAvailable;
+        } else {
+          this.note = null;
+        }
+      })
     );
     this.SetInteractiveButtons([
       {

@@ -7,6 +7,7 @@ import {
   SignupFormComponent,
   ForgotPasswordComponent,
   ResetPasswordComponent,
+  TeamRoutes,
 } from 'projects/core/src/public_api';
 import { ProfileComponent } from 'projects/core/src/lib/team/components/profile/profile.component';
 import { PackageListComponent } from 'projects/core/src/lib/team/components/package-list/package-list.component';
@@ -40,10 +41,7 @@ const routes: Routes = [
         path: 'profile',
         component: ProfileComponent,
       },
-      {
-        path: 'packages',
-        component: PackageListComponent,
-      },
+      ...TeamRoutes,
     ],
   },
 
