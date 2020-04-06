@@ -1,4 +1,8 @@
-<div class="btn-group ngd-user-profile" *ngIf="user && user.User" dropdown>
+<div
+  class="btn-group ngd-user-profile"
+  *ngIf="user && user.UserSnapshot"
+  dropdown
+>
   <a
     id="ngd-user-profile-button"
     dropdownToggle
@@ -7,7 +11,7 @@
     aria-controls="dropdown-animated"
   >
     <span>
-      {{ name(user.User) }}
+      {{ name(user.UserSnapshot) }}
       <span *ngIf="label" class="mobile-hidden">({{ label }}) </span></span
     >
     <span class="caret"></span>

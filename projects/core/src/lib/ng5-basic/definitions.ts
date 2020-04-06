@@ -214,6 +214,7 @@ export interface INavigation {
   title: string;
   id?: string;
   active?: boolean;
+  type?: 'INTER_TEAM' | 'PUBLIC' | 'NATIVE' | 'AngularRouter';
   class?: string;
   permissions?: Array<string>;
   $collapsed?: boolean;

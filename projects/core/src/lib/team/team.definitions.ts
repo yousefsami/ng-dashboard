@@ -83,3 +83,9 @@ export interface IProduct<T> {
   payment_mode: 'ONCE' | 'PERIOD';
   meta_data?: T;
 }
+
+export interface IInvitationData {
+  firstname?: string;
+  lastname?: string;
+  key?: string;
+}

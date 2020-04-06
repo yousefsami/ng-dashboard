@@ -15,6 +15,7 @@
     "ngx-image-cropper",
     "ngx-lottie",
     "lottie-web",
+    "ngx-currency",
     "@ngrx/store",
     "@ngx-translate/core",
     "ngx-universal-cookies",

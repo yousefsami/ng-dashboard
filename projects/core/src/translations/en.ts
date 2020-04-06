@@ -19,5 +19,72 @@ export const NgDashboardEn = {
   modal_no: 'No',
   bug_report_title: 'Bug report',
   bug_report_explain: 'Your feedback helps us to make this screen better.',
-  recovery_link_has_been_sent: 'Well done! Check your email for recovery link.'
+  recovery_link_has_been_sent: 'Well done! Check your email for recovery link.',
+  invite_form: 'Invite form',
+  invite_form_description:
+    'Enter the person details you want to invite to the board',
+  firstname: 'First name',
+  lastname: 'Last name',
+  lastname_placeholder: 'Your last name here.',
+  phone: 'Phone number',
+  email: 'Email Address',
+  email_placeholder: 'e.g. my-guest@gmail.com',
+  invite_new_user: 'Invite someone',
+  user_invitation: 'Invitations',
+  invitations_list_title: 'Active invitations',
+  invitations_list_description:
+    'You can invite third party people to your dashboard using invitations',
+  no_invitations:
+    'You have no active invitations at the moment. Press + sign or "N" on keyboard to create one.',
+  nav_team: 'Teams & Account',
+  user_teams: 'Teams overview',
+  your_teams: 'Your teams',
+  your_teams_and_other_teams_that_you_are_a_member:
+    'You can see/manage your teams, or other teams that you are a member of',
+  invite_people_to_this_team: 'Invitations',
+  create_new_team: 'Create new team',
+  create_new_team_description:
+    'Type a new name for your new team. You can have as many as teams that you want.',
+  create_team: 'Create team',
+  update_team: 'Update team',
+  team_name: 'Team name',
+
+  delete_team: 'Delete team',
+  team_drop_down_tooltip: 'Change your team',
+  my_profile: 'My account',
+  my_profile_description:
+    'You can edit and manage your personal information and take control of your account',
+  firstname_place_holder: 'First name e.g. Ali',
+  lastname_place_holder: 'Last name e.g. Gates',
+  phone_place_holder: 'Phone number (e.g. +48 100 200 300)',
+  languages: 'Application language',
+  languages_description:
+    'You can change your interface language here. Some services might be only available to specific languages.',
+  dashboard: 'Dashboard',
+  packages: 'Service Packages',
+  packages_title: 'Service packages marketplace',
+  packages_description:
+    'Enhance your accounting services with our packages. Enable/Disable your packages.',
+  package_activated: 'Your service package "%{name}" is now active.',
+  package_deactivated: 'Your service package "%{name}" is now deactived.',
+  no_service_package: 'There are no service packages available at this moment.',
+  you_have_issue_in_the_form:
+    'Your form is incomplete. We highlight single issue.',
+  you_have_issues_in_the_form:
+    'Your form is incomplete. We highlight %{count} issues.',
+
+  bug_report_failed:
+    'Bug report failed. If you have severe problem, try to call us.',
+  bug_report_done: 'Your bug report has been sent. Many thanks.',
+  payments: 'Payments',
+  my_profile_avatar: 'Your profile avatar',
+  my_profile_avatar_description:
+    'Upload your image, or picture that identifies you. It will be really helpful for rest of your team members',
+  upload_new_avatar: 'Upload new avatar',
+  team_created_successfully: 'Team has been created successfully',
+  team_has_been_deleted: 'Team has been deleted.',
+  new_team: 'Create team',
+  create_invitation: 'Create invitation',
+  update_invitation: 'Update invitation',
+  signout: 'Signout',
 };

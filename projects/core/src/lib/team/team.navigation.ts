@@ -10,6 +10,7 @@ export const TeamNavigation: Array<INavigation> = [
         id: 'packages',
         title: 'packages',
         link: '/packages',
+        type: 'INTER_TEAM',
         activeMatches: ['/packages/([0-9])'],
       },
       {
@@ -20,6 +21,7 @@ export const TeamNavigation: Array<INavigation> = [
       {
         title: 'payments',
         id: 'payments',
+        type: 'INTER_TEAM',
         link: '/payments',
       },
       {

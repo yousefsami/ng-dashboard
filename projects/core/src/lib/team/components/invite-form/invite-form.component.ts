@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { NgMediaComponent } from 'ng-media';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IResponseErrorItem } from 'response-type';
 import { debounce } from 'lodash';
 import { RouterService } from '../../../ng5-basic/services/router.service';
@@ -42,6 +42,7 @@ export class InviteFormComponent extends NgdBaseComponent implements OnInit {
     private requests: RequestsService,
     private route: ActivatedRoute,
     public config: ConfigurationService,
+    private router: Router,
     public ngdRouter: RouterService
   ) {
     super();
@@ -99,7 +100,8 @@ export class InviteFormComponent extends NgdBaseComponent implements OnInit {
       this.requests.PostInvitation(this.form.value)
     ).then((result) => {
       if (result.item) {
-        this.ngdRouter.navigateTo(`/teams?modified=${result.item.id}`);
+        console.log('---', result.item);
+        this.router.navigateByUrl(`/teams?modified=${result.item.id}`);
       }
     });
   }

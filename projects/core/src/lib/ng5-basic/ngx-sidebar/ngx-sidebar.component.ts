@@ -7,18 +7,19 @@ import {
   ViewContainerRef,
   ComponentRef,
   ComponentFactoryResolver,
-  HostListener
+  HostListener,
 } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { flatten } from 'lodash';
 import { NgxSidebarService } from './ngx-sidebar.service';
 import { RouterService } from '../services/router.service';
+import { INavigation } from '../definitions';
 
 @Component({
   /* tslint:disable */
   selector: 'ngx-sidebar',
   templateUrl: './ngx-sidebar.component.html',
-  styleUrls: ['./ngx-sidebar.component.scss']
+  styleUrls: ['./ngx-sidebar.component.scss'],
 })
 export class NgxSidebarComponent implements OnInit {
   @HostListener('window:keyup', ['$event']) public onKeyDown(
@@ -38,7 +39,7 @@ export class NgxSidebarComponent implements OnInit {
 
   @ViewChild('dynamic', {
     read: ViewContainerRef,
-    static: false
+    static: false,
   })
   target: ViewContainerRef;
   @Input() navigation: Array<any>;
@@ -59,7 +60,7 @@ export class NgxSidebarComponent implements OnInit {
     private sidebar: NgxSidebarService,
     public ngdRouter: RouterService
   ) {
-    this.router.events.subscribe(e => {
+    this.router.events.subscribe((e) => {
       if (e instanceof NavigationEnd) {
         this.currentRoute = e.url;
         this.IsRouteFocused(e.url);
@@ -69,6 +70,19 @@ export class NgxSidebarComponent implements OnInit {
   destroyComponent() {
     this.componentRef.destroy();
   }
+
+  public itemLink(nav: INavigation) {
+    if (nav.type === 'PUBLIC') {
+      return this.ngdRouter.publicLink(nav.link);
+    }
+
+    if (nav.type === 'INTER_TEAM') {
+      return this.ngdRouter.routerLink(nav.link);
+    }
+
+    return nav.link;
+  }
+
   renderComponents(childComponent) {
     if (!childComponent) {
       return;
@@ -155,7 +169,7 @@ export class NgxSidebarComponent implements OnInit {
     let $nav = null;
     let focused = false;
     const flatNav = flatten(this.navigation);
-    flatNav.map(nav => {
+    flatNav.map((nav) => {
       if (nav.link === url && nav.focused) {
         focused = true;
         $nav = nav;
@@ -172,7 +186,7 @@ export class NgxSidebarComponent implements OnInit {
     if (nav.hasOwnProperty('children')) {
       this.sidebar.menuItemChange.next({
         ...nav,
-        $collapsed: !nav.$collapsed
+        $collapsed: !nav.$collapsed,
       });
     } else {
       this.sidebar.Hide('MENU_ITEM_CLICK');

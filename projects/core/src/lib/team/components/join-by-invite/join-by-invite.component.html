@@ -1,0 +1,12 @@
+<div class="box-wrapper join-by-invite-screen" *ngIf="invitation">
+  <div class="row">
+    <div class="col-12">
+      <h3>Join your team</h3>
+      <p>Someone invited you to join taxopit accounting services</p>
+
+      <button class="btn btn-success" (click)="AcceptInvite()">
+        Join team ({{ invitation.firstname }} {{ invitation.lastname }})
+      </button>
+    </div>
+  </div>
+</div>

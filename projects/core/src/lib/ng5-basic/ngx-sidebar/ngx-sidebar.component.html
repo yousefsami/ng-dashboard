@@ -63,7 +63,7 @@
           <a
             (click)="renderComponents(nav.component)"
             class="ngx-menu-item ngx-menu-link-{{ nav.class }}"
-            [routerLink]="ngdRouter.routerLink(nav.link)"
+            [routerLink]="itemLink(nav)"
           >
             <i [class]="nav.icon"></i>
             {{ nav.title | t }}

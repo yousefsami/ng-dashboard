@@ -56,9 +56,7 @@ export class InvitationsComponent extends NgdBaseComponent implements OnInit {
   }
 
   public createNewStatement(teamId: number) {
-    this.ngdRouter.navigateTo(
-      '/invite-new-user' + (teamId ? '/' + teamId : '')
-    );
+    this.ngdRouter.navigateTo('/invite-new-user');
   }
 
   public BuildInviteLink(item) {

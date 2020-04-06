@@ -19,6 +19,12 @@ export class RequestsService {
     return await this.http.delete(this.config.API('/api/user')).toPromise();
   }
 
+  public async LoginByInviteKey(key: string) {
+    return await this.http
+      .post(this.config.API('/api/user/signin-invitation/' + key), {})
+      .toPromise();
+  }
+
   public UploadToCloud(file: File) {
     const formData = new FormData();
     formData.append('filename', file.name);
@@ -186,6 +192,12 @@ export class RequestsService {
   public async PostTeam(data): Promise<IResponse<any>> {
     return await this.http
       .post(this.config.API('/api/user/team'), data)
+      .toPromise();
+  }
+
+  public async UserSignout(token): Promise<IResponse<any>> {
+    return await this.http
+      .post(this.config.API('/api/user/signout'), { token })
       .toPromise();
   }
 }

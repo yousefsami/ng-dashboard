@@ -7,12 +7,38 @@ import {
   SignupFormComponent,
   ForgotPasswordComponent,
   ResetPasswordComponent,
-  TeamRoutes,
+  TeamRoutesAsUser,
+  TeamRoutesAsTeam,
+  AccessWithTokenGuard,
+  TeamGuardAuth,
 } from 'projects/core/src/public_api';
 import { ProfileComponent } from 'projects/core/src/lib/team/components/profile/profile.component';
-import { PackageListComponent } from 'projects/core/src/lib/team/components/package-list/package-list.component';
+import { DeveloperComponent } from 'projects/core/src/lib/ng5-basic/components/developer/developer.component';
+import { JoinByInviteComponent } from 'projects/core/src/lib/team/components/join-by-invite/join-by-invite.component';
 
 const routes: Routes = [
+  { path: 'join/:inviteId', component: JoinByInviteComponent },
+  {
+    component: LayoutComponent,
+    path: 'developer',
+    children: [
+      {
+        path: '',
+        component: DeveloperComponent,
+      },
+    ],
+  },
+  {
+    component: LayoutComponent,
+    path: '',
+    children: [...TeamRoutesAsUser],
+  },
+  {
+    path: ':teamId',
+    canActivate: [TeamGuardAuth, AccessWithTokenGuard],
+    component: LayoutComponent,
+    children: [...TeamRoutesAsTeam],
+  },
   {
     component: LayoutComponent,
     path: ':lang',
@@ -41,17 +67,12 @@ const routes: Routes = [
         path: 'profile',
         component: ProfileComponent,
       },
-      ...TeamRoutes,
     ],
   },
 
   {
-    path: 'login',
-    component: LoginFormComponent,
-  },
-  {
-    path: 'signup',
-    component: SignupFormComponent,
+    path: '**',
+    redirectTo: '/en',
   },
 ];
 

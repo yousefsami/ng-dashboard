@@ -29,7 +29,7 @@ export class TeamsComponent extends NgdBaseComponent implements OnInit {
       type: 'ICON',
       icon: 'icon-add',
       onClick: (params) => {
-        this.createNewStatement(params.team.id);
+        this.inviteMemberToTeam(params.team.id);
       },
       title: this.config.translate('invite_people_to_this_team'),
     },
@@ -111,14 +111,8 @@ export class TeamsComponent extends NgdBaseComponent implements OnInit {
       });
   }
 
-  public inviteMemberToTeam(team) {
-    this.createNewStatement(team.id);
-  }
-
-  public createNewStatement(teamId: number) {
-    this.ngdRouter.navigateTo(
-      '/invite-new-user' + (teamId ? '/' + teamId : '')
-    );
+  public inviteMemberToTeam(teamId: number) {
+    this.ngdRouter.navigateTo('/invite-new-user');
   }
 
   public createNewTeam() {

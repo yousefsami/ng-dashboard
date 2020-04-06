@@ -6,6 +6,7 @@ import { ConfigurationService } from './configuration.service';
 import { AuthPublicService } from '../../auth/auth-public.service';
 import { IResponse } from 'response-type';
 import { IsSuccessEntity } from './common';
+import { CookiesService } from 'ngx-universal-cookies';
 
 /**
  * @description Manages your teams in the application
@@ -20,9 +21,10 @@ export class TeamsService {
 
   constructor(
     private config: ConfigurationService,
-    private auth: AuthPublicService
+    private auth: AuthPublicService,
+    private cookie: CookiesService
   ) {
-    const team2 = localStorage.getItem('selected_team');
+    const team2 = this.cookie.get('selected_team');
     if (team2) {
       this.team = +team2;
     }
@@ -65,13 +67,13 @@ export class TeamsService {
   }
 
   public ClearTeams() {
-    localStorage.setItem('selected_team', null);
+    this.cookie.put('selected_team', null);
     this.team = null;
   }
 
   public SelectTeam(teamId) {
     this.team = teamId;
-    localStorage.setItem('selected_team', teamId);
+    this.cookie.put('selected_team', teamId);
   }
 
   public get CurrentSelectedTeam() {

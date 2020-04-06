@@ -12,11 +12,16 @@ import {
   RouterService,
   TeamsService,
   InteractiveButtons,
+  TokenInterceptor,
+  ResponseInterceptor,
+  NgDashboardEn,
 } from 'projects/core/src/public_api';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SimpleToolbarComponent } from './simple-toolbar/simple-toolbar.component';
 import { BugReportComponent } from 'projects/core/src/lib/ng5-basic/components/bug-report/bug-report.component';
-import { TeamNavigation } from 'projects/core/src/lib/team/team.navigation';
+
+import { AppNavigation } from './app.navigation';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 // import { LottieModule } from 'ngx-lottie';
 
 // export function playerFactory() {
@@ -44,7 +49,18 @@ import { TeamNavigation } from 'projects/core/src/lib/team/team.navigation';
   ],
   exports: [],
   entryComponents: [SimpleToolbarComponent],
-  providers: [],
+  providers: [
+    {
+      multi: true,
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+    },
+    {
+      multi: true,
+      provide: HTTP_INTERCEPTORS,
+      useClass: ResponseInterceptor,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {
@@ -67,11 +83,11 @@ export class AppModule {
     private modal: ModalService,
     private ngdRouter: RouterService
   ) {
-    this.user.SetUser({
-      firstname: 'Ali',
-      lastname: 'Torabi',
-      email: 'ali.torabi@pixelplux.com',
-    });
+    // this.user.SetUser({
+    //   firstname: 'Ali',
+    //   lastname: 'Torabi',
+    //   email: 'ali.torabi@pixelplux.com',
+    // });
     this.config.config.navbar = {
       profile: false,
       notification: true,
@@ -81,8 +97,9 @@ export class AppModule {
       InteractiveButtons.BugReport(() => {}),
       InteractiveButtons.Refresh(() => {}),
     ]);
+    this.config.ProvideTranslationForLangauge('en', NgDashboardEn);
     this.config.ProvideTranslationForLangauge('pl', NgDashboardPl);
-    this.config.SetLanguage('pl');
+    this.config.SetLanguage('en');
     this.config.SearchTerms.next([
       {
         title: 'Say hello',
@@ -102,23 +119,23 @@ export class AppModule {
         keywords: 'Guide, Guideline, help',
       },
     ]);
-    this.config.Teams.next([
-      {
-        members: [],
-        name: 'Personal team',
-      },
-      {
-        members: [],
-        name: `Ali's team`,
-      },
-    ]);
-    this.config.TeamsConfig.next({
-      manageTeams: true,
-      manageTeamsText: 'ManageTeams',
-      onClick: () => {
-        this.ngdRouter.navigateTo('/teams');
-      },
-    });
+    // this.config.Teams.next([
+    //   {
+    //     members: [],
+    //     name: 'Personal team',
+    //   },
+    //   {
+    //     members: [],
+    //     name: `Ali's team`,
+    //   },
+    // ]);
+    // this.config.TeamsConfig.next({
+    //   manageTeams: true,
+    //   manageTeamsText: 'ManageTeams',
+    //   onClick: () => {
+    //     this.ngdRouter.navigateTo('/teams');
+    //   },
+    // });
 
     this.config.DockedMenu.next([
       {
@@ -130,56 +147,6 @@ export class AppModule {
       },
     ]);
 
-    this.config.NavigationItems.next([
-      {
-        title: 'Auth',
-        children: [
-          {
-            title: 'Item 1',
-            link: '/link1',
-            activeMatches: ['/link1/1'],
-          },
-          {
-            title: 'Login',
-            link: '/login',
-          },
-          {
-            title: 'Login',
-            link: '/login',
-          },
-          {
-            title: 'Signup',
-            link: '/signup',
-          },
-          {
-            title: 'Reset password',
-            link: '/reset-password',
-          },
-          {
-            title: 'Forgot password',
-            link: '/forgot-password',
-          },
-        ],
-      },
-      {
-        title: 'Second menu',
-        children: [
-          {
-            title: 'Item 1',
-          },
-          {
-            title: 'Item 2',
-            link: '/link2',
-          },
-          {
-            title: 'Item 3',
-          },
-          {
-            title: 'Item 4',
-          },
-        ],
-      },
-      ...TeamNavigation,
-    ]);
+    this.config.NavigationItems.next(AppNavigation);
   }
 }

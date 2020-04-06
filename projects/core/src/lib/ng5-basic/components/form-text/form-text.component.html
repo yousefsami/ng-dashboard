@@ -1,0 +1,56 @@
+<label
+  >{{ label | t }}
+
+  <ngd-optional-label [optional]="optional"></ngd-optional-label>
+</label>
+
+<ng-container *ngIf="type === 'text'">
+  <input
+    type="text"
+    class="form-control"
+    *ngIf="!autofocus && edit"
+    (ngModelChange)="onInput($event)"
+    [ngClass]="{ 'is-invalid': error(resp, field) }"
+    [(ngModel)]="value"
+    [placeholder]="placeholder"
+  />
+  <input
+    type="text"
+    *ngIf="autofocus && edit"
+    class="form-control"
+    autofocus
+    ngdAutoFocus
+    [ngClass]="{ 'is-invalid': error(resp, field) }"
+    (ngModelChange)="onInput($event)"
+    [(ngModel)]="value"
+    [placeholder]="placeholder"
+  />
+</ng-container>
+
+<ng-container *ngIf="type === 'textarea'">
+  <textarea
+    type="text"
+    class="form-control"
+    *ngIf="!autofocus && edit"
+    (ngModelChange)="onInput($event)"
+    [ngClass]="{ 'is-invalid': error(resp, field) }"
+    [(ngModel)]="value"
+    [placeholder]="placeholder"
+  ></textarea>
+
+  <textarea
+    *ngIf="autofocus && edit"
+    class="form-control"
+    autofocus
+    ngdAutoFocus
+    [ngClass]="{ 'is-invalid': error(resp, field) }"
+    (ngModelChange)="onInput($event)"
+    [(ngModel)]="value"
+    [placeholder]="placeholder"
+  ></textarea>
+</ng-container>
+
+<div class="input-value" *ngIf="!edit">{{ value }}</div>
+<span *ngIf="error(resp, field)" class="invalid-feedback">{{
+  error(resp, field) | t
+}}</span>

@@ -52,7 +52,7 @@ export class ProfileComponent extends ProfileCommon implements OnInit {
 
   private async fetch() {
     this.form.patchValue({
-      ...this.user.User,
+      ...this.user.UserSnapshot,
     });
   }
 

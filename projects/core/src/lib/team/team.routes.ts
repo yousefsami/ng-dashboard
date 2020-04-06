@@ -9,11 +9,24 @@ import { PaymentCallbackComponent } from './components/payment-callback/payment-
 import { PackageListComponent } from './components/package-list/package-list.component';
 import { PackageSingleComponent } from './components/package-single/package-single.component';
 
-export const TeamRoutes: Routes = [
+export const TeamRoutesAsUser: Routes = [
   {
     path: 'teams',
     component: TeamsComponent,
   },
+
+  {
+    path: 'new-team',
+    component: TeamFormComponent,
+  },
+
+  {
+    path: 'profile',
+    component: ProfileComponent,
+  },
+];
+
+export const TeamRoutesAsTeam: Routes = [
   {
     path: 'payments',
     component: PaymentsComponent,
@@ -23,25 +36,16 @@ export const TeamRoutes: Routes = [
     component: PaymentCallbackComponent,
   },
   {
-    path: 'new-team',
-    component: TeamFormComponent,
-  },
-  {
     path: 'user-invitation/:id',
     component: InviteFormComponent,
   },
   {
-    path: 'invite-new-user/:teamId',
+    path: 'invite-new-user',
     component: InviteFormComponent,
   },
   {
     path: 'invitations/:teamId',
     component: InvitationsComponent,
-  },
-
-  {
-    path: 'profile',
-    component: ProfileComponent,
   },
   {
     path: 'packages',
@@ -52,3 +56,5 @@ export const TeamRoutes: Routes = [
     component: PackageSingleComponent,
   },
 ];
+
+export const TeamRoutes: Routes = [...TeamRoutesAsTeam, ...TeamRoutesAsUser];

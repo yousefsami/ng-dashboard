@@ -1,6 +1,6 @@
 <div
   class="box-wrapper ngd-interactive-tip"
-  [ngClass]="{ 'ngd-interactive-warning': note.type === 'WARNING' }"
+  [ngClass]="{ 'ngd-interactive-warning': note && note.type === 'WARNING' }"
   *ngIf="note"
 >
   <div class="icon-holder">

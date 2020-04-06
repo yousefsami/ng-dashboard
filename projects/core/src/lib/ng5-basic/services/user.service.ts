@@ -1,38 +1,48 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { CanActivate } from '@angular/router';
 import { IUser } from '../definitions';
-import { PermissionsService } from './permissions.service';
 import { RouterService } from './router.service';
+import { CookiesService } from 'ngx-universal-cookies';
+import { BehaviorSubject } from 'rxjs';
+
 @Injectable()
 export class UserService {
-  private user: IUser;
+  public CurrentUser: BehaviorSubject<IUser> = new BehaviorSubject(null);
+
   private token: string;
-  constructor(private permissions: PermissionsService) {
+
+  constructor(private cookie: CookiesService) {
     try {
-      this.user = JSON.parse(localStorage.getItem('userInformation'));
+      this.CurrentUser.next(
+        JSON.parse(localStorage.getItem('userInformation'))
+      );
       this.token = JSON.parse(localStorage.getItem('tokenInformation'));
+      if (this.cookie.get('token')) {
+        this.token = this.cookie.get('token');
+      }
     } catch (err) {}
   }
-  get User(): IUser {
-    return this.user;
+
+  get UserSnapshot(): IUser {
+    return this.CurrentUser.value;
   }
 
   logout() {
-    this.user = null;
+    this.CurrentUser.next(null);
   }
 
   canActivate(permissions: Array<string>) {
-    const user = this.User;
+    const user = this.UserSnapshot;
     if (!user.role) {
       user.role = {
         permissions: [],
         id: null,
-        title: 'normal'
+        title: 'normal',
       };
     }
     if (permissions && permissions.length) {
       for (const key of permissions) {
-        const perm = user.role.permissions.find(x => x && x.key === key);
+        const perm = user.role.permissions.find((x) => x && x.key === key);
         if (!perm) {
           return false;
         }
@@ -44,12 +54,15 @@ export class UserService {
   public GetToken() {
     return this.token || '';
   }
+
   public SetUser(user: IUser) {
-    this.user = user;
+    this.CurrentUser.next(user);
     localStorage.setItem('userInformation', JSON.stringify(user));
   }
+
   public SetToken(token: string) {
     this.token = token;
+    this.cookie.put('token', token);
     localStorage.setItem('tokenInformation', JSON.stringify(token));
   }
   public Revoke() {

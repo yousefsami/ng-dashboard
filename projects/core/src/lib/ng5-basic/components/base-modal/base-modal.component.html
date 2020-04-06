@@ -13,7 +13,7 @@
 
     <div>
       <ng-container *ngFor="let button of buttons">
-        <button
+        <!-- <button
           *ngIf="button.type === 'CONFIRM'"
           class="btn btn-primary"
           ngdAutoFocus
@@ -27,7 +27,7 @@
           (click)="$event.stopPropagation(); Cancel($event)"
         >
           {{ button.label }}
-        </button>
+        </button> -->
       </ng-container>
     </div>
   </div>

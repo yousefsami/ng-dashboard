@@ -15,22 +15,21 @@
 
       <div class="page-container-actions">
         <ng-container *ngFor="let action of actions">
-          <button
+          <!-- <button
             (click)="action.onClick(params)"
             *ngIf="action.type === 'BUTTON'"
             class="btn btn-primary action-button"
           >
             {{ action.title }}
           </button>
-          <a
-            href="javascript:void();"
+          <span
             class="action-button action-icon-button"
             (click)="action.onClick(params)"
             *ngIf="action.type === 'ICON'"
           >
             <i _ngcontent-jgc-c8="" class="{{ action.icon }}"></i>
             {{ action.title }}
-          </a>
+          </span> -->
         </ng-container>
       </div>
     </div>

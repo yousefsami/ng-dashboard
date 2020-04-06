@@ -1,0 +1,65 @@
+<label>{{ label }}</label>
+
+<div *ngIf="!edit" class="input-value">
+  {{ SelectedLabel }}
+</div>
+<div *ngIf="edit">
+  <label class="week-day-checkbox">
+    <input
+      type="checkbox"
+      [(ngModel)]="saturday"
+      (ngModelChange)="onCheck($event, 'saturday')"
+    />
+    {{ 'saturday' | t }}
+  </label>
+  <label class="week-day-checkbox">
+    <input
+      type="checkbox"
+      (ngModelChange)="onCheck($event, 'sunday')"
+      [(ngModel)]="sunday"
+    />
+    {{ 'sunday' | t }}
+  </label>
+  <label class="week-day-checkbox">
+    <input
+      type="checkbox"
+      (ngModelChange)="onCheck($event, 'monday')"
+      [(ngModel)]="monday"
+    />
+    {{ 'monday' | t }}
+  </label>
+  <label class="week-day-checkbox">
+    <input
+      type="checkbox"
+      (ngModelChange)="onCheck($event, 'tuesday')"
+      [(ngModel)]="tuesday"
+    />
+    {{ 'tuesday' | t }}
+  </label>
+  <label class="week-day-checkbox">
+    <input
+      type="checkbox"
+      (ngModelChange)="onCheck($event, 'wednesday')"
+      [(ngModel)]="wednesday"
+    />
+    {{ 'wednesday' | t }}
+  </label>
+  <label class="week-day-checkbox">
+    <input
+      type="checkbox"
+      (ngModelChange)="onCheck($event, 'thursday')"
+      [(ngModel)]="thursday"
+    />
+    {{ 'thursday' | t }}
+  </label>
+  <label class="week-day-checkbox">
+    <input
+      type="checkbox"
+      (ngModelChange)="onCheck($event, 'friday')"
+      [(ngModel)]="friday"
+    />
+    {{ 'friday' | t }}
+  </label>
+</div>
+<div class="input-value" *ngIf="!edit">{{ itemValue(value) | t }}</div>
+<span class="error-message-inline">{{ error(res, field) }}</span>

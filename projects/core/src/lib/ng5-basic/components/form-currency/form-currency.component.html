@@ -1,0 +1,30 @@
+<label
+  >{{ 'transaction_amount' | t }}
+  <span class="currency-preview" *ngIf="edit">{{
+    CurrencyFormat(amount, currency)
+  }}</span></label
+>
+<div class="row" *ngIf="edit">
+  <div class="col-8">
+    <input
+      currencyMask
+      [(ngModel)]="amount"
+      type="tel"
+      [options]="currencyOptions"
+      class="form-control"
+      placeholder="{{ 'template_amount_placeholder' | t }}"
+    />
+  </div>
+  <div class="col">
+    <select class="form-control" [(ngModel)]="currency" (change)="onInput()">
+      <option value="PLN">PLN</option>
+      <option value="EURO">EURO</option>
+    </select>
+  </div>
+</div>
+
+<div class="input-value" *ngIf="!edit">
+  {{ CurrencyFormat(amount, currency) }}
+</div>
+
+<span class="error-message-inline">{{ error(response, 'amount') }}</span>

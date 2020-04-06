@@ -66,6 +66,7 @@ import {
   AccessWithTokenGuard,
   NoAccessTokenGuard,
 } from './ng5-basic/services/access-token-guard';
+import { NgxCurrencyModule } from 'ngx-currency';
 import { PublicLangaugeAuth } from './ng5-basic/services/public-lang.guard';
 import { TeamGuardAuth } from './ng5-basic/services/team.guard';
 import { WorkerStatesComponent } from './ng5-basic/components/worker-states/worker-states.component';
@@ -85,6 +86,25 @@ import { TeamsCommonService } from './team/teamcommon.service';
 import { SSRLottieComponent } from './ng5-basic/components/lottie/lottie.component';
 import { InteractiveNoteComponent } from './ng5-basic/components/interactive-note/interactive-note.component';
 import { NgMediaCoreModule } from 'ng-media';
+import { DeveloperComponent } from './ng5-basic/components/developer/developer.component';
+import { JoinByInviteComponent } from './team/components/join-by-invite/join-by-invite.component';
+import { FormCurrencyComponent } from './ng5-basic/components/form-currency/form-currency.component';
+import { FormSelectComponent } from './ng5-basic/components/form-select/form-select.component';
+import { FormTextComponent } from './ng5-basic/components/form-text/form-text.component';
+import { FormWeekDaysComponent } from './ng5-basic/components/form-week-days/form-week-days.component';
+import { OptionalLabelComponent } from './ng5-basic/components/optional-label/optional-label.component';
+
+export const customCurrencyMaskConfig = {
+  align: 'left',
+  allowNegative: false,
+  allowZero: true,
+  decimal: ',',
+  precision: 2,
+  prefix: 'PLN ',
+  suffix: '',
+  thousands: ' ',
+  nullable: true,
+};
 
 // export function playerFactory() {
 //   return import('lottie-web');
@@ -133,8 +153,22 @@ import { NgMediaCoreModule } from 'ng-media';
     PackageListComponent,
     SSRLottieComponent,
     InteractiveNoteComponent,
+    DeveloperComponent,
+    JoinByInviteComponent,
+    FormCurrencyComponent,
+    FormSelectComponent,
+    FormTextComponent,
+    FormWeekDaysComponent,
+    OptionalLabelComponent,
   ],
   exports: [
+    FormCurrencyComponent,
+    FormSelectComponent,
+    FormTextComponent,
+    FormWeekDaysComponent,
+    OptionalLabelComponent,
+    JoinByInviteComponent,
+    DeveloperComponent,
     InteractiveNoteComponent,
     ConfirmComponent,
     LayoutComponent,
@@ -177,6 +211,7 @@ import { NgMediaCoreModule } from 'ng-media';
     TeamFormComponent,
     PackageSingleComponent,
     PackageListComponent,
+    NgxCurrencyModule,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -188,6 +223,7 @@ import { NgMediaCoreModule } from 'ng-media';
     BrowserModule,
     BsDropdownModule.forRoot(),
     NgMediaCoreModule,
+    NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
     FormsModule,
     NgxTooltipModule,
     TooltipModule.forRoot(),

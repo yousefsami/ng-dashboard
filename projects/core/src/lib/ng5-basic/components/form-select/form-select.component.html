@@ -1,0 +1,16 @@
+<label
+  >{{ label }}
+  <ngd-optional-label [optional]="optional"></ngd-optional-label>
+</label>
+<select
+  class="form-control"
+  [(ngModel)]="value"
+  *ngIf="edit"
+  (ngModelChange)="onInput($event)"
+>
+  <option [value]="item.value" *ngFor="let item of items">{{
+    item.label | t
+  }}</option>
+</select>
+<div class="input-value" *ngIf="!edit">{{ itemValue(value) | t }}</div>
+<span class="error-message-inline">{{ error(res, field) }}</span>
