@@ -16,7 +16,7 @@ import { PermissionsService } from './ng5-basic/services/permissions.service';
 import { RequestsService } from './ng5-basic/services/requests.service';
 import { ActionsService } from './ng5-basic/services/actions.service';
 import { HttpClientModule } from '@angular/common/http';
-import { LottieModule } from 'ngx-lottie';
+// import { LottieModule } from 'ngx-lottie';
 
 import { MockService } from './ng5-basic/services/mocks.service';
 import { LayoutComponent } from './ng5-basic/components/layout/layout.component';
@@ -86,9 +86,9 @@ import { SSRLottieComponent } from './ng5-basic/components/lottie/lottie.compone
 import { InteractiveNoteComponent } from './ng5-basic/components/interactive-note/interactive-note.component';
 import { NgMediaCoreModule } from 'ng-media';
 
-export function playerFactory() {
-  return import('lottie-web');
-}
+// export function playerFactory() {
+//   return import('lottie-web');
+// }
 
 @NgModule({
   declarations: [
@@ -184,7 +184,7 @@ export function playerFactory() {
     HttpClientModule,
     BrowserCookiesModule.forRoot(),
     NoopAnimationsModule,
-    LottieModule,
+    // LottieModule,
     BrowserModule,
     BsDropdownModule.forRoot(),
     NgMediaCoreModule,

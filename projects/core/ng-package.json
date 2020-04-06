@@ -14,6 +14,7 @@
     "@stripe/stripe-js",
     "ngx-image-cropper",
     "ngx-lottie",
+    "lottie-web",
     "@ngrx/store",
     "@ngx-translate/core",
     "ngx-universal-cookies",

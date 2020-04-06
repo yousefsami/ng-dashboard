@@ -17,11 +17,11 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SimpleToolbarComponent } from './simple-toolbar/simple-toolbar.component';
 import { BugReportComponent } from 'projects/core/src/lib/ng5-basic/components/bug-report/bug-report.component';
 import { TeamNavigation } from 'projects/core/src/lib/team/team.navigation';
-import { LottieModule } from 'ngx-lottie';
+// import { LottieModule } from 'ngx-lottie';
 
-export function playerFactory() {
-  return import('lottie-web');
-}
+// export function playerFactory() {
+//   return import('lottie-web');
+// }
 
 @NgModule({
   declarations: [AppComponent, GuideComponent, SimpleToolbarComponent],
@@ -29,7 +29,7 @@ export function playerFactory() {
     NoopAnimationsModule,
     BrowserModule,
     AppRoutingModule,
-    LottieModule.forRoot({ player: playerFactory }),
+    // LottieModule.forRoot({ player: playerFactory }),
     NgDashboardModule.forRoot({
       navbar: {
         search: {},

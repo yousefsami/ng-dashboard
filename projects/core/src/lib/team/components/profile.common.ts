@@ -1,5 +1,4 @@
 import { FormGroup, FormControl } from '@angular/forms';
-import { environment } from 'src/environments/environment';
 import { ProfileService } from '../profile.service';
 import { CookiesService } from 'ngx-universal-cookies';
 import { NgdBaseComponent } from '../../ng5-basic/services/ngd-base.component';
@@ -8,7 +7,6 @@ import { ConfigurationService } from '../../ng5-basic/services/configuration.ser
 import { RequestsService } from '../../ng5-basic/services/requests.service';
 
 export class ProfileCommon extends NgdBaseComponent {
-  public environment = environment;
   public form = new FormGroup({
     id: new FormControl(''),
     email: new FormControl(''),

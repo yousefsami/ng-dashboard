@@ -107,7 +107,7 @@ export class RequestsService {
 
   public async GetServicePackage(id: number) {
     return await this.http
-      .get(this.config.API('product/' + id + '?type=service_package'))
+      .get(this.config.API('/api/product/' + id + '?type=service_package'))
       .toPromise();
   }
 
