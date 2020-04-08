@@ -254,6 +254,10 @@ export class ConfigurationService {
   }
 
   public SetLanguage(lang: string) {
+    if (!this.translationsLibrary[lang]) {
+      console.warn('You try to set a langauge which is not provided:', lang);
+      return;
+    }
     this.translationsDictionary.next({
       ...this.translationsLibrary[lang],
     });

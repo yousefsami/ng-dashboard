@@ -6,7 +6,7 @@ import {
   ActivatedRouteSnapshot,
 } from '@angular/router';
 import { ConfigurationService } from './configuration.service';
-const REGEX_LANGUAGE = /^\/([a-z]{2})(\/.+?)?/;
+import { ExtractLanguageFromPathname } from './common';
 
 @Injectable()
 export class PublicLangaugeAuth implements CanActivate {
@@ -16,16 +16,15 @@ export class PublicLangaugeAuth implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    const path = state.url;
+    const pathname = state.url;
 
-    const match = path.match(REGEX_LANGUAGE);
-    if (!match) {
+    if (!ExtractLanguageFromPathname(pathname)) {
       // tslint:disable-next-line
       this.router.navigate(<any[]>(<unknown>''));
       return false;
     }
 
-    this.config.SetLanguage(match[1]);
+    this.config.SetLanguage(ExtractLanguageFromPathname(pathname));
 
     return true;
   }

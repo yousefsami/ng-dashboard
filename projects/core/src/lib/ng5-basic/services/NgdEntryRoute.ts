@@ -2,10 +2,12 @@ import { OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { ConfigurationService } from './configuration.service';
+import { NgdBaseComponent } from './ngd-base.component';
 
 /* tslint:disable */
 
-export class NgdRouteEntryPointComponent implements OnInit {
+export class NgdRouteEntryPointComponent extends NgdBaseComponent
+  implements OnInit {
   public pageTitleFilter = (title) => title;
   public pageDescriptionFilter = (title) => title;
 
@@ -14,7 +16,9 @@ export class NgdRouteEntryPointComponent implements OnInit {
     public title: Title,
     public route: ActivatedRoute,
     public config: ConfigurationService
-  ) {}
+  ) {
+    super();
+  }
 
   public setTitle() {
     let title = '';
@@ -34,9 +38,11 @@ export class NgdRouteEntryPointComponent implements OnInit {
     } else if (this.route.snapshot.data.description) {
       description = this.route.snapshot.data.description;
     }
+
     const rawText = this.pageDescriptionFilter(
       this.config.translate(description)
     );
+
     this.meta.addTag({
       name: 'description',
       content: rawText,

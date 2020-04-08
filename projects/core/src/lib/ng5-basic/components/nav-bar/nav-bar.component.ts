@@ -9,7 +9,6 @@ import {
   OnDestroy,
   AfterViewInit,
 } from '@angular/core';
-import { SupportedLanguages } from '../../services/globalization.service';
 import {
   NavbarConfig,
   NgBasicConfig,
@@ -141,9 +140,5 @@ export class NavBarComponent implements OnInit, OnDestroy, AfterViewInit {
 
   SidebarVisibilityState() {
     this.sidebar.Toggle();
-  }
-
-  public CurrentLanguage() {
-    return SupportedLanguages[this.translate.currentLang];
   }
 }

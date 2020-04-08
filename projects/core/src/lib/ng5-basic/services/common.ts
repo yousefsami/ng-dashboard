@@ -6,18 +6,17 @@ import {
   HttpHeaders,
   HttpRequest,
   HttpResponse,
-  HttpErrorResponse,
 } from '@angular/common/http';
 import { matchPattern } from 'url-matcher';
 import { merge } from 'lodash';
 import {
   DataSource,
   IWorkingState,
-  StartRequestResponse,
   InteractiveButton,
   ISmartNavigation,
+  INavigation,
 } from '../definitions';
-import { OnDestroy } from '@angular/core';
+import { UrlSegment, UrlSegmentGroup, Route } from '@angular/router';
 
 export function GetNetworkError(): IResponse<any> {
   return {
@@ -300,9 +299,39 @@ export function StoreActionUpdate(state: Array<any>, action: any) {
   });
 }
 
-export const REGEX_LANGUAGE = /^\/([a-z]{2})(\/.+?)?/;
+/**
+ * @description Returns the language within url (/en/... /pl/wewe)
+ * and makes sure to get the 2 char lang correctly.
+ */
+export function ExtractLanguageFromPathname(url = '') {
+  url = url.toLowerCase();
 
-export function GetLanguageFromUrl(pathname) {
+  if (!url.startsWith('/')) {
+    return null;
+  }
+
+  if (url.length < 3) {
+    return null;
+  }
+
+  if (url.length > 4 && url.substr(3, 1) !== '/') {
+    return null;
+  }
+
+  if (url.length > 3) {
+    url = url.substr(0, 3);
+  }
+
+  url = url.replace('/', '');
+
+  if (url.match(/[a-z]{2}/)) {
+    return url;
+  }
+
+  return null;
+}
+
+export function GetBestPossibleLanguage(pathname) {
   let lang = 'en';
   if (getQuerystring('language')) {
     return getQuerystring('language') as any;
@@ -310,11 +339,8 @@ export function GetLanguageFromUrl(pathname) {
     lang = parseStorage('language') || 'en';
   }
 
-  if (pathname) {
-    const match = pathname.match(REGEX_LANGUAGE);
-    if (match && match[1] && match[1].length === 2) {
-      return match[1];
-    }
+  if (pathname && ExtractLanguageFromPathname(pathname)) {
+    return ExtractLanguageFromPathname(pathname);
   }
 
   return lang;
@@ -367,4 +393,73 @@ export function IsMobile() {
     return true;
   }
   return false;
+}
+
+export function getMenuItemByKey(
+  id: string,
+  items: Array<INavigation>
+): INavigation {
+  for (const item of items) {
+    if (item.children) {
+      const t = getMenuItemByKey(id, item.children);
+      if (t) {
+        return t;
+      }
+    }
+    if (item.id === id) {
+      return item;
+    }
+  }
+  return null;
+}
+
+export function ToArray(object): Array<{ key: any; value: any }> {
+  if (!object) {
+    return [];
+  }
+  const res = [];
+  const keys = Object.keys(object);
+  for (const key of keys) {
+    res.push({
+      key,
+      value: object[key],
+    });
+  }
+  return res;
+}
+
+export function LanguagePrefixMatcher(
+  segments: UrlSegment[],
+  segmentGroup: UrlSegmentGroup,
+  route: Route
+) {
+  const parts = [/(en|pl)+/];
+  const posParams: { [key: string]: UrlSegment } = {};
+  const consumed: UrlSegment[] = [];
+
+  let currentIndex = 0;
+
+  for (const part of parts) {
+    if (currentIndex >= segments.length) {
+      return null;
+    }
+    const current = segments[currentIndex];
+
+    if (!part.test(current.path)) {
+      return null;
+    }
+
+    posParams.lang = current;
+    consumed.push(current);
+    currentIndex++;
+  }
+
+  if (
+    route.pathMatch === 'full' &&
+    (segmentGroup.hasChildren() || currentIndex < segments.length)
+  ) {
+    return null;
+  }
+
+  return { consumed, posParams };
 }

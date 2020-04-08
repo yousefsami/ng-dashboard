@@ -2,14 +2,17 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { TeamsService } from './teams.service';
+import { ConfigurationService } from './configuration.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RouterService {
-  public CurrentLanguage: BehaviorSubject<string> = new BehaviorSubject('en');
-
-  constructor(private router: Router, private teams: TeamsService) {}
+  constructor(
+    private router: Router,
+    private teams: TeamsService,
+    private config: ConfigurationService
+  ) {}
 
   public navigateTo(path: string, extras = {}) {
     this.router.navigateByUrl(this.routerLink(path), extras);
@@ -26,6 +29,6 @@ export class RouterService {
   }
 
   public publicLink(path: string) {
-    return '/' + this.CurrentLanguage.value + path;
+    return '/' + this.config.language.value + path;
   }
 }

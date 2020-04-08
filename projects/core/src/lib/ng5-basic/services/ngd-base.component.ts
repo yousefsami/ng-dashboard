@@ -498,4 +498,38 @@ export abstract class NgdBaseComponent implements OnDestroy {
       ...this.config.GlobalInteractiveButtons.value,
     ]);
   }
+
+  /**
+   * @description Deletes a record type, with given translation key as the confirmation message.
+   * translation will receive the entity as params for translation.
+   */
+  public deleteEntity<T>(
+    entity: any,
+    translationMessageKey: string,
+    storeActionType: string,
+    handler: () => Promise<IResponse<T>>
+  ) {
+    /* tslint:disable */
+    const store = this['store'];
+    const confirm = this['confirm'];
+    const config = this['config'];
+    /* tslint:enable */
+
+    confirm
+      .open({
+        content: config.translate(translationMessageKey, entity),
+      })
+      .subscribe(async ({ type }) => {
+        if (type !== 'CONFIRMED') {
+          return;
+        }
+        if (entity) {
+          store.dispatch({
+            type: storeActionType,
+            payload: entity,
+          });
+        }
+        await this.StartRequest<any>(handler);
+      });
+  }
 }

@@ -36,7 +36,8 @@ export const NgDashboardEn = {
     'You can invite third party people to your dashboard using invitations',
   no_invitations:
     'You have no active invitations at the moment. Press + sign or "N" on keyboard to create one.',
-  nav_team: 'Teams & Account',
+  nav_team: 'Teams & Plans',
+  nav_user: 'User & Profile',
   user_teams: 'Teams overview',
   your_teams: 'Your teams',
   your_teams_and_other_teams_that_you_are_a_member:
