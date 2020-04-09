@@ -3,7 +3,7 @@ import { IResponse } from 'response-type';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { error } from '../services/common';
 
-export const DEFAULT_VALUE_ACCESSOR: any = {
+const DEFAULT_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => FormBaseComponent),
   multi: true,

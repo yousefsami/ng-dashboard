@@ -463,3 +463,7 @@ export function LanguagePrefixMatcher(
 
   return { consumed, posParams };
 }
+
+export const ERROR_CODES = {
+  REQUIRED_FIELD: 'required_field',
+};

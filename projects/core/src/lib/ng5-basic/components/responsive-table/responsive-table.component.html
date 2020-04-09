@@ -1,0 +1,34 @@
+<ng-container *ngFor="let row of rows">
+  <a
+    class="responsive-list-tr"
+    [routerLink]="row.routerLink ? row.routerLink : undefined"
+    [ngClass]="{ 'ngd-focused-row': IsFocusedRow(row.id) }"
+  >
+    <div class="tr-rows">
+      <h2 class="response-list-header">
+        {{ row.title }}
+      </h2>
+      <div class="row">
+        <div *ngFor="let cell of row.cells" class="responsive-list-td col-sm-6">
+          <span class="td-label">{{ cell.label | t }}:</span
+          ><span class="td-value"> {{ cell.value }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tr-actions">
+      <ng-container *ngFor="let action of actions; let i = index">
+        <a
+          [tabindex]="i"
+          [ngClass]="action.class"
+          (keyup)="ActionKeyup($event, action, row)"
+          (click)="
+            $event.stopPropagation();
+            action.onClick(row.entity, router, ngdRouter)
+          "
+          ><i class="action-btn" [ngClass]="action.icon"></i
+        ></a>
+      </ng-container>
+    </div>
+  </a>
+</ng-container>

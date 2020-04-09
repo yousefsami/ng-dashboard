@@ -1,0 +1,50 @@
+@import '../../scss/core';
+
+.td-label {
+  color: $primaryColor;
+}
+
+@include phone() {
+  .responsive-list-td {
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+
+  .td-label {
+    font-size: $font-size-small;
+  }
+}
+
+.response-list-header {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.responsive-list-tr {
+  text-decoration: none;
+  color: black;
+  display: flex;
+  padding: 10px;
+  margin-bottom: 15px;
+
+  .tr-rows {
+    flex: 1;
+  }
+
+  .tr-actions {
+    i,
+    a {
+      font-size: 24px;
+    }
+    align-self: center;
+    padding: 0 15px;
+  }
+
+  &:hover {
+    background-color: $hoverBackground;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+}

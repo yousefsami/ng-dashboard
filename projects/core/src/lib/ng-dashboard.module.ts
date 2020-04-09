@@ -93,6 +93,11 @@ import { FormSelectComponent } from './ng5-basic/components/form-select/form-sel
 import { FormTextComponent } from './ng5-basic/components/form-text/form-text.component';
 import { FormWeekDaysComponent } from './ng5-basic/components/form-week-days/form-week-days.component';
 import { OptionalLabelComponent } from './ng5-basic/components/optional-label/optional-label.component';
+import { RoleListComponent } from './ng5-basic/components/role-list/role-list.component';
+import { RoleFormComponent } from './ng5-basic/components/role-form/role-form.component';
+import { FormMultiSelectComponent } from './ng5-basic/components/form-multiselect/form-multiselect.component';
+import { ResponsiveTableComponent } from './ng5-basic/components/responsive-table/responsive-table.component';
+import { RoleService } from './team/role.service';
 
 export const customCurrencyMaskConfig = {
   align: 'left',
@@ -160,8 +165,16 @@ export const customCurrencyMaskConfig = {
     FormTextComponent,
     FormWeekDaysComponent,
     OptionalLabelComponent,
+    RoleListComponent,
+    RoleFormComponent,
+    FormMultiSelectComponent,
+    ResponsiveTableComponent,
   ],
   exports: [
+    ResponsiveTableComponent,
+    FormMultiSelectComponent,
+    RoleListComponent,
+    RoleFormComponent,
     FormCurrencyComponent,
     FormSelectComponent,
     FormTextComponent,
@@ -225,9 +238,9 @@ export const customCurrencyMaskConfig = {
     NgMediaCoreModule,
     NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
     FormsModule,
+    ReactiveFormsModule,
     NgxTooltipModule,
     TooltipModule.forRoot(),
-    ReactiveFormsModule,
     StoreModule.forRoot({}),
     RouterModule.forRoot([]),
     ng5ReducerGenerator(),
@@ -236,6 +249,7 @@ export const customCurrencyMaskConfig = {
     PermissionsService,
     TranslateService,
     RouterService,
+    RoleService,
     RequestsService,
     MockService,
     TeamGuardAuth,

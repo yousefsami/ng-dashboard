@@ -5,6 +5,7 @@ import {
   ISettingsUpdateResponse,
   IContact,
   IGeneralUserResponse,
+  IRole,
 } from '../definitions';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IResponse } from 'response-type';
@@ -199,5 +200,43 @@ export class RequestsService {
     return await this.http
       .post(this.config.API('/api/user/signout'), { token })
       .toPromise();
+  }
+
+  // Roles - move to ng-dashboard
+
+  public async DeleteRole(id: number): Promise<IResponse<any>> {
+    return await this.http
+      .delete(this.config.API('/api/role/' + id))
+      .toPromise();
+  }
+
+  /**
+   * @description Returns list of roles defined for this team.
+   */
+  public async GetRoles(): Promise<IResponse<any>> {
+    return await this.http.get(this.config.API('/api/roles')).toPromise();
+  }
+
+  /**
+   * @description Returns list of roles defined for this team.
+   */
+  public async GetRole(id: number): Promise<IResponse<any>> {
+    return await this.http.get(this.config.API('/api/role/' + id)).toPromise();
+  }
+
+  /**
+   * @description Gets all available permissions in the backend
+   */
+  public async GetPermissions(): Promise<IResponse<any>> {
+    return await this.http
+      .get(this.config.API('/api/available-permissions'))
+      .toPromise();
+  }
+
+  /**
+   * @description Returns list of roles defined for this team.
+   */
+  public async PostRole(role: IRole): Promise<IResponse<any>> {
+    return await this.http.post(this.config.API('/api/role'), role).toPromise();
   }
 }

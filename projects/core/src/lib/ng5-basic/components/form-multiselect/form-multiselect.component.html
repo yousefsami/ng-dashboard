@@ -1,0 +1,24 @@
+<label
+  >{{ label | t }}
+
+  <ngd-optional-label [optional]="optional"></ngd-optional-label>
+</label>
+
+<div class="row">
+  <div class="col-sm-6 col-md-4" *ngFor="let item of items">
+    <label>
+      <input
+        type="checkbox"
+        [name]="item.id"
+        (change)="ItemChange(item)"
+        [checked]="value.includes(item.id)"
+      />
+      &nbsp;
+      {{ item.name }}
+    </label>
+  </div>
+</div>
+
+<span *ngIf="error(resp, field)" class="invalid-feedback">{{
+  error(resp, field) | t
+}}</span>

@@ -8,6 +8,8 @@ import { PaymentsComponent } from './components/payments/payments.component';
 import { PaymentCallbackComponent } from './components/payment-callback/payment-callback.component';
 import { PackageListComponent } from './components/package-list/package-list.component';
 import { PackageSingleComponent } from './components/package-single/package-single.component';
+import { RoleListComponent } from '../ng5-basic/components/role-list/role-list.component';
+import { RoleFormComponent } from '../ng5-basic/components/role-form/role-form.component';
 
 export const TeamRoutesAsUser: Routes = [
   {
@@ -54,6 +56,18 @@ export const TeamRoutesAsTeam: Routes = [
   {
     path: 'packages/:id',
     component: PackageSingleComponent,
+  },
+  {
+    path: 'roles',
+    component: RoleListComponent,
+  },
+  {
+    path: 'new-role',
+    component: RoleFormComponent,
+  },
+  {
+    path: 'role/:id',
+    component: RoleFormComponent,
   },
 ];
 

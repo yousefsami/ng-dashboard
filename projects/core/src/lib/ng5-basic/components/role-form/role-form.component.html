@@ -1,0 +1,57 @@
+<ngd-interactive-note [note]="note"></ngd-interactive-note>
+<form [formGroup]="form">
+  <ng-page-container
+    maintitle="{{ 'role_form_title' | t }}"
+    subtitle="{{ 'role_form_description' | t }}"
+  >
+    <div class="row" *ngIf="form">
+      <ngd-form-text
+        formControlName="title"
+        field="title"
+        id="role-title-input"
+        label="{{ 'role_title_label' | t }}"
+        [edit]="isEditing && !form.value.readonly"
+        [optional]="false"
+        [autofocus]="true"
+        [res]="res"
+        [submit]="submitRes"
+        placeholder="{{ 'role_title_placeholder' | t }}"
+      ></ngd-form-text>
+    </div>
+
+    <div class="row">
+      <ng-form-multiselect
+        class="col-12"
+        formControlName="permissions"
+        field="permissions"
+        id="role-permissions-input"
+        label="{{ 'role_permissions_label' | t }}"
+        [edit]="isEditing && !form.value.readonly"
+        [optional]="false"
+        [res]="res"
+        [submit]="submitRes"
+        placeholder="{{ 'role_permissions_placeholder' | t }}"
+        [items]="permissions"
+      ></ng-form-multiselect>
+    </div>
+
+    <br />
+
+    <button
+      [disabled]="working || form.value.readonly"
+      (click)="onSubmit()"
+      id="role-form-submit"
+      class="btn btn-primary"
+    >
+      {{ (form.value.id ? 'update_role' : 'create_role') | t }}
+    </button>
+
+    <button
+      [routerLink]="ngdRouter.routerLink('/roles')"
+      id="role-form-cancel"
+      class="btn"
+    >
+      {{ 'cancel' | t }}
+    </button>
+  </ng-page-container>
+</form>

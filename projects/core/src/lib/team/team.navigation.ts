@@ -18,6 +18,18 @@ export const TeamNavigation: Array<INavigation> = [
         type: 'INTER_TEAM',
         link: '/payments',
       },
+      {
+        id: 'roles',
+        title: 'roles',
+        type: 'INTER_TEAM',
+        link: '/roles',
+      },
+      {
+        id: 'new_role',
+        title: 'create_role',
+        type: 'INTER_TEAM',
+        link: '/new-role',
+      },
     ],
   },
 ];

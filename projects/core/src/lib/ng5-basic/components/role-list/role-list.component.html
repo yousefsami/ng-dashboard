@@ -1,0 +1,19 @@
+<ngd-interactive-note [note]="note"></ngd-interactive-note>
+
+<ng-page-container
+  maintitle="{{ 'roles_title' | t }}"
+  subtitle="{{ 'roles_description' | t }}"
+  *ngIf="roles.length"
+>
+  <div *ngIf="roles.length === 0">
+    {{ 'no_bank_accounts' | t }}
+  </div>
+
+  <div ngx-sidebar-off *ngIf="roles.length !== 0">
+    <ng-responsive-table
+      [rowRouterLink]="RowRouterLink"
+      [actions]="actions"
+      [rows]="rows"
+    ></ng-responsive-table>
+  </div>
+</ng-page-container>

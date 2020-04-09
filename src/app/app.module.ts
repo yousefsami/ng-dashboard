@@ -41,7 +41,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
         notification: true,
         profile: true,
       },
-      api: 'https://taxopit.com',
+      api: 'http://localhost:1337',
       auth: {
         afterSignupRedirect: '/',
       },

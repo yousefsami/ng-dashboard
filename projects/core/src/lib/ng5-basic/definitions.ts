@@ -22,9 +22,12 @@ export interface IPermission {
 }
 
 export interface IRole {
-  id: number;
-  title: string;
+  id?: number;
+  team?: number;
+  user?: number;
+  title?: string;
   permissions: Array<any>;
+  readonly?: boolean;
 }
 
 declare global {
@@ -359,4 +362,22 @@ export interface IInteractiveNote {
   animation?: string;
   type?: 'WARNING' | 'INFO';
   actions?: Array<IInteraciveAction>;
+}
+
+export interface IResponsiveTableCell {
+  label: string;
+  value: string;
+}
+
+export interface IResponsiveTableRow {
+  title?: string;
+  cells: Array<IResponsiveTableCell>;
+}
+
+export interface IResponsiveTableAction {
+  title?: string;
+  class?: string;
+  icon?: string;
+  onClick?: any;
+  keyCode?: any;
 }

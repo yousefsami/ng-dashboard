@@ -88,4 +88,24 @@ export const NgDashboardEn = {
   create_invitation: 'Create invitation',
   update_invitation: 'Update invitation',
   signout: 'Signout',
+
+  roles_title: 'Roles',
+  roles_description:
+    'You can manage roles within the team here, and define different user groups for the team to have different access levels.',
+  role_form_title: 'Role form',
+  role_form_description:
+    'You can edit the scope of the role here, or change its name.',
+  role_title_label: 'Role name',
+  role_title_placeholder: 'Easy title, such as "Accountant"',
+  role_permissions_at_least_one_is_required:
+    'You need to choose at least one permission for any role.',
+  role_permissions_label: 'Roles permissions',
+  role_permissions_placeholder: 'Select as many as permissions you want',
+  create_role: 'Create role',
+  update_role: 'Update role',
+  delete_role_confirmation:
+    'Are you sure to delete role "%{title}"? All users marked with this role will be unaccessible.',
+  readonly_roles_cannot_be_deleted:
+    'Read only roles cannot be deleted or updated',
+  roles: 'Roles',
 };
