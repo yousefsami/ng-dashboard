@@ -41,6 +41,12 @@ export class UserService {
   ): boolean {
     const user = this.UserSnapshot;
 
+    const permissions = this.GetPermissions(teamId);
+
+    if (permissions.indexOf('*.*') > -1) {
+      return true;
+    }
+
     if (!neededPermissions || neededPermissions.length === 0) {
       return true;
     }
@@ -49,14 +55,8 @@ export class UserService {
       return false;
     }
 
-    const permissions = this.GetPermissions(teamId);
-
-    if (permissions.includes('*.*')) {
-      return true;
-    }
-
     for (const perm of neededPermissions) {
-      if (!permissions.includes(perm)) {
+      if (permissions.indexOf(perm) === -1) {
         return false;
       }
     }
@@ -64,7 +64,7 @@ export class UserService {
     return true;
   }
 
-  public GetPermissions(teamId: number) {
+  public GetPermissions(teamId: number): Array<string> {
     let permissions: Array<string> = [];
 
     for (const role of this.UserSnapshot.roles) {
