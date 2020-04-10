@@ -65,6 +65,14 @@ export class UserService {
   }
 
   public GetPermissions(teamId: number): Array<string> {
+    if (
+      !this.UserSnapshot ||
+      !this.UserSnapshot.roles ||
+      this.UserSnapshot.roles.length === 0
+    ) {
+      return [];
+    }
+
     let permissions: Array<string> = [];
 
     for (const role of this.UserSnapshot.roles) {

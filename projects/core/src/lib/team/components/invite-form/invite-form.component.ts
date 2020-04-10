@@ -8,13 +8,22 @@ import { RouterService } from '../../../ng5-basic/services/router.service';
 import { ConfigurationService } from '../../../ng5-basic/services/configuration.service';
 import { NgdBaseComponent } from '../../../ng5-basic/services/ngd-base.component';
 import { RequestsService } from '../../../ng5-basic/services/requests.service';
+import { ERROR_CODES } from '../../../ng5-basic/services/common';
+import { IRole } from '../../../ng5-basic/definitions';
+import { RoleService } from '../../role.service';
 
-function validateBankAccount(form): IResponseErrorItem[] {
+function inviteFormValidate(form): IResponseErrorItem[] {
   const errors: IResponseErrorItem[] = [];
   if (!form.firstname) {
     errors.push({
-      message: 'At least add user first name to be invited.',
+      message: ERROR_CODES.REQUIRED_FIELD,
       location: 'firstname',
+    });
+  }
+  if (!form.email) {
+    errors.push({
+      message: ERROR_CODES.REQUIRED_FIELD,
+      location: 'email',
     });
   }
   return errors;
@@ -26,6 +35,9 @@ function validateBankAccount(form): IResponseErrorItem[] {
   styleUrls: ['./invite-form.component.scss'],
 })
 export class InviteFormComponent extends NgdBaseComponent implements OnInit {
+  public isEditing = true;
+  public roles: Array<{ id: any; name: any }> = [];
+
   @ViewChild(NgMediaComponent, { static: false })
   public attachments: NgMediaComponent;
   public form = new FormGroup({
@@ -33,17 +45,19 @@ export class InviteFormComponent extends NgdBaseComponent implements OnInit {
     id: new FormControl(null),
     lastname: new FormControl(''),
     team: new FormControl(''),
+    roles: new FormControl([]),
     phone: new FormControl(''),
     email: new FormControl(''),
   });
-  protected validator = validateBankAccount;
+  protected validator = inviteFormValidate;
 
   constructor(
     private requests: RequestsService,
     private route: ActivatedRoute,
     public config: ConfigurationService,
     private router: Router,
-    public ngdRouter: RouterService
+    public ngdRouter: RouterService,
+    private roleService: RoleService
   ) {
     super();
     this.onSubmit = debounce(this.onSubmit, 250);
@@ -51,6 +65,25 @@ export class InviteFormComponent extends NgdBaseComponent implements OnInit {
 
   async ngOnInit() {
     this.fetchForm();
+
+    this.ComponentSubscription(
+      this.roleService.RolesStore.subscribe((roles: IRole[]) => {
+        this.roles = roles.map((t) => {
+          return {
+            id: t.id,
+            name: t.title,
+          };
+        });
+
+        console.log(this.roles);
+      })
+    );
+
+    this.StartRequest<IRole>(() => this.requests.GetRoles()).then((result) => {
+      if (result && result.items) {
+        this.roleService.SetRoles(result.items);
+      }
+    });
 
     const { teamId } = this.route.snapshot.params;
     if (teamId) {

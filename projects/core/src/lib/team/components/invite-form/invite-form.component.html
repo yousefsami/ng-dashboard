@@ -1,51 +1,77 @@
 <ng-invitations></ng-invitations>
 <form [formGroup]="form">
+  <pre>{{ Form | json }}</pre>
   <ng-page-container
     maintitle="{{ 'invite_form' | t }}"
     subtitle="{{ 'invite_form_description' | t }}"
   >
     <div class="row" *ngIf="form">
-      <div class="form-group col-md-6">
-        <label>{{ 'firstname' | t }}</label>
-        <input
-          type="text"
-          class="form-control"
-          ngdAutoFocus
-          formControlName="firstname"
-          placeholder="{{ 'bank_account_name_placeholder' | t }}"
-        />
-        <span class="error-message-inline">{{ error(res, 'firstname') }}</span>
-      </div>
-      <div class="form-group col-md-6">
-        <label>{{ 'lastname' | t }}</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="lastname"
-          placeholder="{{ 'lastname_placeholder' | t }}"
-        />
-        <span class="error-message-inline">{{ error(res, 'lastname') }}</span>
-      </div>
-      <div class="form-group col-md-6">
-        <label>{{ 'phone' | t }}</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="phone"
-          placeholder="{{ 'phone' | t }}"
-        />
-        <span class="error-message-inline">{{ error(res, 'phone') }}</span>
-      </div>
-      <div class="form-group col-md-6">
-        <label>{{ 'email' | t }}</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="email"
-          placeholder="{{ 'email_placeholder' | t }}"
-        />
-        <span class="error-message-inline">{{ error(res, 'email') }}</span>
-      </div>
+      <ngd-form-text
+        formControlName="email"
+        field="email"
+        [optional]="false"
+        id="invite-form-email-input"
+        label="{{ 'email' | t }}"
+        [edit]="isEditing && !form.value.readonly"
+        [res]="res"
+        [submit]="submitRes"
+        placeholder="{{ 'email_placeholder' | t }}"
+      ></ngd-form-text>
+    </div>
+
+    <div class="row">
+      <ng-form-multiselect
+        class="col-12"
+        formControlName="roles"
+        field="roles"
+        id="invite-role-input"
+        label="{{ 'invitation_roles_label' | t }}"
+        [edit]="isEditing && !form.value.readonly"
+        [optional]="false"
+        [res]="res"
+        [submit]="submitRes"
+        placeholder="{{ 'invitation_roles_placeholder' | t }}"
+        [items]="roles"
+      ></ng-form-multiselect>
+    </div>
+
+    <br />
+
+    <div class="row">
+      <ngd-form-text
+        formControlName="firstname"
+        field="firstname"
+        id="invite-form-firstname-input"
+        label="{{ 'firstname' | t }}"
+        [edit]="isEditing && !form.value.readonly"
+        [optional]="false"
+        [autofocus]="true"
+        [res]="res"
+        [submit]="submitRes"
+        placeholder="{{ 'invite_form_first_name' | t }}"
+      ></ngd-form-text>
+
+      <ngd-form-text
+        formControlName="lastname"
+        field="lastname"
+        id="invite-form-lastname-input"
+        label="{{ 'lastname' | t }}"
+        [edit]="isEditing && !form.value.readonly"
+        [res]="res"
+        [submit]="submitRes"
+        placeholder="{{ 'lastname_placeholder' | t }}"
+      ></ngd-form-text>
+
+      <ngd-form-text
+        formControlName="phone"
+        field="phone"
+        id="invite-form-phone-input"
+        label="{{ 'phone' | t }}"
+        [edit]="isEditing && !form.value.readonly"
+        [res]="res"
+        [submit]="submitRes"
+        placeholder="{{ 'phone_placeholder' | t }}"
+      ></ngd-form-text>
     </div>
     <button [disabled]="working" (click)="onSubmit()" class="btn btn-primary">
       {{ (form.value.id ? 'update_invitation' : 'create_invitation') | t }}

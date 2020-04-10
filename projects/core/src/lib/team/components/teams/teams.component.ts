@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import {
   PageContainerAction,
   IInteractiveNote,
+  IUser,
 } from '../../../ng5-basic/definitions';
 import { NgdBaseComponent } from '../../../ng5-basic/services/ngd-base.component';
 import { TeamsService } from '../../../ng5-basic/services/teams.service';
@@ -50,6 +51,25 @@ export class TeamsComponent extends NgdBaseComponent implements OnInit {
     public confirm: ConfirmService
   ) {
     super();
+  }
+
+  public MemberName(user: IUser) {
+    if (user.firstname && user.lastname) {
+      return `${user.firstname} ${user.lastname}`;
+    }
+    if (user.firstname) {
+      return user.firstname;
+    }
+    if (user.lastname) {
+      return user.lastname;
+    }
+    if (user.email) {
+      return user.email;
+    }
+    if (user.phone) {
+      return user.phone;
+    }
+    return 'anonymouse_member';
   }
 
   ngOnInit() {
