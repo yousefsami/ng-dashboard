@@ -25,8 +25,7 @@ export class ProfileCommon extends NgdBaseComponent {
     public requests: RequestsService,
     public user: UserService,
     public config: ConfigurationService,
-    public profileService: ProfileService,
-    public cookie: CookiesService
+    public profileService: ProfileService
   ) {
     super();
   }

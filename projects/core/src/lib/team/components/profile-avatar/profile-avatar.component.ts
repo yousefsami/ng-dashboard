@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ProfileCommon } from '../profile.common';
 import { ProfileService } from '../../profile.service';
-import { CookiesService } from 'ngx-universal-cookies';
 import { ConfigurationService } from '../../../ng5-basic/services/configuration.service';
 import { UserService } from '../../../ng5-basic/services/user.service';
 import { RequestsService } from '../../../ng5-basic/services/requests.service';
@@ -16,10 +15,9 @@ export class ProfileAvatarComponent extends ProfileCommon {
     public requests: RequestsService,
     public user: UserService,
     public config: ConfigurationService,
-    public profileService: ProfileService,
-    public cookie: CookiesService
+    public profileService: ProfileService
   ) {
-    super(requests, user, config, profileService, cookie);
+    super(requests, user, config, profileService);
   }
 
   public get API() {

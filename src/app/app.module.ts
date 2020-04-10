@@ -23,6 +23,7 @@ import { BugReportComponent } from 'projects/core/src/lib/ng5-basic/components/b
 
 import { AppNavigation } from './app.navigation';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgMediaCoreModule } from 'ng-media';
 // import { LottieModule } from 'ngx-lottie';
 
 // export function playerFactory() {
@@ -36,6 +37,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     BrowserCookiesModule,
+    NgMediaCoreModule,
     // LottieModule.forRoot({ player: playerFactory }),
     NgDashboardModule.forRoot({
       navbar: {

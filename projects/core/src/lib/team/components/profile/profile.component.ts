@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
 import { ProfileCommon } from '../profile.common';
 import { ProfileService } from '../../profile.service';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
-import { CookiesService } from 'ngx-universal-cookies';
 import { RequestsService } from '../../../ng5-basic/services/requests.service';
 import { ConfigurationService } from '../../../ng5-basic/services/configuration.service';
 import { UserService } from '../../../ng5-basic/services/user.service';
@@ -33,10 +32,9 @@ export class ProfileComponent extends ProfileCommon implements OnInit {
     public modal: ModalService,
     public router: Router,
     public ngdRouter: RouterService,
-    public profileService: ProfileService,
-    public cookie: CookiesService
+    public profileService: ProfileService
   ) {
-    super(requests, user, config, profileService, cookie);
+    super(requests, user, config, profileService);
   }
 
   async ngOnInit() {
