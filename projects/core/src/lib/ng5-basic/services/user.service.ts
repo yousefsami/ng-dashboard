@@ -31,24 +31,49 @@ export class UserService {
     this.CurrentUser.next(null);
   }
 
-  canActivate(permissions: Array<string>) {
+  /**
+   * @description Checks within user roles, if he has all of the neededPermissions
+   * and returns true/false
+   */
+  canActivateByPermissions(
+    neededPermissions: Array<string>,
+    teamId: number = null
+  ): boolean {
     const user = this.UserSnapshot;
-    if (!user.role) {
-      user.role = {
-        permissions: [],
-        id: null,
-        title: 'normal',
-      };
+
+    if (!neededPermissions || neededPermissions.length === 0) {
+      return true;
     }
-    if (permissions && permissions.length) {
-      for (const key of permissions) {
-        const perm = user.role.permissions.find((x) => x && x.key === key);
-        if (!perm) {
-          return false;
-        }
+
+    if (!user.roles || user.roles.length === 0) {
+      return false;
+    }
+
+    const permissions = this.GetPermissions(teamId);
+
+    if (permissions.includes('*.*')) {
+      return true;
+    }
+
+    for (const perm of neededPermissions) {
+      if (!permissions.includes(perm)) {
+        return false;
       }
     }
+
     return true;
+  }
+
+  public GetPermissions(teamId: number) {
+    let permissions: Array<string> = [];
+
+    for (const role of this.UserSnapshot.roles) {
+      if (role.team === teamId) {
+        permissions = [...permissions, ...role.permissions];
+      }
+    }
+
+    return permissions;
   }
 
   public GetToken() {

@@ -216,6 +216,7 @@ export interface INavigation {
   icon?: string;
   title: string;
   id?: string;
+  $key?: string;
   active?: boolean;
   type?: 'INTER_TEAM' | 'PUBLIC' | 'NATIVE' | 'AngularRouter';
   class?: string;
@@ -262,7 +263,7 @@ export interface IUser {
   phone?: string;
   firstname: string;
   lastname: string;
-  role?: IRole;
+  roles?: IRole[];
 }
 
 export interface InteractiveButton {
