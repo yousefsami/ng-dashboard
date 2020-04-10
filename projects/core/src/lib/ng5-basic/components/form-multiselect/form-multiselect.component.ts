@@ -23,11 +23,11 @@ export class FormMultiSelectComponent extends FormBaseComponent {
   }
 
   public ItemChange(item) {
-    console.log(item);
     if (this.value.includes(item.id)) {
-      this.value = this.value.filter((t) => t !== t.id);
+      this.value = this.value.filter((t) => t !== item.id);
     } else {
       this.value = [...this.value, item.id];
     }
+    this.onChange(this.value);
   }
 }

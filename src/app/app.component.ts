@@ -10,7 +10,7 @@ export class AppComponent implements OnInit {
   constructor(private userflow: UserFlowService) {}
 
   ngOnInit() {
-    // this.userflow.CollectInformationFromToken();
-    // this.userflow.SubscribeToAuthentication();
+    this.userflow.CollectInformationFromToken();
+    this.userflow.SubscribeToAuthentication();
   }
 }

@@ -70,6 +70,7 @@ export class RoleFormComponent extends NgdRouteEntryPointComponent
   ngOnInit() {
     super.ngOnInit();
 
+    this.ReactiveToFormChanges();
     this.SetInteractiveButtons([
       InteractiveButtons.SafeSave(this.onSubmit.bind(this)),
     ]);

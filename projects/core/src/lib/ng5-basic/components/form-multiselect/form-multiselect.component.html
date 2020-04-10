@@ -4,12 +4,13 @@
   <ngd-optional-label [optional]="optional"></ngd-optional-label>
 </label>
 
-<div class="row">
+<div class="row" [ngClass]="{ 'is-invalid': error(resp, field) }">
   <div class="col-sm-6 col-md-4" *ngFor="let item of items">
     <label>
       <input
         type="checkbox"
         [name]="item.id"
+        [disabled]="!edit"
         (change)="ItemChange(item)"
         [checked]="value.includes(item.id)"
       />

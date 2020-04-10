@@ -119,23 +119,6 @@ export class AppModule {
         keywords: 'Guide, Guideline, help',
       },
     ]);
-    // this.config.Teams.next([
-    //   {
-    //     members: [],
-    //     name: 'Personal team',
-    //   },
-    //   {
-    //     members: [],
-    //     name: `Ali's team`,
-    //   },
-    // ]);
-    // this.config.TeamsConfig.next({
-    //   manageTeams: true,
-    //   manageTeamsText: 'ManageTeams',
-    //   onClick: () => {
-    //     this.ngdRouter.navigateTo('/teams');
-    //   },
-    // });
 
     this.config.DockedMenu.next([
       {

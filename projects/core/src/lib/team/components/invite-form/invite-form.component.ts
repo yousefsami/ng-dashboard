@@ -100,7 +100,6 @@ export class InviteFormComponent extends NgdBaseComponent implements OnInit {
       this.requests.PostInvitation(this.form.value)
     ).then((result) => {
       if (result.item) {
-        console.log('---', result.item);
         this.router.navigateByUrl(`/teams?modified=${result.item.id}`);
       }
     });
