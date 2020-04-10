@@ -22,7 +22,7 @@
       <!-- element with children -->
       <ng-container *ngIf="nav.children">
         <li
-          *ngIf="nav"
+          *ngIf="menuVisibleForPermissions(nav)"
           class="ngx-parent-menu"
           [attr.id]="nav.id ? 'ngx-menu-item-' + nav.id : null"
           [ngClass]="{
@@ -50,7 +50,7 @@
       <!-- without children -->
       <ng-container *ngIf="!nav.children">
         <li
-          *ngIf="nav"
+          *ngIf="menuVisibleForPermissions(nav)"
           [attr.id]="nav.id ? 'ngx-menu-item-' + nav.id : null"
           [ngClass]="{
             'menu-active': menuActive(nav),

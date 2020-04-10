@@ -14,6 +14,8 @@ import { flatten } from 'lodash';
 import { NgxSidebarService } from './ngx-sidebar.service';
 import { RouterService } from '../services/router.service';
 import { INavigation } from '../definitions';
+import { UserService } from '../services/user.service';
+import { TeamsService } from '../services/teams.service';
 
 @Component({
   /* tslint:disable */
@@ -58,6 +60,8 @@ export class NgxSidebarComponent implements OnInit {
     private route: ActivatedRoute,
     private compiler: ComponentFactoryResolver,
     private sidebar: NgxSidebarService,
+    private user: UserService,
+    private team: TeamsService,
     public ngdRouter: RouterService
   ) {
     this.router.events.subscribe((e) => {
@@ -123,6 +127,32 @@ export class NgxSidebarComponent implements OnInit {
         }
       }
     }
+  }
+
+  /**
+   * Checks if the user has the permission to see this item in the menu
+   */
+  public menuVisibleForPermissions(nav: INavigation) {
+    // If no permission defined, it should be visible to everyone.
+
+    if (nav && nav.children) {
+      const anyChildHasPermit = nav.children.filter((child) =>
+        this.menuVisibleForPermissions(child)
+      );
+
+      if (anyChildHasPermit.length === 0) {
+        return false;
+      }
+    }
+
+    if (!nav.permissions || nav.permissions.length === 0) {
+      return true;
+    }
+
+    return this.user.canActivateByPermissions(
+      nav.permissions,
+      this.team.CurrentSelectedTeam
+    );
   }
 
   public menuActive(nav) {

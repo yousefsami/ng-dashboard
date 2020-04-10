@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserCookiesModule } from 'ngx-universal-cookies/browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -34,6 +35,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     NoopAnimationsModule,
     BrowserModule,
     AppRoutingModule,
+    BrowserCookiesModule,
     // LottieModule.forRoot({ player: playerFactory }),
     NgDashboardModule.forRoot({
       navbar: {

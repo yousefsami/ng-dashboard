@@ -1,4 +1,8 @@
-import { TeamNavigation, INavigation } from 'projects/core/src/public_api';
+import {
+  TeamNavigation,
+  INavigation,
+  UserNavigation,
+} from 'projects/core/src/public_api';
 
 export const AppNavigation: INavigation[] = [
   {
@@ -27,9 +31,11 @@ export const AppNavigation: INavigation[] = [
     ],
   },
   ...TeamNavigation,
+  ...UserNavigation,
   {
     type: 'AngularRouter',
     title: 'Developer',
+    permissions: ['DEVELOPER'],
     link: '/developer',
   },
 ];

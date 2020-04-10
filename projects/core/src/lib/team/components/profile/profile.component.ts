@@ -19,6 +19,7 @@ import { RouterService } from '../../../ng5-basic/services/router.service';
 @Component({
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
+  providers: [],
 })
 export class ProfileComponent extends ProfileCommon implements OnInit {
   @ViewChild(NgMediaComponent, { static: false })

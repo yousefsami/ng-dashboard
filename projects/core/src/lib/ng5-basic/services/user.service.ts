@@ -45,7 +45,7 @@ export class UserService {
       return true;
     }
 
-    if (!user.roles || user.roles.length === 0) {
+    if (!user || !user.roles || user.roles.length === 0) {
       return false;
     }
 
