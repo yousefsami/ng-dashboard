@@ -108,4 +108,5 @@ export const NgDashboardEn = {
   readonly_roles_cannot_be_deleted:
     'Read only roles cannot be deleted or updated',
   roles: 'Roles',
+  required_field: 'This field is required.',
 };
