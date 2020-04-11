@@ -1,6 +1,6 @@
 {
   "name": "@ng-dashboard/core",
-  "version": "1.0.227",
+  "version": "1.0.229",
   "private": false,
   "dependencies": {
     "@ngrx/core": "^1.2.0",

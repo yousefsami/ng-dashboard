@@ -27,8 +27,8 @@
             (click)="action.onClick(params)"
             *ngIf="action.type === 'ICON'"
           >
-            <i _ngcontent-jgc-c8="" class="{{ action.icon }}"></i>
-            {{ action.title }}
+            <i _ngcontent-jgc-c8="" class="action-icon {{ action.icon }}"></i>
+            <span class="action-label">{{ action.title }}</span>
           </span>
         </ng-container>
       </div>

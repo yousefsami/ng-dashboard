@@ -108,13 +108,20 @@ export class RoleListComponent extends NgdRouteEntryPointComponent
 
   public RolesToRows(roles: IRole[]): IResponsiveTableRow[] {
     return roles.map((role) => {
+      const permissions = role.permissions || [];
+
+      let value = permissions.length.toString();
+      if (permissions.indexOf('*.*') >= 0) {
+        value = this.config.translate('super_user');
+      }
+
       return {
         title: role.title,
         entity: role,
         cells: [
           {
-            label: 'permission_counts',
-            value: (role.permissions || []).length.toString(),
+            label: this.config.translate('permission_count'),
+            value,
           },
         ],
         routerLink: this.RowRouterLink(role),

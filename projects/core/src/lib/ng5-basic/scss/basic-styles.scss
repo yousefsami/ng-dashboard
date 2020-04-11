@@ -1,3 +1,4 @@
+@import '../scss/core';
 @import 'injects';
 @import './material-icon';
 @import '../../../../node_modules/bootstrap/dist/css/bootstrap.min';
@@ -54,6 +55,22 @@ body[dir='rtl'] {
     }
     .add-button {
       margin: 10px 0;
+    }
+  }
+
+  @include phone() {
+    margin-top: 5px;
+    padding-top: 5px;
+
+    .box-title {
+      padding-bottom: 5px;
+      h2 {
+        font-size: 17px;
+      }
+    }
+
+    .action-label {
+      display: none;
     }
   }
 }

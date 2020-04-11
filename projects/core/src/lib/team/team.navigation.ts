@@ -6,6 +6,13 @@ export const TeamNavigation: Array<INavigation> = [
     id: 'nav_team',
     children: [
       {
+        title: 'user_teams',
+        id: 'user_teams',
+        link: '/teams',
+        activeMatches: ['/teams'],
+        permissions: ['READ_TEAM'],
+      },
+      {
         id: 'packages',
         title: 'packages',
         link: '/packages',
@@ -25,6 +32,7 @@ export const TeamNavigation: Array<INavigation> = [
         title: 'roles',
         type: 'INTER_TEAM',
         link: '/roles',
+        activeMatches: ['/role/([0-9])'],
         permissions: ['READ_ROLES'],
       },
       {
@@ -48,13 +56,6 @@ export const UserNavigation: Array<INavigation> = [
         id: 'my_profile',
         link: '/profile',
         activeMatches: ['/profile'],
-      },
-      {
-        title: 'user_teams',
-        id: 'user_teams',
-        link: '/teams',
-        activeMatches: ['/teams'],
-        permissions: ['READ_TEAM'],
       },
       {
         title: 'new_team',

@@ -1,10 +1,12 @@
 <ng-container *ngFor="let row of rows">
-  <a
+  <div
     class="responsive-list-tr"
-    [routerLink]="row.routerLink ? row.routerLink : undefined"
     [ngClass]="{ 'ngd-focused-row': IsFocusedRow(row.id) }"
   >
-    <div class="tr-rows">
+    <a
+      [routerLink]="row.routerLink ? row.routerLink : undefined"
+      class="tr-rows"
+    >
       <h2 class="response-list-header">
         {{ row.title }}
       </h2>
@@ -14,14 +16,14 @@
           ><span class="td-value"> {{ cell.value }}</span>
         </div>
       </div>
-    </div>
+    </a>
 
     <div class="tr-actions">
       <ng-container *ngFor="let action of actions; let i = index">
         <a
           [tabindex]="i"
           [ngClass]="action.class"
-          (keyup)="ActionKeyup($event, action, row)"
+          (keyup)="$event.stopPropagation(); ActionKeyup($event, action, row)"
           (click)="
             $event.stopPropagation();
             action.onClick(row.entity, router, ngdRouter)
@@ -30,5 +32,5 @@
         ></a>
       </ng-container>
     </div>
-  </a>
+  </div>
 </ng-container>

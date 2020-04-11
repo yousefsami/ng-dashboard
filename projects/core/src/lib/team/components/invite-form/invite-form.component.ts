@@ -66,6 +66,8 @@ export class InviteFormComponent extends NgdBaseComponent implements OnInit {
   async ngOnInit() {
     this.fetchForm();
 
+    this.ReactiveToFormChanges();
+
     this.ComponentSubscription(
       this.roleService.RolesStore.subscribe((roles: IRole[]) => {
         this.roles = roles.map((t) => {
@@ -83,6 +85,7 @@ export class InviteFormComponent extends NgdBaseComponent implements OnInit {
       if (result && result.items) {
         this.roleService.SetRoles(result.items);
       }
+      this.formTouchedElements = {};
     });
 
     const { teamId } = this.route.snapshot.params;
@@ -124,6 +127,7 @@ export class InviteFormComponent extends NgdBaseComponent implements OnInit {
             ...result.item,
           });
         }
+        this.formTouchedElements = {};
       }
     );
   }

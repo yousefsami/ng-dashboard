@@ -107,4 +107,11 @@ export const NgDashboardEn = {
   roles: 'Roles',
   required_field: 'This field is required.',
   invite_people: 'Invite people',
+  permission_count: 'Permission count',
+  super_user: 'Owner',
+  this_role_is_super_user:
+    'This role is super user, and has access to everything on the team.',
+
+  invitation_roles_label: 'New user roles',
+  invitation_roles_placeholder: 'Select the roles that new user will have.',
 };

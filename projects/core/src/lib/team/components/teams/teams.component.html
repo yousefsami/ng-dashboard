@@ -31,7 +31,7 @@
         <ng-container *ngFor="let invite of invitations">
           <div
             class="team-member col-lg-3 col-md-4 col-sm-6"
-            *ngIf="invite.team === team.id"
+            *ngIf="invite.team === team.id && invite.status === 'PENDING'"
           >
             <div class="member-status member-pending">Pending</div>
             <i class="icon-people_outline user-no-avatar"></i>

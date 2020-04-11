@@ -19,9 +19,11 @@
       ></ngd-form-text>
     </div>
 
+    <span *ngIf="Form.isSuperUser">{{ 'this_role_is_super_user' | t }}</span>
     <div class="row">
       <ng-form-multiselect
         class="col-12"
+        *ngIf="!Form.isSuperUser"
         formControlName="permissions"
         field="permissions"
         id="role-permissions-input"

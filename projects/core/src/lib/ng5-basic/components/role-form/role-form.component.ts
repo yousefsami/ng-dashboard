@@ -53,6 +53,7 @@ export class RoleFormComponent extends NgdRouteEntryPointComponent
     id: new FormControl(null),
     title: new FormControl(null),
     readonly: new FormControl(false),
+    isSuperUser: new FormControl(false),
     permissions: new FormControl(['ADD_MEMBER_TO_TEAM']),
   });
 
@@ -109,10 +110,16 @@ export class RoleFormComponent extends NgdRouteEntryPointComponent
     if (!id) {
       return;
     }
-    const res = await this.StartRequest(() => this.requests.GetRole(id));
+    const res = await this.StartRequest<IRole>(() => this.requests.GetRole(id));
 
     if (res.item) {
-      this.form.patchValue(res.item);
+      const isSuperUser = res.item.permissions.indexOf('*.*') > -1;
+
+      console.log(isSuperUser);
+      this.form.patchValue({
+        ...res.item,
+        isSuperUser,
+      });
     }
   }
 }

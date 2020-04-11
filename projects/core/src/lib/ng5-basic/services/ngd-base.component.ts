@@ -337,6 +337,7 @@ export abstract class NgdBaseComponent implements OnDestroy {
     const res = await this.StartRequest<T>(callableRequest, {
       validator: true,
       notifyAPIErrors: true,
+      touch: true,
     });
 
     this.scrollToFirstInputWithErrors();
@@ -346,9 +347,11 @@ export abstract class NgdBaseComponent implements OnDestroy {
 
   public async StartRequest<T>(
     callableRequest: any,
-    params = { validator: false, notifyAPIErrors: true }
+    params = { validator: false, notifyAPIErrors: true, touch: true }
   ): Promise<StartRequestResponse<T>> {
-    this.touchForm();
+    if (params.touch) {
+      this.touchForm();
+    }
 
     if (this.validator && params.validator) {
       const formErrors = this.validator(this.form.value);

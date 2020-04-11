@@ -3,11 +3,12 @@
     maintitle="{{ 'invite_form' | t }}"
     subtitle="{{ 'invite_form_description' | t }}"
   >
-    <div class="row" *ngIf="form">
+    <div class="row">
       <ngd-form-text
         formControlName="email"
         field="email"
         [optional]="false"
+        [autofocus]="true"
         id="invite-form-email-input"
         label="{{ 'email' | t }}"
         [edit]="isEditing && !form.value.readonly"
@@ -43,7 +44,6 @@
         label="{{ 'firstname' | t }}"
         [edit]="isEditing && !form.value.readonly"
         [optional]="false"
-        [autofocus]="true"
         [res]="res"
         [submit]="submitRes"
         placeholder="{{ 'invite_form_first_name' | t }}"
@@ -68,7 +68,7 @@
         [edit]="isEditing && !form.value.readonly"
         [res]="res"
         [submit]="submitRes"
-        placeholder="{{ 'phone_placeholder' | t }}"
+        placeholder="{{ 'phone_place_holder' | t }}"
       ></ngd-form-text>
     </div>
     <button [disabled]="working" (click)="onSubmit()" class="btn btn-primary">

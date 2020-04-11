@@ -25,6 +25,15 @@
 .responsive-list-tr {
   text-decoration: none;
   color: black;
+  * {
+    text-decoration: none;
+
+  }
+
+   h2, .td-label {
+    text-decoration: none;
+    color: black;
+  }
   display: flex;
   padding: 10px;
   margin-bottom: 15px;
@@ -37,6 +46,12 @@
     i,
     a {
       font-size: 24px;
+      display: inline-block;
+      transition: 0.1s transform ease-in-out;
+      &:hover {
+        color: $primaryColor;
+        transform: scale(1.2);
+      }
     }
     align-self: center;
     padding: 0 15px;
