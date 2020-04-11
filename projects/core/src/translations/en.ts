@@ -5,7 +5,7 @@ export const NgDashboardEn = {
   auth_login_password_label: 'Password',
   auth_login_submit: 'Continue',
   auth_create_account_button: 'You can also',
-  auth_login_signup_link: 'create new account',
+  auth_login_signup_link: 'Create new account',
   auth_login_forgot_password: 'I have forgot my password',
 
   search_place_holder: 'Search (S)...',
@@ -31,9 +31,6 @@ export const NgDashboardEn = {
   email_placeholder: 'e.g. my-guest@gmail.com',
   invite_new_user: 'Invite someone',
   user_invitation: 'Invitations',
-  invitations_list_title: 'Active invitations',
-  invitations_list_description:
-    'You can invite third party people to your dashboard using invitations',
   no_invitations:
     'You have no active invitations at the moment. Press + sign or "N" on keyboard to create one.',
   nav_team: 'Teams & Plans',
@@ -109,4 +106,5 @@ export const NgDashboardEn = {
     'Read only roles cannot be deleted or updated',
   roles: 'Roles',
   required_field: 'This field is required.',
+  invite_people: 'Invite people',
 };

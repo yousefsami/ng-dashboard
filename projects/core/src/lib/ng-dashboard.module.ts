@@ -71,7 +71,6 @@ import { PublicLangaugeAuth } from './ng5-basic/services/public-lang.guard';
 import { TeamGuardAuth } from './ng5-basic/services/team.guard';
 import { WorkerStatesComponent } from './ng5-basic/components/worker-states/worker-states.component';
 import { ProfileComponent } from './team/components/profile/profile.component';
-import { InvitationsComponent } from './team/components/invitations/invitations.component';
 import { PaymentCallbackComponent } from './team/components/payment-callback/payment-callback.component';
 import { PaymentsComponent } from './team/components/payments/payments.component';
 import { InviteFormComponent } from './team/components/invite-form/invite-form.component';
@@ -147,7 +146,6 @@ export const customCurrencyMaskConfig = {
     ResetPasswordComponent,
     TPipe,
     ProfileComponent,
-    InvitationsComponent,
     PaymentCallbackComponent,
     PaymentsComponent,
     InviteFormComponent,
@@ -215,7 +213,6 @@ export const customCurrencyMaskConfig = {
     TPipe,
     ProfileComponent,
     SSRLottieComponent,
-    InvitationsComponent,
     PaymentCallbackComponent,
     PaymentsComponent,
     InviteFormComponent,

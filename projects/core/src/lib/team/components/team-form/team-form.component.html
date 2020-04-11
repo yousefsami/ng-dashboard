@@ -4,17 +4,17 @@
 >
   <form [formGroup]="form">
     <div class="row" *ngIf="form">
-      <div class="form-group col-md-6">
-        <label>{{ 'team_name' | t }}</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="name"
-          ngdAutoFocus
-          placeholder="{{ 'team_name' | t }}"
-        />
-        <span class="error-message-inline">{{ error(res, 'name') }}</span>
-      </div>
+      <ngd-form-text
+        formControlName="name"
+        field="name"
+        [optional]="false"
+        id="team-form-name-input"
+        label="{{ 'team_name' | t }}"
+        [edit]="isEditing && !form.value.readonly"
+        [res]="res"
+        [submit]="submitRes"
+        placeholder="{{ 'team_name' | t }}"
+      ></ngd-form-text>
     </div>
     <div class="row">
       <div class="col-md-6">

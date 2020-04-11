@@ -33,7 +33,6 @@ export * from './lib/team/team.routes';
 export * from './lib/team/team.store';
 export * from './lib/team/role.service';
 export * from './lib/team/teamcommon.service';
-export * from './lib/team/components/invitations/invitations.component';
 export * from './lib/team/components/invite-form/invite-form.component';
 export * from './lib/ng5-basic/components/role-form/role-form.component';
 export * from './lib/ng5-basic/components/role-list/role-list.component';

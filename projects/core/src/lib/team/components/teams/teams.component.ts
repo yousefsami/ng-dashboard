@@ -11,6 +11,7 @@ import { ConfirmService } from '../../../ng5-basic/services/confirm.service';
 import { ConfigurationService } from '../../../ng5-basic/services/configuration.service';
 import { RequestsService } from '../../../ng5-basic/services/requests.service';
 import { RouterService } from '../../../ng5-basic/services/router.service';
+import { IInvitationData } from '../../team.definitions';
 
 const NoTeamsAvailable: IInteractiveNote = {
   description: 'no_teams_available',
@@ -24,6 +25,7 @@ const NoTeamsAvailable: IInteractiveNote = {
 })
 export class TeamsComponent extends NgdBaseComponent implements OnInit {
   public teams = [];
+  public invitations: IInvitationData[] = [];
   public note: IInteractiveNote;
   public teamActions: Array<PageContainerAction> = [
     {
@@ -32,7 +34,7 @@ export class TeamsComponent extends NgdBaseComponent implements OnInit {
       onClick: (params) => {
         this.inviteMemberToTeam(params.team.id);
       },
-      title: this.config.translate('invite_people_to_this_team'),
+      title: this.config.translate('invite_people'),
     },
     {
       type: 'ICON',
@@ -91,6 +93,14 @@ export class TeamsComponent extends NgdBaseComponent implements OnInit {
         onPress: this.createNewTeam.bind(this),
       },
     ]);
+
+    this.StartRequest<IInvitationData>(() =>
+      this.requests.GetInvitations()
+    ).then((result) => {
+      if (result && result.items) {
+        this.invitations = result.items;
+      }
+    });
   }
 
   public deleteTeam(team) {

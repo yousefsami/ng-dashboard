@@ -19,3 +19,21 @@
 .team-members {
   display: flex;
 }
+
+.member-status {
+  font-size: 11px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+
+  &.member-pending {
+    background-color: #F57C00;
+    color: white;
+  }
+
+  &.member-active {
+    background-color: #26A69A;
+    color: white;
+  }
+}

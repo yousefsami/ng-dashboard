@@ -3,7 +3,6 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { InviteFormComponent } from './components/invite-form/invite-form.component';
 import { TeamsComponent } from './components/teams/teams.component';
 import { TeamFormComponent } from './components/team-form/team-form.component';
-import { InvitationsComponent } from './components/invitations/invitations.component';
 import { PaymentsComponent } from './components/payments/payments.component';
 import { PaymentCallbackComponent } from './components/payment-callback/payment-callback.component';
 import { PackageListComponent } from './components/package-list/package-list.component';
@@ -45,10 +44,7 @@ export const TeamRoutesAsTeam: Routes = [
     path: 'invite-new-user',
     component: InviteFormComponent,
   },
-  {
-    path: 'invitations/:teamId',
-    component: InvitationsComponent,
-  },
+
   {
     path: 'packages',
     component: PackageListComponent,

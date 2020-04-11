@@ -15,8 +15,9 @@
       [params]="{ team: team }"
     >
       <div class="team-members">
-        <div *ngFor="let member of team.members">
-          <div class="team-member">
+        <ng-container *ngFor="let member of team.members">
+          <div class="team-member col-lg-3 col-md-4 col-sm-6">
+            <div class="member-status member-active">Active</div>
             <i class="icon-person_pin user-no-avatar"></i>
             <ngd-lottie
               width="50px"
@@ -26,7 +27,23 @@
 
             <div class="member-name">{{ MemberName(member) }} &nbsp;</div>
           </div>
-        </div>
+        </ng-container>
+        <ng-container *ngFor="let invite of invitations">
+          <div
+            class="team-member col-lg-3 col-md-4 col-sm-6"
+            *ngIf="invite.team === team.id"
+          >
+            <div class="member-status member-pending">Pending</div>
+            <i class="icon-people_outline user-no-avatar"></i>
+            <ngd-lottie
+              width="50px"
+              height="50px"
+              [options]="{ path: 'assets/animations/profile.json' }"
+            ></ngd-lottie>
+
+            <div class="member-name">{{ MemberName(invite) }} &nbsp;</div>
+          </div>
+        </ng-container>
       </div>
     </ng-page-container>
   </div>
