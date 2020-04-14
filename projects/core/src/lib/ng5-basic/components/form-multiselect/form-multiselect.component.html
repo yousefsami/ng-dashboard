@@ -1,7 +1,7 @@
 <label
   >{{ label | t }}
 
-  <ngd-optional-label [optional]="optional"></ngd-optional-label>
+  <ngd-optional-label *ngIf="edit" [optional]="optional"></ngd-optional-label>
 </label>
 
 <div class="row" [ngClass]="{ 'is-invalid': error(resp, field) }">

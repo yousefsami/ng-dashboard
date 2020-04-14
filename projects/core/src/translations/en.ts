@@ -47,6 +47,9 @@ export const NgDashboardEn = {
   update_team: 'Update team',
   team_name: 'Team name',
 
+  edit_team: 'Edit team',
+  active: 'Active',
+  owner: 'Owner',
   delete_team: 'Delete team',
   team_drop_down_tooltip: 'Change your team',
   my_profile: 'My account',
@@ -114,4 +117,44 @@ export const NgDashboardEn = {
 
   invitation_roles_label: 'New user roles',
   invitation_roles_placeholder: 'Select the roles that new user will have.',
+  teammate_name: 'Teammate name',
+  delete_account_confirmation: `Are you sure to delete "%{accountName}"? This cannot be undo.`,
+  delete_transactions_selected_confirmation:
+    'Are you sure to delete transactions selected?',
+  delete_member_confirmation:
+    'Are you sure to delete "%{firstname} %{lastname}"? This cannot be undo.',
+  delete_team_confirmation:
+    'Are you sure to delete this team? All data related will be lost.',
+  create_account_title: 'Create new account',
+  create_account_description:
+    'Easily create your account in 10 seconds using your email and password.',
+  agree_to_privacy_policy:
+    'By clicking on "Signup" below, you are agreeing to the',
+
+  privacy_policy: 'Privacy Policy',
+  do_you_have_account: 'Do you have an account?',
+  login: 'Login',
+  signup: 'Signup',
+  request_success: 'Request success',
+  forget_password_success_description:
+    'Your request has been sent successfully to the %{mail}.',
+
+  forgot_password: 'Forgot Password',
+  forgot_password_submit: 'Request Password',
+  forgot_password_description:
+    'Enter your email adress and we’ll send a link to reset your password',
+
+  forgot_maybe_you_want: 'Maybe you want to:',
+  reset_password: 'Reset password',
+  reset_password_description:
+    'Please enter your new password, and then confirm it again.',
+  password: 'Password',
+  no_payments: 'No payments',
+  no_payments_made_yet:
+    'You have no payments made yet. If you purchase anything, you will see the history of payments here.',
+  no_service_package_title: 'Service packages',
+  cancel: 'Cancel',
+  signup_success_title: 'Signup successful!',
+  signup_success_message: 'Your account has been created successfully.',
+  service_deactive_confirmation: 'Are you sure to deactive this service?',
 };

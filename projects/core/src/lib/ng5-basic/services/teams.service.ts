@@ -24,7 +24,7 @@ export class TeamsService {
     private auth: AuthPublicService,
     private cookie: CookiesService
   ) {
-    const team2 = this.cookie.get('selected_team');
+    const team2 = this.cookie.get('team');
     if (team2) {
       this.team = +team2;
     }
@@ -67,13 +67,13 @@ export class TeamsService {
   }
 
   public ClearTeams() {
-    this.cookie.put('selected_team', null);
+    this.cookie.put('team', null);
     this.team = null;
   }
 
   public SelectTeam(teamId) {
     this.team = teamId;
-    this.cookie.put('selected_team', teamId);
+    this.cookie.put('team', teamId);
   }
 
   public get CurrentSelectedTeam() {

@@ -9,7 +9,7 @@ export const TeamNavigation: Array<INavigation> = [
         title: 'user_teams',
         id: 'user_teams',
         link: '/teams',
-        activeMatches: ['/teams'],
+        activeMatches: ['/teams', '/invite-new-user'],
         permissions: ['READ_TEAM'],
       },
       {

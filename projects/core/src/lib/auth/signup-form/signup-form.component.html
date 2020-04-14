@@ -2,10 +2,9 @@
   <div class="wrap-login">
     <form [formGroup]="userForm">
       <div class="login-header">
-        <span> {{ 'Create your account' | t }} </span>
+        <span> {{ 'create_account_title' | t }} </span>
         <p>
-          Easily create your account in 10 seconds using your email and
-          password.
+          {{ 'create_account_description' | t }}
         </p>
       </div>
 
@@ -20,11 +19,10 @@
       ></ngd-password-input>
 
       <p class="signup-info">
-        <span
-          >{{ 'By clicking on "Signup" below, you are agreeing to the' | t }}
-        </span>
-        <a [routerLink]="ngdRouter.publicLink('/documentation/privacy-policy')"
-          >Privacy Policy</a
+        <span>{{ 'agree_to_privacy_policy' | t }} </span>
+        <a
+          [routerLink]="ngdRouter.publicLink('/documentation/privacy-policy')"
+          >{{ 'privacy_policy' | t }}</a
         >.
       </p>
 
@@ -33,13 +31,13 @@
           class="btn btn-primary app-signup-form-submit"
           (click)="signup()"
         >
-          {{ 'Signup' | t }}
+          {{ 'signup' | t }}
         </button>
       </div>
 
       <div>
-        <span>{{ 'Do you have an account?' | t }}</span>
-        <a [routerLink]="ngdRouter.publicLink('/login')"> {{ 'Login' | t }} </a>
+        <span>{{ 'do_you_have_account' | t }}</span>
+        <a [routerLink]="ngdRouter.publicLink('/login')"> {{ 'login' | t }} </a>
       </div>
     </form>
   </div>

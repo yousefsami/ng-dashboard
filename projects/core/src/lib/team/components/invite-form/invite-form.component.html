@@ -71,8 +71,16 @@
         placeholder="{{ 'phone_place_holder' | t }}"
       ></ngd-form-text>
     </div>
-    <button [disabled]="working" (click)="onSubmit()" class="btn btn-primary">
+    <button
+      [disabled]="working"
+      (click)="onSubmit()"
+      class="btn btn-primary"
+      id="submit-invitation-button"
+    >
       {{ (form.value.id ? 'update_invitation' : 'create_invitation') | t }}
+    </button>
+    <button routerLink="/teams" id="invite-form-cancel" class="btn">
+      {{ 'cancel' | t }}
     </button>
   </ng-page-container>
 </form>

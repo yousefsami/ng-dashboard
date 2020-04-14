@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { FormControl, FormGroup } from '@angular/forms';
 import { sortBy } from 'lodash';
 import { combineLatest } from 'rxjs';
@@ -13,7 +12,7 @@ import {
 
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
-// import { loadStripe } from '@stripe/stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import { PackagesStore } from '../../team.store';
 import { TeamsCommonService } from '../../teamcommon.service';
 import { NgdBaseComponent } from '../../../ng5-basic/services/ngd-base.component';
@@ -124,29 +123,29 @@ export class PackageSingleComponent extends NgdBaseComponent implements OnInit {
     }
     /* tslint:enable */
 
-    // const API_KEY = window.location.host.includes('localhost')
-    //   ? 'pk_test_0fMMX14qRTejPxdZyZmorqCW009kNsHf7P'
-    //   : 'pk_live_hqOQJKFUlt1tz5KNaw3PCVpB00M03MCM1v';
-    // const stripe = await loadStripe(API_KEY);
+    const API_KEY = window.location.host.includes('localhost')
+      ? 'pk_test_0fMMX14qRTejPxdZyZmorqCW009kNsHf7P'
+      : 'pk_live_hqOQJKFUlt1tz5KNaw3PCVpB00M03MCM1v';
+    const stripe = await loadStripe(API_KEY);
 
-    // try {
-    //   stripe.redirectToCheckout({
-    //     sessionId: res.item.external_key,
-    //   });
-    // } catch (error) {
-    //   console.error(error);
-    //   this.config.ShowToast({
-    //     title: this.config.translate('stripe_has_failed'),
-    //     message: error.message,
-    //     type: 'ERROR',
-    //   });
-    // }
+    try {
+      stripe.redirectToCheckout({
+        sessionId: res.item.external_key,
+      });
+    } catch (error) {
+      console.error(error);
+      this.config.ShowToast({
+        title: this.config.translate('stripe_has_failed'),
+        message: error.message,
+        type: 'ERROR',
+      });
+    }
   }
 
   public async DeactivatePackage(pack: IProduct<IPackage>) {
     this.confirm
       .open({
-        content: 'Are you sure to deactive this service?',
+        content: this.config.translate('service_deactive_confirmation'),
         type: 'CONFIRMATION',
       })
       .subscribe(async (e) => {

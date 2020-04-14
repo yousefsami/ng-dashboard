@@ -11,13 +11,22 @@
   >
     <ng-page-container
       maintitle="{{ team.name }}"
+      class="team-id-{{ team.id }} team-box"
       [actions]="teamActions"
       [params]="{ team: team }"
     >
       <div class="team-members">
         <ng-container *ngFor="let member of team.members">
           <div class="team-member col-lg-3 col-md-4 col-sm-6">
-            <div class="member-status member-active">Active</div>
+            <div class="badge-holder">
+              <div class="member-status member-active">{{ 'active' | t }}</div>
+              <div
+                *ngIf="user.UserSnapshot.id === team.owner"
+                class="member-status member-owner"
+              >
+                {{ 'owner' | t }}
+              </div>
+            </div>
             <i class="icon-person_pin user-no-avatar"></i>
             <ngd-lottie
               width="50px"
@@ -33,7 +42,7 @@
             class="team-member col-lg-3 col-md-4 col-sm-6"
             *ngIf="invite.team === team.id && invite.status === 'PENDING'"
           >
-            <div class="member-status member-pending">Pending</div>
+            <div class="member-status member-pending">{{ 'pending' | t }}</div>
             <i class="icon-people_outline user-no-avatar"></i>
             <ngd-lottie
               width="50px"

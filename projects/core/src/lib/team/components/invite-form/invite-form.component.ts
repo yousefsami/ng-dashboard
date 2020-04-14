@@ -26,6 +26,12 @@ function inviteFormValidate(form): IResponseErrorItem[] {
       location: 'email',
     });
   }
+  if (!form.roles || form.roles.length === 0) {
+    errors.push({
+      message: ERROR_CODES.REQUIRED_FIELD,
+      location: 'roles',
+    });
+  }
   return errors;
 }
 
@@ -64,9 +70,14 @@ export class InviteFormComponent extends NgdBaseComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.ReactiveToFormChanges();
     this.fetchForm();
 
-    this.ReactiveToFormChanges();
+    const { teamId } = this.route.snapshot.queryParams;
+
+    if (teamId) {
+      this.form.patchValue({ team: +teamId });
+    }
 
     this.ComponentSubscription(
       this.roleService.RolesStore.subscribe((roles: IRole[]) => {
@@ -76,8 +87,6 @@ export class InviteFormComponent extends NgdBaseComponent implements OnInit {
             name: t.title,
           };
         });
-
-        console.log(this.roles);
       })
     );
 
@@ -86,14 +95,8 @@ export class InviteFormComponent extends NgdBaseComponent implements OnInit {
         this.roleService.SetRoles(result.items);
       }
       this.formTouchedElements = {};
+      this.res = null;
     });
-
-    const { teamId } = this.route.snapshot.params;
-    if (teamId) {
-      this.form.patchValue({
-        team: teamId,
-      });
-    }
 
     this.SetInteractiveButtons([
       {
@@ -128,6 +131,7 @@ export class InviteFormComponent extends NgdBaseComponent implements OnInit {
           });
         }
         this.formTouchedElements = {};
+        this.res = null;
       }
     );
   }

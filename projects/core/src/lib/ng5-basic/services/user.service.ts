@@ -13,10 +13,10 @@ export class UserService {
 
   constructor(private cookie: CookiesService) {
     try {
-      this.CurrentUser.next(
-        JSON.parse(localStorage.getItem('userInformation'))
-      );
-      this.token = JSON.parse(localStorage.getItem('tokenInformation'));
+      // this.CurrentUser.next(
+      //   JSON.parse(localStorage.getItem('userInformation'))
+      // );
+      // this.token = JSON.parse(localStorage.getItem('tokenInformation'));
       if (this.cookie.get('token')) {
         this.token = this.cookie.get('token');
       }

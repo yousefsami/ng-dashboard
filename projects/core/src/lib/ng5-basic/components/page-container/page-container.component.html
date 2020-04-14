@@ -18,12 +18,12 @@
           <button
             (click)="action.onClick(params)"
             *ngIf="action.type === 'BUTTON'"
-            class="btn btn-primary action-button"
+            class="btn btn-primary action-button {{ action.className }}"
           >
             {{ action.title }}
           </button>
           <span
-            class="action-button action-icon-button"
+            class="action-button action-icon-button {{ action.className }}"
             (click)="action.onClick(params)"
             *ngIf="action.type === 'ICON'"
           >

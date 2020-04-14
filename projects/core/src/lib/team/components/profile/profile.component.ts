@@ -74,12 +74,16 @@ export class ProfileComponent extends ProfileCommon implements OnInit {
         if (type === 'CANCELED') {
           return;
         }
-        await this.StartRequest<any>(() => this.requests.DeleteUser());
-        this.config.ShowToast({
-          message: this.config.translate('your_account_deleted'),
-          type: 'ERROR',
-        });
-        this.ngdRouter.navigateTo('/login');
+        const res = await this.StartRequest<any>(() =>
+          this.requests.DeleteUser()
+        );
+        if (res.item) {
+          this.config.ShowToast({
+            message: this.config.translate('your_account_deleted'),
+            type: 'ERROR',
+          });
+          this.ngdRouter.navigatePublic('/login');
+        }
       });
   }
 

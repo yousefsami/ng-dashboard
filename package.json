@@ -9,6 +9,7 @@
     "lint": "ng lint",
     "deploy": "gh-pages -d dist/ng-dashboard",
     "e2e": "ng e2e",
+    "p": "npm run build:core && npm run npm:core",
     "build:core": "ng build core && npm run scss",
     "scss": "sass projects/core/src/lib/export-styles.scss dist/ng-dashboard-core/styles.css",
     "npm:core": "cd dist/ng-dashboard-core && npm publish && cd ../.."

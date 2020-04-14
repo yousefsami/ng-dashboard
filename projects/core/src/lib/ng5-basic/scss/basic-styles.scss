@@ -60,8 +60,7 @@ body[dir='rtl'] {
 
   @include phone() {
     margin-top: 5px;
-    padding-top: 5px;
-
+ 
     .box-title {
       padding-bottom: 5px;
       h2 {

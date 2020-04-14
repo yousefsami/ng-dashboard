@@ -8,6 +8,7 @@
         formControlName="name"
         field="name"
         [optional]="false"
+        [autofocus]="true"
         id="team-form-name-input"
         label="{{ 'team_name' | t }}"
         [edit]="isEditing && !form.value.readonly"
@@ -24,6 +25,9 @@
           class="btn btn-primary"
         >
           {{ (form.value.id ? 'update_team' : 'create_team') | t }}
+        </button>
+        <button routerLink="/teams" id="team-form-cancel" class="btn">
+          {{ 'cancel' | t }}
         </button>
       </div>
     </div>

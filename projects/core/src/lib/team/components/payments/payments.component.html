@@ -1,6 +1,9 @@
+<ngd-interactive-note [note]="note"></ngd-interactive-note>
+
 <ng-page-container
   maintitle="{{ 'payments' | t }}"
   subtitle="{{ 'payments_description' | t }}"
+  *ngIf="payments && payments.length"
 >
   <div class="box-wrapper" *ngFor="let payment of payments">
     <h3>{{ payment.amount }} {{ payment.currency }}: {{ payment.status }}</h3>

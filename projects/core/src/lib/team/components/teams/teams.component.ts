@@ -12,6 +12,8 @@ import { ConfigurationService } from '../../../ng5-basic/services/configuration.
 import { RequestsService } from '../../../ng5-basic/services/requests.service';
 import { RouterService } from '../../../ng5-basic/services/router.service';
 import { IInvitationData } from '../../team.definitions';
+import { Router } from '@angular/router';
+import { UserService } from '../../../ng5-basic/services/user.service';
 
 const NoTeamsAvailable: IInteractiveNote = {
   description: 'no_teams_available',
@@ -27,10 +29,11 @@ export class TeamsComponent extends NgdBaseComponent implements OnInit {
   public teams = [];
   public invitations: IInvitationData[] = [];
   public note: IInteractiveNote;
-  public teamActions: Array<PageContainerAction> = [
+  public defaultActions: Array<PageContainerAction> = [
     {
       type: 'ICON',
       icon: 'icon-add',
+      className: 'team-invite-icon',
       onClick: (params) => {
         this.inviteMemberToTeam(params.team.id);
       },
@@ -38,18 +41,33 @@ export class TeamsComponent extends NgdBaseComponent implements OnInit {
     },
     {
       type: 'ICON',
+      icon: 'icon-settings',
+      className: 'team-edit-icon',
+      onClick: (params) => {
+        this.editTeam(params.team.id);
+      },
+      title: this.config.translate('edit_team'),
+    },
+    {
+      type: 'ICON',
       onClick: (params) => {
         this.deleteTeam(params.team);
       },
+      className: 'team-delete-icon',
       icon: 'icon-delete',
       title: this.config.translate('delete_team'),
     },
   ];
+
+  public teamActions: Array<PageContainerAction> = [];
+
   constructor(
     public teamsService: TeamsService,
     public requests: RequestsService,
     public config: ConfigurationService,
     public ngdRouter: RouterService,
+    public user: UserService,
+    public router: Router,
     public confirm: ConfirmService
   ) {
     super();
@@ -74,10 +92,21 @@ export class TeamsComponent extends NgdBaseComponent implements OnInit {
     return 'anonymouse_member';
   }
 
+  editTeam(id: number) {
+    this.router.navigateByUrl('/team/' + id);
+  }
+
   ngOnInit() {
     this.ComponentSubscription(
       this.teamsService.TeamsStore.subscribe((teams) => {
         this.teams = teams;
+        if (teams.length <= 1) {
+          this.teamActions = this.defaultActions.filter(
+            (t) => t.icon !== 'icon-delete'
+          );
+        } else {
+          this.teamActions = this.defaultActions;
+        }
         if (this.teams.length === 0) {
           this.note = NoTeamsAvailable;
         } else {
@@ -114,6 +143,12 @@ export class TeamsComponent extends NgdBaseComponent implements OnInit {
         }
         this.StartRequest<any>(() => this.requests.DeleteTeam(team.id)).then(
           (result) => {
+            // Set the current team to another teams :)
+            const ut = this.teams.filter((t) => t.id !== team.id);
+            if (ut.length > 0) {
+              this.teamsService.SelectTeam(ut[0].id);
+            }
+
             if (result.item) {
               this.config.ShowToast({
                 message: this.config.translate('team_has_been_deleted'),
@@ -142,10 +177,10 @@ export class TeamsComponent extends NgdBaseComponent implements OnInit {
   }
 
   public inviteMemberToTeam(teamId: number) {
-    this.ngdRouter.navigateTo('/invite-new-user');
+    this.router.navigateByUrl('/invite-new-user?teamId=' + teamId);
   }
 
   public createNewTeam() {
-    this.ngdRouter.navigateTo('/new-team');
+    this.router.navigateByUrl('/new-team');
   }
 }

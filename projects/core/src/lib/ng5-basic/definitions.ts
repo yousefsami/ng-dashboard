@@ -332,6 +332,7 @@ export interface ModalDialog {
 
 export interface PageContainerAction {
   title?: string;
+  className?: string;
   type: 'ICON' | 'BUTTON';
   icon?: string;
   onClick: (params?: any) => void;

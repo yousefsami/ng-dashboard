@@ -1,6 +1,6 @@
 <label
   >{{ label }}
-  <ngd-optional-label [optional]="optional"></ngd-optional-label>
+  <ngd-optional-label *ngIf="edit" [optional]="optional"></ngd-optional-label>
 </label>
 <select
   class="form-control"

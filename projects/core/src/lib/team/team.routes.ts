@@ -12,12 +12,21 @@ import { RoleFormComponent } from '../ng5-basic/components/role-form/role-form.c
 
 export const TeamRoutesAsUser: Routes = [
   {
+    path: 'invite-new-user',
+    component: InviteFormComponent,
+  },
+  {
     path: 'teams',
     component: TeamsComponent,
   },
 
   {
     path: 'new-team',
+    component: TeamFormComponent,
+  },
+
+  {
+    path: 'team/:id',
     component: TeamFormComponent,
   },
 
@@ -38,10 +47,6 @@ export const TeamRoutesAsTeam: Routes = [
   },
   {
     path: 'user-invitation/:id',
-    component: InviteFormComponent,
-  },
-  {
-    path: 'invite-new-user',
     component: InviteFormComponent,
   },
 

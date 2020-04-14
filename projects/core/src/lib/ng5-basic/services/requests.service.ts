@@ -184,6 +184,10 @@ export class RequestsService {
     return await this.http.get(this.config.API('/api/payments')).toPromise();
   }
 
+  public async GetTeam(id: number): Promise<IResponse<any>> {
+    return await this.http.get(this.config.API('/api/team/' + id)).toPromise();
+  }
+
   public async DeleteTeam(id): Promise<IResponse<any>> {
     return await this.http
       .delete(this.config.API('/api/user/team/' + id))

@@ -19,6 +19,7 @@ import { ConfirmService } from '../../../ng5-basic/services/confirm.service';
 import { RequestsService } from '../../../ng5-basic/services/requests.service';
 
 const NoServicePackages: IInteractiveNote = {
+  title: 'no_service_package_title',
   description: 'no_service_package',
   animation: 'warning',
 };

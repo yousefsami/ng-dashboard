@@ -9,6 +9,7 @@
   justify-content: center;
   border: 1px solid #f8f9fa;
   .member-name {
+    word-break: break-all;
     font-size: 13px;
   }
   .user-no-avatar {
@@ -20,20 +21,29 @@
   display: flex;
 }
 
-.member-status {
-  font-size: 11px;
+.badge-holder {
   position: absolute;
   top: 0;
+  display: flex;
   right: 0;
-  padding: 5px;
 
-  &.member-pending {
-    background-color: #F57C00;
-    color: white;
-  }
+  .member-status {
+    font-size: 11px;
+    padding: 5px;
 
-  &.member-active {
-    background-color: #26A69A;
-    color: white;
+    &.member-pending {
+      background-color: #f57c00;
+      color: white;
+    }
+
+    &.member-owner {
+      background-color: #03a9f4;
+      color: white;
+    }
+
+    &.member-active {
+      background-color: #26a69a;
+      color: white;
+    }
   }
 }

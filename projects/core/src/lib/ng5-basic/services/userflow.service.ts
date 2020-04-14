@@ -87,6 +87,14 @@ export class UserFlowService {
     onTokenDestroied = (res: any) => {}
   ) {
     this.auth.events.subscribe((event) => {
+      if (event.type === 'SIGNUP_SUCCESS') {
+        this.config.ShowToast({
+          title: this.config.translate('signup_success_title'),
+          message: this.config.translate('signup_success_message'),
+          type: 'SUCCESS',
+        });
+      }
+
       if (event.type === 'LOGIN_SUCCESS' || event.type === 'SIGNUP_SUCCESS') {
         if (onLogin) {
           onLogin(event);
