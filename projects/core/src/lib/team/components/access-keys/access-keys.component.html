@@ -1,0 +1,28 @@
+<ngd-interactive-note [note]="note"></ngd-interactive-note>
+
+<div class="row">
+  <div
+    class="col-lg-12"
+    *ngFor="let accessKey of accessKeys"
+    [ngClass]="{
+      'highlight-warning': accessKey.$isBeingDeleted,
+      fadeout: accessKey.$isBeingDeleted
+    }"
+  >
+    <ng-page-container
+      maintitle="{{ accessKey.name }}"
+      class="access-key-id-{{ accessKey.id }} access-key-box"
+      [actions]="teamActions"
+      [params]="{ accessKey: accessKey }"
+    >
+      <div class="access-key-content">
+        <span (click)="toggle()" class="toggle-short-mode">
+          {{ (shortMode ? 'show' : 'hide') | t }}</span
+        >
+        <span class="access-key-code" [ngClass]="{ 'short-mode': shortMode }">
+          {{ accessKey.key }}
+        </span>
+      </div>
+    </ng-page-container>
+  </div>
+</div>

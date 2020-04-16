@@ -97,6 +97,8 @@ import { RoleFormComponent } from './ng5-basic/components/role-form/role-form.co
 import { FormMultiSelectComponent } from './ng5-basic/components/form-multiselect/form-multiselect.component';
 import { ResponsiveTableComponent } from './ng5-basic/components/responsive-table/responsive-table.component';
 import { RoleService } from './team/role.service';
+import { AccessKeyFormComponent } from './team/components/access-key-form/access-key-form.component';
+import { AccessKeysComponent } from './team/components/access-keys/access-keys.component';
 
 export const customCurrencyMaskConfig = {
   align: 'left',
@@ -149,6 +151,8 @@ export const customCurrencyMaskConfig = {
     PaymentCallbackComponent,
     PaymentsComponent,
     InviteFormComponent,
+    AccessKeysComponent,
+    AccessKeyFormComponent,
     ProfileAvatarComponent,
     TeamsComponent,
     TeamFormComponent,
@@ -216,6 +220,8 @@ export const customCurrencyMaskConfig = {
     PaymentCallbackComponent,
     PaymentsComponent,
     InviteFormComponent,
+    AccessKeyFormComponent,
+    AccessKeysComponent,
     ProfileAvatarComponent,
     TeamsComponent,
     TeamFormComponent,

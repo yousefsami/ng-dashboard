@@ -1,0 +1,23 @@
+@import '../../../ng5-basic/scss/core';
+
+.access-key-code {
+  
+  word-break: break-all;
+  &.short-mode {
+    word-break: keep-all;
+    width: 75px;
+    overflow-x: hidden;
+    display: inline-block;
+  }
+}
+
+.toggle-short-mode {
+  color: $primaryColor;
+  cursor: pointer;
+  float: left;
+  margin-right: 15px;
+}
+
+.access-key-content {
+  min-height: 30px;
+}

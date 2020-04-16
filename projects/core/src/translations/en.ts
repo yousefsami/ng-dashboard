@@ -157,4 +157,19 @@ export const NgDashboardEn = {
   signup_success_title: 'Signup successful!',
   signup_success_message: 'Your account has been created successfully.',
   service_deactive_confirmation: 'Are you sure to deactive this service?',
+  access_and_thirdparty: 'Apps & Access',
+  access_keys: 'Access keys',
+  new_access_key: 'New access key',
+  create_access_key: 'Create access key',
+  create_access_key_description:
+    'Give your access key a name and add access roles (scopes) that key can access for reading/writing.',
+  access_key_name: 'Access key name',
+  access_key_created: 'Access key has been created',
+  access_key_has_been_deleted: 'Access key has been deleted',
+  no_access_keys:
+    'You have no access keys (token) setup for thirdparties at the moment.',
+  delete_accessـkey: 'Delete Key',
+  edit_access_key: 'Edit Key',
+  delete_access_key_confirmation:
+    'Are you sure to delete this access key? Applications using this key will stop working.',
 };

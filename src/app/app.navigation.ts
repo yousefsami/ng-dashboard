@@ -2,6 +2,7 @@ import {
   TeamNavigation,
   INavigation,
   UserNavigation,
+  AccessTokenNavigation,
 } from 'projects/core/src/public_api';
 
 export const AppNavigation: INavigation[] = [
@@ -32,6 +33,7 @@ export const AppNavigation: INavigation[] = [
   },
   ...TeamNavigation,
   ...UserNavigation,
+  ...AccessTokenNavigation,
   {
     type: 'AngularRouter',
     title: 'Developer',

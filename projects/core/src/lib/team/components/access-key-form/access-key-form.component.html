@@ -1,0 +1,56 @@
+<ng-page-container
+  maintitle="{{ 'create_access_key' | t }}"
+  subtitle="{{ 'create_access_key_description' | t }}"
+>
+  <form [formGroup]="form">
+    <div class="row">
+      <ngd-form-text
+        formControlName="name"
+        field="name"
+        [optional]="false"
+        [autofocus]="true"
+        id="access-key-form-name-input"
+        label="{{ 'access_key_name' | t }}"
+        [edit]="isEditing && !form.value.readonly"
+        [res]="res"
+        [submit]="submitRes"
+        placeholder="{{ 'access_key_name' | t }}"
+      ></ngd-form-text>
+    </div>
+    <div class="row">
+      <ng-form-multiselect
+        class="col-12"
+        formControlName="roles"
+        field="roles"
+        id="invite-role-input"
+        label="{{ 'invitation_roles_label' | t }}"
+        [edit]="isEditing && !form.value.readonly"
+        [optional]="false"
+        [res]="res"
+        [submit]="submitRes"
+        placeholder="{{ 'invitation_roles_placeholder' | t }}"
+        [items]="roles"
+      ></ng-form-multiselect>
+    </div>
+
+    <hr />
+    <div class="row">
+      <div class="col-md-6">
+        <button
+          [disabled]="working"
+          (click)="onSubmit()"
+          class="btn btn-primary"
+        >
+          {{ (form.value.id ? 'update_access_key' : 'create_access_key') | t }}
+        </button>
+        <button
+          routerLink="/access-keys"
+          id="access-key-form-cancel"
+          class="btn"
+        >
+          {{ 'cancel' | t }}
+        </button>
+      </div>
+    </div>
+  </form>
+</ng-page-container>

@@ -383,3 +383,9 @@ export interface IResponsiveTableAction {
   onClick?: any;
   keyCode?: any;
 }
+
+export interface IAccessKey {
+  name: string;
+  id?: number;
+  roles: Array<number>;
+}

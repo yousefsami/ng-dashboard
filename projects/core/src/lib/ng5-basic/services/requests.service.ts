@@ -200,6 +200,24 @@ export class RequestsService {
       .toPromise();
   }
 
+  public async PostAccessKey(data): Promise<IResponse<any>> {
+    return await this.http
+      .post(this.config.API('/api/user/access-key'), data)
+      .toPromise();
+  }
+
+  public async DeleteAccessKey(key: string): Promise<IResponse<any>> {
+    return await this.http
+      .post(this.config.API('/api/user/signout'), { token: key })
+      .toPromise();
+  }
+
+  public async GetAccessKeys(): Promise<IResponse<any>> {
+    return await this.http
+      .get(this.config.API('/api/user/access-keys'))
+      .toPromise();
+  }
+
   public async UserSignout(token): Promise<IResponse<any>> {
     return await this.http
       .post(this.config.API('/api/user/signout'), { token })

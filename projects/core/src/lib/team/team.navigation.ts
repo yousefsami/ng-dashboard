@@ -67,3 +67,26 @@ export const UserNavigation: Array<INavigation> = [
     ],
   },
 ];
+
+export const AccessTokenNavigation: Array<INavigation> = [
+  {
+    title: 'access_and_thirdparty',
+    id: 'access_and_thirdparty',
+    children: [
+      {
+        title: 'access_keys',
+        id: 'access_keys',
+        link: '/access-keys',
+        activeMatches: ['/access-key/[0-9]', '/access-keys'],
+        permissions: ['WRITE_TEAM'],
+      },
+      {
+        title: 'new_access_key',
+        id: 'new_access_key',
+        link: '/new-access-key',
+        activeMatches: ['/new-access-key'],
+        permissions: ['WRITE_TEAM'],
+      },
+    ],
+  },
+];

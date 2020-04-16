@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
-import { IUser } from '../definitions';
+import { IUser, IAccessKey } from '../definitions';
 import { RouterService } from './router.service';
 import { CookiesService } from 'ngx-universal-cookies';
 import { BehaviorSubject } from 'rxjs';
@@ -8,6 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable()
 export class UserService {
   public CurrentUser: BehaviorSubject<IUser> = new BehaviorSubject(null);
+  public AccessKeys: BehaviorSubject<IAccessKey[]> = new BehaviorSubject([]);
 
   private token: string;
 
@@ -101,6 +102,29 @@ export class UserService {
   public Revoke() {
     this.SetToken(null);
     this.SetUser(null);
+  }
+
+  public InsertAccessKey(accessKey: IAccessKey) {
+    this.AccessKeys.next([...this.AccessKeys.value, accessKey]);
+  }
+
+  public DeleteAccessKey(accessKey: IAccessKey) {
+    this.AccessKeys.next(
+      this.AccessKeys.value.filter((t) => t.id !== accessKey.id)
+    );
+  }
+
+  public UpdateAccessKey(accessKey: IAccessKey) {
+    this.AccessKeys.next(
+      this.AccessKeys.value.map((t) => {
+        if (t.id === accessKey.id) {
+          return {
+            ...accessKey,
+          };
+        }
+        return t;
+      })
+    );
   }
 }
 
