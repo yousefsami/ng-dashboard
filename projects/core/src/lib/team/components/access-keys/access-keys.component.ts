@@ -68,8 +68,8 @@ export class AccessKeysComponent extends NgdBaseComponent implements OnInit {
     this.shortMode = !this.shortMode;
   }
 
-  editAccessKey(id: number) {
-    this.router.navigateByUrl('/access-key/' + id);
+  editAccessKey(accessKey: IAccessKey) {
+    this.router.navigateByUrl('/access-key/' + accessKey.id);
   }
 
   ngOnInit() {

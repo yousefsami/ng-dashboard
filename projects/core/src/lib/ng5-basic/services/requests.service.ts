@@ -218,6 +218,12 @@ export class RequestsService {
       .toPromise();
   }
 
+  public async GetAccessKey(id: number): Promise<IResponse<any>> {
+    return await this.http
+      .get(this.config.API('/api/user/access-key/' + id))
+      .toPromise();
+  }
+
   public async UserSignout(token): Promise<IResponse<any>> {
     return await this.http
       .post(this.config.API('/api/user/signout'), { token })

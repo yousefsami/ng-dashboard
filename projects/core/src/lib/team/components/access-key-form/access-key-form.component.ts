@@ -63,7 +63,7 @@ export class AccessKeyFormComponent extends NgdBaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.fetchTeam();
+    this.fetchAccessKey();
     this.GetRoles();
 
     this.ComponentSubscription(
@@ -78,13 +78,13 @@ export class AccessKeyFormComponent extends NgdBaseComponent implements OnInit {
     );
   }
 
-  async fetchTeam() {
+  async fetchAccessKey() {
     const { id } = this.route.snapshot.params;
 
     if (!id || isNaN(+id)) {
       return;
     }
-    const res = await this.StartRequest(() => this.requests.GetTeam(id));
+    const res = await this.StartRequest(() => this.requests.GetAccessKey(id));
 
     if (res.item) {
       this.form.patchValue(res.item);
