@@ -172,4 +172,5 @@ export const NgDashboardEn = {
   edit_access_key: 'Edit Key',
   delete_access_key_confirmation:
     'Are you sure to delete this access key? Applications using this key will stop working.',
+  pending: 'Pending',
 };
