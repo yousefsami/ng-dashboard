@@ -24,6 +24,8 @@ export class ProfileComponent extends ProfileCommon implements OnInit {
   @ViewChild(NgMediaComponent, { static: false })
   public attachments: NgMediaComponent;
 
+  public isEditing = true;
+
   constructor(
     public requests: RequestsService,
     public user: UserService,
@@ -38,7 +40,13 @@ export class ProfileComponent extends ProfileCommon implements OnInit {
   }
 
   async ngOnInit() {
-    this.fetch();
+    this.ComponentSubscription(
+      this.user.CurrentUser.subscribe((user) => {
+        this.form.patchValue({
+          ...user,
+        });
+      })
+    );
 
     this.SetInteractiveButtons([
       {
@@ -47,12 +55,6 @@ export class ProfileComponent extends ProfileCommon implements OnInit {
         onPress: debounce(this.onSubmit.bind(this), 500),
       },
     ]);
-  }
-
-  private async fetch() {
-    this.form.patchValue({
-      ...this.user.UserSnapshot,
-    });
   }
 
   public get language() {

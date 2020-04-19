@@ -1,1 +1,6 @@
- 
+::ng-deep {
+
+  #role-permissions-input label {
+    word-break: break-all;
+  }
+}

@@ -5,7 +5,5 @@
   subtitle="{{ 'payments_description' | t }}"
   *ngIf="payments && payments.length"
 >
-  <div class="box-wrapper" *ngFor="let payment of payments">
-    <h3>{{ payment.amount }} {{ payment.currency }}: {{ payment.status }}</h3>
-  </div>
+  <ng-responsive-table [actions]="actions" [rows]="rows"></ng-responsive-table>
 </ng-page-container>

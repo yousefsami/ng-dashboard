@@ -1,7 +1,10 @@
 <ng-container *ngFor="let row of rows">
   <div
     class="responsive-list-tr"
-    [ngClass]="{ 'ngd-focused-row': IsFocusedRow(row.id) }"
+    [ngClass]="{
+      'ngd-focused-row': IsFocusedRow(row.id),
+      clickable: row.routerLink ? true : false
+    }"
   >
     <a
       [routerLink]="row.routerLink ? row.routerLink : undefined"

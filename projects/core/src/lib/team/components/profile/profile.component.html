@@ -10,8 +10,6 @@
     {{ 'switch_to_english' | t }}
   </button>
 
-  &nbsp;
-
   <button
     (click)="changeLanguage('pl')"
     class="btn btn-primary"
@@ -54,46 +52,62 @@
     maintitle="{{ 'my_profile' | t }}"
     subtitle="{{ 'my_profile_description' | t }}"
   >
-    <div class="row" *ngIf="form">
-      <div class="form-group col-md-6">
-        <label>{{ 'email' | t }}</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="email"
-          placeholder="{{ 'email_placeholder' | t }}"
-        />
+    <div class="row">
+      <ngd-form-text
+        formControlName="email"
+        field="email"
+        id="user-form-email-input"
+        [optional]="false"
+        label="{{ 'email' | t }}"
+        [edit]="false"
+        [res]="res"
+        [submit]="submitRes"
+        placeholder="{{ 'email_placeholder' | t }}"
+      ></ngd-form-text>
+      <div class="col-12 email-cannot-changed">
+        <div>{{ 'email_cannot_be_changed' | t }}</div>
       </div>
-      <div class="form-group col-md-6">
-        <label>{{ 'firstname' | t }}</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="firstname"
-          placeholder="{{ 'firstname_place_holder' | t }}"
-        />
-      </div>
-      <div class="form-group col-md-6">
-        <label>{{ 'lastname' | t }}</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="lastname"
-          placeholder="{{ 'lastname_place_holder' | t }}"
-        />
-      </div>
-      <div class="form-group col-md-6">
-        <label>{{ 'phone' | t }}</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="phone"
-          placeholder="{{ 'phone_place_holder' | t }}"
-        />
-      </div>
+
+      <ngd-form-text
+        formControlName="firstname"
+        field="firstname"
+        id="user-form-firstname-input"
+        label="{{ 'firstname' | t }}"
+        [edit]="isEditing"
+        [res]="res"
+        [submit]="submitRes"
+        placeholder="{{ 'firstname_place_holder' | t }}"
+      ></ngd-form-text>
+
+      <ngd-form-text
+        formControlName="lastname"
+        field="lastname"
+        id="user-form-lastname-input"
+        label="{{ 'lastname' | t }}"
+        [edit]="isEditing"
+        [res]="res"
+        [submit]="submitRes"
+        placeholder="{{ 'lastname_place_holder' | t }}"
+      ></ngd-form-text>
+
+      <ngd-form-text
+        formControlName="phone"
+        field="phone"
+        id="user-form-phone-input"
+        label="{{ 'phone' | t }}"
+        [edit]="isEditing"
+        [res]="res"
+        [submit]="submitRes"
+        placeholder="{{ 'phone_place_holder' | t }}"
+      ></ngd-form-text>
     </div>
-    <button [disabled]="working" (click)="onSubmit()" class="btn btn-primary">
-      {{ (form.value.id ? 'update_statement' : 'create_statement') | t }}
+    <button
+      [disabled]="working"
+      type="submit"
+      (click)="onSubmit()"
+      class="btn btn-primary"
+    >
+      {{ 'update_profile' | t }}
     </button>
   </ng-page-container>
 </form>

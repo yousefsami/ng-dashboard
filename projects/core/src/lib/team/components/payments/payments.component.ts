@@ -3,7 +3,13 @@ import { IPayment } from '../../team.definitions';
 import { RequestsService } from '../../../ng5-basic/services/requests.service';
 import { ConfigurationService } from '../../../ng5-basic/services/configuration.service';
 import { NgdBaseComponent } from '../../../ng5-basic/services/ngd-base.component';
-import { IInteractiveNote } from '../../../ng5-basic/definitions';
+import {
+  IInteractiveNote,
+  IResponsiveTableAction,
+  IResponsiveTableRow,
+} from '../../../ng5-basic/definitions';
+import { RouterService } from '../../../ng5-basic/services/router.service';
+import { CurrencyFormat, DateFormat } from '../../../ng5-basic/services/common';
 
 const NoPayments: IInteractiveNote = {
   title: 'no_payments',
@@ -18,10 +24,13 @@ const NoPayments: IInteractiveNote = {
 export class PaymentsComponent extends NgdBaseComponent implements OnInit {
   public payments: Array<IPayment> = [];
   public note: IInteractiveNote = null;
+  public rows: IResponsiveTableRow[] = [];
+  public actions: IResponsiveTableAction[] = [];
 
   constructor(
     private requests: RequestsService,
-    public config: ConfigurationService
+    public config: ConfigurationService,
+    private ngdRouter: RouterService
   ) {
     super();
   }
@@ -30,13 +39,49 @@ export class PaymentsComponent extends NgdBaseComponent implements OnInit {
     const res = await this.StartRequest<IPayment>(() =>
       this.requests.GetPayments()
     );
+    res.items = [
+      {
+        currency: 'pln',
+        gateway: 'STRIPE',
+        status: 'PENDING',
+        type: 'SINGLE_TIME',
+        description: 'Payment for few products',
+        team: 1,
+        user: 1,
+        title: 'Payment 1',
+        id: 10,
+        gateway_data: {},
+        amount: 2000,
+        date_received: new Date().toString(),
+        date_transferred: new Date().toString(),
+      },
+    ];
 
-    if (!res.item || !res.items || res.items.length === 0) {
+    if (!res.items || res.items.length === 0) {
       this.note = NoPayments;
     } else {
       this.note = null;
     }
-
+    this.rows = this.RolesToRows(res.items);
     this.payments = res.items;
+  }
+
+  public RolesToRows(payments: IPayment[]): IResponsiveTableRow[] {
+    return payments.map((payment) => {
+      return {
+        title: CurrencyFormat(payment.amount, payment.currency),
+        entity: payment,
+        cells: [
+          {
+            label: this.config.translate('payment_date'),
+            value: DateFormat(payment.date_received),
+          },
+          {
+            label: this.config.translate('payment_status'),
+            value: payment.status,
+          },
+        ],
+      };
+    });
   }
 }

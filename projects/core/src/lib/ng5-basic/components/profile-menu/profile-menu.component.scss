@@ -56,5 +56,14 @@
 
 .active-bullet {
   margin-left: -10px;
-  color: blue;
+  color: #007bff;
+}
+
+#ngd-user-profile-button {
+  cursor: pointer;
+  transition: 0.2s color ease-in-out;
+  
+  &:hover {
+    color: #007bff;
+  }
 }

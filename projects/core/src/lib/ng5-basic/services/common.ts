@@ -467,3 +467,11 @@ export function LanguagePrefixMatcher(
 export const ERROR_CODES = {
   REQUIRED_FIELD: 'required_field',
 };
+
+export function DateFormat(date) {
+  return new Date(date).toLocaleDateString('en-US', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  });
+}

@@ -78,6 +78,8 @@ export const NgDashboardEn = {
     'Bug report failed. If you have severe problem, try to call us.',
   bug_report_done: 'Your bug report has been sent. Many thanks.',
   payments: 'Payments',
+  payments_description:
+    'Here are a list of your payments, both successful, and pending.',
   my_profile_avatar: 'Your profile avatar',
   my_profile_avatar_description:
     'Upload your image, or picture that identifies you. It will be really helpful for rest of your team members',
@@ -173,4 +175,21 @@ export const NgDashboardEn = {
   delete_access_key_confirmation:
     'Are you sure to delete this access key? Applications using this key will stop working.',
   pending: 'Pending',
+  invitation_link_copied: 'Invitation link has been copied.',
+  delete_account: 'Delete account',
+  delete_account_description: 'Delete your account and all stored data',
+  delete_account_explanation:
+    'You can delete your account, and all of your related information that we store.' +
+    'This will cause your profile, teams, transactions, bank data, and pretty much every other sort of information be deleted.' +
+    ' If you are using our country based services, you need to contact us in order to get your documents back.',
+  delete_my_account: 'I understand and want to delete.',
+  delete_confirm: 'Delete confirm',
+  delete_confirm_message:
+    'Are you sure to delete all of your data and profile? There is no way back!',
+  update_profile: 'Update profile',
+  email_cannot_be_changed:
+    'Email address cannot be changed. If you want to add a new email to this account, go to your teams, and invite that new email',
+  your_profile: 'Your profile',
+  payment_date: 'Payment date',
+  payment_status: 'Payment status',
 };
