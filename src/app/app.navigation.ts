@@ -7,6 +7,11 @@ import {
 
 export const AppNavigation: INavigation[] = [
   {
+    title: 'Guide',
+    link: '/guide',
+    type: 'INTER_TEAM',
+  },
+  {
     title: 'Authentications (Public)',
     children: [
       {

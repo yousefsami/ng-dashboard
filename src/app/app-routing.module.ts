@@ -37,16 +37,18 @@ const routes: Routes = [
     path: ':teamId',
     canActivate: [TeamGuardAuth, AccessWithTokenGuard],
     component: LayoutComponent,
-    children: [...TeamRoutesAsTeam],
+    children: [
+      ...TeamRoutesAsTeam,
+      {
+        path: 'guide',
+        component: GuideComponent,
+      },
+    ],
   },
   {
     component: LayoutComponent,
     path: ':lang',
     children: [
-      {
-        path: '',
-        component: GuideComponent,
-      },
       {
         path: 'login',
         component: LoginFormComponent,
