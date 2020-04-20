@@ -63,6 +63,7 @@ export interface IPayment {
   date_received?: string;
   date_transferred?: string;
   external_key?: string;
+  createdAt?: string;
   gateway: 'MANUAL' | 'STRIPE';
   gateway_data: any;
   type: 'SINGLE_TIME';

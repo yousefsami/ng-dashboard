@@ -29,8 +29,7 @@ export class PaymentsComponent extends NgdBaseComponent implements OnInit {
 
   constructor(
     private requests: RequestsService,
-    public config: ConfigurationService,
-    private ngdRouter: RouterService
+    public config: ConfigurationService
   ) {
     super();
   }
@@ -57,7 +56,7 @@ export class PaymentsComponent extends NgdBaseComponent implements OnInit {
         cells: [
           {
             label: this.config.translate('payment_date'),
-            value: DateFormat(payment.date_received),
+            value: DateFormat(payment.createdAt),
           },
           {
             label: this.config.translate('payment_status'),
