@@ -39,23 +39,6 @@ export class PaymentsComponent extends NgdBaseComponent implements OnInit {
     const res = await this.StartRequest<IPayment>(() =>
       this.requests.GetPayments()
     );
-    res.items = [
-      {
-        currency: 'pln',
-        gateway: 'STRIPE',
-        status: 'PENDING',
-        type: 'SINGLE_TIME',
-        description: 'Payment for few products',
-        team: 1,
-        user: 1,
-        title: 'Payment 1',
-        id: 10,
-        gateway_data: {},
-        amount: 2000,
-        date_received: new Date().toString(),
-        date_transferred: new Date().toString(),
-      },
-    ];
 
     if (!res.items || res.items.length === 0) {
       this.note = NoPayments;
