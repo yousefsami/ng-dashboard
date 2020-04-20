@@ -27,21 +27,6 @@
   &:hover {
     color: #4c84ff;
   }
-  @media (max-width: 475px) {
-    .pname {
-      font-size: 14px;
-      font-size: 14px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 95px;
-    }
-  }
-}
-
-.pname {
-  margin-left: 15px;
-  margin-right: 0;
 }
 
 .ngd-user-profile {
@@ -62,7 +47,7 @@
 #ngd-user-profile-button {
   cursor: pointer;
   transition: 0.2s color ease-in-out;
-  
+
   &:hover {
     color: #007bff;
   }

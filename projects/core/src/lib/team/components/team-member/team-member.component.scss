@@ -15,19 +15,10 @@
   .user-no-avatar {
     font-size: 45px;
   }
-  transition: 0.2s border ease-in-out;
-  cursor: pointer;
-
-  &:hover {
-    border: 1px solid $primaryColor;
-  }
 }
 
 .team-members {
   display: flex;
-  @include phone() {
-    flex-direction: column;
-  }
 }
 
 .badge-holder {

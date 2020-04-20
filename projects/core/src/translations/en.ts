@@ -192,4 +192,6 @@ export const NgDashboardEn = {
   your_profile: 'Your profile',
   payment_date: 'Payment date',
   payment_status: 'Payment status',
+  team_member_details:
+    'At the moment, there are not team member details are available.',
 };

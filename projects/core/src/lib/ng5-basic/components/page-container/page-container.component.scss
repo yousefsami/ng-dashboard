@@ -18,6 +18,13 @@
   align-items: center;
 }
 
+@include phone() {
+
+  .ng-section-container-description {
+    font-size: 13px;
+  }
+}
+
 .action-icon-button {
   display: inline-flex;
   align-items: center;

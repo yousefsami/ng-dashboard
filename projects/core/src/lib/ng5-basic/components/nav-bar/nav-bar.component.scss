@@ -36,43 +36,7 @@
     font-size: 15px;
   }
 }
-
-.active-application-wrapper {
-  overflow: hidden;
-  float: left;
-  .active-application {
-    display: table;
-    margin-left: 10px;
-    > div {
-      display: table-cell;
-      vertical-align: middle;
-      text-align: center;
-    }
-    .application-title {
-      text-indent: 10px;
-      max-width: 100px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      @media (max-width: 400px) {
-        font-size: 13px;
-      }
-    }
-    .application-avatar {
-      width: 43px;
-      height: 43px;
-      background: #dbe7ff;
-      color: #6091fe;
-      border-radius: 5px;
-      font-weight: bold;
-      @media (max-width: 400px) {
-        max-width: 35px;
-        font-size: 13px;
-      }
-    }
-  }
-}
-
+ 
 @media (min-width: 576px) {
   .application-title {
     text-indent: 10px;

@@ -1,8 +1,13 @@
-
-
 .interactive-buttons {
   font-size: 28px;
 
+  @media screen and (max-width: 400px) {
+    > .interactive-button-item:nth-child(n + 3) {
+      display: none;
+    }
+  }
+
+   
   .clickable {
     cursor: pointer;
     &:hover {

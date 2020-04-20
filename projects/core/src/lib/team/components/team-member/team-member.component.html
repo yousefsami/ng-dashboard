@@ -1,0 +1,10 @@
+<ngd-interactive-note [note]="note"></ngd-interactive-note>
+
+<ng-page-container
+  maintitle="{{ MemberName(Form) }}"
+  class="team-box"
+  [actions]="teamActions"
+  [params]="{ team: team }"
+>
+  <span>{{ 'team_member_details' | t }}</span>
+</ng-page-container>

@@ -3,10 +3,15 @@
     <div class="box-title">
       <div class="page-container-title">
         <div class="d-2">
-          <h2 [title]="maintitle" class="app-page-title">
+          <h2
+            [title]="maintitle"
+            class="app-page-title ng-section-container-title"
+          >
             {{ maintitle | t }}
           </h2>
-          <p [title]="subtitle">{{ subtitle | t }}</p>
+          <p class="ng-section-container-description" [title]="subtitle">
+            {{ subtitle | t }}
+          </p>
         </div>
         <div class="d-2">
           <ng-content select="[action-button]"></ng-content>

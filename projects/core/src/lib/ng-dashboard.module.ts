@@ -99,6 +99,7 @@ import { ResponsiveTableComponent } from './ng5-basic/components/responsive-tabl
 import { RoleService } from './team/role.service';
 import { AccessKeyFormComponent } from './team/components/access-key-form/access-key-form.component';
 import { AccessKeysComponent } from './team/components/access-keys/access-keys.component';
+import { TeamMemberComponent } from './team/components/team-member/team-member.component';
 
 export const customCurrencyMaskConfig = {
   align: 'left',
@@ -155,6 +156,7 @@ export const customCurrencyMaskConfig = {
     AccessKeyFormComponent,
     ProfileAvatarComponent,
     TeamsComponent,
+    TeamMemberComponent,
     TeamFormComponent,
     PackageSingleComponent,
     PackageListComponent,
@@ -224,6 +226,7 @@ export const customCurrencyMaskConfig = {
     AccessKeysComponent,
     ProfileAvatarComponent,
     TeamsComponent,
+    TeamMemberComponent,
     TeamFormComponent,
     PackageSingleComponent,
     PackageListComponent,

@@ -537,6 +537,10 @@ export abstract class NgdBaseComponent implements OnDestroy {
   }
 
   public get Form() {
+    if (!this.form) {
+      return null;
+    }
+
     return this.form.value;
   }
 }

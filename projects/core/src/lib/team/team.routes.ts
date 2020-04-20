@@ -11,6 +11,7 @@ import { RoleListComponent } from '../ng5-basic/components/role-list/role-list.c
 import { RoleFormComponent } from '../ng5-basic/components/role-form/role-form.component';
 import { AccessKeyFormComponent } from './components/access-key-form/access-key-form.component';
 import { AccessKeysComponent } from './components/access-keys/access-keys.component';
+import { TeamMemberComponent } from './components/team-member/team-member.component';
 
 export const TeamRoutesAsUser: Routes = [
   {
@@ -30,8 +31,16 @@ export const TeamRoutesAsUser: Routes = [
     component: InviteFormComponent,
   },
   {
+    path: 'invite/:id',
+    component: InviteFormComponent,
+  },
+  {
     path: 'teams',
     component: TeamsComponent,
+  },
+  {
+    path: 'team/:team_id/:member_id',
+    component: TeamMemberComponent,
   },
 
   {
