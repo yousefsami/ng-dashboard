@@ -3,15 +3,21 @@
 <div
   [ngClass]="{
     'ngd-sidebar-visible': isSidebarVisible,
+    'ngd-sidebar-invisible': !isSidebarVisible,
     'ngd-has-toolbar': toolbarData ? true : false
   }"
   class="ngd-outlet"
   (click)="sideOff()"
 >
-  <ngd-toolbar
-    *ngIf="toolbarData"
-    [isSidebarVisible]="isSidebarVisible"
-    [toolbarData]="toolbarData"
-  ></ngd-toolbar>
-  <router-outlet class="layout-router-outlet" #outlet="outlet"></router-outlet>
+  <div style="min-height: 101%;">
+    <ngd-toolbar
+      *ngIf="toolbarData"
+      [isSidebarVisible]="isSidebarVisible"
+      [toolbarData]="toolbarData"
+    ></ngd-toolbar>
+    <router-outlet
+      class="layout-router-outlet"
+      #outlet="outlet"
+    ></router-outlet>
+  </div>
 </div>

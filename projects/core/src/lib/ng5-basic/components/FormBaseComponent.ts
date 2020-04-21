@@ -50,7 +50,7 @@ export class FormBaseComponent implements ControlValueAccessor {
   }
 
   writeValue(value: any): void {
-    if (!value) {
+    if (!value && value !== false) {
       return;
     }
     this.value = value;

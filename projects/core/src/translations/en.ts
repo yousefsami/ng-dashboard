@@ -194,4 +194,7 @@ export const NgDashboardEn = {
   payment_status: 'Payment status',
   team_member_details:
     'At the moment, there are not team member details are available.',
+  is_super_user_label: 'Give this role owner (super) accesses.',
+  yes: 'Yes',
+  no: 'No',
 };

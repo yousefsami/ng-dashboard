@@ -44,7 +44,7 @@ export class UserService {
 
     const permissions = this.GetPermissions(teamId);
 
-    if (permissions.indexOf('*.*') > -1) {
+    if (permissions.indexOf('TEAM.*') > -1) {
       return true;
     }
 
@@ -78,7 +78,7 @@ export class UserService {
 
     for (const role of this.UserSnapshot.roles) {
       if (role.team === teamId) {
-        permissions = [...permissions, ...role.permissions];
+        permissions = [...permissions, ...(role.permissions || [])];
       }
     }
 

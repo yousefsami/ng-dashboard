@@ -53,8 +53,8 @@ export class RoleFormComponent extends NgdRouteEntryPointComponent
     id: new FormControl(null),
     title: new FormControl(null),
     readonly: new FormControl(false),
-    isSuperUser: new FormControl(false),
-    permissions: new FormControl(['ADD_MEMBER_TO_TEAM']),
+    isSuperUser: new FormControl(true),
+    permissions: new FormControl([]),
   });
 
   constructor(
@@ -81,8 +81,17 @@ export class RoleFormComponent extends NgdRouteEntryPointComponent
   }
 
   public async onSubmit() {
+    const data = this.form.value;
+
+    console.log(data);
+    if (data.isSuperUser) {
+      data.permissions = ['TEAM.*'];
+    } else {
+      data.permissions = data.permissions.filter((p) => p !== 'TEAM.*');
+    }
+
     const result = await this.StartValidatedRequest<IRole>(() =>
-      this.requests.PostRole(this.form.value)
+      this.requests.PostRole(data)
     );
 
     if (result.item) {
@@ -113,9 +122,9 @@ export class RoleFormComponent extends NgdRouteEntryPointComponent
     const res = await this.StartRequest<IRole>(() => this.requests.GetRole(id));
 
     if (res.item) {
-      const isSuperUser = res.item.permissions.indexOf('*.*') > -1;
+      const isSuperUser = res.item.permissions.indexOf('TEAM.*') > -1;
+      console.log('+', isSuperUser, res.item);
 
-      console.log(isSuperUser);
       this.form.patchValue({
         ...res.item,
         isSuperUser,

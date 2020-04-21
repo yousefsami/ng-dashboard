@@ -100,6 +100,7 @@ import { RoleService } from './team/role.service';
 import { AccessKeyFormComponent } from './team/components/access-key-form/access-key-form.component';
 import { AccessKeysComponent } from './team/components/access-keys/access-keys.component';
 import { TeamMemberComponent } from './team/components/team-member/team-member.component';
+import { FormCheckboxComponent } from './ng5-basic/components/form-checkbox/form-checkbox.component';
 
 export const customCurrencyMaskConfig = {
   align: 'left',
@@ -173,8 +174,10 @@ export const customCurrencyMaskConfig = {
     RoleFormComponent,
     FormMultiSelectComponent,
     ResponsiveTableComponent,
+    FormCheckboxComponent,
   ],
   exports: [
+    FormCheckboxComponent,
     ResponsiveTableComponent,
     FormMultiSelectComponent,
     RoleListComponent,

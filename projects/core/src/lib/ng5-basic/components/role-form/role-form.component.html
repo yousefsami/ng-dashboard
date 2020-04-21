@@ -4,7 +4,7 @@
     maintitle="{{ 'role_form_title' | t }}"
     subtitle="{{ 'role_form_description' | t }}"
   >
-    <div class="row" *ngIf="form">
+    <div class="row">
       <ngd-form-text
         formControlName="title"
         field="title"
@@ -17,6 +17,19 @@
         [submit]="submitRes"
         placeholder="{{ 'role_title_placeholder' | t }}"
       ></ngd-form-text>
+    </div>
+    <div class="row">
+      <ngd-form-checkbox
+        formControlName="isSuperUser"
+        field="super-user"
+        id="role-super-user-input"
+        label="{{ 'is_super_user_label' | t }}"
+        [edit]="isEditing && !form.value.readonly"
+        [optional]="true"
+        [res]="res"
+        [submit]="submitRes"
+        placeholder="{{ 'is_super_user_placeholder' | t }}"
+      ></ngd-form-checkbox>
     </div>
 
     <span *ngIf="Form.isSuperUser">{{ 'this_role_is_super_user' | t }}</span>
