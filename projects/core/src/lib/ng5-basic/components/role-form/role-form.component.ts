@@ -85,9 +85,9 @@ export class RoleFormComponent extends NgdRouteEntryPointComponent
 
     console.log(data);
     if (data.isSuperUser) {
-      data.permissions = ['TEAM.*'];
+      data.permissions = ['TEAM:*'];
     } else {
-      data.permissions = data.permissions.filter((p) => p !== 'TEAM.*');
+      data.permissions = data.permissions.filter((p) => p !== 'TEAM:*');
     }
 
     const result = await this.StartValidatedRequest<IRole>(() =>
@@ -122,7 +122,7 @@ export class RoleFormComponent extends NgdRouteEntryPointComponent
     const res = await this.StartRequest<IRole>(() => this.requests.GetRole(id));
 
     if (res.item) {
-      const isSuperUser = res.item.permissions.indexOf('TEAM.*') > -1;
+      const isSuperUser = res.item.permissions.indexOf('TEAM:*') > -1;
       console.log('+', isSuperUser, res.item);
 
       this.form.patchValue({

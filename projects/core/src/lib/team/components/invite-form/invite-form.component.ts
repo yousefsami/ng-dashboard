@@ -11,6 +11,8 @@ import { RequestsService } from '../../../ng5-basic/services/requests.service';
 import { ERROR_CODES } from '../../../ng5-basic/services/common';
 import { IRole } from '../../../ng5-basic/definitions';
 import { RoleService } from '../../role.service';
+import { IInvitationData } from '../../team.definitions';
+import { ConfirmService } from '../../../ng5-basic/services/confirm.service';
 
 function inviteFormValidate(form): IResponseErrorItem[] {
   const errors: IResponseErrorItem[] = [];
@@ -63,7 +65,8 @@ export class InviteFormComponent extends NgdBaseComponent implements OnInit {
     public config: ConfigurationService,
     private router: Router,
     public ngdRouter: RouterService,
-    private roleService: RoleService
+    private roleService: RoleService,
+    private confirm: ConfirmService
   ) {
     super();
     this.onSubmit = debounce(this.onSubmit, 250);
@@ -144,5 +147,54 @@ export class InviteFormComponent extends NgdBaseComponent implements OnInit {
         this.router.navigateByUrl(`/teams?modified=${result.item.id}`);
       }
     });
+  }
+
+  public deleteInvite() {
+    const entity = this.Form;
+
+    this.confirm
+      .open({
+        content: this.config.translate(
+          'delete_invitation_confirmation',
+          entity
+        ),
+      })
+      .subscribe(async ({ type }) => {
+        if (type !== 'CONFIRMED') {
+          return;
+        }
+
+        const res = await this.StartRequest<any>(() =>
+          this.requests.DeleteInvitation(this.Form.id)
+        );
+        if (res.item) {
+          this.router.navigateByUrl('/teams');
+        }
+      });
+  }
+
+  public resendInvite() {
+    this.confirm
+      .open({
+        content: this.config.translate(
+          'resend_invitation_confirmation',
+          this.Form
+        ),
+      })
+      .subscribe(async ({ type }) => {
+        if (type !== 'CONFIRMED') {
+          return;
+        }
+
+        const res = await this.StartRequest<any>(() =>
+          this.requests.ResendInvitation(this.Form.id)
+        );
+        if (res.item) {
+          this.config.ShowToast({
+            message: this.config.translate('invitation_has_been_resent'),
+            type: 'SUCCESS',
+          });
+        }
+      });
   }
 }

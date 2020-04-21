@@ -44,7 +44,7 @@ export class UserService {
 
     const permissions = this.GetPermissions(teamId);
 
-    if (permissions.indexOf('TEAM.*') > -1) {
+    if (permissions.indexOf('TEAM:*') > -1) {
       return true;
     }
 

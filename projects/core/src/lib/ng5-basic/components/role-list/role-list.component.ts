@@ -111,7 +111,7 @@ export class RoleListComponent extends NgdRouteEntryPointComponent
       const permissions = role.permissions || [];
 
       let value = permissions.length.toString();
-      if (permissions.indexOf('TEAM.*') >= 0) {
+      if (permissions.indexOf('TEAM:*') >= 0) {
         value = this.config.translate('super_user');
       }
 

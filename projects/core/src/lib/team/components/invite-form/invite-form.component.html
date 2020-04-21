@@ -79,6 +79,26 @@
     >
       {{ (form.value.id ? 'update_invitation' : 'create_invitation') | t }}
     </button>
+    &nbsp;
+    <button
+      *ngIf="Form.id"
+      [disabled]="working"
+      (click)="resendInvite()"
+      class="btn btn-secondary"
+      id="resubmit-invitation-button"
+    >
+      {{ 'resend_invitation' | t }}
+    </button>
+    &nbsp;
+    <button
+      *ngIf="Form.id"
+      [disabled]="working"
+      (click)="deleteInvite()"
+      class="btn btn-danger"
+      id="resubmit-invitation-button"
+    >
+      {{ 'delete_invitation' | t }}
+    </button>
     <button routerLink="/teams" id="invite-form-cancel" class="btn">
       {{ 'cancel' | t }}
     </button>

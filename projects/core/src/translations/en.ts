@@ -197,4 +197,11 @@ export const NgDashboardEn = {
   is_super_user_label: 'Give this role owner (super) accesses.',
   yes: 'Yes',
   no: 'No',
+  resend_invitation: 'Resend invitation',
+  delete_invitation: 'Delete invitation',
+  delete_invitation_confirmation:
+    'Invitation will be deleted, and user who has received the email will not be able to join. Are you sure?',
+  resend_invitation_confirmation:
+    'Are you sure to resend the confirmation mail? Ask your recipient to check their junk or spam mailbox instead.',
+  invitation_has_been_resent: 'Invitation has been resent.',
 };

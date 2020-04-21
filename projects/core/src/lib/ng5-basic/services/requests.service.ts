@@ -112,6 +112,18 @@ export class RequestsService {
       .toPromise();
   }
 
+  public async DeleteInvitation(id: number): Promise<IResponse<any>> {
+    return await this.http
+      .delete(this.config.API('/api/user/invitation/' + id))
+      .toPromise();
+  }
+
+  public async ResendInvitation(id: number): Promise<IResponse<any>> {
+    return await this.http
+      .post(this.config.API('/api/user/invitation-resend/' + id), {})
+      .toPromise();
+  }
+
   public async GetServicePackage(id: number) {
     return await this.http
       .get(this.config.API('/api/product/' + id + '?type=service_package'))

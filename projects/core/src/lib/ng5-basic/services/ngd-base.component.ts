@@ -72,7 +72,11 @@ export abstract class NgdBaseComponent implements OnDestroy {
             this.formTouchedElements[lastTouchedField] = true;
           }
 
-          let validation = this.validator(now);
+          let validation = [];
+
+          if (typeof this.validator === 'function') {
+            validation = this.validator(now);
+          }
           validation = validation.filter(
             (t) => this.formTouchedElements[t.location]
           );
@@ -85,7 +89,7 @@ export abstract class NgdBaseComponent implements OnDestroy {
               },
             };
           } else {
-            this.res = null;
+            // this.res = null;
           }
         })
     );
@@ -353,7 +357,11 @@ export abstract class NgdBaseComponent implements OnDestroy {
       this.touchForm();
     }
 
-    if (this.validator && params.validator) {
+    if (
+      this.validator &&
+      params.validator &&
+      typeof this.validator === 'function'
+    ) {
       const formErrors = this.validator(this.form.value);
       if (formErrors.length) {
         this.ResponseFromErrors(formErrors);
@@ -378,13 +386,14 @@ export abstract class NgdBaseComponent implements OnDestroy {
           item: response.data.items[0],
         };
       } else {
-        if (params.notifyAPIErrors) {
-          ShowToast({
-            type: 'WARNING',
-            message:
-              response.error.message || (response.error.code || '').toString(),
-          });
-        }
+        // if (params.notifyAPIErrors) {
+        //   ShowToast({
+        //     type: 'WARNING',
+        //     message:
+        //       response.error.message || (response.error.code || '').toString(),
+        //   });
+        // }
+        this.res = { error: response.error };
         return {
           error: response.error,
         };
