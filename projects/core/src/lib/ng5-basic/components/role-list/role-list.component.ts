@@ -9,7 +9,7 @@ import {
 } from '../../definitions';
 import { NgdRouteEntryPointComponent } from '../../services/NgdEntryRoute';
 import { ConfigurationService } from '../../services/configuration.service';
-import { ConfirmService } from '../../services/confirm.service';
+import { ModalService } from '../../services/modal.service';
 import { InteractiveButtons } from '../../services/common';
 import { RequestsService } from '../../services/requests.service';
 import { RouterService } from '../../services/router.service';
@@ -55,7 +55,7 @@ export class RoleListComponent extends NgdRouteEntryPointComponent
     private requests: RequestsService,
     private ngdRouter: RouterService,
     private roleService: RoleService,
-    private confirm: ConfirmService,
+    private confirm: ModalService,
     public route: ActivatedRoute,
     public meta: Meta,
     public config: ConfigurationService

@@ -204,4 +204,6 @@ export const NgDashboardEn = {
   resend_invitation_confirmation:
     'Are you sure to resend the confirmation mail? Ask your recipient to check their junk or spam mailbox instead.',
   invitation_has_been_resent: 'Invitation has been resent.',
+  no_roles_defined:
+    'You have no roles in the system. Maybe they will be loaded in few seconds...',
 };

@@ -4,7 +4,7 @@ import {
   WorkingStates,
   NgDashboardPl,
   NgDashboardEn,
-  ConfirmService,
+  ModalService,
   INotification,
   ModalDialog,
   PageContainerAction,
@@ -52,10 +52,7 @@ export class GuideComponent extends NgdBaseComponent implements OnInit {
     content: 'Are you sure deleting?',
     type: 'YESNO',
   };
-  constructor(
-    public config: ConfigurationService,
-    public modal: ConfirmService
-  ) {
+  constructor(public config: ConfigurationService, public modal: ModalService) {
     super();
   }
 

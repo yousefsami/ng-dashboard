@@ -18,7 +18,7 @@ import { TeamsCommonService } from '../../teamcommon.service';
 import { NgdBaseComponent } from '../../../ng5-basic/services/ngd-base.component';
 import { ConfigurationService } from '../../../ng5-basic/services/configuration.service';
 import { RouterService } from '../../../ng5-basic/services/router.service';
-import { ConfirmService } from '../../../ng5-basic/services/confirm.service';
+import { ModalService } from '../../../ng5-basic/services/modal.service';
 import { CurrencyFormat } from '../../../ng5-basic/services/common';
 import { RequestsService } from '../../../ng5-basic/services/requests.service';
 
@@ -52,7 +52,7 @@ export class PackageSingleComponent extends NgdBaseComponent implements OnInit {
     public config: ConfigurationService,
     public route: ActivatedRoute,
     public ngdRouter: RouterService,
-    public confirm: ConfirmService,
+    public confirm: ModalService,
     public teamsCommon: TeamsCommonService
   ) {
     super();
@@ -180,5 +180,9 @@ export class PackageSingleComponent extends NgdBaseComponent implements OnInit {
           }
         }
       });
+  }
+
+  public CancelHandler() {
+    this.ngdRouter.navigateTo('/packages');
   }
 }

@@ -33,9 +33,9 @@ export class NgxSidebarComponent implements OnInit {
         ($event.target as any).tagName
       )
     ) {
-      if (event.key === 'Escape' || event.key === 'Backspace') {
-        this.sidebar.Hide();
-      }
+      // if (event.key === 'Escape' || event.key === 'Backspace') {
+      //   this.sidebar.Hide();
+      // }
     }
   }
 

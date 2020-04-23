@@ -124,4 +124,8 @@ export class AccessKeyFormComponent extends NgdBaseComponent implements OnInit {
       }
     });
   }
+
+  public CancelHandler() {
+    this.router.navigateByUrl('/access-keys');
+  }
 }

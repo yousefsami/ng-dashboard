@@ -25,6 +25,7 @@ export interface IRole {
   id?: number;
   team?: number;
   user?: number;
+  description?: string;
   title?: string;
   permissions: Array<any>;
   readonly?: boolean;

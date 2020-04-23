@@ -11,8 +11,7 @@ import { RequestsService } from '../../../ng5-basic/services/requests.service';
 import { ERROR_CODES } from '../../../ng5-basic/services/common';
 import { IRole } from '../../../ng5-basic/definitions';
 import { RoleService } from '../../role.service';
-import { IInvitationData } from '../../team.definitions';
-import { ConfirmService } from '../../../ng5-basic/services/confirm.service';
+import { ModalService } from '../../../ng5-basic/services/modal.service';
 
 function inviteFormValidate(form): IResponseErrorItem[] {
   const errors: IResponseErrorItem[] = [];
@@ -66,7 +65,7 @@ export class InviteFormComponent extends NgdBaseComponent implements OnInit {
     private router: Router,
     public ngdRouter: RouterService,
     private roleService: RoleService,
-    private confirm: ConfirmService
+    private confirm: ModalService
   ) {
     super();
     this.onSubmit = debounce(this.onSubmit, 250);
@@ -196,5 +195,9 @@ export class InviteFormComponent extends NgdBaseComponent implements OnInit {
           });
         }
       });
+  }
+
+  public CancelHandler() {
+    this.router.navigateByUrl('/teams');
   }
 }

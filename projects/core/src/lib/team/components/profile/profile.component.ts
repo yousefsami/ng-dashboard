@@ -10,7 +10,6 @@ import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { RequestsService } from '../../../ng5-basic/services/requests.service';
 import { ConfigurationService } from '../../../ng5-basic/services/configuration.service';
 import { UserService } from '../../../ng5-basic/services/user.service';
-import { ConfirmService } from '../../../ng5-basic/services/confirm.service';
 import { ModalService } from '../../../ng5-basic/services/modal.service';
 import { ProfileAvatarComponent } from '../profile-avatar/profile-avatar.component';
 import { RouterService } from '../../../ng5-basic/services/router.service';
@@ -30,7 +29,7 @@ export class ProfileComponent extends ProfileCommon implements OnInit {
     public requests: RequestsService,
     public user: UserService,
     public config: ConfigurationService,
-    public confirm: ConfirmService,
+    public confirm: ModalService,
     public modal: ModalService,
     public router: Router,
     public ngdRouter: RouterService,

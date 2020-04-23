@@ -54,7 +54,6 @@ import { ConfirmComponent } from './ng5-basic/components/confirm/confirm.compone
 import { ToolbarComponent } from './ng5-basic/components/toolbar/toolbar.component';
 import { BaseModalComponent } from './ng5-basic/components/base-modal/base-modal.component';
 
-import { ConfirmService } from './ng5-basic/services/confirm.service';
 import { ModalService } from './ng5-basic/services/modal.service';
 import { NavbarLeftContentComponent } from './ng5-basic/components/navbar-left-content/navbar-left-content.component';
 import { BugReportComponent } from './ng5-basic/components/bug-report/bug-report.component';
@@ -263,7 +262,7 @@ export const customCurrencyMaskConfig = {
     MockService,
     TeamGuardAuth,
     PublicLangaugeAuth,
-    ConfirmService,
+    ModalService,
     ModalService,
     TokenInterceptor,
     AccessWithTokenGuard,

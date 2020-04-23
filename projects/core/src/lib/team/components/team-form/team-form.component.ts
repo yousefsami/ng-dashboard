@@ -66,6 +66,10 @@ export class TeamFormComponent extends NgdBaseComponent implements OnInit {
     }
   }
 
+  public CancelHandler() {
+    this.router.navigateByUrl('/teams');
+  }
+
   public teamFormSubmit() {
     this.StartValidatedRequest<any>(() =>
       this.requests.PostTeam(this.form.value)

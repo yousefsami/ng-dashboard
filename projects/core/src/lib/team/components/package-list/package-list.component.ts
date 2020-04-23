@@ -15,7 +15,7 @@ import {
   CurrencyFormat,
   InteractiveButtons,
 } from '../../../ng5-basic/services/common';
-import { ConfirmService } from '../../../ng5-basic/services/confirm.service';
+import { ModalService } from '../../../ng5-basic/services/modal.service';
 import { RequestsService } from '../../../ng5-basic/services/requests.service';
 
 const NoServicePackages: IInteractiveNote = {
@@ -41,7 +41,7 @@ export class PackageListComponent extends NgdBaseComponent implements OnInit {
     public config: ConfigurationService,
     public route: ActivatedRoute,
     public ngdRouter: RouterService,
-    public confirm: ConfirmService,
+    public confirm: ModalService,
     public teamsCommon: TeamsCommonService
   ) {
     super();

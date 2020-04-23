@@ -1,8 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { OnDestroy } from '@angular/core';
+import { OnDestroy, HostListener } from '@angular/core';
 import { IResponse, IResponseErrorItem } from 'response-type';
 import { FormGroup } from '@angular/forms';
-import { Subscription, TimeoutError } from 'rxjs';
+import { Subscription } from 'rxjs';
 import {
   IsSuccessEntity,
   error,
@@ -17,6 +17,7 @@ import {
 } from '../definitions';
 import { ShowToast, ConfigurationService } from './configuration.service';
 import { startWith, pairwise } from 'rxjs/operators';
+import { ActiveModalsCount } from './modal.service';
 
 function diff(obj1, obj2) {
   const keys = Object.keys(obj1);
@@ -89,7 +90,7 @@ export abstract class NgdBaseComponent implements OnDestroy {
               },
             };
           } else {
-            // this.res = null;
+            this.res = null;
           }
         })
     );
@@ -551,5 +552,33 @@ export abstract class NgdBaseComponent implements OnDestroy {
     }
 
     return this.form.value;
+  }
+
+  // Unfocus on elements by pressing escape button.
+  @HostListener('window:keyup', ['$event']) public onKeyDown(event) {
+    const $event = document.all ? window.event : event;
+
+    if ($event.code !== 'Escape') {
+      return;
+    }
+
+    if (/^(?:input|textarea|select|button)$/i.test($event.target.tagName)) {
+      if ('activeElement' in document) {
+        (document.activeElement as any).blur();
+        return;
+      }
+    }
+
+    // It's escaping, and is not an input, so probably page should be exiting.
+    // just checking if there is no active modal.
+    /* tslint:disable */
+    if (
+      ActiveModalsCount.value === 0 &&
+      this['CancelHandler'] &&
+      typeof this['CancelHandler'] === 'function'
+    ) {
+      this['CancelHandler']($event);
+    }
+    /* tslint:enable */
   }
 }

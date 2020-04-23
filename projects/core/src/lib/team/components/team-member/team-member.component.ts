@@ -8,7 +8,7 @@ import {
 } from '../../../ng5-basic/definitions';
 import { NgdBaseComponent } from '../../../ng5-basic/services/ngd-base.component';
 import { TeamsService } from '../../../ng5-basic/services/teams.service';
-import { ConfirmService } from '../../../ng5-basic/services/confirm.service';
+import { ModalService } from '../../../ng5-basic/services/modal.service';
 import { ConfigurationService } from '../../../ng5-basic/services/configuration.service';
 import { RequestsService } from '../../../ng5-basic/services/requests.service';
 import { RouterService } from '../../../ng5-basic/services/router.service';
@@ -57,7 +57,7 @@ export class TeamMemberComponent extends NgdBaseComponent implements OnInit {
     public user: UserService,
     public router: Router,
     public route: ActivatedRoute,
-    public confirm: ConfirmService
+    public confirm: ModalService
   ) {
     super();
   }

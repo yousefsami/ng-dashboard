@@ -3,14 +3,16 @@ import {
   Injector,
   ApplicationRef,
   ComponentFactoryResolver,
-  EmbeddedViewRef
+  EmbeddedViewRef,
 } from '@angular/core';
 import { ModalDialog } from '../definitions';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, BehaviorSubject } from 'rxjs';
 import { BaseModalComponent } from '../components/base-modal/base-modal.component';
 
+export const ActiveModalsCount = new BehaviorSubject(0);
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ModalService {
   constructor(
@@ -39,6 +41,12 @@ export class ModalService {
       .rootNodes[0] as HTMLElement;
     document.body.appendChild(domElem);
 
-    return tsc.instance.subject.asObservable();
+    ActiveModalsCount.next(ActiveModalsCount.value + 1);
+    const result = tsc.instance.subject.asObservable();
+    const $interalSub = result.subscribe((x) => {
+      ActiveModalsCount.next(ActiveModalsCount.value - 1);
+      $interalSub.unsubscribe();
+    });
+    return result;
   }
 }

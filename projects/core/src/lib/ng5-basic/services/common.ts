@@ -378,6 +378,7 @@ export function CastTermsToSearch(
       key: id || item.title,
       title: translationDictionary[item.title] || '',
       navigatesByUri: item.link,
+      type: item.type,
       description: translationDictionary[item.description] || '',
       keywords: translationDictionary[item.keywords] || '',
     };
