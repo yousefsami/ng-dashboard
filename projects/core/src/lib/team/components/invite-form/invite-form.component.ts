@@ -92,13 +92,7 @@ export class InviteFormComponent extends NgdBaseComponent implements OnInit {
       })
     );
 
-    this.StartRequest<IRole>(() => this.requests.GetRoles()).then((result) => {
-      if (result && result.items) {
-        this.roleService.SetRoles(result.items);
-      }
-      this.formTouchedElements = {};
-      this.res = null;
-    });
+    this.GetRoles();
 
     this.SetInteractiveButtons([
       {
@@ -114,6 +108,16 @@ export class InviteFormComponent extends NgdBaseComponent implements OnInit {
         onPress: this.onSubmit.bind(this),
       },
     ]);
+  }
+
+  public GetRoles() {
+    this.StartRequest<IRole>(() => this.requests.GetRoles()).then((result) => {
+      if (result && result.items) {
+        this.roleService.SetRoles(result.items);
+      }
+      this.formTouchedElements = {};
+      this.res = null;
+    });
   }
 
   public goToList() {

@@ -192,8 +192,6 @@ export const NgDashboardEn = {
   your_profile: 'Your profile',
   payment_date: 'Payment date',
   payment_status: 'Payment status',
-  team_member_details:
-    'At the moment, there are not team member details are available.',
   is_super_user_label: 'Give this role owner (super) accesses.',
   yes: 'Yes',
   no: 'No',
@@ -206,4 +204,14 @@ export const NgDashboardEn = {
   invitation_has_been_resent: 'Invitation has been resent.',
   no_roles_defined:
     'You have no roles in the system. Maybe they will be loaded in few seconds...',
+  team_member_firstname_label: 'Firstname',
+  team_member_lastname_label: 'Lastname',
+  team_member_roles_label: 'Member roles',
+  team_member_roles_placeholder: 'Set the roles of the user.',
+  team_member_lastname_placeholder: 'Member lastname',
+  team_member_firstname_placeholder: 'Member firstname',
+  remove_member_from_team: 'Remove member',
+  update_team_member: 'Update team member',
+  delete_team_member_confirmation:
+    'Are you sure to delete this member from the team?',
 };

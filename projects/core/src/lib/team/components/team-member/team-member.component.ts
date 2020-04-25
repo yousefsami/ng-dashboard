@@ -5,6 +5,7 @@ import {
   IInteractiveNote,
   IUser,
   Team,
+  IRole,
 } from '../../../ng5-basic/definitions';
 import { NgdBaseComponent } from '../../../ng5-basic/services/ngd-base.component';
 import { TeamsService } from '../../../ng5-basic/services/teams.service';
@@ -16,6 +17,8 @@ import { IInvitationData } from '../../team.definitions';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../ng5-basic/services/user.service';
 import { FormGroup, FormControl } from '@angular/forms';
+import { RoleService } from '../../role.service';
+import { BehaviorSubject, combineLatest } from 'rxjs';
 
 const TeamMemberNotVisible: IInteractiveNote = {
   description: 'no_teams_available',
@@ -28,24 +31,37 @@ const TeamMemberNotVisible: IInteractiveNote = {
   styleUrls: ['./team-member.component.scss'],
 })
 export class TeamMemberComponent extends NgdBaseComponent implements OnInit {
+  public isEditing = true;
+  public roles: Array<{ id: any; name: any }> = [];
   public teams = [];
   public invitations: IInvitationData[] = [];
   public note: IInteractiveNote;
+  public isSuperUser = false;
+  public permissions: BehaviorSubject<
+    Array<{ id: any; name: any }>
+  > = new BehaviorSubject([]);
+
+  public actions: Array<PageContainerAction> = [
+    {
+      type: 'ICON',
+      onClick: (params) => {
+        this.removeMemberFromTeam();
+      },
+      className: 'team-delete-icon',
+      icon: 'icon-delete',
+      title: this.config.translate('remove_member_from_team'),
+    },
+  ];
+
   public form = new FormGroup({
     firstname: new FormControl(null),
     lastname: new FormControl(null),
+    teamMemberId: new FormControl(null),
+    isSuperUser: new FormControl(false),
+    email: new FormControl(null),
+    id: new FormControl(null),
+    roles: new FormControl([]),
   });
-  public defaultActions: Array<PageContainerAction> = [
-    {
-      type: 'ICON',
-      icon: 'icon-add',
-      className: 'team-invite-icon',
-      onClick: (params) => {
-        this.inviteMemberToTeam(params.team.id);
-      },
-      title: this.config.translate('invite_people'),
-    },
-  ];
 
   public teamActions: Array<PageContainerAction> = [];
 
@@ -57,7 +73,8 @@ export class TeamMemberComponent extends NgdBaseComponent implements OnInit {
     public user: UserService,
     public router: Router,
     public route: ActivatedRoute,
-    public confirm: ModalService
+    public confirm: ModalService,
+    public roleService: RoleService
   ) {
     super();
   }
@@ -99,11 +116,28 @@ export class TeamMemberComponent extends NgdBaseComponent implements OnInit {
         if (!teamMember) {
           this.note = TeamMemberNotVisible;
         } else {
-          this.form.patchValue(teamMember);
+          this.form.patchValue({
+            ...teamMember,
+            roles: teamMember.roles.map((t) => t.id),
+          });
           this.note = null;
         }
       })
     );
+
+    this.ComponentSubscription(
+      combineLatest(this.roleService.RolesStore, this.permissions).subscribe(
+        ([roles, permissions]) => {
+          this.roles = roles.map((t) => {
+            return {
+              id: t.id,
+              name: t.title,
+            };
+          });
+        }
+      )
+    );
+
     this.SetInteractiveButtons([
       {
         icon: 'icon-add',
@@ -120,49 +154,29 @@ export class TeamMemberComponent extends NgdBaseComponent implements OnInit {
         this.invitations = result.items;
       }
     });
+
+    this.GetRoles();
+    this.GetPermissions();
   }
 
-  public deleteTeam(team) {
+  public removeMemberFromTeam() {
+    const teamMemberId = this.Form.teamMemberId;
     this.confirm
       .open({
-        content: this.config.translate('delete_team_confirmation'),
+        content: this.config.translate('delete_team_member_confirmation'),
       })
-      .subscribe(({ type }) => {
+      .subscribe(async ({ type }) => {
         if (type !== 'CONFIRMED') {
           return;
         }
-        this.StartRequest<any>(() => this.requests.DeleteTeam(team.id)).then(
-          (result) => {
-            // Set the current team to another teams :)
-            const ut = this.teams.filter((t) => t.id !== team.id);
-            if (ut.length > 0) {
-              this.teamsService.SelectTeam(ut[0].id);
-            }
-
-            if (result.item) {
-              this.config.ShowToast({
-                message: this.config.translate('team_has_been_deleted'),
-                type: 'WARNING',
-              });
-              const teamId = result.item.deletedTeams[0].id;
-              this.teams = this.teams.map(($team) => {
-                if ($team.id === teamId) {
-                  return {
-                    ...$team,
-                    $isBeingDeleted: true,
-                  };
-                }
-                return {
-                  ...$team,
-                };
-              });
-
-              setTimeout(() => {
-                this.teamsService.DeleteTeam(teamId);
-              }, 510);
-            }
-          }
+        const res = await this.StartRequest<any>(() =>
+          this.requests.DeleteTeamMember(teamMemberId)
         );
+
+        if (res.item) {
+          this.teamsService.RemoveMemberFromTeam(res.item.team, res.item.id);
+          this.router.navigateByUrl('/teams');
+        }
       });
   }
 
@@ -172,5 +186,50 @@ export class TeamMemberComponent extends NgdBaseComponent implements OnInit {
 
   public createNewTeam() {
     this.router.navigateByUrl('/new-team');
+  }
+
+  public GetRoles() {
+    this.StartRequest<IRole>(() => this.requests.GetRoles()).then((result) => {
+      if (result && result.items) {
+        this.roleService.SetRoles(result.items);
+      }
+      this.formTouchedElements = {};
+      this.res = null;
+    });
+  }
+
+  public async onSubmit() {
+    const data = this.form.value;
+
+    if (data.isSuperUser) {
+      data.permissions = ['TEAM:*'];
+    } else {
+      data.permissions = (data.permissions || []).filter((p) => p !== 'TEAM:*');
+    }
+
+    const result = await this.StartValidatedRequest<IRole>(() =>
+      this.requests.PostTeamMember(data)
+    );
+
+    if (result.item) {
+      this.ngdRouter.navigateTo(`/roles?focus=${result.item.id}`);
+    }
+  }
+
+  private async GetPermissions() {
+    const res = await this.StartRequest<string>(() =>
+      this.requests.GetPermissions()
+    );
+
+    if (res.items) {
+      this.permissions.next(
+        res.items.map((t) => {
+          return {
+            id: t,
+            name: t,
+          };
+        })
+      );
+    }
   }
 }

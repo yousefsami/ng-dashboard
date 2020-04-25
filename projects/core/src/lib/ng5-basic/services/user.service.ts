@@ -126,6 +126,27 @@ export class UserService {
       })
     );
   }
+
+  /**
+   * @description Returns a user-friendly value as name, to be displayed in different areas
+   * based on data available for the user.
+   */
+  public GetUserDisplayName(): string {
+    const user = this.UserSnapshot;
+    if (!user) {
+      return 'guest_user';
+    }
+    if (user.firstname && user.lastname) {
+      return `${user.firstname} ${user.lastname}`;
+    }
+    if (user.firstname) {
+      return `${user.firstname}`;
+    }
+    if (user.lastname) {
+      return `${user.lastname}`;
+    }
+    return user.email;
+  }
 }
 
 @Injectable()

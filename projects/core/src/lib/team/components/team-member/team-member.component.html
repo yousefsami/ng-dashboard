@@ -3,7 +3,31 @@
 <ng-page-container
   maintitle="{{ MemberName(Form) }}"
   class="team-box"
-  [actions]="teamActions"
+  [actions]="actions"
 >
-  <span>{{ 'team_member_details' | t }}</span>
+  <form [formGroup]="form">
+    <div class="row">
+      <ng-form-multiselect
+        class="col-12"
+        formControlName="roles"
+        field="roles"
+        id="invite-role-input"
+        label="{{ 'team_member_roles_label' | t }}"
+        [edit]="isEditing && !form.value.readonly"
+        [optional]="false"
+        [res]="res"
+        [submit]="submitRes"
+        placeholder="{{ 'team_member_roles_placeholder' | t }}"
+        [items]="roles"
+      ></ng-form-multiselect>
+    </div>
+    <br />
+    <button
+      routerLink="/teams"
+      id="invite-form-cancel"
+      class="btn btn-secondary"
+    >
+      {{ 'cancel' | t }}
+    </button>
+  </form>
 </ng-page-container>

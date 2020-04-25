@@ -23,6 +23,7 @@ body[dir='rtl'] {
 }
 
 .box-wrapper {
+  transition: 0.5s all ease-in;
   position: relative;
   height: auto;
   border: 1px solid #eee;

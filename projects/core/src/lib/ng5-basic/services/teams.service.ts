@@ -103,6 +103,22 @@ export class TeamsService {
     this.TeamsStore.next(this.state.filter((t) => t.id !== +id));
   }
 
+  public RemoveMemberFromTeam(teamId: number, teamMemberId: number) {
+    this.TeamsStore.next(
+      this.state.map((team) => {
+        if (team.id === teamId) {
+          team.members = team.members.filter(
+            /* tslint:disable */
+            (member) => member['teamMemberId'] === teamMemberId
+            /* tslint:enable */
+          );
+        }
+
+        return team;
+      })
+    );
+  }
+
   public InsertTeam(team: Team) {
     this.TeamsStore.next([...this.state, team]);
   }

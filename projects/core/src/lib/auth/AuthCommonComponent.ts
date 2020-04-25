@@ -1,7 +1,5 @@
 import { IResponse } from 'response-type';
 import { FormGroup, FormControl } from '@angular/forms';
-import { OnInit } from '@angular/core';
-import { error } from './shared';
 
 import { NgdBaseComponent } from '../ng5-basic/services/ngd-base.component';
 import { HttpClient } from '@angular/common/http';

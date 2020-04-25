@@ -12,7 +12,7 @@
         [name]="item.id"
         [disabled]="!edit"
         (change)="ItemChange(item)"
-        [checked]="value.includes(item.id)"
+        [checked]="value && value.includes(item.id)"
       />
       &nbsp;
       {{ item.name }}

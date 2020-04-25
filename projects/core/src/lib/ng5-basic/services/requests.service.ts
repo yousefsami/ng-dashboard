@@ -206,6 +206,18 @@ export class RequestsService {
       .toPromise();
   }
 
+  public async DeleteTeamMember(id): Promise<IResponse<any>> {
+    return await this.http
+      .delete(this.config.API('/api/remove-team-member/' + id))
+      .toPromise();
+  }
+
+  public async PostTeamMember(id): Promise<IResponse<any>> {
+    return await this.http
+      .delete(this.config.API('/api/team-member/' + id))
+      .toPromise();
+  }
+
   public async PostTeam(data): Promise<IResponse<any>> {
     return await this.http
       .post(this.config.API('/api/user/team'), data)
