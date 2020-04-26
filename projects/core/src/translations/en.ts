@@ -214,4 +214,5 @@ export const NgDashboardEn = {
   update_team_member: 'Update team member',
   delete_team_member_confirmation:
     'Are you sure to delete this member from the team?',
+  no_teams_available: 'There are no teams available for this account.',
 };

@@ -29,7 +29,6 @@ function teamFormValidator(form): IResponseErrorItem[] {
   styleUrls: ['./team-form.component.scss'],
 })
 export class TeamFormComponent extends NgdBaseComponent implements OnInit {
-  public isEditing = true;
   public validator = teamFormValidator;
   public form = new FormGroup({
     name: new FormControl(''),

@@ -31,7 +31,6 @@ const TeamMemberNotVisible: IInteractiveNote = {
   styleUrls: ['./team-member.component.scss'],
 })
 export class TeamMemberComponent extends NgdBaseComponent implements OnInit {
-  public isEditing = true;
   public roles: Array<{ id: any; name: any }> = [];
   public teams = [];
   public invitations: IInvitationData[] = [];

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { sortBy } from 'lodash';
 import { combineLatest } from 'rxjs';
+declare var Stripe: any;
 
 import {
   IPackage,
@@ -12,7 +13,6 @@ import {
 
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
-import { loadStripe } from '@stripe/stripe-js';
 import { PackagesStore } from '../../team.store';
 import { TeamsCommonService } from '../../teamcommon.service';
 import { NgdBaseComponent } from '../../../ng5-basic/services/ngd-base.component';
@@ -30,6 +30,7 @@ import { RequestsService } from '../../../ng5-basic/services/requests.service';
 export class PackageSingleComponent extends NgdBaseComponent implements OnInit {
   public accessScopeInformation = [];
   public CurrencyFormat = CurrencyFormat;
+  private loadedScripts = {};
 
   public form = new FormGroup({
     name: new FormControl(),
@@ -102,7 +103,31 @@ export class PackageSingleComponent extends NgdBaseComponent implements OnInit {
     return false;
   }
 
+  public loadScript(name: string, scriptSrc: string) {
+    if (this.loadedScripts[name]) {
+      return;
+    }
+
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = scriptSrc;
+      script.type = 'text/javascript';
+      script.async = true;
+      script.charset = 'utf-8';
+      script.onload = () => {
+        this.loadedScripts[name] = true;
+        resolve();
+      };
+      script.onerror = () => {
+        reject();
+      };
+      document.getElementsByTagName('head')[0].appendChild(script);
+    });
+  }
+
   public async ActivatePackage(pack: IProduct<IPackage>) {
+    await this.loadScript('stripe', 'https://js.stripe.com/v3/');
+
     const res = await this.StartRequest<IPayment>(() =>
       this.teamsCommon.ActivateServicePackage(pack)
     );
@@ -123,10 +148,11 @@ export class PackageSingleComponent extends NgdBaseComponent implements OnInit {
     }
     /* tslint:enable */
 
-    const API_KEY = window.location.host.includes('localhost')
+    const API_KEY = !window.location.host.includes('localhost')
       ? 'pk_test_0fMMX14qRTejPxdZyZmorqCW009kNsHf7P'
       : 'pk_live_hqOQJKFUlt1tz5KNaw3PCVpB00M03MCM1v';
-    const stripe = await loadStripe(API_KEY);
+
+    const stripe = await Stripe(API_KEY);
 
     try {
       stripe.redirectToCheckout({

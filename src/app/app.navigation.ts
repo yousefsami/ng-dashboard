@@ -7,9 +7,9 @@ import {
 
 export const AppNavigation: INavigation[] = [
   {
-    title: 'Guide',
-    link: '/guide',
-    type: 'INTER_TEAM',
+    title: 'Getting Started',
+    link: '/',
+    activeMatches: ['^/$'],
   },
   {
     title: 'Authentications (Public)',
@@ -17,21 +17,25 @@ export const AppNavigation: INavigation[] = [
       {
         title: 'Login',
         link: '/login',
+        activeMatches: ['/login'],
         type: 'PUBLIC',
       },
       {
         title: 'Signup',
         link: '/signup',
+        activeMatches: ['/signup'],
         type: 'PUBLIC',
       },
       {
         title: 'Reset password',
         link: '/reset-password',
+        activeMatches: ['/reset-password'],
         type: 'PUBLIC',
       },
       {
         title: 'Forgot password',
         link: '/forgot-password',
+        activeMatches: ['/forgot-password'],
         type: 'PUBLIC',
       },
     ],

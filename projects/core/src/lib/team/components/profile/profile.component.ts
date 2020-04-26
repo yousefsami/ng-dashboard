@@ -23,8 +23,6 @@ export class ProfileComponent extends ProfileCommon implements OnInit {
   @ViewChild(NgMediaComponent, { static: false })
   public attachments: NgMediaComponent;
 
-  public isEditing = true;
-
   constructor(
     public requests: RequestsService,
     public user: UserService,

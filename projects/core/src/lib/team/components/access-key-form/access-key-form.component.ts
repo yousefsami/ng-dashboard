@@ -38,7 +38,6 @@ function accessKeyValidator(form): IResponseErrorItem[] {
 export class AccessKeyFormComponent extends NgdBaseComponent implements OnInit {
   public roles: Array<{ id: any; name: any }> = [];
 
-  public isEditing = true;
   public validator = accessKeyValidator;
   public form = new FormGroup({
     name: new FormControl(''),

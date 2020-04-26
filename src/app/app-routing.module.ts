@@ -20,11 +20,16 @@ const routes: Routes = [
   { path: 'join/:inviteId', component: JoinByInviteComponent },
   {
     component: LayoutComponent,
-    path: 'developer',
+    path: '',
     children: [
       {
-        path: '',
+        path: 'developer',
         component: DeveloperComponent,
+      },
+      {
+        path: '',
+        component: GuideComponent,
+        pathMatch: 'full',
       },
     ],
   },
@@ -37,13 +42,7 @@ const routes: Routes = [
     path: ':teamId',
     canActivate: [TeamGuardAuth, AccessWithTokenGuard],
     component: LayoutComponent,
-    children: [
-      ...TeamRoutesAsTeam,
-      {
-        path: 'guide',
-        component: GuideComponent,
-      },
-    ],
+    children: [...TeamRoutesAsTeam],
   },
   {
     component: LayoutComponent,
@@ -79,7 +78,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

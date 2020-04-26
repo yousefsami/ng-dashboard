@@ -42,7 +42,6 @@ function inviteFormValidate(form): IResponseErrorItem[] {
   styleUrls: ['./invite-form.component.scss'],
 })
 export class InviteFormComponent extends NgdBaseComponent implements OnInit {
-  public isEditing = true;
   public roles: Array<{ id: any; name: any }> = [];
 
   @ViewChild(NgMediaComponent, { static: false })

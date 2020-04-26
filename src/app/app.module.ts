@@ -20,9 +20,10 @@ import {
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SimpleToolbarComponent } from './simple-toolbar/simple-toolbar.component';
 import { BugReportComponent } from 'projects/core/src/lib/ng5-basic/components/bug-report/bug-report.component';
-
 import { AppNavigation } from './app.navigation';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HighlightModule } from 'ngx-highlightjs';
+
 // import { LottieModule } from 'ngx-lottie';
 
 // export function playerFactory() {
@@ -43,11 +44,12 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
         notification: true,
         profile: true,
       },
-      api: 'http://localhost:1337',
+      api: 'https://taxopit.com',
       auth: {
         afterSignupRedirect: '/',
       },
     }),
+    HighlightModule,
   ],
   exports: [],
   entryComponents: [SimpleToolbarComponent],

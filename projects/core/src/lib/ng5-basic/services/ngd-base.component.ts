@@ -39,6 +39,7 @@ export abstract class NgdBaseComponent implements OnDestroy {
    * List of RxJs observations that should be unsubscribed
    */
 
+  public isEditing = true;
   public config: ConfigurationService;
   protected componentInteractiveButtons: InteractiveButton[] = [];
   private $unsubscribe: Array<Subscription> = [];

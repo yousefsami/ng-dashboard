@@ -46,7 +46,6 @@ export class RoleFormComponent extends NgdRouteEntryPointComponent
   public roles: IRole[] = [];
   public permissions: Array<{ id: any; name: any }> = [];
   public rows: IResponsiveTableRow[] = [];
-  public isEditing = true;
   public validator = roleValidator;
 
   public form = new FormGroup({
