@@ -21,7 +21,7 @@ import { delay, tap } from 'rxjs/operators';
 })
 export class DayPickerComponent implements OnInit, OnDestroy, AfterContentInit {
   @ViewChildren('dayButton') buttons: QueryList<ElementRef>;
-  @Input() public params = { day: 1 };
+  @Input() public params: any = { day: 1 };
 
   public error = error;
   public days = Array.from(new Array(31)).map((t, index) => index + 1);

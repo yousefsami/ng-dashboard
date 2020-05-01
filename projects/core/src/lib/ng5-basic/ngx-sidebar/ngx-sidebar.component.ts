@@ -75,7 +75,7 @@ export class NgxSidebarComponent implements OnInit {
     this.componentRef.destroy();
   }
 
-  public itemLink(nav: INavigation) {
+  private generateTargetLink(nav: INavigation): string {
     if (nav.type === 'PUBLIC') {
       return this.ngdRouter.publicLink(nav.link);
     }
@@ -85,6 +85,10 @@ export class NgxSidebarComponent implements OnInit {
     }
 
     return nav.link;
+  }
+
+  public itemLink(nav: INavigation) {
+    return this.generateTargetLink(nav);
   }
 
   renderComponents(childComponent) {

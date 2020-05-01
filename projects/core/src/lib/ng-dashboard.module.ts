@@ -252,7 +252,7 @@ export const customCurrencyMaskConfig = {
     NgxTooltipModule,
     TooltipModule.forRoot(),
     StoreModule.forRoot({}),
-    RouterModule.forRoot([]),
+    RouterModule.forChild([]),
     ng5ReducerGenerator(),
   ],
   providers: [
