@@ -9,6 +9,9 @@
   (click)="$event.stopPropagation(); Cancel($event)"
 >
   <div class="ngd-modal-content" [ngClass]="{ active: activeModal }">
+    <!-- Close button -->
+    <i class="icon-close ngd-modal-close" (click)="CloseButtonClick()"></i>
+
     <div>
       <div *ngIf="modal.title" class="ngd-modal-title">{{ modal.title }}</div>
       <p *ngIf="modal.description">{{ modal.description }}</p>

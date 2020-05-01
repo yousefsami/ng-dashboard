@@ -62,6 +62,17 @@
       margin: 15vh auto;
     }
   }
+
+  .ngd-modal-close {
+    position: absolute;
+    font-size: 32px;
+    right: 10px;
+    cursor: pointer;
+
+    &:hover {
+      color: $theme-color;
+    }
+  }
 }
 @-webkit-keyframes rotate-scale-down-ver {
   0% {

@@ -39,7 +39,7 @@ export class BaseModalComponent implements AfterViewInit {
   @HostListener('window:keyup', ['$event']) public onKeyDown(
     event: KeyboardEvent
   ) {
-    if (event.code === 'Escape') {
+    if (event.code === 'Escape' && this.type !== 'INLINE') {
       this.Close(event);
     }
   }
@@ -61,11 +61,20 @@ export class BaseModalComponent implements AfterViewInit {
         this.modal.content
       );
       this.contentRef = this.viewContainerRef.createComponent(factory);
+      this.contentRef.instance.pushResult = () => {
+        this.closeModal('CONFIRMED');
+      };
+
       if (this.modal.params) {
         this.contentRef.instance.params = this.modal.params;
       }
+
       this.contentRef.changeDetectorRef.detectChanges();
     }
+  }
+
+  public CloseButtonClick() {
+    this.closeModal('CANCELED');
   }
 
   public get textContent() {
@@ -81,31 +90,35 @@ export class BaseModalComponent implements AfterViewInit {
 
   private Close(e: any, type = 'CANCELED') {
     if (e.target === e.currentTarget || e.code === 'Escape') {
-      let data = {};
-      if (this.contentRef && this.contentRef.instance.data) {
-        data = this.contentRef.instance.data.value;
-      }
+      this.closeModal(type);
+    }
+  }
 
-      const result = { type, data };
-      if (this.subject) {
-        this.subject.next(result);
-      }
-      this.resultChange.emit(result);
+  private closeModal(type) {
+    let data = {};
+    if (this.contentRef && this.contentRef.instance.data) {
+      data = this.contentRef.instance.data.value;
+    }
 
-      if (this.type === 'INLINE') {
-        this.vibrate = true;
-        setTimeout(() => {
-          this.vibrate = false;
-        }, 1000);
-      }
+    const result = { type, data };
+    if (this.subject) {
+      this.subject.next(result);
+    }
+    this.resultChange.emit(result);
 
-      if (this.type === 'MODAL') {
-        this.activeModal = false;
-        setTimeout(() => {
-          this.appRef.detachView(this.ref.hostView);
-          this.ref.destroy();
-        }, 400);
-      }
+    if (this.type === 'INLINE') {
+      this.vibrate = true;
+      setTimeout(() => {
+        this.vibrate = false;
+      }, 1000);
+    }
+
+    if (this.type === 'MODAL') {
+      this.activeModal = false;
+      setTimeout(() => {
+        this.appRef.detachView(this.ref.hostView);
+        this.ref.destroy();
+      }, 400);
     }
   }
 

@@ -2,7 +2,8 @@
   <ng-container *ngFor="let day of days; let index = i">
     <button
       #dayButton
-      (click)="dayButtonClick(day)"
+      (dblclick)="dayButtonDBLClick(day, $event)"
+      (click)="dayButtonClick(day, $event)"
       class="day-item day-number-{{ day }}"
       [class.active]="day === form.value.day"
     >

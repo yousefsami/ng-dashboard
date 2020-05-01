@@ -35,10 +35,12 @@ export class DayPickerComponent implements OnInit, OnDestroy, AfterContentInit {
 
   ngOnInit() {
     this.subscribe = this.form.valueChanges.subscribe((data) => {
-      this.data.next({
-        ...this.form.value,
-      });
+      this.data.next(data);
     });
+  }
+
+  public pushResult() {
+    // This function will be replaced by basemodal
   }
 
   ngAfterContentInit() {
@@ -63,7 +65,18 @@ export class DayPickerComponent implements OnInit, OnDestroy, AfterContentInit {
     }
   }
 
-  public dayButtonClick(day: number) {
+  public dayButtonDBLClick(day: number, event) {
+    this.form.patchValue({ day });
+    this.pushResult();
+  }
+
+  public dayButtonClick(day: number, event) {
+    const isByKeyboardEnter = event.detail === 0;
+
+    if (day === this.form.value.day && isByKeyboardEnter) {
+      this.pushResult();
+    }
+
     this.form.patchValue({ day });
   }
 }
