@@ -1,0 +1,12 @@
+<div class="days-container {{ params && params.class ? params.class : '' }}">
+  <ng-container *ngFor="let day of days; let index = i">
+    <button
+      #dayButton
+      (click)="dayButtonClick(day)"
+      class="day-item day-number-{{ day }}"
+      [class.active]="day === form.value.day"
+    >
+      {{ day }}
+    </button>
+  </ng-container>
+</div>

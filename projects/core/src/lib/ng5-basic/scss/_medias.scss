@@ -27,6 +27,12 @@ $screen-lg-desktop-max:      ($screen-xlg-desktop-min - 1); //1599px
 $screen-1366:                1366px;
 $screen-1366-min:            $screen-1366; //1366px
 
+@mixin phone-mini {
+  @media (max-width: #{$screen-xs}) {
+    @content;
+  }
+}
+
 @mixin phone {
   @media (max-width: #{$screen-phone-max}) {
     @content;

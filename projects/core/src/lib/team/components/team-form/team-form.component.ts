@@ -7,7 +7,7 @@ import { ConfigurationService } from '../../../ng5-basic/services/configuration.
 import { RequestsService } from '../../../ng5-basic/services/requests.service';
 import { RouterService } from '../../../ng5-basic/services/router.service';
 import { IResponseErrorItem } from 'response-type';
-import { ERROR_CODES } from '../../../ng5-basic/services/common';
+import { ERROR_CODES, TimeZoneArray } from '../../../ng5-basic/services/common';
 import { Router, Route, ActivatedRoute } from '@angular/router';
 
 function teamFormValidator(form): IResponseErrorItem[] {
@@ -29,11 +29,13 @@ function teamFormValidator(form): IResponseErrorItem[] {
   styleUrls: ['./team-form.component.scss'],
 })
 export class TeamFormComponent extends NgdBaseComponent implements OnInit {
+  public TimeZoneArray = TimeZoneArray;
   public validator = teamFormValidator;
   public form = new FormGroup({
     name: new FormControl(''),
     id: new FormControl(null),
     description: new FormControl(''),
+    timezone: new FormControl('Europe/Warsaw'),
   });
 
   constructor(

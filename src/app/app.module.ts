@@ -23,6 +23,7 @@ import { BugReportComponent } from 'projects/core/src/lib/ng5-basic/components/b
 import { AppNavigation } from './app.navigation';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HighlightModule } from 'ngx-highlightjs';
+import { ModalsComponent } from './docs/modals/modals.component';
 
 // import { LottieModule } from 'ngx-lottie';
 
@@ -31,7 +32,12 @@ import { HighlightModule } from 'ngx-highlightjs';
 // }
 
 @NgModule({
-  declarations: [AppComponent, GuideComponent, SimpleToolbarComponent],
+  declarations: [
+    AppComponent,
+    GuideComponent,
+    SimpleToolbarComponent,
+    ModalsComponent,
+  ],
   imports: [
     NoopAnimationsModule,
     BrowserModule,
@@ -44,7 +50,7 @@ import { HighlightModule } from 'ngx-highlightjs';
         notification: true,
         profile: true,
       },
-      api: 'https://taxopit.com',
+      api: 'http://localhost:1337',
       auth: {
         afterSignupRedirect: '/',
       },

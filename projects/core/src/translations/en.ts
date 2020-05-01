@@ -215,4 +215,6 @@ export const NgDashboardEn = {
   delete_team_member_confirmation:
     'Are you sure to delete this member from the team?',
   no_teams_available: 'There are no teams available for this account.',
+  team_timezone: 'Team timezone',
+  team_timezone_placeholder: 'Select the timezone which bank transfers and transactions should occur.',
 };

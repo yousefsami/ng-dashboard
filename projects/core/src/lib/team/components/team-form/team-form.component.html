@@ -16,6 +16,17 @@
         [submit]="submitRes"
         placeholder="{{ 'team_name' | t }}"
       ></ngd-form-text>
+
+      <ngd-form-select
+        formControlName="timezone"
+        field="timezone"
+        label="{{ 'team_timezone' | t }}"
+        [res]="res"
+        [placeholder]="'team_timezone_placeholder' | t"
+        [edit]="isEditing"
+        [submit]="submitRes"
+        [items]="TimeZoneArray"
+      ></ngd-form-select>
     </div>
     <div class="row">
       <div class="col-md-6">

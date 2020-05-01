@@ -328,7 +328,9 @@ export interface StartRequestResponse<T> {
 export interface ModalDialog {
   title?: string;
   content?: any;
+  description?: string;
   type?: 'CONFIRMATION' | 'NOTIFY' | 'YESNO';
+  params?: any;
 }
 
 export interface PageContainerAction {

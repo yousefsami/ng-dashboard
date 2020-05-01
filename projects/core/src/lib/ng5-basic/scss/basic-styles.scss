@@ -2,6 +2,7 @@
 @import 'injects';
 @import './material-icon';
 @import '../../../../node_modules/bootstrap/dist/css/bootstrap.min';
+@import './typography';
 
 .error-message-inline {
   color: $error-color-800;

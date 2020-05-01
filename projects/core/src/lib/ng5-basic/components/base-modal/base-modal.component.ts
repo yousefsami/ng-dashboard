@@ -6,21 +6,25 @@ import {
   HostListener,
   Input,
   ComponentFactoryResolver,
-  ViewChild
+  ViewChild,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { ModalDialog } from '../../definitions';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { ConfigurationService } from '../../services/configuration.service';
 
 @Component({
   selector: 'ngd-base-modal',
   templateUrl: './base-modal.component.html',
-  styleUrls: ['./base-modal.component.scss']
+  styleUrls: ['./base-modal.component.scss'],
 })
 export class BaseModalComponent implements AfterViewInit {
+  @Output() public resultChange: EventEmitter<any> = new EventEmitter();
   @Input() public activeModal = false;
   @Input() public appRef: any;
   @Input() public ref: any;
+  @Input() public type: 'MODAL' | 'INLINE' = 'MODAL';
   @Input() public content: any;
   @Input() public modal: ModalDialog;
   @Input() public subject: Subject<any> = null;
@@ -29,6 +33,7 @@ export class BaseModalComponent implements AfterViewInit {
   @ViewChild('content', { read: ViewContainerRef, static: false })
   viewContainerRef: ViewContainerRef;
 
+  public vibrate = false;
   public buttons = [];
 
   @HostListener('window:keyup', ['$event']) public onKeyDown(
@@ -47,11 +52,18 @@ export class BaseModalComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.modalAnimation();
 
-    if (this.modal.content && typeof this.modal.content === 'function') {
+    if (
+      this.modal &&
+      this.modal.content &&
+      typeof this.modal.content === 'function'
+    ) {
       const factory = this.componentFactoryResolver.resolveComponentFactory(
         this.modal.content
       );
       this.contentRef = this.viewContainerRef.createComponent(factory);
+      if (this.modal.params) {
+        this.contentRef.instance.params = this.modal.params;
+      }
       this.contentRef.changeDetectorRef.detectChanges();
     }
   }
@@ -73,12 +85,27 @@ export class BaseModalComponent implements AfterViewInit {
       if (this.contentRef && this.contentRef.instance.data) {
         data = this.contentRef.instance.data.value;
       }
-      this.subject.next({ type, data });
-      this.activeModal = false;
-      setTimeout(() => {
-        this.appRef.detachView(this.ref.hostView);
-        this.ref.destroy();
-      }, 400);
+
+      const result = { type, data };
+      if (this.subject) {
+        this.subject.next(result);
+      }
+      this.resultChange.emit(result);
+
+      if (this.type === 'INLINE') {
+        this.vibrate = true;
+        setTimeout(() => {
+          this.vibrate = false;
+        }, 1000);
+      }
+
+      if (this.type === 'MODAL') {
+        this.activeModal = false;
+        setTimeout(() => {
+          this.appRef.detachView(this.ref.hostView);
+          this.ref.destroy();
+        }, 400);
+      }
     }
   }
 
@@ -98,24 +125,24 @@ export class BaseModalComponent implements AfterViewInit {
       return [
         {
           type: 'CONFIRM',
-          label: this.config.translate('modal_confirm')
+          label: this.config.translate('modal_confirm'),
         },
         {
           type: 'CANCEL',
-          label: this.config.translate('modal_cancel')
-        }
+          label: this.config.translate('modal_cancel'),
+        },
       ];
     }
     if (!dialog.type || dialog.type === 'YESNO') {
       return [
         {
           type: 'CONFIRM',
-          label: this.config.translate('modal_yes')
+          label: this.config.translate('modal_yes'),
         },
         {
           type: 'CANCEL',
-          label: this.config.translate('modal_no')
-        }
+          label: this.config.translate('modal_no'),
+        },
       ];
     }
   }

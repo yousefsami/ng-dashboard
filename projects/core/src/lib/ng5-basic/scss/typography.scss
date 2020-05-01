@@ -1,0 +1,30 @@
+// Font sizes for h1..h6, paragraphs.
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+}
+
+h4 {
+  font-size: 0.9rem;
+}
+
+p {
+  margin-bottom: 3.5rem;
+  line-height: 1.8rem;
+}
+
+h2,
+h3,
+h4 {
+  margin-bottom: 20px;
+  margin-top: 20px;
+}

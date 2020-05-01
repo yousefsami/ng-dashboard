@@ -100,6 +100,7 @@ import { AccessKeyFormComponent } from './team/components/access-key-form/access
 import { AccessKeysComponent } from './team/components/access-keys/access-keys.component';
 import { TeamMemberComponent } from './team/components/team-member/team-member.component';
 import { FormCheckboxComponent } from './ng5-basic/components/form-checkbox/form-checkbox.component';
+import { DayPickerComponent } from './ng5-basic/components/day-picker/day-picker.component';
 
 export const customCurrencyMaskConfig = {
   align: 'left',
@@ -126,6 +127,7 @@ export const customCurrencyMaskConfig = {
     PasswordInputComponent,
     SideBarComponent,
     BaseModalComponent,
+    DayPickerComponent,
     BugReportComponent,
     NavBarComponent,
     WorkerStatesComponent,
@@ -176,6 +178,7 @@ export const customCurrencyMaskConfig = {
     FormCheckboxComponent,
   ],
   exports: [
+    DayPickerComponent,
     FormCheckboxComponent,
     ResponsiveTableComponent,
     FormMultiSelectComponent,
@@ -199,7 +202,6 @@ export const customCurrencyMaskConfig = {
     InteractiveButtonsComponent,
     EmailInputComponent,
     NotificationListComponent,
-    BaseModalComponent,
     UiIconBoxComponent,
     UiPanelBoxComponent,
     SpinnerComponent,
@@ -281,6 +283,7 @@ export const customCurrencyMaskConfig = {
   entryComponents: [
     ConfirmComponent,
     BaseModalComponent,
+    DayPickerComponent,
     ProfileAvatarComponent,
     BugReportComponent,
     NavbarLeftContentComponent,

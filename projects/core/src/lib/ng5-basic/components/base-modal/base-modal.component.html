@@ -1,12 +1,18 @@
 <div
   class="ngd-modal-wrapper"
-  [ngClass]="{ active: activeModal }"
+  *ngIf="modal"
+  [ngClass]="{
+    active: activeModal,
+    'dialog-mode': type === 'MODAL',
+    vibrate: vibrate
+  }"
   (click)="$event.stopPropagation(); Cancel($event)"
 >
   <div class="ngd-modal-content" [ngClass]="{ active: activeModal }">
     <div>
-      <div class="ngd-modal-title">{{ modal.title }}</div>
-      <p>{{ textContent }}</p>
+      <div *ngIf="modal.title" class="ngd-modal-title">{{ modal.title }}</div>
+      <p *ngIf="modal.description">{{ modal.description }}</p>
+      <p *ngIf="textContent">{{ textContent }}</p>
 
       <div #content></div>
     </div>
@@ -16,7 +22,6 @@
         <button
           *ngIf="button.type === 'CONFIRM'"
           class="btn btn-primary"
-          ngdAutoFocus
           (click)="$event.stopPropagation(); Confirm($event)"
         >
           {{ button.label }}

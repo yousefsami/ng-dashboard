@@ -1,20 +1,14 @@
 @import '../../scss/_injects';
 
 .ngd-modal-wrapper {
-  position: fixed;
-  overflow-y: scroll;
-  top: 0;
-  padding: 15px;
-  bottom: 0;
-  left: 0;
-  right: 0;
   background: transparent;
   transition: background 0.4s;
   font-family: 'Roboto', sans-serif;
   z-index: 2000;
 
-  &.active {
-    background: rgba(0, 0, 0, 0.3);
+  &.vibrate {
+    -webkit-animation: rotate-scale-down-ver 0.65s linear both;
+    animation: rotate-scale-down-ver 0.65s linear both;
   }
 
   .ngd-modal-content {
@@ -22,28 +16,78 @@
     max-width: 620px;
     padding: 15px;
     height: auto;
+    margin: auto;
     box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2),
       0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12);
     border-radius: 2px;
-    margin: 15vh auto !important;
-    transform: scale(0.5) !important;
+    transform: scale(0.5);
     transition: transform 0.3s, opacity 0.3s;
     opacity: 0;
+
     &.static {
-      margin: 0px !important;
+      margin: 0px;
       box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2),
         0 0 7px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12);
     }
+
     &.active {
-      transform: scale(1) !important;
+      transform: scale(1);
       opacity: 1;
     }
   }
+
   .btn {
     margin-right: 5px;
   }
+
+  .ngd-modal-title {
+    font-size: 24px;
+    margin-bottom: 5px;
+  }
+
+  &.dialog-mode {
+    position: fixed;
+    overflow-y: scroll;
+    top: 0;
+    padding: 15px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    &.active {
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .ngd-modal-content {
+      margin: 15vh auto;
+    }
+  }
 }
-.ngd-modal-title {
-  font-size: 24px;
-  margin-bottom: 15px;
+@-webkit-keyframes rotate-scale-down-ver {
+  0% {
+    -webkit-transform: scale(1) rotateY(0);
+    transform: scale(1) rotateY(0);
+  }
+  50% {
+    -webkit-transform: scale(0.5) rotateY(180deg);
+    transform: scale(0.5) rotateY(180deg);
+  }
+  100% {
+    -webkit-transform: scale(1) rotateY(360deg);
+    transform: scale(1) rotateY(360deg);
+  }
+}
+@keyframes rotate-scale-down-ver {
+  0% {
+    -webkit-transform: scale(1) rotateY(0);
+    transform: scale(1) rotateY(0);
+  }
+  50% {
+    -webkit-transform: scale(0.5) rotateY(180deg);
+    transform: scale(0.5) rotateY(180deg);
+  }
+  100% {
+    -webkit-transform: scale(1) rotateY(360deg);
+    transform: scale(1) rotateY(360deg);
+  }
 }

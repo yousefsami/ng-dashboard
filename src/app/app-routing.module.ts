@@ -15,6 +15,7 @@ import {
 import { ProfileComponent } from 'projects/core/src/lib/team/components/profile/profile.component';
 import { DeveloperComponent } from 'projects/core/src/lib/ng5-basic/components/developer/developer.component';
 import { JoinByInviteComponent } from 'projects/core/src/lib/team/components/join-by-invite/join-by-invite.component';
+import { ModalsComponent } from './docs/modals/modals.component';
 
 const routes: Routes = [
   { path: 'join/:inviteId', component: JoinByInviteComponent },
@@ -29,6 +30,11 @@ const routes: Routes = [
       {
         path: '',
         component: GuideComponent,
+        pathMatch: 'full',
+      },
+      {
+        path: 'modals',
+        component: ModalsComponent,
         pathMatch: 'full',
       },
     ],

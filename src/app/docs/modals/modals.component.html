@@ -1,0 +1,70 @@
+<h1>Modals and pickers in ng-dashboard</h1>
+
+<p>
+  In ng-dashboard team, we provide some modals and pickers for the projects
+  built with this framework. We are sick of broken pickers, who do not work on
+  mobile, having accessibilty issues, and so on. Therefor, we build most of them
+  from scratch in order to fit specific application rather than a general
+  datepicker or timepicker solution.
+</p>
+
+<!-- Basic confirmation modal-->
+<h2>(1/3) Confirm modal</h2>
+
+<p>
+  We provide you a minimal modal service, to show a text and for confirmation.
+</p>
+
+<pre><code [highlight]="sampleModal | json"></code></pre>
+
+<button class="btn btn-primary" (click)="showDialog()">
+  Open confirmation modal
+</button>
+
+<div class="chessboard-view">
+  <ngd-base-modal type="INLINE" [modal]="sampleModal"></ngd-base-modal>
+</div>
+
+<!-- Yes/No confirmation modal -->
+<h2>(2/3) Yes/No dialog</h2>
+<p>
+  We provide you a minimal modal service, to show a text and for confirmation.
+</p>
+
+<pre><code [highlight]="sampleModalYes | json"></code></pre>
+
+<button class="btn btn-primary" (click)="showDialogYes()">
+  Open Modal Yes/No
+</button>
+
+<div class="chessboard-view">
+  <ngd-base-modal type="INLINE" [modal]="sampleModalYes"></ngd-base-modal>
+</div>
+
+<!-- Day picker modal -->
+<h2>(3/3) Yes/No dialog</h2>
+<p>
+  We provide you a minimal modal service, to show a text and for confirmation.
+</p>
+
+<pre><code [highlight]="dayPickerModal | json"></code></pre>
+
+<button class="btn btn-primary" (click)="showDayPicker()">
+  Open day picker dialog
+</button>
+&nbsp;
+
+<button class="btn btn-primary" (click)="showDayPicker(10)">
+  Open day picker dialog with 10th selected
+</button>
+
+<div class="chessboard-view">
+  <ngd-base-modal type="INLINE" [modal]="dayPickerModal"></ngd-base-modal>
+</div>
+
+<div class="chessboard-view">
+  <ngd-base-modal
+    type="INLINE"
+    [modal]="dayPickerModalHighlight"
+  ></ngd-base-modal>
+</div>

@@ -8,8 +8,18 @@ import {
 export const AppNavigation: INavigation[] = [
   {
     title: 'Getting Started',
-    link: '/',
     activeMatches: ['^/$'],
+    children: [
+      {
+        title: 'Installing ng-dashboard',
+        link: '/',
+      },
+      {
+        title: 'Modals and pickers',
+        link: '/modals',
+        activeMatches: ['^/modals$'],
+      },
+    ],
   },
   {
     title: 'Authentications (Public)',

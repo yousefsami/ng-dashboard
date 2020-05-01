@@ -17,6 +17,7 @@ export * from './lib/ng5-basic/services/public-lang.guard';
 export * from './lib/ng5-basic/services/team.guard';
 export * from './lib/ng5-basic/components/layout/layout.component';
 export * from './lib/ng5-basic/components/bug-report/bug-report.component';
+export * from './lib/ng5-basic/components/day-picker/day-picker.component';
 export * from './lib/ng5-basic/components/form-text/form-text.component';
 export * from './lib/ng5-basic/components/form-multiselect/form-multiselect.component';
 export * from './lib/ng5-basic/services/helpers';

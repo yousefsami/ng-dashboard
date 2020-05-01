@@ -1,0 +1,60 @@
+@import '../../scss/_injects';
+
+$border: 1px solid #cfd8dc;
+
+.days-container {
+  margin: 30px auto;
+  border-top: $border;
+  border-left: $border;
+
+  .day-item {
+    background-color: transparent;
+    height: 55px;
+    display: inline-block;
+    border: $border;
+    border-left: none;
+    border-top: none;
+    text-align: center;
+    line-height: 55px;
+    width: 10%;
+
+    @media (max-width: 570px) {
+      line-height: 45px;
+      height: 45px;
+    }
+
+    @include phone-mini() {
+      width: 20%;
+      line-height: 40px;
+      height: 40px;
+    }
+
+    transition: 0.3s background-color ease-in-out;
+
+    &:hover {
+      background-color: #b3e5fc;
+    }
+
+    &.active {
+      background-color: #80deea;
+      color: #006064;
+      font-weight: bold;
+    }
+
+    &:focus {
+      outline: 5px auto #40c4ff;
+    }
+  }
+
+}
+
+
+.preset-highlight-end-of-month {
+
+  .day-number-30,
+  .day-number-29,
+  .day-number-31 {
+    background-color: #fff8e1;
+    color: #ff6f00;
+  }
+}

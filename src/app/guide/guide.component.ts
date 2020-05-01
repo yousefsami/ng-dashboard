@@ -12,6 +12,7 @@ import {
 } from 'projects/core/src/public_api';
 import { NavbarLeftContentComponent } from 'projects/core/src/lib/ng5-basic/components/navbar-left-content/navbar-left-content.component';
 import { SimpleToolbarComponent } from '../simple-toolbar/simple-toolbar.component';
+import { DayPickerComponent } from 'projects/core/src/lib/ng5-basic/components/day-picker/day-picker.component';
 
 @Component({
   selector: 'app-guide',
@@ -23,6 +24,13 @@ export class GuideComponent extends NgdBaseComponent implements OnInit {
     title: 'Deleting',
     content: 'Delete???? Really?',
   };
+
+  public dayPickerModal: ModalDialog = {
+    content: DayPickerComponent,
+    title: 'Select the day',
+    description: 'Select the days that you want to transactions repeat.',
+  };
+
   public pageContainerActions: Array<PageContainerAction> = [
     {
       type: 'BUTTON',
@@ -197,6 +205,12 @@ export class GuideComponent extends NgdBaseComponent implements OnInit {
 
   public showDialog() {
     this.modal.open(this.sampleModal).subscribe((result) => {
+      console.log(result);
+    });
+  }
+
+  public showDayPicker() {
+    this.modal.open(this.dayPickerModal).subscribe((result) => {
       console.log(result);
     });
   }

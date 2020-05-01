@@ -12,5 +12,8 @@
     item.label | t
   }}</option>
 </select>
+<div class="select-placeholder" *ngIf="placeholder && edit">
+  {{ placeholder }}
+</div>
 <div class="input-value" *ngIf="!edit">{{ itemValue(value) | t }}</div>
 <span class="error-message-inline">{{ error(res, field) }}</span>
