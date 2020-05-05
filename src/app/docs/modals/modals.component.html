@@ -9,7 +9,7 @@
 </p>
 
 <!-- Basic confirmation modal-->
-<h2>(1/3) Confirm modal</h2>
+<h2>(1/4) Confirm modal</h2>
 
 <p>
   We provide you a minimal modal service, to show a text and for confirmation.
@@ -26,7 +26,7 @@
 </div>
 
 <!-- Yes/No confirmation modal -->
-<h2>(2/3) Yes/No dialog</h2>
+<h2>(2/4) Yes/No dialog</h2>
 <p>
   You can change the buttons to include use and no.
 </p>
@@ -42,7 +42,7 @@
 </div>
 
 <!-- Day picker modal -->
-<h2>(3/3) Date (day) picker</h2>
+<h2>(3/4) Date (day) picker</h2>
 <p>
   Use day picker for forms that need to select an specific day of the month.
   <strong
@@ -71,4 +71,16 @@
     type="INLINE"
     [modal]="dayPickerModalHighlight"
   ></ngd-base-modal>
+</div>
+
+<!-- Day picker modal with month -->
+<h2>(4/4) Date (day) picker</h2>
+<p>
+  Date picker with month.
+</p>
+
+<pre><code [highlight]="dayPickerModalMonth | json"></code></pre>
+
+<div class="chessboard-view">
+  <ngd-base-modal type="INLINE" [modal]="dayPickerModalMonth"></ngd-base-modal>
 </div>

@@ -1,8 +1,28 @@
-<div class="days-container {{ params && params.class ? params.class : '' }}">
+<div
+  *ngIf="params && params.selectMonth"
+  class="months-container {{ params && params.class ? params.class : '' }}"
+>
+  <ng-container *ngFor="let month of months; let index = i">
+    <button
+      #monthButton
+      (dblclick)="monthButtonDBLClick(month.id)"
+      (click)="monthButtonClick(month.id, $event)"
+      class="month-item month-number-{{ month }}"
+      [class.active]="month.id === form.value.month"
+    >
+      {{ month.label }}
+    </button>
+  </ng-container>
+</div>
+
+<div
+  class="days-container {{ params && params.class ? params.class : '' }}"
+  *ngIf="params && params.selectDay !== false"
+>
   <ng-container *ngFor="let day of days; let index = i">
     <button
       #dayButton
-      (dblclick)="dayButtonDBLClick(day, $event)"
+      (dblclick)="dayButtonDBLClick(day)"
       (click)="dayButtonClick(day, $event)"
       class="day-item day-number-{{ day }}"
       [class.active]="day === form.value.day"

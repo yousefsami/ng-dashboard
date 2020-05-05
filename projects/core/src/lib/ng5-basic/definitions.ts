@@ -392,3 +392,11 @@ export interface IAccessKey {
   id?: number;
   roles: Array<number>;
 }
+
+export interface DayPickerOption {
+  month?: number;
+  day?: number;
+  selectMonth?: boolean;
+  selectDay?: boolean;
+  class?: string;
+}

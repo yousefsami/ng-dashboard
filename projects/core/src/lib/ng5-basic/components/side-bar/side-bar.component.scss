@@ -5,6 +5,8 @@
   width: $sidebar_width;
   position: fixed !important;
   top: $navbar_height;
+  // Makes it smooth on scrolling, might be this is the problem with scrolling elements
+  -webkit-overflow-scrolling: touch;
   left: 0;
   bottom: 0;
   z-index: 1;

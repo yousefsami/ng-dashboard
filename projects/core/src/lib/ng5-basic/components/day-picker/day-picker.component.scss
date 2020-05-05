@@ -2,12 +2,12 @@
 
 $border: 1px solid #cfd8dc;
 
-.days-container {
+.days-container, .months-container {
   margin: 30px auto;
   border-top: $border;
   border-left: $border;
 
-  .day-item {
+  .day-item, .month-item {
     background-color: transparent;
     height: 55px;
     display: inline-block;
@@ -44,6 +44,10 @@ $border: 1px solid #cfd8dc;
     &:focus {
       outline: 5px auto #40c4ff;
     }
+  }
+
+  .month-item {
+    width: 20%;
   }
 
 }

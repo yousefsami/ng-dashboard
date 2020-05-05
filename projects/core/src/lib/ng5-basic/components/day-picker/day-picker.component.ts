@@ -13,6 +13,58 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { error } from '../../services/common';
 import { BehaviorSubject, Subscription, of } from 'rxjs';
 import { delay, tap } from 'rxjs/operators';
+import { DayPickerOption } from '../../definitions';
+
+const months = [
+  {
+    label: 'January',
+    id: 1,
+  },
+  {
+    label: 'February',
+    id: 2,
+  },
+  {
+    label: 'March',
+    id: 3,
+  },
+  {
+    label: 'April',
+    id: 4,
+  },
+  {
+    label: 'May',
+    id: 5,
+  },
+  {
+    label: 'June',
+    id: 6,
+  },
+  {
+    label: 'July',
+    id: 7,
+  },
+  {
+    label: 'August',
+    id: 8,
+  },
+  {
+    label: 'September',
+    id: 9,
+  },
+  {
+    label: 'October',
+    id: 10,
+  },
+  {
+    label: 'November',
+    id: 11,
+  },
+  {
+    label: 'December',
+    id: 12,
+  },
+];
 
 @Component({
   selector: 'ngd-day-picker',
@@ -21,16 +73,22 @@ import { delay, tap } from 'rxjs/operators';
 })
 export class DayPickerComponent implements OnInit, OnDestroy, AfterContentInit {
   @ViewChildren('dayButton') buttons: QueryList<ElementRef>;
-  @Input() public params: any = { day: 1 };
+  @Input() public params: DayPickerOption = {
+    day: 1,
+    month: 1,
+    selectMonth: false,
+  };
 
   public error = error;
   public days = Array.from(new Array(31)).map((t, index) => index + 1);
+  public months = months;
 
   @Output() public data: BehaviorSubject<any> = new BehaviorSubject(null);
   public subscribe: Subscription = null;
 
   public form = new FormGroup({
-    day: new FormControl(),
+    day: new FormControl(1),
+    month: new FormControl(1),
   });
 
   ngOnInit() {
@@ -49,7 +107,10 @@ export class DayPickerComponent implements OnInit, OnDestroy, AfterContentInit {
         delay(0),
         tap(() => {
           if (this.params.day) {
-            this.form.patchValue({ day: this.params.day });
+            this.form.patchValue({
+              day: this.params.day,
+              month: this.params.month,
+            });
           }
         }),
         tap(() =>
@@ -65,7 +126,7 @@ export class DayPickerComponent implements OnInit, OnDestroy, AfterContentInit {
     }
   }
 
-  public dayButtonDBLClick(day: number, event) {
+  public dayButtonDBLClick(day: number) {
     this.form.patchValue({ day });
     this.pushResult();
   }
@@ -78,5 +139,20 @@ export class DayPickerComponent implements OnInit, OnDestroy, AfterContentInit {
     }
 
     this.form.patchValue({ day });
+  }
+
+  public monthButtonClick(month: number, event) {
+    const isByKeyboardEnter = event.detail === 0;
+
+    if (month === this.form.value.month && isByKeyboardEnter) {
+      this.pushResult();
+    }
+
+    this.form.patchValue({ month });
+  }
+
+  public monthButtonDBLClick(month: number) {
+    this.form.patchValue({ month });
+    this.pushResult();
   }
 }

@@ -25,6 +25,13 @@ export class ModalsComponent extends NgdBaseComponent implements OnInit {
     params: { day: 5 },
   };
 
+  public dayPickerModalMonth: ModalDialog = {
+    content: DayPickerComponent,
+    title: 'Select the day and month',
+    description: 'Select the days that you want to transactions repeat.',
+    params: { day: 5, month: 12, selectMonth: true },
+  };
+
   public dayPickerModalHighlight: ModalDialog = {
     content: DayPickerComponent,
     title: 'Select the day',

@@ -60,6 +60,14 @@
 
     .ngd-modal-content {
       margin: 15vh auto;
+
+      p {
+        margin-bottom: 15px;
+      }
+
+      @include phone() {
+        margin: 10px auto;
+      }
     }
   }
 
