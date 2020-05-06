@@ -216,5 +216,9 @@ export const NgDashboardEn = {
     'Are you sure to delete this member from the team?',
   no_teams_available: 'There are no teams available for this account.',
   team_timezone: 'Team timezone',
-  team_timezone_placeholder: 'Select the timezone which bank transfers and transactions should occur.',
+  team_timezone_placeholder:
+    'Select the timezone which bank transfers and transactions should occur.',
+  invite_language: 'Invite form language',
+  invite_language_placeholder:
+    'Choose the invitee email and app interface language.',
 };

@@ -10,58 +10,70 @@ import {
   Input,
 } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { error } from '../../services/common';
+import { error, IsMobile } from '../../services/common';
 import { BehaviorSubject, Subscription, of } from 'rxjs';
 import { delay, tap } from 'rxjs/operators';
 import { DayPickerOption } from '../../definitions';
 
-const months = [
+let months = [
   {
     label: 'January',
+    shortLabel: 'Jan',
     id: 1,
   },
   {
     label: 'February',
+    shortLabel: 'Feb',
     id: 2,
   },
   {
     label: 'March',
+    shortLabel: 'Mar',
     id: 3,
   },
   {
     label: 'April',
+    shortLabel: 'Apr',
     id: 4,
   },
   {
     label: 'May',
+    shortLabel: 'Ma',
     id: 5,
   },
   {
     label: 'June',
+    shortLabel: 'Jun',
     id: 6,
   },
   {
     label: 'July',
+    shortLabel: 'Jul',
     id: 7,
   },
   {
     label: 'August',
+    shortLabel: 'Aug',
     id: 8,
   },
   {
     label: 'September',
+    shortLabel: 'Sep',
     id: 9,
   },
   {
     label: 'October',
+    shortLabel: 'Oct',
     id: 10,
   },
   {
     label: 'November',
+    shortLabel: 'Nov',
     id: 11,
   },
   {
     label: 'December',
+    shortLabel: 'Dec',
     id: 12,
   },
 ];

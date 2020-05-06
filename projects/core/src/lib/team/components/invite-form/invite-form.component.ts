@@ -43,6 +43,16 @@ function inviteFormValidate(form): IResponseErrorItem[] {
 })
 export class InviteFormComponent extends NgdBaseComponent implements OnInit {
   public roles: Array<{ id: any; name: any }> = [];
+  public AvailableLanguages: Array<{ value: any; label: any }> = [
+    {
+      value: 'en',
+      label: 'English',
+    },
+    {
+      value: 'pl',
+      label: 'Polish (Polski)',
+    },
+  ];
 
   @ViewChild(NgMediaComponent, { static: false })
   public attachments: NgMediaComponent;
@@ -50,6 +60,7 @@ export class InviteFormComponent extends NgdBaseComponent implements OnInit {
     firstname: new FormControl(''),
     id: new FormControl(null),
     lastname: new FormControl(''),
+    language: new FormControl('en'),
     team: new FormControl(''),
     roles: new FormControl([]),
     phone: new FormControl(''),

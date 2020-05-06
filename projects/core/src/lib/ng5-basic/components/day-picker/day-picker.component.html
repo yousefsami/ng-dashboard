@@ -10,7 +10,12 @@
       class="month-item month-number-{{ month }}"
       [class.active]="month.id === form.value.month"
     >
-      {{ month.label }}
+      <span class="long-name">
+        {{ month.label }}
+      </span>
+      <span class="short-name">
+        {{ month.shortLabel }}
+      </span>
     </button>
   </ng-container>
 </div>

@@ -70,6 +70,17 @@
         [submit]="submitRes"
         placeholder="{{ 'phone_place_holder' | t }}"
       ></ngd-form-text>
+
+      <ngd-form-select
+        formControlName="language"
+        field="language"
+        label="{{ 'invite_language' | t }}"
+        [res]="res"
+        [placeholder]="'invite_language_placeholder' | t"
+        [edit]="isEditing"
+        [submit]="submitRes"
+        [items]="AvailableLanguages"
+      ></ngd-form-select>
     </div>
     <button
       [disabled]="working"

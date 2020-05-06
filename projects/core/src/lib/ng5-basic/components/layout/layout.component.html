@@ -1,5 +1,12 @@
 <ng-nav-bar></ng-nav-bar>
 <ng-side-bar></ng-side-bar>
+
+<ngd-toolbar
+  *ngIf="toolbarData"
+  [isSidebarVisible]="isSidebarVisible"
+  [toolbarData]="toolbarData"
+></ngd-toolbar>
+
 <div
   [ngClass]="{
     'ngd-sidebar-visible': isSidebarVisible,
@@ -9,15 +16,5 @@
   class="ngd-outlet"
   (click)="sideOff()"
 >
-  <div style="min-height: 101%;">
-    <ngd-toolbar
-      *ngIf="toolbarData"
-      [isSidebarVisible]="isSidebarVisible"
-      [toolbarData]="toolbarData"
-    ></ngd-toolbar>
-    <router-outlet
-      class="layout-router-outlet"
-      #outlet="outlet"
-    ></router-outlet>
-  </div>
+  <router-outlet class="layout-router-outlet" #outlet="outlet"></router-outlet>
 </div>

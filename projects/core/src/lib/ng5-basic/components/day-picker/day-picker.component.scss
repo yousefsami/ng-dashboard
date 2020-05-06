@@ -18,9 +18,19 @@ $border: 1px solid #cfd8dc;
     line-height: 55px;
     width: 10%;
 
+    .short-name {
+      display: none;
+    }
+
     @media (max-width: 570px) {
       line-height: 45px;
       height: 45px;
+      .short-name {
+        display: inline;
+      }
+      .long-name {
+        display: none;
+      }
     }
 
     @include phone-mini() {
