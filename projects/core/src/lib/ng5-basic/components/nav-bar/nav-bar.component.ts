@@ -18,6 +18,7 @@ import { ConfigurationService } from '../../services/configuration.service';
 import { TranslateService } from '../../services/translate.service';
 import { NgxSidebarService } from '../../ngx-sidebar/ngx-sidebar.service';
 import { Subscription } from 'rxjs';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'ng-nav-bar',
@@ -71,7 +72,7 @@ export class NavBarComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     @Inject('config') public gconfig: NgBasicConfig,
     public sidebar: NgxSidebarService,
-    private translate: TranslateService,
+    public user: UserService,
     private configService: ConfigurationService,
     private componentFactoryResolver: ComponentFactoryResolver
   ) {}

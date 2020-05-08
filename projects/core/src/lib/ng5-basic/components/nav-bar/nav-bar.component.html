@@ -39,7 +39,7 @@
     <ng-profile-menu></ng-profile-menu>
     <ng-interactive-buttons></ng-interactive-buttons>
     <ng-notification-list
-      *ngIf="config.notification !== false"
+      *ngIf="config.notification !== false && user.UserSnapshot"
     ></ng-notification-list>
   </div>
 </nav>
