@@ -1,5 +1,5 @@
 <ng-nav-bar></ng-nav-bar>
-<ng-side-bar></ng-side-bar>
+<ng-side-bar [customNav]="customNav"></ng-side-bar>
 
 <ngd-toolbar
   *ngIf="toolbarData"
@@ -17,4 +17,5 @@
   (click)="sideOff()"
 >
   <router-outlet class="layout-router-outlet" #outlet="outlet"></router-outlet>
+  <ng-content></ng-content>
 </div>

@@ -148,7 +148,7 @@ export class PackageSingleComponent extends NgdBaseComponent implements OnInit {
     }
     /* tslint:enable */
 
-    const API_KEY = !window.location.host.includes('localhost')
+    const API_KEY = window.location.host.includes('localhost')
       ? 'pk_test_0fMMX14qRTejPxdZyZmorqCW009kNsHf7P'
       : 'pk_live_hqOQJKFUlt1tz5KNaw3PCVpB00M03MCM1v';
 

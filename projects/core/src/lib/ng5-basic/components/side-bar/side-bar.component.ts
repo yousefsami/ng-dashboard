@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ConfigurationService } from '../../services/configuration.service';
 import { NgxSidebarService } from '../../ngx-sidebar/ngx-sidebar.service';
+import { Subscription } from 'rxjs';
 
 /**
  * In order to track state of each menu item (is it opened, how many times clicked, etc)
@@ -8,7 +9,7 @@ import { NgxSidebarService } from '../../ngx-sidebar/ngx-sidebar.service';
  * we do it here automatically
  */
 function navigationWithUniqueKey(items = []) {
-  return items.map(menu => {
+  return items.map((menu) => {
     if (menu.children) {
       menu.children = navigationWithUniqueKey(menu.children);
     }
@@ -20,14 +21,14 @@ function navigationWithUniqueKey(items = []) {
 }
 
 function updateMenuInNavigation(items, item) {
-  return items.map(menu => {
+  return items.map((menu) => {
     if (menu.children) {
       menu.children = updateMenuInNavigation(menu.children, item);
     }
     if (item.$key === menu.$key) {
       return {
         ...menu,
-        $collapsed: item.$collapsed
+        $collapsed: item.$collapsed,
       };
     }
     return menu;
@@ -37,9 +38,12 @@ function updateMenuInNavigation(items, item) {
 @Component({
   selector: 'ng-side-bar',
   templateUrl: './side-bar.component.html',
-  styleUrls: ['./side-bar.component.scss']
+  styleUrls: ['./side-bar.component.scss'],
 })
 export class SideBarComponent implements OnInit {
+  @Input() public customNav = null;
+  private subscription: Subscription = null;
+
   public isSidebarVisible = true;
   public keepOpen = false;
   public nav = [];
@@ -56,23 +60,29 @@ export class SideBarComponent implements OnInit {
     public config: ConfigurationService,
     public sidebar: NgxSidebarService
   ) {
-    this.sidebar.SidebarVisibilityState.subscribe(val => {
+    this.sidebar.SidebarVisibilityState.subscribe((val) => {
       this.isSidebarVisible = val;
     });
   }
 
   ngOnInit() {
-    this.navigation = this.config.getNavigationItems();
+    this.navigation = this.customNav
+      ? this.customNav
+      : this.config.getNavigationItems();
 
     this.isSidebarVisible = this.sidebar.IsSidebarVisibleInitially();
-    this.sidebar.menuItemChange.subscribe((menu: any) => {
-      if (!menu) {
-        return;
-      }
 
-      const nav = updateMenuInNavigation(this.nav, menu);
-      localStorage.setItem(`sidebar_items`, JSON.stringify(nav));
-      this.navigation = nav;
-    });
+    // We cache only custom navbar.
+    if (!this.customNav) {
+      this.sidebar.menuItemChange.subscribe((menu: any) => {
+        if (!menu) {
+          return;
+        }
+
+        const nav = updateMenuInNavigation(this.nav, menu);
+        localStorage.setItem(`sidebar_items`, JSON.stringify(nav));
+        this.navigation = nav;
+      });
+    }
   }
 }
