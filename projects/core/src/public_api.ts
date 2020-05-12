@@ -8,6 +8,7 @@ export * from './lib/ng5-basic/services/configuration.service';
 export * from './lib/ng5-basic/services/user.service';
 export * from './lib/ng5-basic/services/teams.service';
 export * from './lib/ng5-basic/services/modal.service';
+export * from './lib/ng5-basic/services/toast.service';
 export * from './lib/ng5-basic/services/router.service';
 export * from './lib/ng5-basic/ngx-sidebar/ngx-sidebar.component';
 export * from './lib/ng5-basic/services/response.interceptor';

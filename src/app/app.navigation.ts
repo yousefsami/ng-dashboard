@@ -19,6 +19,11 @@ export const AppNavigation: INavigation[] = [
         link: '/modals',
         activeMatches: ['^/modals$'],
       },
+      {
+        title: 'Toast',
+        link: '/toast',
+        activeMatches: ['^/toast$'],
+      },
     ],
   },
   {

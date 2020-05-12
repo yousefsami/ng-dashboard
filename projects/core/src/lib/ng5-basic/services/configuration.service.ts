@@ -14,6 +14,7 @@ import {
 } from '../definitions';
 import { BehaviorSubject } from 'rxjs';
 import { IAuthConfig } from '../../auth/definitions';
+import { ToastService } from './toast.service';
 
 const messageHistory = {};
 export function ShowToast(data: IToastMessage) {
@@ -90,7 +91,13 @@ export class ConfigurationService {
     return this.config.auth || {};
   }
 
-  public ShowToast = ShowToast;
+  public ShowToast(data: IToastMessage) {
+    return this.toast.open({
+      title: data.title,
+      content: data.message,
+    });
+  }
+
   public SetInteractiveButtons(buttons: InteractiveButton[]) {
     this.NavbarInteractiveButtons.next(buttons);
   }
@@ -116,7 +123,10 @@ export class ConfigurationService {
     this.GlobalInteractiveButtons.next(buttons);
   }
 
-  constructor(@Inject('config') public config: NgBasicConfig) {
+  constructor(
+    @Inject('config') public config: NgBasicConfig,
+    private toast: ToastService
+  ) {
     if (typeof window !== 'undefined') {
       // Helps developers to understand the missing translation keys
       /* tslint:disable */

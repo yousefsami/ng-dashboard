@@ -1,0 +1,22 @@
+<h1>Toast component</h1>
+
+<p>
+  Show toast messages to the users.
+</p>
+
+<!-- Basic confirmation modal-->
+<h2>(1/4) Simple toast</h2>
+
+<p>
+  We provide you a minimal modal service, to show a text and for confirmation.
+</p>
+
+<pre><code [highlight]="sampleModal | json"></code></pre>
+
+<button class="btn btn-primary" (click)="showDialog()">
+  Open confirmation modal
+</button>
+
+<div class="chessboard-view">
+  <ngd-base-modal type="INLINE" [modal]="sampleModal"></ngd-base-modal>
+</div>

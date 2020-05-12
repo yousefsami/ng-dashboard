@@ -3,15 +3,10 @@ import { CanActivate } from '@angular/router';
 import { CookiesService } from 'ngx-universal-cookies';
 import { RouterService } from './router.service';
 import { TeamsService } from './teams.service';
-import { ConfigurationService } from './configuration.service';
 
 @Injectable()
 export class AccessWithTokenGuard implements CanActivate {
-  constructor(
-    private teams: TeamsService,
-    private cookie: CookiesService,
-    private config: ConfigurationService
-  ) {}
+  constructor(private teams: TeamsService, private cookie: CookiesService) {}
 
   async canActivate(): Promise<boolean> {
     try {

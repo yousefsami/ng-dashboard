@@ -24,6 +24,7 @@ import { AppNavigation } from './app.navigation';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HighlightModule } from 'ngx-highlightjs';
 import { ModalsComponent } from './docs/modals/modals.component';
+import { ToastsComponent } from './docs/toast/toast.component';
 
 // import { LottieModule } from 'ngx-lottie';
 
@@ -37,6 +38,7 @@ import { ModalsComponent } from './docs/modals/modals.component';
     GuideComponent,
     SimpleToolbarComponent,
     ModalsComponent,
+    ToastsComponent,
   ],
   imports: [
     NoopAnimationsModule,

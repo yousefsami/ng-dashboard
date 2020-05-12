@@ -1,8 +1,9 @@
 @import '../../scss/_injects';
 
-.ngd-modal-wrapper {
+.ngd-toast-wrapper {
   background: transparent;
   transition: background 0.4s;
+  padding-top: 100px;
   font-family: 'Roboto', sans-serif;
   z-index: 2000;
 
@@ -11,17 +12,24 @@
     animation: rotate-scale-down-ver 0.65s linear both;
   }
 
-  .ngd-modal-content {
+  .ngd-toast-content {
     background-color: white;
-    max-width: 620px;
+    border-left: 1px solid #2196f3;
+    max-width: 320px;
     padding: 15px;
     height: auto;
-    margin: auto;
-    box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2),
-      0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12);
     border-radius: 2px;
-    transform: scale(0.5);
+
+    &.theme-success {
+      border-left: 3px solid #8bc34a;
+      p {
+        color: #33691e;
+      }
+    }
+
+    transition-timing-function: cubic-bezier(0.33, 0.2, 0.78, 0.23);
     transition: transform 0.3s, opacity 0.3s;
+    transform: translate(100%);
     opacity: 0;
 
     &.static {
@@ -31,7 +39,7 @@
     }
 
     &.active {
-      transform: scale(1);
+      transform: translate(0);
       opacity: 1;
     }
   }
@@ -40,7 +48,7 @@
     margin-right: 5px;
   }
 
-  .ngd-modal-title {
+  .ngd-toast-title {
     font-size: 24px;
     margin-bottom: 5px;
   }
@@ -48,21 +56,16 @@
   &.dialog-mode {
     position: fixed;
     overflow-y: scroll;
-    top: 0;
     padding: 15px;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    padding-top: 70px;
+    right: 0px;
+    width: 400px;
 
-    &.active {
-      background: rgba(0, 0, 0, 0.3);
-    }
-
-    .ngd-modal-content {
-      margin: 15vh auto;
+    .ngd-toast-content {
+      margin-left: auto;
 
       p {
-        margin-bottom: 15px;
+        margin-bottom: 0;
       }
 
       @include phone() {
@@ -71,7 +74,7 @@
     }
   }
 
-  .ngd-modal-close {
+  .ngd-toast-close {
     position: absolute;
     font-size: 32px;
     right: 3px;
@@ -112,6 +115,6 @@
   }
 }
 
-.ngd-modal-text {
+.ngd-toast-text {
   margin-right: 50px;
 }

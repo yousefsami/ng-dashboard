@@ -1,5 +1,5 @@
 <div
-  class="ngd-modal-wrapper"
+  class="ngd-toast-wrapper"
   *ngIf="modal"
   [ngClass]="{
     active: activeModal,
@@ -8,12 +8,18 @@
   }"
   (click)="$event.stopPropagation(); Cancel($event)"
 >
-  <div class="ngd-modal-content" [ngClass]="{ active: activeModal }">
+  <div
+    class="ngd-toast-content"
+    [ngClass]="{
+      active: activeModal,
+      'theme-success': modal.status === 'success'
+    }"
+  >
     <!-- Close button -->
-    <i class="icon-close ngd-modal-close" (click)="CloseButtonClick()"></i>
+    <i class="icon-close ngd-toast-close" (click)="CloseButtonClick()"></i>
 
-    <div class="ngd-modal-text">
-      <div *ngIf="modal.title" class="ngd-modal-title">{{ modal.title }}</div>
+    <div class="ngd-toast-text">
+      <div *ngIf="modal.title" class="ngd-toast-title">{{ modal.title }}</div>
       <p *ngIf="modal.description">{{ modal.description }}</p>
       <p *ngIf="textContent">{{ textContent }}</p>
 

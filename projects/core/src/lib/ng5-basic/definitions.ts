@@ -333,6 +333,16 @@ export interface ModalDialog {
   params?: any;
 }
 
+export interface ToastDialog {
+  title?: string;
+  status?: 'success';
+  content?: any;
+  description?: string;
+  timeout?: number;
+  type?: 'CONFIRMATION' | 'NOTIFY' | 'YESNO';
+  params?: any;
+}
+
 export interface PageContainerAction {
   title?: string;
   className?: string;

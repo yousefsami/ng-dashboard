@@ -53,6 +53,7 @@ import { AutofocusDirective } from './ng5-basic/services/autofocus.directive';
 import { ConfirmComponent } from './ng5-basic/components/confirm/confirm.component';
 import { ToolbarComponent } from './ng5-basic/components/toolbar/toolbar.component';
 import { BaseModalComponent } from './ng5-basic/components/base-modal/base-modal.component';
+import { BaseToastComponent } from './ng5-basic/components/base-toast/base-toast.component';
 
 import { ModalService } from './ng5-basic/services/modal.service';
 import { NavbarLeftContentComponent } from './ng5-basic/components/navbar-left-content/navbar-left-content.component';
@@ -101,6 +102,7 @@ import { AccessKeysComponent } from './team/components/access-keys/access-keys.c
 import { TeamMemberComponent } from './team/components/team-member/team-member.component';
 import { FormCheckboxComponent } from './ng5-basic/components/form-checkbox/form-checkbox.component';
 import { DayPickerComponent } from './ng5-basic/components/day-picker/day-picker.component';
+import { ToastService } from './ng5-basic/services/toast.service';
 
 export const customCurrencyMaskConfig = {
   align: 'left',
@@ -127,6 +129,7 @@ export const customCurrencyMaskConfig = {
     PasswordInputComponent,
     SideBarComponent,
     BaseModalComponent,
+    BaseToastComponent,
     DayPickerComponent,
     BugReportComponent,
     NavBarComponent,
@@ -198,6 +201,7 @@ export const customCurrencyMaskConfig = {
     NavBarComponent,
     WorkerStatesComponent,
     BaseModalComponent,
+    BaseToastComponent,
     ProfileMenuComponent,
     InteractiveButtonsComponent,
     EmailInputComponent,
@@ -265,7 +269,7 @@ export const customCurrencyMaskConfig = {
     TeamGuardAuth,
     PublicLangaugeAuth,
     ModalService,
-    ModalService,
+    ToastService,
     TokenInterceptor,
     AccessWithTokenGuard,
     NoAccessTokenGuard,
@@ -283,6 +287,7 @@ export const customCurrencyMaskConfig = {
   entryComponents: [
     ConfirmComponent,
     BaseModalComponent,
+    BaseToastComponent,
     DayPickerComponent,
     ProfileAvatarComponent,
     BugReportComponent,

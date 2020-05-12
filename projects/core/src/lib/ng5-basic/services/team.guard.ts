@@ -5,12 +5,13 @@ import {
   RouterStateSnapshot,
   ActivatedRouteSnapshot,
 } from '@angular/router';
+import { TeamsService } from './teams.service';
 
 const TEAM_ID_INPATH_REGEX = /^\/([0-9]+)\/?(.+)?/;
 
 @Injectable()
 export class TeamGuardAuth implements CanActivate {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private teams: TeamsService) {}
 
   async canActivate(
     route: ActivatedRouteSnapshot,
@@ -22,6 +23,10 @@ export class TeamGuardAuth implements CanActivate {
       this.router.navigate(<any[]>(<unknown>''));
       return false;
     }
+
+    // If there is a team in url, we should change it.
+    // const team = +path.match(TEAM_ID_INPATH_REGEX)[0];
+    // this.teams.SelectTeam(team);
     return true;
   }
 }
