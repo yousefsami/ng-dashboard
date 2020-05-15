@@ -335,7 +335,7 @@ export interface ModalDialog {
 
 export interface ToastDialog {
   title?: string;
-  status?: 'success';
+  status?: 'WARNING' | 'ERROR' | 'SUCCESS' | 'INFO';
   content?: any;
   description?: string;
   timeout?: number;

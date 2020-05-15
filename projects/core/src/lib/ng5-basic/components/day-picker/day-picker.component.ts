@@ -10,7 +10,7 @@ import {
   Input,
 } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { error, IsMobile } from '../../services/common';
+import { error } from '../../services/common';
 import { BehaviorSubject, Subscription, of } from 'rxjs';
 import { delay, tap } from 'rxjs/operators';
 import { DayPickerOption } from '../../definitions';

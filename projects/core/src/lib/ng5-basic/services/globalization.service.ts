@@ -12,15 +12,15 @@ import { TranslateService } from './translate.service';
 
 export const ExperimentalLanguages = {
   pl: { title: 'Polish (Poland)', direction: 'ltr' },
-  fa: { title: 'Persian (فارسی ایران)', direction: 'rtl' }
+  fa: { title: 'Persian (فارسی ایران)', direction: 'rtl' },
 };
 export const StableLanguages = {
-  en: { title: 'English (United States)', direction: 'ltr' }
+  en: { title: 'English (United States)', direction: 'ltr' },
 };
 
 export const SupportedLanguages = StableLanguages;
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GlobalizationService {
   public layoutDirectionEmitter: EventEmitter<any> = new EventEmitter();

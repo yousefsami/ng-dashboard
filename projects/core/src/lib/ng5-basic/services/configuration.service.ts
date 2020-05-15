@@ -1,5 +1,4 @@
-import { Injectable, Inject, ApplicationRef } from '@angular/core';
-import Toastify from 'toastify-js';
+import { Injectable, Inject } from '@angular/core';
 
 import {
   NgBasicConfig,
@@ -15,40 +14,6 @@ import {
 import { BehaviorSubject } from 'rxjs';
 import { IAuthConfig } from '../../auth/definitions';
 import { ToastService } from './toast.service';
-
-const messageHistory = {};
-export function ShowToast(data: IToastMessage) {
-  const styles = {
-    ERROR: '#9e4651',
-    INFO: '#5586c0',
-    SUCCESS: 'linear-gradient(to right, #61a372, #96c93d)',
-    WARNING: '#ff7800',
-  };
-
-  const text = `${data.title || ''} ${data.message}`;
-  const now = new Date().getTime();
-  const expire = now + 1000;
-  if (messageHistory[text] && messageHistory[text].expire > now) {
-    return;
-  }
-  messageHistory[text] = {
-    expire,
-  };
-
-  const words = text.split(' ').length;
-  const readingTime = 0.25 * words * 1000 + 1000;
-
-  Toastify({
-    text,
-    duration: data.duration || readingTime,
-    close: true,
-    gravity: 'top', // `top` or `bottom`
-    position: 'right', // `left`, `center` or `right`
-    backgroundColor: styles[data.type || 'INFO'],
-    stopOnFocus: true, // Prevents dismissing of toast on hover
-    onClick: () => data.onClick(data), // Callback after click
-  }).showToast();
-}
 
 @Injectable({
   providedIn: 'root',
@@ -94,6 +59,8 @@ export class ConfigurationService {
   public ShowToast(data: IToastMessage) {
     return this.toast.open({
       title: data.title,
+      status: data.type,
+      timeout: data.duration,
       content: data.message,
     });
   }

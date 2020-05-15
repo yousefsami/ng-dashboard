@@ -23,6 +23,7 @@ export class BaseToastComponent implements AfterViewInit {
   @Input() public activeModal = false;
   @Input() public appRef: any;
   @Input() public ref: any;
+  @Input() public dialogId: string;
   @Input() public type: 'MODAL' | 'INLINE' = 'MODAL';
   @Input() public content: any;
   @Input() public modal: ToastDialog;

@@ -4,11 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { IResponse } from 'response-type';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { IResetForm } from '../../ng5-basic/definitions';
-import {
-  ConfigurationService,
-  ShowToast
-} from '../../ng5-basic/services/configuration.service';
+import { ConfigurationService } from '../../ng5-basic/services/configuration.service';
 import { AuthPublicService, AuthEvent } from '../auth-public.service';
 import { UserService } from '../../ng5-basic/services/user.service';
 import { NgdBaseComponent } from '../../ng5-basic/services/ngd-base.component';
@@ -17,7 +13,7 @@ import { RouterService } from '../../ng5-basic/services/router.service';
 
 @Component({
   templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.scss']
+  styleUrls: ['./reset-password.component.scss'],
 })
 export class ResetPasswordComponent extends NgdBaseComponent implements OnInit {
   public key = '';
@@ -28,7 +24,7 @@ export class ResetPasswordComponent extends NgdBaseComponent implements OnInit {
   public form = new FormGroup({
     password: new FormControl(null),
     passwordRepeat: new FormControl(null),
-    resetkey: new FormControl(null)
+    resetkey: new FormControl(null),
   });
 
   constructor(
@@ -48,7 +44,7 @@ export class ResetPasswordComponent extends NgdBaseComponent implements OnInit {
 
     this.route.params.subscribe((data: { key: string }) => {
       this.form.patchValue({
-        resetkey: data.key
+        resetkey: data.key,
       });
     });
   }
@@ -56,27 +52,27 @@ export class ResetPasswordComponent extends NgdBaseComponent implements OnInit {
   public SubmitForm() {
     const conf = this.config.Config;
     this.http.post(this.url, this.form.value).subscribe(
-      response => {
+      (response) => {
         this.response = response;
         if (this.response.data && this.response.data.items[0]) {
           this.auth.events.emit({
             payload: this.response.data.items[0],
-            type: AuthEvent.LOGIN_SUCCESS
+            type: AuthEvent.LOGIN_SUCCESS,
           });
           if (conf.afterLoginRedirect) {
             this.ngdRouter.navigateTo(conf.afterLoginRedirect);
           }
           this.user.SetToken(this.response.data.items[0].token);
           this.user.SetUser(this.response.data.items[0].user);
-          ShowToast({
+          this.config.ShowToast({
             message: this.config.translationsDictionary.value
               .password_successfully_changed,
-            type: 'SUCCESS'
+            type: 'SUCCESS',
           });
         }
         this.working = false;
       },
-      response => {
+      (response) => {
         this.working = false;
         if (response.name === 'HttpErrorResponse') {
           this.response = GetNetworkError();

@@ -16,7 +16,7 @@ export class ToastsComponent extends NgdBaseComponent implements OnInit {
   public sampleModal: ToastDialog = {
     content: 'Your data has been removed (just kidding)',
     type: 'NOTIFY',
-    status: 'success',
+    status: 'SUCCESS',
     timeout: 1000000,
   };
 

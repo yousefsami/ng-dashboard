@@ -223,6 +223,7 @@ export class GuideComponent extends NgdBaseComponent implements OnInit {
 
   public showMessage() {
     this.config.ShowToast({
+      duration: 1000000,
       message:
         'This is warning, you see, when the text is longer it will stay longer time to give user time to read',
       type: 'WARNING',

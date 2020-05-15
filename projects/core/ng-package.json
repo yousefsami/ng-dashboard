@@ -23,7 +23,6 @@
     "simplebar",
     "url-matcher",
     "lodash",
-    "ngx-toasta",
     "bootstrap"
   ]
 }

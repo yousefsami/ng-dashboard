@@ -11,13 +11,15 @@
   <div
     class="ngd-toast-content"
     [ngClass]="{
-      active: activeModal,
-      'theme-success': modal.status === 'success'
+      active: activeModal
     }"
+    [class.theme-success]="modal.status === 'SUCCESS'"
+    [class.theme-warning]="modal.status === 'WARNING'"
+    [class.theme-info]="modal.status === 'INFO'"
+    [class.theme-error]="modal.status === 'ERROR'"
   >
     <!-- Close button -->
     <i class="icon-close ngd-toast-close" (click)="CloseButtonClick()"></i>
-
     <div class="ngd-toast-text">
       <div *ngIf="modal.title" class="ngd-toast-title">{{ modal.title }}</div>
       <p *ngIf="modal.description">{{ modal.description }}</p>

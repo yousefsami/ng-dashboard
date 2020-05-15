@@ -15,7 +15,7 @@ import {
   InteractiveButton,
   IWorkingState,
 } from '../definitions';
-import { ShowToast, ConfigurationService } from './configuration.service';
+import { ConfigurationService } from './configuration.service';
 import { startWith, pairwise } from 'rxjs/operators';
 import { ActiveModalsCount } from './modal.service';
 
@@ -136,8 +136,7 @@ export abstract class NgdBaseComponent implements OnDestroy {
       !result.item &&
       this.res &&
       this.res.error &&
-      this.res.error.errors.length &&
-      window.innerWidth > 779
+      this.res.error.errors.length
     ) {
       const key =
         this.res.error.errors.length > 1
@@ -321,7 +320,7 @@ export abstract class NgdBaseComponent implements OnDestroy {
     }
 
     console.error('Server error:', err);
-    ShowToast({
+    this.config.ShowToast({
       type: 'ERROR',
       title: 'Server unavailable ' + code,
       message: msg,
@@ -330,7 +329,7 @@ export abstract class NgdBaseComponent implements OnDestroy {
 
   public InternalError(err: Error) {
     console.error('Internal error:', err);
-    ShowToast({
+    this.config.ShowToast({
       title: err.name,
       message: err.message,
       type: 'ERROR',
@@ -388,13 +387,6 @@ export abstract class NgdBaseComponent implements OnDestroy {
           item: response.data.items[0],
         };
       } else {
-        // if (params.notifyAPIErrors) {
-        //   ShowToast({
-        //     type: 'WARNING',
-        //     message:
-        //       response.error.message || (response.error.code || '').toString(),
-        //   });
-        // }
         this.res = { error: response.error };
         return {
           error: response.error,
