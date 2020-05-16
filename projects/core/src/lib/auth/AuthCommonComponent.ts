@@ -17,7 +17,6 @@ export class AuthCommonComponent extends NgdBaseComponent {
   });
 
   public response: IResponse<any> = null;
-  // public error = error;
 
   constructor(
     public http: HttpClient,
@@ -41,22 +40,18 @@ export class AuthCommonComponent extends NgdBaseComponent {
 
   async signup() {
     const res = await this.post('/api/user/signup', this.userForm.value);
-    if (res.error) {
-      this.response = res;
-      return;
-    }
 
-    this.onSignupSuccessed(res.item);
+    if (res.item) {
+      this.onSignupSuccessed(res.item);
+    }
   }
 
   async login() {
     const res = await this.post('/api/user/signin', this.userForm.value);
-    if (res.error) {
-      this.response = res;
-      return;
-    }
 
-    this.onLoginSuccessed(res.item);
+    if (res.item) {
+      this.onLoginSuccessed(res.item);
+    }
   }
 
   private onLoginSuccessed(result) {
@@ -75,10 +70,12 @@ export class AuthCommonComponent extends NgdBaseComponent {
     if (this.config.Config.onSignupSuccess) {
       this.config.Config.onSignupSuccess(result);
     }
+
     this.auth.events.emit({
       type: AuthEvent.SIGNUP_SUCCESS,
       payload: result,
     });
+
     if (this.config.Config.afterSignupRedirect) {
       this.ngdRouter.navigateTo(this.config.Config.afterSignupRedirect);
     }

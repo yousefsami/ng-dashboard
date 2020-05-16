@@ -3,9 +3,7 @@
 .ngd-toast-wrapper {
   background: transparent;
   transition: background 0.4s;
-  padding-top: 100px;
   font-family: 'Roboto', sans-serif;
-  z-index: 2000;
 
   &.vibrate {
     -webkit-animation: rotate-scale-down-ver 0.65s linear both;
@@ -84,12 +82,13 @@
     position: fixed;
     overflow: hidden;
     padding: 15px;
-    padding-top: 70px;
-    right: 10px;
-    width: 400px;
+    top: 50px;
+    z-index: 999;
+    right: 0;
+    max-width: 400px;
 
     .ngd-toast-content {
-      margin-left: auto;
+      // margin-left: auto;
       box-shadow: 5px 2px 9px 3px #c0c0c03b;
 
       p {

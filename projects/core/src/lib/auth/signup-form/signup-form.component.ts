@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { IResponse } from 'response-type';
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthPublicService } from '../auth-public.service';
 import { ConfigurationService } from '../../ng5-basic/services/configuration.service';
 import { UserService } from '../../ng5-basic/services/user.service';
-import { FormGroup, FormControl } from '@angular/forms';
 import { AuthCommonComponent } from '../AuthCommonComponent';
 import { RouterService } from '../../ng5-basic/services/router.service';
 

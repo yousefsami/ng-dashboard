@@ -27,6 +27,10 @@ export class ToastService {
   open(
     modal: ToastDialog
   ): Observable<{ type: 'CONFIRMED' | 'CANCELED'; data: any }> {
+    if (!modal.timeout) {
+      modal.timeout = 2000;
+    }
+
     if (this.activeModals.length === 0) {
       return this.insertDialog(modal);
     }
@@ -55,7 +59,7 @@ export class ToastService {
     this.appRef.attachView(tsc.hostView);
     const domElem = (tsc.hostView as EmbeddedViewRef<any>)
       .rootNodes[0] as HTMLElement;
-    document.body.appendChild(domElem);
+    document.body.prepend(domElem);
 
     ActiveToastsCount.next(ActiveToastsCount.value + 1);
     const result = tsc.instance.subject.asObservable();

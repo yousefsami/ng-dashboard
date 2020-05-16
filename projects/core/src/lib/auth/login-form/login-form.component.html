@@ -6,16 +6,33 @@
         <p>{{ 'auth_login_description' | t }}</p>
       </div>
 
-      <ngd-email-input
-        [response]="response"
-        [formGroup]="userForm"
-      ></ngd-email-input>
+      <div class="row">
+        <ngd-form-text
+          formControlName="email"
+          field="email"
+          [optional]="false"
+          [autofocus]="true"
+          id="user-form-email-input"
+          label="{{ 'email' | t }}"
+          [edit]="true"
+          [res]="res"
+          [submit]="submitRes"
+          placeholder="{{ 'email_placeholder' | t }}"
+        ></ngd-form-text>
 
-      <ngd-password-input
-        [response]="response"
-        [formGroup]="userForm"
-      ></ngd-password-input>
-
+        <ngd-form-text
+          formControlName="password"
+          field="password"
+          type="password"
+          [optional]="false"
+          id="user-form-password-input"
+          label="{{ 'auth_login_password_label' | t }}"
+          [edit]="true"
+          [res]="res"
+          [submit]="submitRes"
+          placeholder="{{ '' }}"
+        ></ngd-form-text>
+      </div>
       <div class="form-group login-button">
         <button
           class="btn btn-success btn-block app-login-form-submit"

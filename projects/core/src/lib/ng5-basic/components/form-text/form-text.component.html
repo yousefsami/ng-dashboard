@@ -4,9 +4,9 @@
   <ngd-optional-label *ngIf="edit" [optional]="optional"></ngd-optional-label>
 </label>
 
-<ng-container *ngIf="type === 'text'">
+<ng-container *ngIf="type === 'text' || type === 'password'">
   <input
-    type="text"
+    [type]="type"
     class="form-control"
     *ngIf="!autofocus && edit"
     (ngModelChange)="onInput($event)"
@@ -15,7 +15,7 @@
     [placeholder]="placeholder"
   />
   <input
-    type="text"
+    [type]="type"
     *ngIf="autofocus && edit"
     class="form-control"
     autofocus
