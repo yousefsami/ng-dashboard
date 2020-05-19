@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
 import { TeamsService } from './teams.service';
 import { ConfigurationService } from './configuration.service';
 

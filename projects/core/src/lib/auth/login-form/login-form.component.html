@@ -10,6 +10,8 @@
         <ngd-form-text
           formControlName="email"
           field="email"
+          type="email"
+          class="form-group col-sm-12"
           [optional]="false"
           [autofocus]="true"
           id="user-form-email-input"
@@ -25,6 +27,7 @@
           field="password"
           type="password"
           [optional]="false"
+          class="form-group col-sm-12"
           id="user-form-password-input"
           label="{{ 'auth_login_password_label' | t }}"
           [edit]="true"

@@ -53,7 +53,10 @@ export class UserFlowService {
     this.user.SetToken(token);
     this.config.Notifications.next(notifications);
     this.teams.SetTeams(teams);
-    this.teams.SelectTeam(teams[0].id);
+
+    if (!this.teams.CurrentSelectedTeam) {
+      this.teams.SelectTeam(teams[0].id);
+    }
   }
 
   /**
@@ -74,6 +77,7 @@ export class UserFlowService {
       }
       if (!isNaN(+params[1])) {
         const teamId = +params[1];
+
         if (this.teams.TeamsStore.value.find((team) => team.id === teamId)) {
           this.teams.SelectTeam(teamId);
         }
@@ -104,7 +108,6 @@ export class UserFlowService {
         }
         const { teams } = event.payload;
         if (teams && teams[0]) {
-          this.cookie.put('team', teams[0].id);
           this.teams.SelectTeam(teams[0].id);
         }
         this.ngdRouter.navigateTo('/dashboard');

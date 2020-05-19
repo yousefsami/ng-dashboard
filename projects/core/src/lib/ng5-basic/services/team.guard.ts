@@ -25,8 +25,11 @@ export class TeamGuardAuth implements CanActivate {
     }
 
     // If there is a team in url, we should change it.
-    // const team = +path.match(TEAM_ID_INPATH_REGEX)[0];
-    // this.teams.SelectTeam(team);
+    const team = +path.match(TEAM_ID_INPATH_REGEX)[1];
+
+    if (!isNaN(team)) {
+      this.teams.SelectTeam(team);
+    }
     return true;
   }
 }

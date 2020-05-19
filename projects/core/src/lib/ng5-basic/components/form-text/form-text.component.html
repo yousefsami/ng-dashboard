@@ -4,7 +4,14 @@
   <ngd-optional-label *ngIf="edit" [optional]="optional"></ngd-optional-label>
 </label>
 
-<ng-container *ngIf="type === 'text' || type === 'password'">
+<ng-container
+  *ngIf="
+    type === 'text' ||
+    type === 'password' ||
+    type === 'email' ||
+    type === 'number'
+  "
+>
   <input
     [type]="type"
     class="form-control"

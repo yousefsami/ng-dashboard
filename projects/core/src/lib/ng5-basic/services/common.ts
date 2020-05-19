@@ -42,6 +42,15 @@ export function IsSuccessEntity(response: IResponse<any>) {
   );
 }
 
+export function ResponseContent(response: IResponse<any>) {
+  return response &&
+    response.data &&
+    response.data.items &&
+    response.data.items[0]
+    ? response.data.items[0]
+    : null;
+}
+
 export function IsSuccessEmpty(response: IResponse<any>) {
   return (
     response &&

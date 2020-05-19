@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Team, INotification, IGeneralUserResponse } from '../definitions';
-import { Router } from '@angular/router';
+import { Team, INotification } from '../definitions';
 import { BehaviorSubject } from 'rxjs';
 import { ConfigurationService } from './configuration.service';
 import { AuthPublicService } from '../../auth/auth-public.service';
-import { IResponse } from 'response-type';
-import { IsSuccessEntity } from './common';
 import { CookiesService } from 'ngx-universal-cookies';
 
 /**

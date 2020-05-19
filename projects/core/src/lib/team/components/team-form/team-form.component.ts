@@ -7,7 +7,11 @@ import { ConfigurationService } from '../../../ng5-basic/services/configuration.
 import { RequestsService } from '../../../ng5-basic/services/requests.service';
 import { RouterService } from '../../../ng5-basic/services/router.service';
 import { IResponseErrorItem } from 'response-type';
-import { ERROR_CODES, TimeZoneArray } from '../../../ng5-basic/services/common';
+import {
+  ERROR_CODES,
+  TimeZoneArray,
+  ResponseContent,
+} from '../../../ng5-basic/services/common';
 import { Router, Route, ActivatedRoute } from '@angular/router';
 
 function teamFormValidator(form): IResponseErrorItem[] {
@@ -78,6 +82,9 @@ export class TeamFormComponent extends NgdBaseComponent implements OnInit {
       if (!result.item) {
         return;
       }
+
+      // Update the user information since now user has an extra role.
+      this.user.SetUser(result.item.members[0]);
 
       const teams = this.teams.TeamsStore.value;
       if (!this.form.value.id) {
