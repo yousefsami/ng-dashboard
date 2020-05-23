@@ -73,7 +73,7 @@ export class PackageListComponent extends NgdBaseComponent implements OnInit {
       })
       .subscribe(async (e) => {
         if (e.type === 'CONFIRMED') {
-          const res = await this.StartRequest<IProductActivation>(() =>
+          const res = await this.StartSingleRequest<IProductActivation>(() =>
             this.teamsCommon.DeactivateServicePackage(pack)
           );
           if (res.item) {
@@ -103,7 +103,7 @@ export class PackageListComponent extends NgdBaseComponent implements OnInit {
   }
 
   public async GetPackages() {
-    const res = await this.StartRequest<IProduct<IPackage>>(() =>
+    const res = await this.StartListRequest<IProduct<IPackage>>(() =>
       this.requests.GetServicePackages()
     );
     if (res.items) {

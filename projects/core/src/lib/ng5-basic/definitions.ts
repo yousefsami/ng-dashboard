@@ -3,6 +3,7 @@ import { IAuthConfig } from '../auth/definitions';
 import { IResponseError } from 'response-type';
 import { RouterService } from './services/router.service';
 import { Router } from '@angular/router';
+import { IResponseData, IResponse } from 'response-type';
 
 export interface Action extends NgrxAction {
   payload: any;
@@ -320,9 +321,21 @@ export interface IToastMessage {
 }
 
 export interface StartRequestResponse<T> {
-  item?: T;
-  items?: T[];
+  data?: IResponseData<T>;
   error?: IResponseError;
+  response?: IResponse<T>;
+}
+
+export interface ListRequestResult<T> {
+  items?: Array<T>;
+  error?: IResponseError;
+  response?: IResponse<T>;
+}
+
+export interface SingleRequestResult<T> {
+  item?: T;
+  error?: IResponseError;
+  response?: IResponse<T>;
 }
 
 export interface ModalDialog {

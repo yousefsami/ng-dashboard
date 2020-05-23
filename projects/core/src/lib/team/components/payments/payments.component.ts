@@ -35,7 +35,7 @@ export class PaymentsComponent extends NgdBaseComponent implements OnInit {
   }
 
   async ngOnInit() {
-    const res = await this.StartRequest<IPayment>(() =>
+    const res = await this.StartListRequest<IPayment>(() =>
       this.requests.GetPayments()
     );
 

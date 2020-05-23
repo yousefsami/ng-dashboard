@@ -89,7 +89,7 @@ export class RoleFormComponent extends NgdRouteEntryPointComponent
       data.permissions = data.permissions.filter((p) => p !== 'TEAM:*');
     }
 
-    const result = await this.StartValidatedRequest<IRole>(() =>
+    const result = await this.StartSingleRequest<IRole>(() =>
       this.requests.PostRole(data)
     );
 
@@ -99,7 +99,7 @@ export class RoleFormComponent extends NgdRouteEntryPointComponent
   }
 
   private async GetPermissions() {
-    const res = await this.StartRequest<string>(() =>
+    const res = await this.StartListRequest<string>(() =>
       this.requests.GetPermissions()
     );
 
@@ -118,7 +118,9 @@ export class RoleFormComponent extends NgdRouteEntryPointComponent
     if (!id) {
       return;
     }
-    const res = await this.StartRequest<IRole>(() => this.requests.GetRole(id));
+    const res = await this.StartSingleRequest<IRole>(() =>
+      this.requests.GetRole(id)
+    );
 
     if (res.item) {
       const isSuperUser = res.item.permissions.indexOf('TEAM:*') > -1;

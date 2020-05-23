@@ -35,7 +35,7 @@ export class JoinByInviteComponent extends NgdBaseComponent implements OnInit {
     if (!invite) {
       return;
     }
-    const res = await this.StartRequest<any>(() =>
+    const res = await this.StartSingleRequest<any>(() =>
       this.requests.LoginByInviteKey(invite)
     );
 
@@ -59,7 +59,7 @@ export class JoinByInviteComponent extends NgdBaseComponent implements OnInit {
   }
 
   private async GetInviteInfo(key: string) {
-    const res = await this.StartRequest<IInvitationData>(() =>
+    const res = await this.StartSingleRequest<IInvitationData>(() =>
       this.requests.GetInvitationAnonymouse(key)
     );
 

@@ -44,7 +44,7 @@ export class ProfileCommon extends NgdBaseComponent {
   }
 
   public async onSubmit() {
-    this.StartRequest<any>(() =>
+    this.StartSingleRequest<any>(() =>
       this.requests.PostProfile(this.form.value)
     ).then((result) => {
       if (result.item) {

@@ -146,10 +146,10 @@ export class TeamMemberComponent extends NgdBaseComponent implements OnInit {
       },
     ]);
 
-    this.StartRequest<IInvitationData>(() =>
+    this.StartListRequest<IInvitationData>(() =>
       this.requests.GetInvitations()
     ).then((result) => {
-      if (result && result.items) {
+      if (result.items) {
         this.invitations = result.items;
       }
     });
@@ -168,12 +168,15 @@ export class TeamMemberComponent extends NgdBaseComponent implements OnInit {
         if (type !== 'CONFIRMED') {
           return;
         }
-        const res = await this.StartRequest<any>(() =>
+        const res = await this.StartSingleRequest<any>(() =>
           this.requests.DeleteTeamMember(teamMemberId)
         );
 
         if (res.item) {
-          this.teamsService.RemoveMemberFromTeam(res.item.team, res.item.id);
+          this.teamsService.RemoveMemberFromTeam(
+            res.item.team,
+            res.item.id as any
+          );
           this.router.navigateByUrl('/teams');
         }
       });
@@ -188,13 +191,15 @@ export class TeamMemberComponent extends NgdBaseComponent implements OnInit {
   }
 
   public GetRoles() {
-    this.StartRequest<IRole>(() => this.requests.GetRoles()).then((result) => {
-      if (result && result.items) {
-        this.roleService.SetRoles(result.items);
+    this.StartListRequest<IRole>(() => this.requests.GetRoles()).then(
+      (result) => {
+        if (result.items) {
+          this.roleService.SetRoles(result.items);
+        }
+        this.formTouchedElements = {};
+        this.res = null;
       }
-      this.formTouchedElements = {};
-      this.res = null;
-    });
+    );
   }
 
   public async onSubmit() {
@@ -206,7 +211,7 @@ export class TeamMemberComponent extends NgdBaseComponent implements OnInit {
       data.permissions = (data.permissions || []).filter((p) => p !== 'TEAM:*');
     }
 
-    const result = await this.StartValidatedRequest<IRole>(() =>
+    const result = await this.StartSingleRequest<IRole>(() =>
       this.requests.PostTeamMember(data)
     );
 
@@ -216,7 +221,7 @@ export class TeamMemberComponent extends NgdBaseComponent implements OnInit {
   }
 
   private async GetPermissions() {
-    const res = await this.StartRequest<string>(() =>
+    const res = await this.StartListRequest<string>(() =>
       this.requests.GetPermissions()
     );
 

@@ -79,7 +79,7 @@ export class PackageSingleComponent extends NgdBaseComponent implements OnInit {
       })
     );
 
-    const res = await this.StartRequest<IProduct<IPackage>>(() =>
+    const res = await this.StartSingleRequest<IProduct<IPackage>>(() =>
       this.requests.GetServicePackage(id)
     );
     if (res.item) {
@@ -128,7 +128,7 @@ export class PackageSingleComponent extends NgdBaseComponent implements OnInit {
   public async ActivatePackage(pack: IProduct<IPackage>) {
     await this.loadScript('stripe', 'https://js.stripe.com/v3/');
 
-    const res = await this.StartRequest<IPayment>(() =>
+    const res = await this.StartSingleRequest<IPayment>(() =>
       this.teamsCommon.ActivateServicePackage(pack)
     );
 
@@ -176,7 +176,7 @@ export class PackageSingleComponent extends NgdBaseComponent implements OnInit {
       })
       .subscribe(async (e) => {
         if (e.type === 'CONFIRMED') {
-          const res = await this.StartRequest<IProductActivation>(() =>
+          const res = await this.StartSingleRequest<IProductActivation>(() =>
             this.teamsCommon.DeactivateServicePackage(pack)
           );
           if (res.item) {

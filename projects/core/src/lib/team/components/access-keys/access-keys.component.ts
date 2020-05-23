@@ -94,9 +94,9 @@ export class AccessKeysComponent extends NgdBaseComponent implements OnInit {
       },
     ]);
 
-    this.StartRequest<IAccessKey>(() => this.requests.GetAccessKeys()).then(
+    this.StartListRequest<IAccessKey>(() => this.requests.GetAccessKeys()).then(
       (result) => {
-        if (result && result.items) {
+        if (result.items) {
           this.user.AccessKeys.next([]);
           for (const key of result.items) {
             this.user.InsertAccessKey(key);
@@ -115,16 +115,18 @@ export class AccessKeysComponent extends NgdBaseComponent implements OnInit {
         if (type !== 'CONFIRMED') {
           return;
         }
-        this.StartRequest<any>(() =>
+        this.StartListRequest<any>(() =>
           this.requests.DeleteAccessKey(team.key)
         ).then((result) => {
-          if (result.item) {
+          if (result.items) {
             this.config.ShowToast({
               message: this.config.translate('access_key_has_been_deleted'),
               type: 'WARNING',
             });
 
-            this.user.DeleteAccessKey(result.item);
+            for (const item of result.items) {
+              this.user.DeleteAccessKey(item);
+            }
           }
         });
       });

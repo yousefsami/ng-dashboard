@@ -10,12 +10,12 @@ import { RouterService } from '../../ng5-basic/services/router.service';
 
 @Component({
   templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.scss']
+  styleUrls: ['./forgot-password.component.scss'],
 })
 export class ForgotPasswordComponent extends NgdBaseComponent {
   public completed = false;
   public form = new FormGroup({
-    email: new FormControl(null)
+    email: new FormControl(null),
   });
   public response: IResponse<any> = null;
 
@@ -32,17 +32,14 @@ export class ForgotPasswordComponent extends NgdBaseComponent {
     const url = this.config.API('/api/forget-password');
 
     const request = () =>
-      this.http
-        .post(url, data)
-        .pipe(timeout(5000))
-        .toPromise();
+      this.http.post(url, data).pipe(timeout(5000)).toPromise();
 
-    const res = await this.StartValidatedRequest(request);
+    const res = await this.StartSingleRequest(request);
     if (res.item) {
       this.completed = true;
       this.config.ShowToast({
         message: this.config.translate('recovery_link_has_been_sent'),
-        type: 'SUCCESS'
+        type: 'SUCCESS',
       });
     }
   }

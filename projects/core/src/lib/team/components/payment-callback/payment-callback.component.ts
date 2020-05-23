@@ -49,14 +49,14 @@ export class PaymentCallbackComponent extends NgdBaseComponent
 
     if (params.status === 'confirmed') {
       this.note = successful;
-      this.StartRequest(() =>
+      this.StartSingleRequest(() =>
         this.requests.SetPaymentStatus(params.session_id, 'confirmed')
       );
       return;
     }
     if (params.status === 'cancelled') {
       this.note = cancelled;
-      this.StartRequest(() =>
+      this.StartSingleRequest(() =>
         this.requests.SetPaymentStatus(params.session_id, 'cancelled')
       );
       return;

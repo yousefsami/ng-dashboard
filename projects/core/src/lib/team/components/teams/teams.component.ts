@@ -123,10 +123,10 @@ export class TeamsComponent extends NgdBaseComponent implements OnInit {
       },
     ]);
 
-    this.StartRequest<IInvitationData>(() =>
+    this.StartListRequest<IInvitationData>(() =>
       this.requests.GetInvitations()
     ).then((result) => {
-      if (result && result.items) {
+      if (result.items) {
         this.invitations = result.items;
       }
     });
@@ -141,38 +141,38 @@ export class TeamsComponent extends NgdBaseComponent implements OnInit {
         if (type !== 'CONFIRMED') {
           return;
         }
-        this.StartRequest<any>(() => this.requests.DeleteTeam(team.id)).then(
-          (result) => {
-            // Set the current team to another teams :)
-            const ut = this.teams.filter((t) => t.id !== team.id);
-            if (ut.length > 0) {
-              this.teamsService.SelectTeam(ut[0].id);
-            }
+        this.StartSingleRequest<any>(() =>
+          this.requests.DeleteTeam(team.id)
+        ).then((result) => {
+          // Set the current team to another teams :)
+          const ut = this.teams.filter((t) => t.id !== team.id);
+          if (ut.length > 0) {
+            this.teamsService.SelectTeam(ut[0].id);
+          }
 
-            if (result.item) {
-              this.config.ShowToast({
-                message: this.config.translate('team_has_been_deleted'),
-                type: 'WARNING',
-              });
-              const teamId = result.item.deletedTeams[0].id;
-              this.teams = this.teams.map(($team) => {
-                if ($team.id === teamId) {
-                  return {
-                    ...$team,
-                    $isBeingDeleted: true,
-                  };
-                }
+          if (result.item) {
+            this.config.ShowToast({
+              message: this.config.translate('team_has_been_deleted'),
+              type: 'WARNING',
+            });
+            const teamId = result.item.deletedTeams[0].id;
+            this.teams = this.teams.map(($team) => {
+              if ($team.id === teamId) {
                 return {
                   ...$team,
+                  $isBeingDeleted: true,
                 };
-              });
+              }
+              return {
+                ...$team,
+              };
+            });
 
-              setTimeout(() => {
-                this.teamsService.DeleteTeam(teamId);
-              }, 510);
-            }
+            setTimeout(() => {
+              this.teamsService.DeleteTeam(teamId);
+            }, 510);
           }
-        );
+        });
       });
   }
 

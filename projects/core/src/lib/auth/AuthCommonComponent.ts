@@ -30,7 +30,7 @@ export class AuthCommonComponent extends NgdBaseComponent {
   }
 
   async post(api: string, data: any = {}) {
-    return await this.StartValidatedRequest(() =>
+    return await this.StartSingleRequest(() =>
       this.http
         .post(this.config.API(api), data)
         .pipe(debounceTime(500), timeout(3000))

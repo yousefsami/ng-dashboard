@@ -83,7 +83,9 @@ export class AccessKeyFormComponent extends NgdBaseComponent implements OnInit {
     if (!id || isNaN(+id)) {
       return;
     }
-    const res = await this.StartRequest(() => this.requests.GetAccessKey(id));
+    const res = await this.StartSingleRequest(() =>
+      this.requests.GetAccessKey(id)
+    );
 
     if (res.item) {
       this.form.patchValue(res.item);
@@ -91,17 +93,19 @@ export class AccessKeyFormComponent extends NgdBaseComponent implements OnInit {
   }
 
   private async GetRoles() {
-    this.StartRequest<IRole>(() => this.requests.GetRoles()).then((result) => {
-      if (result && result.items) {
-        this.roleService.SetRoles(result.items);
+    this.StartListRequest<IRole>(() => this.requests.GetRoles()).then(
+      (result) => {
+        if (result.items) {
+          this.roleService.SetRoles(result.items);
+        }
+        this.formTouchedElements = {};
+        this.res = null;
       }
-      this.formTouchedElements = {};
-      this.res = null;
-    });
+    );
   }
 
   public onSubmit() {
-    this.StartValidatedRequest<IAccessKey>(() =>
+    this.StartSingleRequest<IAccessKey>(() =>
       this.requests.PostAccessKey(this.form.value)
     ).then((result) => {
       if (!result.item) {
@@ -109,13 +113,13 @@ export class AccessKeyFormComponent extends NgdBaseComponent implements OnInit {
       }
 
       if (this.form.value.id) {
-        this.user.UpdateAccessKey(result.item);
+        this.user.UpdateAccessKey(result.item as any);
       } else {
         this.config.ShowToast({
           message: this.config.translate('access_key_created'),
           type: 'SUCCESS',
         });
-        this.user.InsertAccessKey(result.item);
+        this.user.InsertAccessKey(result.item as any);
       }
 
       if (result.item) {

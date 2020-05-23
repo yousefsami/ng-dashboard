@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { debounce } from 'lodash';
-import { IResponse } from 'response-type';
+import { IResponse, IsSuccess } from 'response-type';
 import { NgMediaComponent } from 'ng-media';
 
 import { Router } from '@angular/router';
@@ -73,7 +73,7 @@ export class ProfileComponent extends ProfileCommon implements OnInit {
         if (type === 'CANCELED') {
           return;
         }
-        const res = await this.StartRequest<any>(() =>
+        const res = await this.StartSingleRequest<any>(() =>
           this.requests.DeleteUser()
         );
         if (res.item) {
@@ -94,10 +94,11 @@ export class ProfileComponent extends ProfileCommon implements OnInit {
         (event: HttpEvent<any>) => {
           if (event.type === HttpEventType.Response) {
             const response: IResponse<any> = event.body;
-            const items =
-              response && response.data && response.data.items
-                ? response.data.items
-                : [];
+            let items = [];
+
+            if (IsSuccess(response)) {
+              items = response.data.items;
+            }
 
             this.uploadFinish(items);
             this.working = false;

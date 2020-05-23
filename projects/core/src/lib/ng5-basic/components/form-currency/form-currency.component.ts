@@ -8,7 +8,8 @@ import {
   Input,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { error, CurrencyFormat } from '../../services/common';
+import { CurrencyFormat } from '../../services/common';
+import { FieldError } from 'response-type';
 
 const CurrencyInputEuro = {
   align: 'left',
@@ -53,7 +54,7 @@ export class FormCurrencyComponent implements OnInit, ControlValueAccessor {
   @Input() public response = null;
   @Input() public edit = true;
 
-  public error = error;
+  public error = FieldError;
   public $currency = 'PLN';
   public get currency() {
     return this.$currency;

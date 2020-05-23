@@ -1,7 +1,6 @@
 import { Input, HostBinding, forwardRef } from '@angular/core';
-import { IResponse } from 'response-type';
+import { IResponse, FieldError } from 'response-type';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { error } from '../services/common';
 
 const DEFAULT_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -25,7 +24,7 @@ export class FormBaseComponent implements ControlValueAccessor {
       return;
     }
 
-    const err = error(value, this.field);
+    const err = FieldError(value, this.field);
     if (this.class.indexOf('shake-horizontal') === -1 && err) {
       this.class += ' shake-horizontal';
       setTimeout(() => {
@@ -40,7 +39,7 @@ export class FormBaseComponent implements ControlValueAccessor {
 
   public resp = null;
 
-  public error = error;
+  public error = FieldError;
   constructor() {}
 
   onChange = (delta: any) => {};

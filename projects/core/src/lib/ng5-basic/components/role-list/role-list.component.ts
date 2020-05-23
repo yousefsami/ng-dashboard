@@ -76,11 +76,13 @@ export class RoleListComponent extends NgdRouteEntryPointComponent
       })
       .subscribe(async ({ type }) => {
         if (type === 'CONFIRMED') {
-          const result = await this.StartRequest<any>(() =>
+          const result = await this.StartListRequest<any>(() =>
             this.requests.DeleteRole(role.id)
           );
-          if (result.item) {
-            this.roleService.DeleteRole(result.item);
+          if (result.items) {
+            for (const item of result.items) {
+              this.roleService.DeleteRole(item);
+            }
           }
         }
       });
@@ -142,10 +144,12 @@ export class RoleListComponent extends NgdRouteEntryPointComponent
       })
     );
 
-    this.StartRequest<IRole>(() => this.requests.GetRoles()).then((result) => {
-      if (result && result.items) {
-        this.roleService.SetRoles(result.items);
+    this.StartListRequest<IRole>(() => this.requests.GetRoles()).then(
+      (result) => {
+        if (result.items) {
+          this.roleService.SetRoles(result.items);
+        }
       }
-    });
+    );
   }
 }

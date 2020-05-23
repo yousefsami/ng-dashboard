@@ -27,4 +27,6 @@
   {{ CurrencyFormat(amount, currency) }}
 </div>
 
-<span class="error-message-inline">{{ error(response, 'amount') }}</span>
+<span *ngIf="error(response, 'amount')" class="error-message-inline">{{
+  error(response, 'amount')
+}}</span>

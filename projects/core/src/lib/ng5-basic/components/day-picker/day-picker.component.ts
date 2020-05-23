@@ -10,12 +10,12 @@ import {
   Input,
 } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { error } from '../../services/common';
 import { BehaviorSubject, Subscription, of } from 'rxjs';
 import { delay, tap } from 'rxjs/operators';
+import { FieldError } from 'response-type';
 import { DayPickerOption } from '../../definitions';
 
-let months = [
+const months = [
   {
     label: 'January',
     shortLabel: 'Jan',
@@ -91,7 +91,7 @@ export class DayPickerComponent implements OnInit, OnDestroy, AfterContentInit {
     selectMonth: false,
   };
 
-  public error = error;
+  public error = FieldError;
   public days = Array.from(new Array(31)).map((t, index) => index + 1);
   public months = months;
 

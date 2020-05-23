@@ -7,12 +7,8 @@ import { ConfigurationService } from '../../../ng5-basic/services/configuration.
 import { RequestsService } from '../../../ng5-basic/services/requests.service';
 import { RouterService } from '../../../ng5-basic/services/router.service';
 import { IResponseErrorItem } from 'response-type';
-import {
-  ERROR_CODES,
-  TimeZoneArray,
-  ResponseContent,
-} from '../../../ng5-basic/services/common';
-import { Router, Route, ActivatedRoute } from '@angular/router';
+import { ERROR_CODES, TimeZoneArray } from '../../../ng5-basic/services/common';
+import { Router, ActivatedRoute } from '@angular/router';
 
 function teamFormValidator(form): IResponseErrorItem[] {
   const errors: IResponseErrorItem[] = [];
@@ -64,7 +60,7 @@ export class TeamFormComponent extends NgdBaseComponent implements OnInit {
     if (!id || isNaN(+id)) {
       return;
     }
-    const res = await this.StartRequest(() => this.requests.GetTeam(id));
+    const res = await this.StartSingleRequest(() => this.requests.GetTeam(id));
 
     if (res.item) {
       this.form.patchValue(res.item);
@@ -76,7 +72,7 @@ export class TeamFormComponent extends NgdBaseComponent implements OnInit {
   }
 
   public teamFormSubmit() {
-    this.StartValidatedRequest<any>(() =>
+    this.StartSingleRequest<any>(() =>
       this.requests.PostTeam(this.form.value)
     ).then((result) => {
       if (!result.item) {
@@ -84,7 +80,9 @@ export class TeamFormComponent extends NgdBaseComponent implements OnInit {
       }
 
       // Update the user information since now user has an extra role.
-      this.user.SetUser(result.item.members[0]);
+      if (result.item.members) {
+        this.user.SetUser(result.item.members[0]);
+      }
 
       const teams = this.teams.TeamsStore.value;
       if (!this.form.value.id) {

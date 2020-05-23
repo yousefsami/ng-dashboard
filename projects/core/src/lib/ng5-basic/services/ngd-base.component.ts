@@ -1,19 +1,20 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { OnDestroy, HostListener } from '@angular/core';
-import { IResponse, IResponseErrorItem } from 'response-type';
+import {
+  IResponse,
+  IResponseErrorItem,
+  FieldError,
+  IsSuccess,
+} from 'response-type';
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import {
-  IsSuccessEntity,
-  error,
-  WorkingStates,
-  getQuerystring,
-  IsSuccessEmpty,
-} from './common';
+import { WorkingStates, getQuerystring } from './common';
 import {
   StartRequestResponse,
   InteractiveButton,
   IWorkingState,
+  ListRequestResult,
+  SingleRequestResult,
 } from '../definitions';
 import { ConfigurationService } from './configuration.service';
 import { startWith, pairwise } from 'rxjs/operators';
@@ -28,6 +29,12 @@ function diff(obj1, obj2) {
     }
   }
 }
+
+export const defaultRequestParams = {
+  validator: false,
+  notifyAPIErrors: true,
+  touch: true,
+};
 
 /**
  * @description Set of functions that every component needs.
@@ -47,7 +54,7 @@ export abstract class NgdBaseComponent implements OnDestroy {
   protected validator: (formDataObject) => IResponseErrorItem[];
   protected form: FormGroup;
   public res: IResponse<any>;
-  public error = error;
+  public error = FieldError;
   public formTouchedElements: any = {};
   public ComponentType = 'COMPONENT';
   public submitRes;
@@ -336,24 +343,60 @@ export abstract class NgdBaseComponent implements OnDestroy {
     });
   }
 
-  public async StartValidatedRequest<T>(
-    callableRequest: any
-  ): Promise<StartRequestResponse<T>> {
-    const res = await this.StartRequest<T>(callableRequest, {
-      validator: true,
-      notifyAPIErrors: true,
-      touch: true,
-    });
+  public async StartListRequest<T>(
+    callableRequest: any,
+    params = defaultRequestParams
+  ): Promise<ListRequestResult<T>> {
+    params = {
+      ...defaultRequestParams,
+      ...params,
+    };
 
-    this.scrollToFirstInputWithErrors();
-    this.responseWarningToast(res);
-    return res;
+    const response = await this.StartRequest<T>(callableRequest, params);
+
+    if (params.validator) {
+      this.scrollToFirstInputWithErrors();
+      this.responseWarningToast(response);
+    }
+
+    return {
+      items: response.data.items,
+      error: response.error,
+      response,
+    };
   }
 
-  public async StartRequest<T>(
+  public async StartSingleRequest<T>(
     callableRequest: any,
-    params = { validator: false, notifyAPIErrors: true, touch: true }
+    params = defaultRequestParams
+  ): Promise<SingleRequestResult<T>> {
+    params = {
+      ...defaultRequestParams,
+      ...params,
+    };
+
+    const res = await this.StartRequest<T>(callableRequest, params);
+     if (params.validator) {
+      this.scrollToFirstInputWithErrors();
+      this.responseWarningToast(res);
+    }
+
+    return {
+      item: res.data as any,
+      error: res.error,
+      response: res.response,
+    };
+  }
+
+  private async StartRequest<T>(
+    callableRequest: any,
+    params = defaultRequestParams
   ): Promise<StartRequestResponse<T>> {
+    params = {
+      ...defaultRequestParams,
+      ...params,
+    };
+
     if (params.touch) {
       this.touchForm();
     }
@@ -368,8 +411,8 @@ export abstract class NgdBaseComponent implements OnDestroy {
         this.ResponseFromErrors(formErrors);
 
         return {
-          item: null,
-          items: null,
+          data: null,
+          response: null,
         };
       }
     }
@@ -381,15 +424,16 @@ export abstract class NgdBaseComponent implements OnDestroy {
       const response: IResponse<T> = await callableRequest();
       this.working = false;
 
-      if (IsSuccessEntity(response) || IsSuccessEmpty(response)) {
+      if (IsSuccess(response)) {
         return {
-          items: response.data.items,
-          item: response.data.items[0],
+          data: response.data,
+          response,
         };
       } else {
         this.res = { error: response.error };
         return {
           error: response.error,
+          response,
         };
       }
     } catch (error) {
@@ -402,8 +446,8 @@ export abstract class NgdBaseComponent implements OnDestroy {
       }
       return {
         error,
-        item: null,
-        items: null,
+        data: null,
+        response: error,
       };
     }
   }
@@ -471,10 +515,10 @@ export abstract class NgdBaseComponent implements OnDestroy {
       })
     );
     this.StartRequest<T>(() => request(id, entity)).then((result) => {
-      if (result && result.item) {
+      if (result.data) {
         this.form.patchValue(
           entityFilter({
-            ...result.item,
+            ...result.data,
           })
         );
       }

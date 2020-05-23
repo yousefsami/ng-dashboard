@@ -121,13 +121,15 @@ export class InviteFormComponent extends NgdBaseComponent implements OnInit {
   }
 
   public GetRoles() {
-    this.StartRequest<IRole>(() => this.requests.GetRoles()).then((result) => {
-      if (result && result.items) {
-        this.roleService.SetRoles(result.items);
+    this.StartListRequest<IRole>(() => this.requests.GetRoles()).then(
+      (result) => {
+        if (result.items) {
+          this.roleService.SetRoles(result.items);
+        }
+        this.formTouchedElements = {};
+        this.res = null;
       }
-      this.formTouchedElements = {};
-      this.res = null;
-    });
+    );
   }
 
   public goToList() {
@@ -139,9 +141,9 @@ export class InviteFormComponent extends NgdBaseComponent implements OnInit {
     if (!id) {
       return;
     }
-    this.StartRequest<any>(() => this.requests.GetInvitation(id)).then(
+    this.StartSingleRequest<any>(() => this.requests.GetInvitation(id)).then(
       (result) => {
-        if (result && result.item) {
+        if (result.item) {
           this.form.patchValue({
             ...result.item,
           });
@@ -153,7 +155,7 @@ export class InviteFormComponent extends NgdBaseComponent implements OnInit {
   }
 
   public async onSubmit() {
-    this.StartValidatedRequest<any>(() =>
+    this.StartSingleRequest<any>(() =>
       this.requests.PostInvitation(this.form.value)
     ).then((result) => {
       if (result.item) {
@@ -177,7 +179,7 @@ export class InviteFormComponent extends NgdBaseComponent implements OnInit {
           return;
         }
 
-        const res = await this.StartRequest<any>(() =>
+        const res = await this.StartSingleRequest<any>(() =>
           this.requests.DeleteInvitation(this.Form.id)
         );
         if (res.item) {
@@ -199,7 +201,7 @@ export class InviteFormComponent extends NgdBaseComponent implements OnInit {
           return;
         }
 
-        const res = await this.StartRequest<any>(() =>
+        const res = await this.StartSingleRequest<any>(() =>
           this.requests.ResendInvitation(this.Form.id)
         );
         if (res.item) {

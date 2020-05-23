@@ -10,7 +10,6 @@ import {
 import { matchPattern } from 'url-matcher';
 import { merge } from 'lodash';
 import {
-  DataSource,
   IWorkingState,
   InteractiveButton,
   ISmartNavigation,
@@ -26,48 +25,6 @@ export function GetNetworkError(): IResponse<any> {
         'It seems you are not connected to internet. Please check your connection and try again',
     },
   };
-}
-
-export function error(response: IResponse<any>, fieldName: string) {
-  if (!response || !response.error || !response.error.errors) {
-    return '';
-  }
-  const $error = response.error.errors.find((x) => x.location === fieldName);
-  return $error ? $error.message : '';
-}
-
-export function IsSuccessEntity(response: IResponse<any>) {
-  return (
-    response && response.data && response.data.items && response.data.items[0]
-  );
-}
-
-export function ResponseContent(response: IResponse<any>) {
-  return response &&
-    response.data &&
-    response.data.items &&
-    response.data.items[0]
-    ? response.data.items[0]
-    : null;
-}
-
-export function IsSuccessEmpty(response: IResponse<any>) {
-  return (
-    response &&
-    response.data &&
-    response.data.items &&
-    response.data.items.length === 0
-  );
-}
-
-export function IsDataSource(data: DataSource) {
-  if (!data.value) {
-    return false;
-  }
-  if (!data.dataSourceId) {
-    return false;
-  }
-  return true;
 }
 
 export function handleRoute(

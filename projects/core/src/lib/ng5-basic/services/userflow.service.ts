@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IGeneralUserResponse } from '../definitions';
-import { IResponse } from 'response-type';
-import { IsSuccessEntity } from './common';
+import { IResponse, IsSuccess } from 'response-type';
 import { UserService } from './user.service';
 import { TeamsService } from './teams.service';
 import { CookiesService } from 'ngx-universal-cookies';
@@ -40,8 +39,8 @@ export class UserFlowService {
       return false;
     }
 
-    if (IsSuccessEntity(res)) {
-      this.WriteGeneralInformation(res.data.items[0]);
+    if (IsSuccess(res)) {
+      this.WriteGeneralInformation(res.data);
       return true;
     }
     return false;

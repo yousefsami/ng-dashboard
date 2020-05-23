@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { error, GetNetworkError } from '../shared';
+import { GetNetworkError } from '../shared';
 import { HttpClient } from '@angular/common/http';
 import { IResponse } from 'response-type';
 import { Router } from '@angular/router';
@@ -18,7 +18,6 @@ import { RouterService } from '../../ng5-basic/services/router.service';
 export class ResetPasswordComponent extends NgdBaseComponent implements OnInit {
   public key = '';
   public url = null;
-  public error = error;
   public response: IResponse<any> = null;
 
   public form = new FormGroup({
@@ -54,16 +53,16 @@ export class ResetPasswordComponent extends NgdBaseComponent implements OnInit {
     this.http.post(this.url, this.form.value).subscribe(
       (response) => {
         this.response = response;
-        if (this.response.data && this.response.data.items[0]) {
+        if (this.response.data) {
           this.auth.events.emit({
-            payload: this.response.data.items[0],
+            payload: this.response.data,
             type: AuthEvent.LOGIN_SUCCESS,
           });
           if (conf.afterLoginRedirect) {
             this.ngdRouter.navigateTo(conf.afterLoginRedirect);
           }
-          this.user.SetToken(this.response.data.items[0].token);
-          this.user.SetUser(this.response.data.items[0].user);
+          this.user.SetToken(this.response.data.token);
+          this.user.SetUser(this.response.data.user);
           this.config.ShowToast({
             message: this.config.translationsDictionary.value
               .password_successfully_changed,
