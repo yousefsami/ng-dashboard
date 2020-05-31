@@ -221,4 +221,18 @@ export const NgDashboardPl = {
   invite_language: 'Zaproś język formularza',
   invite_language_placeholder:
     'Wybierz adres e-mail osoby zaproszonej i język interfejsu aplikacji.',
+
+  time_ago_prefix: '',
+  time_ago_suffix: ' temu',
+  time_ago_seconds: 'mniej niż minuta',
+  time_ago_minute: 'około minuty',
+  time_ago_minutes: '%d minut',
+  time_ago_hour: 'około godziny',
+  time_ago_hours: 'około%d godzin',
+  time_ago_day: 'dzień',
+  time_ago_days: '%d dni',
+  time_ago_month: 'około miesiąca',
+  time_ago_months: '%d miesięcy',
+  time_ago_year: 'około roku',
+  time_ago_years: '%d lat',
 };

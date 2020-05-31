@@ -6,12 +6,12 @@ import {
   HttpInterceptor,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CookiesService } from 'ngx-universal-cookies';
 import { TeamsService } from './teams.service';
+import { UserService } from './user.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(private cookie: CookiesService, private teams: TeamsService) {}
+  constructor(private teams: TeamsService, private user: UserService) {}
 
   intercept(
     request: HttpRequest<any>,
@@ -21,12 +21,12 @@ export class TokenInterceptor implements HttpInterceptor {
 
     const team = this.teams.CurrentSelectedTeam;
     if (team) {
-      headers['x-team'] = team.toString();
+      headers['x-team'] = (team || '').toString();
     }
 
-    const token = this.cookie.get('token');
+    const token = this.user.GetToken();
     if (token) {
-      headers['x-token'] = token.toString();
+      headers['x-token'] = (token || '').toString();
     }
 
     request = request.clone({

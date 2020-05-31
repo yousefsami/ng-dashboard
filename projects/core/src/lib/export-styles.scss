@@ -1,3 +1,52 @@
 @import './ng5-basic/scss/basic-styles.scss';
 @import './themes/sidebar-condensed.scss';
 @import '../../node_modules/simplebar/dist/simplebar';
+
+
+
+// Puts the navbar on the left in landscape mobile,
+// so user has more area read and needs less scroll.
+
+@media (max-height: 400px) {
+  @media screen and (orientation: landscape) {
+    .ng-navigation {
+      display: flex;
+      flex-direction: column;
+      height: initial !important;
+      width: 50px !important;
+      bottom: 0;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+
+      .nav-left-buttons,
+      .nav-right-buttons {
+        display: flex;
+        flex-direction: column !important;
+      }
+    }
+
+    .ngd-outlet {
+      position: initial !important;
+      margin-left: 60px !important;
+    }
+
+    .caret {
+      display: none;
+    }
+
+    .interactive-buttons {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ngd-toolbar {
+      top: 0 !important;
+      left: 50px !important;
+    }
+
+    .bd-sidebar {
+      top: 0 !important;
+      left: 50px !important;
+    }
+  }
+}

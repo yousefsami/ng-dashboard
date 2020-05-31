@@ -155,7 +155,7 @@
         .notification-message {
           font-size: 14px;
           margin-bottom: 3px;
-          padding-top: 3px;
+          padding-top: 10px;
         }
         .notification-type {
           color: #aaa;
@@ -163,6 +163,20 @@
           display: inline-block;
         }
       }
+
+      &.notification-item-header {
+        text-align: center;
+        display: block;
+        margin-bottom: 15px;
+
+        h3 {
+          font-size: 11px;
+          color: silver;
+          font-weight: bold;
+          text-transform: uppercase;;
+        }
+      }
+
     }
   }
 }
@@ -213,3 +227,16 @@
   color: #007bff;
   align-self: center;
 }
+
+.notification-relative-date {
+  font-weight: bold;
+  text-transform: capitalize;
+  color: #65b3c5;
+  font-size: 12px;
+  margin-top: 9px;
+}
+
+.notification-absolute-date {
+  display: block;
+}
+

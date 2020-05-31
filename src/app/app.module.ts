@@ -47,11 +47,6 @@ import { ToastsComponent } from './docs/toast/toast.component';
     BrowserCookiesModule,
     // LottieModule.forRoot({ player: playerFactory }),
     NgDashboardModule.forRoot({
-      navbar: {
-        search: {},
-        notification: true,
-        profile: true,
-      },
       api: 'http://localhost:1337',
       auth: {
         afterSignupRedirect: '/',

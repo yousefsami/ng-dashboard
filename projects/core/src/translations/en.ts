@@ -221,4 +221,18 @@ export const NgDashboardEn = {
   invite_language: 'Invite form language',
   invite_language_placeholder:
     'Choose the invitee email and app interface language.',
+
+  time_ago_prefix: '',
+  time_ago_suffix: ' ago',
+  time_ago_seconds: 'less than a minute',
+  time_ago_minute: 'about a minute',
+  time_ago_minutes: '%d minutes',
+  time_ago_hour: 'about an hour',
+  time_ago_hours: 'about %d hours',
+  time_ago_day: 'a day',
+  time_ago_days: '%d days',
+  time_ago_month: 'about a month',
+  time_ago_months: '%d months',
+  time_ago_year: 'about a year',
+  time_ago_years: '%d years',
 };

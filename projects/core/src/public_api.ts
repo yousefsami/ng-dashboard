@@ -20,6 +20,7 @@ export * from './lib/ng5-basic/components/layout/layout.component';
 export * from './lib/ng5-basic/components/bug-report/bug-report.component';
 export * from './lib/ng5-basic/components/day-picker/day-picker.component';
 export * from './lib/ng5-basic/components/form-text/form-text.component';
+export * from './lib/ng5-basic/components/FormBaseComponent';
 export * from './lib/ng5-basic/components/form-multiselect/form-multiselect.component';
 export * from './lib/ng5-basic/services/helpers';
 export * from './lib/ng5-basic/definitions';

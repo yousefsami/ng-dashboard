@@ -32,6 +32,11 @@ export class UserService {
     this.CurrentUser.next(null);
   }
 
+  public RemoveToken() {
+    this.token = null;
+    this.cookie.remove('token');
+  }
+
   /**
    * @description Checks within user roles, if he has all of the neededPermissions
    * and returns true/false
@@ -86,7 +91,7 @@ export class UserService {
   }
 
   public GetToken() {
-    return this.token || '';
+    return this.token || null;
   }
 
   public SetUser(user: IUser) {
@@ -146,17 +151,5 @@ export class UserService {
       return `${user.lastname}`;
     }
     return user.email;
-  }
-}
-
-@Injectable()
-export class UserLoggedInGuard implements CanActivate {
-  constructor(private user: UserService, private ngdRouter: RouterService) {}
-  canActivate(): boolean {
-    if (!this.user.GetToken()) {
-      this.ngdRouter.navigateTo('/login');
-      return false;
-    }
-    return true;
   }
 }

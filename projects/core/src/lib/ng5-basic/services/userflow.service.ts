@@ -102,9 +102,6 @@ export class UserFlowService {
         if (onLogin) {
           onLogin(event);
         }
-        if (event.payload.token) {
-          this.cookie.put('token', event.payload.token);
-        }
         const { teams } = event.payload;
         if (teams && teams[0]) {
           this.teams.SelectTeam(teams[0].id);

@@ -69,12 +69,19 @@ export class TeamsService {
   }
 
   public SelectTeam(teamId) {
+    if (typeof teamId !== 'number') {
+      return null;
+    }
     this.team = teamId;
-    this.cookie.put('team', teamId);
+    this.cookie.put('team', teamId.toString());
   }
 
   public get CurrentSelectedTeam() {
     const team = this.team;
+    if (!team || typeof team !== 'number') {
+      return null;
+    }
+
     return team;
   }
 

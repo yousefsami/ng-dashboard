@@ -54,25 +54,39 @@
     <i class="icon-error"></i>
     <p>{{ 'no_notification' | t }}</p>
   </div>
+
   <div class="notification-list" data-simplebar *ngIf="notifications.length">
     <ul>
-      <li *ngFor="let item of notifications">
-        <span *ngIf="!item.seen || item.$active" class="active-bullet">•</span>
-        <div class="notification-icon">
-          <i [class]="item.icon"></i>
-        </div>
-        <div class="notification-content">
-          <div *ngIf="item.title" class="notification-title">
-            {{ item.title | t }}
+      <ng-container *ngFor="let item of notifications">
+        <!-- <li class="notification-item-header">
+          <h3>Today</h3>
+        </li> -->
+        <li>
+          <span *ngIf="!item.seen || item.$active" class="active-bullet"
+            >•</span
+          >
+          <div class="notification-icon">
+            <i [class]="item.icon"></i>
           </div>
-          <p *ngIf="item.message" class="notification-message">
-            {{ item.message | t }}
-          </p>
-          <p class="notification-type">
-            {{ item.date | date: 'fullDate' }} - {{ item.date | date: 'HH:MM' }}
-          </p>
-        </div>
-      </li>
+          <div class="notification-content">
+            <div *ngIf="item.title" class="notification-title">
+              {{ item.title | t }}
+            </div>
+            <p *ngIf="item.message" class="notification-message">
+              {{ item.message | t }}
+            </p>
+            <p class="notification-type" *ngIf="item.date">
+              <span class="notification-relative-date">
+                {{ relativeDate(item.date) }}</span
+              >
+              <span class="notification-absolute-date"
+                >{{ item.date | date: 'fullDate' }} -
+                {{ item.date | date: 'HH:MM' }}</span
+              >
+            </p>
+          </div>
+        </li>
+      </ng-container>
     </ul>
   </div>
 </div>

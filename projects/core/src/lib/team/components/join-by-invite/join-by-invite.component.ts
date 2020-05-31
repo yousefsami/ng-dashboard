@@ -45,7 +45,6 @@ export class JoinByInviteComponent extends NgdBaseComponent implements OnInit {
 
     const { item } = res;
     if (item.token) {
-      this.cookie.put('token', item.token);
       this.userflow.WriteGeneralInformation(item);
 
       let to = getQuerystring('to');

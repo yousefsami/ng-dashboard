@@ -79,13 +79,13 @@ export class PackageSingleComponent extends NgdBaseComponent implements OnInit {
       })
     );
 
-    const res = await this.StartSingleRequest<IProduct<IPackage>>(() =>
+    const res = await this.StartListRequest<IProduct<IPackage>>(() =>
       this.requests.GetServicePackage(id)
     );
-    if (res.item) {
-      this.form.patchValue(res.item);
+    if (res.items) {
+      this.form.patchValue(res.items[0]);
       this.accessScopeInformation = Object.keys(
-        res.item.meta_data.access_scope || {}
+        res.items[0].meta_data.access_scope || {}
       ).map((scope) => this.config.translate(`access_${scope}`));
     }
   }

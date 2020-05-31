@@ -2,7 +2,7 @@ import { Input, HostBinding, forwardRef } from '@angular/core';
 import { IResponse, FieldError } from 'response-type';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
-const DEFAULT_VALUE_ACCESSOR: any = {
+export const DEFAULT_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => FormBaseComponent),
   multi: true,
