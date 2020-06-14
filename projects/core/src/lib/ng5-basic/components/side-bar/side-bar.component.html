@@ -1,4 +1,8 @@
-<div class="bd-sidebar" data-simplebar [ngClass]="{ active: isSidebarVisible }">
+<div
+  class="bd-sidebar"
+  data-simplebar
+  [ngClass]="{ active: isSidebarVisible, animated: animated }"
+>
   <div class="bd-side-ngx-items">
     <ngx-sidebar [navigation]="nav"></ngx-sidebar>
   </div>

@@ -2,11 +2,12 @@ import { Injectable, Inject } from '@angular/core';
 import { NgBasicConfig, PagePointerPosition } from '../definitions';
 import { GlobalizationService } from '../services/globalization.service';
 import { BehaviorSubject } from 'rxjs';
+import { CookiesService } from 'ngx-universal-cookies';
 
 const LOCAL_STORAGE_KEY = 'ngx_sidebar_visibility';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NgxSidebarService {
   public SidebarVisibilityState: BehaviorSubject<boolean> = new BehaviorSubject(
@@ -23,7 +24,8 @@ export class NgxSidebarService {
 
   constructor(
     @Inject('config') public config: NgBasicConfig,
-    private globalization: GlobalizationService
+    private globalization: GlobalizationService,
+    private cookie: CookiesService
   ) {
     this.SidebarVisibilityState.next(this.IsSidebarVisibleInitially());
     window.addEventListener('resize', (event: any) => {
@@ -39,7 +41,7 @@ export class NgxSidebarService {
           e.path ||
           (e.composedPath && e.composedPath()) ||
           this.composedPath(e.target);
-        this.sidebarStatus(path).then(status => {
+        this.sidebarStatus(path).then((status) => {
           if (!status) {
             if (e.type === 'touchstart' || e.type === 'mousedown') {
               this.eventIsActive = true;
@@ -97,7 +99,7 @@ export class NgxSidebarService {
   }
 
   addListenerMulti(el, s, fn) {
-    s.split(' ').forEach(e => el.addEventListener(e, fn, false));
+    s.split(' ').forEach((e) => el.addEventListener(e, fn, false));
   }
 
   getClientPostion(e): PagePointerPosition {
@@ -105,12 +107,12 @@ export class NgxSidebarService {
       case 'mousemove':
         return {
           x: e.clientX,
-          y: e.clientY
+          y: e.clientY,
         };
       case 'touchmove':
         return {
           x: e.changedTouches[0].clientX,
-          y: e.changedTouches[0].clientY
+          y: e.changedTouches[0].clientY,
         };
     }
   }
@@ -145,7 +147,7 @@ export class NgxSidebarService {
   private GetCachedState(): boolean {
     let state = null;
     try {
-      state = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+      state = JSON.parse(this.cookie.get(LOCAL_STORAGE_KEY));
     } catch (error) {
       // @ left intentionally blank
     }
@@ -167,7 +169,7 @@ export class NgxSidebarService {
 
   public Show() {
     this.SidebarVisibilityState.next(true);
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(true));
+    this.cookie.put(LOCAL_STORAGE_KEY, JSON.stringify(true));
   }
 
   public Hide(type: null | 'OUTSIDE_CLICK' | 'MENU_ITEM_CLICK' = null) {
@@ -182,7 +184,7 @@ export class NgxSidebarService {
 
   public ForceHide() {
     this.SidebarVisibilityState.next(false);
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(false));
+    this.cookie.put(LOCAL_STORAGE_KEY, JSON.stringify(false));
   }
 
   public Toggle() {

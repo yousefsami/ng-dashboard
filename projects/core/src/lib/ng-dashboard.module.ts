@@ -103,6 +103,7 @@ import { TeamMemberComponent } from './team/components/team-member/team-member.c
 import { FormCheckboxComponent } from './ng5-basic/components/form-checkbox/form-checkbox.component';
 import { DayPickerComponent } from './ng5-basic/components/day-picker/day-picker.component';
 import { ToastService } from './ng5-basic/services/toast.service';
+import { CurrencyInputMaskDirective } from './ng5-basic/components/form-currency/currency-format.directive';
 
 export const customCurrencyMaskConfig = {
   align: 'left',
@@ -122,6 +123,7 @@ export const customCurrencyMaskConfig = {
 
 @NgModule({
   declarations: [
+    CurrencyInputMaskDirective,
     LayoutComponent,
     ConfirmComponent,
     ToolbarComponent,

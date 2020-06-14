@@ -12,10 +12,14 @@
   z-index: 2;
   background: #fff;
   padding: 0;
+
+  &.animated {
+    transition-duration: 0.5s;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-property: transform;
+  }
+
   transform: translateX(-100%);
-  transition-duration: 0.5s;
-  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
-  transition-property: transform;
   box-shadow: 6px 0 6px rgba(0, 0, 0, 0.1);
 
   &.active {

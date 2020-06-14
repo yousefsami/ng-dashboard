@@ -52,6 +52,7 @@ export class FormCurrencyComponent implements OnInit, ControlValueAccessor {
     currency: string;
   }> = new EventEmitter(null);
   @Input() public response = null;
+  @Input() public label = null;
   @Input() public edit = true;
 
   public error = FieldError;

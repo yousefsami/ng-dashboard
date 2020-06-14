@@ -9,16 +9,26 @@ import { ConfigurationService } from '../../services/configuration.service';
 })
 export class LayoutComponent implements OnInit {
   @Input() public customNav = null;
+  public animated = false;
   public isSidebarVisible = true;
   public toolbarData = null;
+  private firstTimeState = true;
 
   constructor(
     public sidebar: NgxSidebarService,
     private config: ConfigurationService
   ) {
-    this.sidebar.SidebarVisibilityState.subscribe(
-      (val) => (this.isSidebarVisible = val)
-    );
+    this.sidebar.SidebarVisibilityState.subscribe((val) => {
+      this.isSidebarVisible = val;
+
+      // Used for preventing animation to happen for first state.
+      // It's useful for preventing visual bad effect when SSR rerenders the app
+      if (this.firstTimeState) {
+        this.firstTimeState = false;
+      } else {
+        this.animated = true;
+      }
+    });
   }
 
   ngOnInit() {

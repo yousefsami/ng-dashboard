@@ -11,7 +11,8 @@
   [ngClass]="{
     'ngd-sidebar-visible': isSidebarVisible,
     'ngd-sidebar-invisible': !isSidebarVisible,
-    'ngd-has-toolbar': toolbarData ? true : false
+    'ngd-has-toolbar': toolbarData ? true : false,
+    animated: animated
   }"
   class="ngd-outlet"
   (click)="sideOff()"

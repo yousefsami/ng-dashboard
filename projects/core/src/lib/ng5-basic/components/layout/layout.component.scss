@@ -11,9 +11,11 @@
   left: 0;
   top: $navbar_height;
 
-  transition-duration: 0.7s;
-  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
-  transition-property: right, left;
+  &.animated {
+    transition-duration: 0.7s;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-property: right, left;
+  }
 
   @supports (-webkit-touch-callout: none) {
     position: initial;

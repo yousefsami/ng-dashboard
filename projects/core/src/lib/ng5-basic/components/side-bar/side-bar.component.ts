@@ -44,6 +44,7 @@ export class SideBarComponent implements OnInit {
   @Input() public customNav = null;
   private subscription: Subscription = null;
 
+  public animated = false;
   public isSidebarVisible = true;
   public keepOpen = false;
   public nav = [];
@@ -56,21 +57,30 @@ export class SideBarComponent implements OnInit {
     return this.config.DockedMenu.value;
   }
 
+  private firstTimeState = true;
+
   constructor(
     public config: ConfigurationService,
     public sidebar: NgxSidebarService
-  ) {
-    this.sidebar.SidebarVisibilityState.subscribe((val) => {
-      this.isSidebarVisible = val;
-    });
-  }
+  ) {}
 
   ngOnInit() {
     this.navigation = this.customNav
       ? this.customNav
       : this.config.getNavigationItems();
 
-    this.isSidebarVisible = this.sidebar.IsSidebarVisibleInitially();
+    this.sidebar.SidebarVisibilityState.subscribe((val) => {
+      this.isSidebarVisible = val;
+
+      // Used for preventing animation to happen for first state.
+      // It's useful for preventing visual bad effect when SSR rerenders the app
+      if (this.firstTimeState) {
+        this.firstTimeState = false;
+      } else {
+        this.animated = true;
+      }
+    });
+    // this.isSidebarVisible = this.sidebar.IsSidebarVisibleInitially();
 
     // We cache only custom navbar.
     if (!this.customNav) {
