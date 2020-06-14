@@ -31,7 +31,6 @@
           }"
           (click)="menuToggle($event, nav); $event.stopPropagation()"
           placement="right"
-          [tooltip]="nav.tooltip ? nav.tooltip : undefined"
         >
           <a
             (click)="renderComponents(nav.component)"
@@ -58,7 +57,6 @@
           }"
           (click)="menuToggle($event, nav); $event.stopPropagation()"
           placement="right"
-          [tooltip]="nav.tooltip ? nav.tooltip : undefined"
         >
           <a
             (click)="renderComponents(nav.component)"

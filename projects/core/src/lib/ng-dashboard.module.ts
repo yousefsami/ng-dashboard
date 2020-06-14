@@ -1,7 +1,5 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { NgBasicConfig } from './ng5-basic/definitions';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BrowserCookiesModule } from 'ngx-universal-cookies/browser';
 
 import { TranslateModule } from '@ngx-translate/core';
@@ -250,13 +248,11 @@ export const customCurrencyMaskConfig = {
     NoopAnimationsModule,
     // LottieModule,
     BrowserModule,
-    BsDropdownModule.forRoot(),
     NgMediaCoreModule,
     NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
     FormsModule,
     ReactiveFormsModule,
     NgxTooltipModule,
-    TooltipModule.forRoot(),
     StoreModule.forRoot({}),
     RouterModule.forChild([]),
     ng5ReducerGenerator(),

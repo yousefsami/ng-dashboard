@@ -1,4 +1,3 @@
-
 <div class="btn-group ngd-team-selector" dropdown *ngIf="teams && teams.length">
   <button
     id="button-animated"
@@ -22,7 +21,6 @@
         <button
           class="dropdown-item"
           placement="right"
-          [tooltip]="team.$tooltip ? team.$tooltip : undefined"
           (click)="selectTeam(team)"
         >
           <span *ngIf="team.$selected" class="active-bullet">&bull;</span>
@@ -37,7 +35,6 @@
           (click)="TeamsConfig.onClick ? TeamsConfig.onClick() : null"
           placement="right"
           class="dropdown-item"
-          [tooltip]="TeamsConfig.tooltip ? TeamsConfig.tooltip : undefined"
         >
           {{ TeamsConfig.manageTeamsText }}
         </button>

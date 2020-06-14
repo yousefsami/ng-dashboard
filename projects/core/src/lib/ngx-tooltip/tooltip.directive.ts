@@ -6,12 +6,12 @@ import {
   ComponentFactoryResolver,
   ApplicationRef,
   Injector,
-  EmbeddedViewRef
+  EmbeddedViewRef,
 } from '@angular/core';
 import { NgxTooltipComponent } from './ngx-tooltip.component';
 @Directive({
   /* tslint:disable */
-  selector: '[Tooltip]'
+  selector: '[Tooltip]',
 })
 export class TooltipDirective {
   @Input() Tooltip: string;

@@ -28,7 +28,7 @@
           <button
             class="dropdown-item"
             placement="right"
-            [tooltip]="team.$tooltip ? team.$tooltip : undefined"
+            [title]="team.$tooltip ? team.$tooltip : undefined"
             (click)="selectTeam(team)"
           >
             <span *ngIf="team.$selected" class="active-bullet">&bull;</span>
