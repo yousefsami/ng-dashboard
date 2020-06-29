@@ -17,6 +17,8 @@ import { DeveloperComponent } from 'projects/core/src/lib/ng5-basic/components/d
 import { JoinByInviteComponent } from 'projects/core/src/lib/team/components/join-by-invite/join-by-invite.component';
 import { ModalsComponent } from './docs/modals/modals.component';
 import { ToastsComponent } from './docs/toast/toast.component';
+import { RegisterChartComponent } from './docs/charts/register-chart/register-chart.component';
+import { ChartsDemoComponent } from './docs/charts/charts-demo/charts-demo.component';
 
 const routes: Routes = [
   { path: 'join/:inviteId', component: JoinByInviteComponent },
@@ -41,6 +43,11 @@ const routes: Routes = [
       {
         path: 'toast',
         component: ToastsComponent,
+        pathMatch: 'full',
+      },
+      {
+        path: 'charts',
+        component: ChartsDemoComponent,
         pathMatch: 'full',
       },
     ],

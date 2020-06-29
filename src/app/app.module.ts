@@ -25,12 +25,20 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HighlightModule } from 'ngx-highlightjs';
 import { ModalsComponent } from './docs/modals/modals.component';
 import { ToastsComponent } from './docs/toast/toast.component';
+import { RegisterChartComponent } from './docs/charts/register-chart/register-chart.component';
+import { TrafficChartComponent } from './docs/charts/traffic-chart/traffic-chart.component';
+import { ChartsDemoComponent } from './docs/charts/charts-demo/charts-demo.component';
 
 // import { LottieModule } from 'ngx-lottie';
 
 // export function playerFactory() {
 //   return import('lottie-web');
 // }
+
+declare var require: any;
+const Highcharts = require('highcharts/highstock');
+// tslint:disable-next-line:no-string-literal
+window['Highcharts'] = Highcharts;
 
 @NgModule({
   declarations: [
@@ -39,6 +47,9 @@ import { ToastsComponent } from './docs/toast/toast.component';
     SimpleToolbarComponent,
     ModalsComponent,
     ToastsComponent,
+    RegisterChartComponent,
+    TrafficChartComponent,
+    ChartsDemoComponent,
   ],
   imports: [
     NoopAnimationsModule,
